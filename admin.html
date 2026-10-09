@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin interventions · Pinned Communications</title>
+<meta name="description" content="Every Pinned message to admin interventions.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/comms.css?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
+<script>
+  // Theme choice is a per-device convenience; failure must never blank the page.
+  try { var t = localStorage.getItem("pinned-comms-theme"); if (t) document.documentElement.dataset.theme = t; } catch (err) {}
+</script>
+</head>
+<body>
+
+<header class="phead"><div class="wrap">
+  <p class="crumb"><a href="index.html">Pinned Communications</a> · Admin interventions</p>
+  <p class="eyebrow" style="margin-top:10px">5 touchpoints</p>
+  <h1>Admin interventions</h1>
+  <p class="lede">Operations acting on a live job: reassigning, floating back, chasing a delay.</p>
+</div></header>
+<nav class="navbar"><div class="wrap">
+  <a class="home" href="index.html">Pinned Comms</a>
+  <a href="index.html">The map</a>
+  <a href="principles.html">Voice</a>
+  <a href="channels.html">Channels &amp; rules</a>
+  <a href="senders.html">Senders</a>
+  <a href="receivers.html">Receivers</a>
+  <a href="runners.html">Runners</a>
+  <a href="hosts.html">Hosts</a>
+  <a href="admin.html" class="on">Admin</a>
+  <a href="prospects.html">Prospects</a>
+  <a href="library.html">Copy library</a>
+  <a href="gaps.html">Build order</a>
+  <span class="spacer"></span>
+  <button class="themer" type="button" data-themer>Theme</button>
+</div></nav>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>What they are here for</h2></div>
+  
+  <div class="rule"></div>
+  
+<div class="grid g2">
+  <div class="card accent-ink"><span class="lbl">The job they hire Pinned for</span>
+    <h3 style="margin-top:8px">Change the plan without making anyone feel blamed or lost.</h3>
+    <p>Every message on this page is judged against that sentence. If it does not help with
+      it, or protect it, it should not be sent.</p></div>
+  <div class="card"><span class="lbl">The hook</span>
+    <div class="kv">
+      <div><b>Trigger</b><span>A human decision, pushed to the person it affects within seconds.</span></div>
+      <div><b>Action</b><span>Accept the new state, or say what is happening.</span></div>
+      <div><b>Reward</b><span>Being told early, before it becomes their problem.</span></div>
+      <div><b>Investment</b><span>Runners who are told the truth about reassignments keep taking offers.</span></div>
+    </div></div>
+</div>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Touchpoints</h2></div>
+  
+  <div class="rule"></div>
+  <h3 style="margin-top:38px">Reassignment</h3>
+<article class="tp" id="A1a">
+  <div class="tp-head">
+    <span class="tp-id">A1a</span>
+    <span class="tp-title"><h3>Job reassigned — previous runner</h3><p>Remove the two fears at once: did I do something wrong, and am I owed anything.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>Admin reassigns a job away from a runner</span></div>
+      <div><b>Timing</b><span>Immediately</span></div>
+      <div><b>Source</b><span>Map · Admin 1a</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">137 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{batch}}</span> has been reassigned to another runner. Nothing is owed from your side and your rating is unchanged.
+New offers continue as normal.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{batch}}</span> reassigned</b><p>Reason: <span class="tok">{{reason}}</span>. Your rating and standing are unchanged.</p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Say 'your rating is unchanged' explicitly. Silence on that point is read as a penalty.</li><li>Reassignment messages never imply fault unless ops has actually recorded fault — and then it is a conversation, not an SMS.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="A1b">
+  <div class="tp-head">
+    <span class="tp-id">A1b</span>
+    <span class="tp-title"><h3>Job reassigned — new runner</h3><p>An assignment is an offer with the decision already made — it still has to carry the numbers.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>Admin assigns a job to a runner</span></div>
+      <div><b>Timing</b><span>Immediately</span></div>
+      <div><b>Source</b><span>Map · Admin 1b</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">90 chars · 1 segment</span></div><div class="sms-bubble">Assigned to you: <span class="tok">{{stops}}</span> parcels from <span class="tok">{{origin}}</span>, Ksh <span class="tok">{{payout}}</span>, <span class="tok">{{km}}</span> km.
+Details and route in the app.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>New job assigned</b><p><span class="tok">{{origin}}</span> → <span class="tok">{{dest}}</span> · <span class="tok">{{stops}}</span> parcels · Ksh <span class="tok">{{payout}}</span><br><span class="chip">Start route</span>  <span class="chip">I can't take this</span></p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Always give a way to decline in-app. An assignment a runner cannot refuse produces a failed delivery instead of a declined job.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="A2">
+  <div class="tp-head">
+    <span class="tp-id">A2</span>
+    <span class="tp-title"><h3>Job floated back to the pool</h3><p>Release them cleanly so they take the next offer without hesitating.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A job is returned to the system from a runner</span></div>
+      <div><b>Timing</b><span>Immediately</span></div>
+      <div><b>Source</b><span>Map · Admin 2</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">121 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{batch}}</span> has gone back to the job pool and you are released from it. <span class="tok">{{reason}}</span>.
+You can take new offers now.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{batch}}</span> released</b><p><span class="tok">{{reason}}</span>. Your rating and standing are unchanged — offers continue as normal.</p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>'You can take new offers now' is the operative sentence. Without it, runners sit and wait.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Availability</h3>
+<article class="tp" id="A3">
+  <div class="tp-head">
+    <span class="tp-id">A3</span>
+    <span class="tp-title"><h3>You have gone offline</h3><p>A system-detected state change, stated as fact, with the one-tap undo.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A runner's status goes offline</span></div>
+      <div><b>Timing</b><span>At the state change</span></div>
+      <div><b>Source</b><span>Map · Admin 3</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">116 chars · 1 segment</span></div><div class="sms-bubble">You are offline on Pinned — no job offers until you are back on.
+If that wasn't you, open the app and tap Go online.</div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Most offline events are a dead battery or a lost connection, not a choice. The message assumes the accident.</li><li>Once per offline event. A runner who meant to go offline does not need a second SMS.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Delay</h3>
+<article class="tp" id="A4">
+  <div class="tp-head">
+    <span class="tp-id">A4</span>
+    <span class="tp-title"><h3>Ops is asking about this job</h3><p>A human is watching. Make responding easier than ignoring.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>Ops flags a delayed job</span></div>
+      <div><b>Timing</b><span>When ops acts</span></div>
+      <div><b>Source</b><span>Map · Admin 4</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Ops is asking about <span class="tok">{{code}}</span></b><p><span class="tok">{{dest}}</span> was due <span class="tok">{{deadline}}</span>. Send your ETA — it goes to the receiver and to ops at the same time.<br><span class="chip">Send ETA</span>  <span class="chip">Call ops</span></p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>In-app only. An SMS from 'ops' about a late job reads as a warning letter.</li><li>One reply sends to both audiences. Never make a runner tell the same story twice.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+</div></section><div class="wrap"><div class="endrule"></div></div>
+<footer>
+  <div class="wrap">
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 9 October 2026</p>
+    <p>Internal working document. Build 4.</p>
+  </div>
+</footer>
+<script>
+  document.querySelectorAll("[data-themer]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var root = document.documentElement;
+      var now = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = now;
+      try { localStorage.setItem("pinned-comms-theme", now); } catch (err) {}
+    });
+  });
+</script>
+</body>
+</html>

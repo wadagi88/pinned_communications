@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hosts · Pinned Communications</title>
+<meta name="description" content="Every Pinned message to hosts.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/comms.css?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
+<script>
+  // Theme choice is a per-device convenience; failure must never blank the page.
+  try { var t = localStorage.getItem("pinned-comms-theme"); if (t) document.documentElement.dataset.theme = t; } catch (err) {}
+</script>
+</head>
+<body>
+
+<header class="phead"><div class="wrap">
+  <p class="crumb"><a href="index.html">Pinned Communications</a> · Hosts</p>
+  <p class="eyebrow" style="margin-top:10px">8 touchpoints</p>
+  <h1>Hosts</h1>
+  <p class="lede">Virtual hosts (business senders and parcel handlers) and pod hosts (the physical site).</p>
+</div></header>
+<nav class="navbar"><div class="wrap">
+  <a class="home" href="index.html">Pinned Comms</a>
+  <a href="index.html">The map</a>
+  <a href="principles.html">Voice</a>
+  <a href="channels.html">Channels &amp; rules</a>
+  <a href="senders.html">Senders</a>
+  <a href="receivers.html">Receivers</a>
+  <a href="runners.html">Runners</a>
+  <a href="hosts.html" class="on">Hosts</a>
+  <a href="admin.html">Admin</a>
+  <a href="prospects.html">Prospects</a>
+  <a href="library.html">Copy library</a>
+  <a href="gaps.html">Build order</a>
+  <span class="spacer"></span>
+  <button class="themer" type="button" data-themer>Theme</button>
+</div></nav>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>What they are here for</h2></div>
+  
+  <div class="rule"></div>
+  
+<div class="grid g2">
+  <div class="card accent-org"><span class="lbl">The job they hire Pinned for</span>
+    <h3 style="margin-top:8px">Run the counter without surprises, and see the money each week.</h3>
+    <p>Every message on this page is judged against that sentence. If it does not help with
+      it, or protect it, it should not be sent.</p></div>
+  <div class="card"><span class="lbl">The hook</span>
+    <div class="kv">
+      <div><b>Trigger</b><span>'A runner is 12 minutes away for 4 parcels.'</span></div>
+      <div><b>Action</b><span>Have them at the counter, scan, release the code.</span></div>
+      <div><b>Reward</b><span>The weekly settlement figure — the number they open the email for.</span></div>
+      <div><b>Investment</b><span>Branch defaults, cut-off times and handover habits that make the station faster each week.</span></div>
+    </div></div>
+</div>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Touchpoints</h2></div>
+  
+  <div class="rule"></div>
+  <h3 style="margin-top:38px">Onboarding</h3>
+<article class="tp" id="H1a">
+  <div class="tp-head">
+    <span class="tp-id">H1a</span>
+    <span class="tp-title"><h3>Your location is live — business sender</h3><p>Open the door, then teach the operation in the channel that can hold it.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A business-sender host location goes live</span></div>
+      <div><b>Timing</b><span>At activation</span></div>
+      <div><b>Source</b><span>Map · Virtual Host 1a</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">vhost_onboarding_business</span><span class="chip">Hook · Trigger</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">126 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is live on Pinned. You can book deliveries for your clients from today.
+Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b><span class="tok">{{address}}</span> is live — how the operation runs</b></div><div class="email-body">Your station is active from today.
+
+Booking: create a delivery in the portal, or let a client book to you. Cut-off for same-day is <span class="tok">{{closing_time}}</span>.
+
+Collection: a runner is assigned and you see their name and ETA in the portal. Have the parcels at the counter before they arrive.
+
+Hand-over: the runner scans each parcel. Only then do you release the handover code. Never read a code out before the scan.
+
+Failures: if a delivery cannot complete, you choose redeliver or return in the portal. You have until the deadline shown.
+
+Money: settlement runs every week and the statement arrives by email.
+
+Help: 0700 000 000, or Help in the portal.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Welcome — three things to set up</b><p>Cut-off time, counter contact and your settlement number. Two minutes.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">182 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your station at <span class="tok">{{address}}</span> is now live. You can now send products to your clients using the Pinned network. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The map says this one message carries 'important info on the operations'. That does not fit in an SMS, so the SMS opens the door and the email does the teaching.</li><li>Never 'Welcome, {{name}}!' with an exclamation mark on a business account. Warm, not excitable.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="H1b">
+  <div class="tp-head">
+    <span class="tp-id">H1b</span>
+    <span class="tp-title"><h3>Your location is live — pod host</h3><p>Same moment, different job: this host receives parcels rather than sending them.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A pod-host location goes live</span></div>
+      <div><b>Timing</b><span>At activation</span></div>
+      <div><b>Source</b><span>Map · Virtual Host 1a</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">vhost_onboarding_pod</span><span class="chip">Hook · Trigger</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">110 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is registered. Runners can start collecting from today.
+Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b><span class="tok">{{address}}</span> is on the network — what to expect at the counter</b></div><div class="email-body">Runners will start arriving from today.
+
+What a runner shows you: their name in the app, and a scan for every parcel. No scan, no hand-over.
+
+What you release: the handover code, after the scan, never before.
+
+Collections by customers: the customer reads you their collection code. Enter it in the portal and the parcel is signed off.
+
+If the pod is offline: you will get an SMS. Check power and the router first; if both are fine, call 0700 000 000.
+
+Settlement: weekly, with a statement by email.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{address}}</span> is on the network</b><p>Set your counter contact and opening hours so runners arrive when you are open. Two minutes.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">185 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your location at <span class="tok">{{address}}</span> is now registered in the Pinned network. Runners can now start collecting parcels. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Two onboarding templates for two different jobs is correct. Merging them would make both vague.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Collection</h3>
+<article class="tp" id="H2">
+  <div class="tp-head">
+    <span class="tp-id">H2</span>
+    <span class="tp-title"><h3>A runner is on the way</h3><p>The first time, explain the hand-over. Every time after, just state it.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A runner is assigned to collect from the host</span></div>
+      <div><b>Timing</b><span>At assignment · email the first time only</span></div>
+      <div><b>Source</b><span>Map · Virtual Host 2</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">runner_accepted_host</span><span class="chip">Hook · Action</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{runner}}</span> is collecting <span class="tok">{{stops}}</span> parcels · ETA <span class="tok">{{eta}}</span></b><p>Have them at the counter. Release the handover code only after the scan.</p></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>How hand-over works at <span class="tok">{{address}}</span></b></div><div class="email-body">A runner is on the way for the first time, so here is the sequence.
+
+1. They arrive and identify themselves in the app — you see the same name in your portal.
+2. They scan each parcel. The scan is what transfers responsibility from you to Pinned.
+3. You release the handover code. After the scan, never before.
+
+That is the whole process. You will not get this email again — from now on it is a line in the portal.</div></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">93 chars · 1 segment</span></div><div class="old">A runner has accepted delivery <span class="tok">{{batch}}</span> from <span class="tok">{{origin}}</span>. Runner: <span class="tok">{{runner}}</span>. Pickup starting soon.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The map is explicit: email once. The rule generalises — the first time a host meets a process, email explains it; after that, in-app states it.</li><li>'Pickup starting soon' is not a time. Give the ETA or give nothing.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Exception</h3>
+<article class="tp" id="H3">
+  <div class="tp-head">
+    <span class="tp-id">H3</span>
+    <span class="tp-title"><h3>A delivery did not complete</h3><p>Reason, location, choice, deadline — in that order.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A runner cannot complete a delivery from this host</span></div>
+      <div><b>Timing</b><span>Immediately</span></div>
+      <div><b>Source</b><span>Map · Virtual Host 3</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">failed_delivery</span><span class="chip">Hook · Action</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">155 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> to <span class="tok">{{dest}}</span> did not complete: <span class="tok">{{reason}}</span>.
+It is held at <span class="tok">{{station}}</span>. Choose redeliver or return by <span class="tok">{{deadline}}</span>: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Held at <span class="tok">{{station}}</span> — your call</b><p><span class="tok">{{reason}}</span>. Redeliver tomorrow, or return to you. If nothing is chosen by <span class="tok">{{deadline}}</span> we redeliver.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">68 chars · 1 segment</span></div><div class="old">We couldn't deliver parcel <span class="tok">{{code}}</span>. Our team will call you shortly.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>State the default. 'If nothing is chosen by {{deadline}} we redeliver' saves a phone call from every host who is busy.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Money</h3>
+<article class="tp" id="H4">
+  <div class="tp-head">
+    <span class="tp-id">H4</span>
+    <span class="tp-title"><h3>Weekly settlement</h3><p>The number hosts open the email for. Put it in the subject line.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>The weekly settlement run completes</span></div>
+      <div><b>Timing</b><span>Weekly</span></div>
+      <div><b>Source</b><span>Map · Virtual Host 4</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Vhost::WeeklySettlementNotifier</span><span class="chip">Hook · Reward</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>Pinned settlement — Ksh <span class="tok">{{amount}}</span> for week to <span class="tok">{{deadline}}</span></b></div><div class="email-body">Ksh <span class="tok">{{amount}}</span> for <span class="tok">{{stops}}</span> parcels, week ending <span class="tok">{{deadline}}</span>.
+
+Paid to the M-Pesa number on your account, within one working day.
+
+The full statement — every parcel, every fee — is attached and in the portal under Settlements.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Ksh <span class="tok">{{amount}}</span> settled</b><p><span class="tok">{{stops}}</span> parcels, week to <span class="tok">{{deadline}}</span>. Statement in Settlements.</p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>The amount goes in the subject line. A settlement email that makes a host open it to learn the number is a worse email.</li><li>The reward is weekly and variable — this is the host hook. It should never be late, and never silent in a zero week; a zero week gets its own line: 'No parcels this week, nothing to settle.'</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Hardware</h3>
+<article class="tp" id="H5">
+  <div class="tp-head">
+    <span class="tp-id">H5</span>
+    <span class="tp-title"><h3>Your pod is offline</h3><p>Say what stopped working for the customer, not what the sensor saw.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A pod misses its heartbeat</span></div>
+      <div><b>Timing</b><span>After the grace window</span></div>
+      <div><b>Source</b><span>Live template</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">station_offline</span><span class="chip">Hook · Action</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">153 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{pod}}</span> has been offline since <span class="tok">{{since}}</span> — collections there are paused.
+Check the power and the router. If both look fine, call 0700 000 000.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">117 chars · 1 segment</span></div><div class="old">Your Pinned pod<span class="tok">{{pod}}</span> appears offline (no heartbeat since <span class="tok">{{since}}</span>). Please check its power and network.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'No heartbeat' is our word. The host's word is 'offline', and what they need to know is that customers cannot collect.</li><li>Give the phone number in full. A host standing next to a dead pod is not going to open a portal.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Invite</h3>
+<article class="tp" id="H6">
+  <div class="tp-head">
+    <span class="tp-id">H6</span>
+    <span class="tp-title"><h3>Invitation to host a pod</h3><p>A cold invitation has to answer 'what do I get' before 'click here'.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip email">Email</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>Admin invites a host user</span></div>
+      <div><b>Timing</b><span>On invite</span></div>
+      <div><b>Source</b><span>Live template · currently inactive</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">host_invite</span><span class="chip">Hook · Trigger</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>An invitation to host a Pinned pod at <span class="tok">{{address}}</span></b></div><div class="email-body">A Pinned pod is a parcel point inside your premises. It brings people through your door who would not otherwise come, and it pays a fee on every parcel that passes through.
+
+It takes about 2 m² and we install, maintain and insure it.
+
+Accept and we will arrange a site visit: <span class="tok">{{link}}</span></div></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">69 chars · 1 segment</span></div><div class="old">You've been invited to host a Pinned Pod. Accept at <span class="tok">{{link}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>This template is seeded inactive. Either it carries a real offer or it should not exist.</li><li>A one-line invitation to install hardware in someone's business will not convert. Say what it takes and what it pays.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Dwell request</h3>
+<article class="tp" id="H7">
+  <div class="tp-head">
+    <span class="tp-id">H7</span>
+    <span class="tp-title"><h3>A receiver is asking for more time</h3><p>The receiver-side approval and denial messages exist. Nothing tells the host there is a decision to make.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A receiver requests a dwell extension</span></div>
+      <div><b>Timing</b><span>On request</span></div>
+      <div><b>Source</b><span>New · completes the dwell loop</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{name}}</span> wants <span class="tok">{{hours}}</span>h more on a parcel</b><p>At <span class="tok">{{station}}</span>, free storage ends <span class="tok">{{deadline}}</span>. They are told either way.<br><span class="chip">Approve</span>  <span class="chip">Decline</span></p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Never build the answer before the question. Two live templates answer a request that has no notification.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+</div></section><div class="wrap"><div class="endrule"></div></div>
+<footer>
+  <div class="wrap">
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 9 October 2026</p>
+    <p>Internal working document. Build 4.</p>
+  </div>
+</footer>
+<script>
+  document.querySelectorAll("[data-themer]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var root = document.documentElement;
+      var now = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = now;
+      try { localStorage.setItem("pinned-comms-theme", now); } catch (err) {}
+    });
+  });
+</script>
+</body>
+</html>

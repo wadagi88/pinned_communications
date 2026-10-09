@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Copy library · Pinned Communications</title>
+<meta name="description" content="Every Pinned message, with the live version beside the rewrite.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/comms.css?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
+<script>
+  // Theme choice is a per-device convenience; failure must never blank the page.
+  try { var t = localStorage.getItem("pinned-comms-theme"); if (t) document.documentElement.dataset.theme = t; } catch (err) {}
+</script>
+</head>
+<body>
+
+<header class="phead"><div class="wrap">
+  <p class="crumb"><a href="index.html">Pinned Communications</a> · Copy library</p>
+  <p class="eyebrow" style="margin-top:10px">49 touchpoints, every channel</p>
+  <h1>The library</h1>
+  <p class="lede">One table of everything Pinned sends. Filter by lane or status; each ID links to the full copy, the live version and the rules behind it.</p>
+</div></header>
+<nav class="navbar"><div class="wrap">
+  <a class="home" href="index.html">Pinned Comms</a>
+  <a href="index.html">The map</a>
+  <a href="principles.html">Voice</a>
+  <a href="channels.html">Channels &amp; rules</a>
+  <a href="senders.html">Senders</a>
+  <a href="receivers.html">Receivers</a>
+  <a href="runners.html">Runners</a>
+  <a href="hosts.html">Hosts</a>
+  <a href="admin.html">Admin</a>
+  <a href="prospects.html">Prospects</a>
+  <a href="library.html" class="on">Copy library</a>
+  <a href="gaps.html">Build order</a>
+  <span class="spacer"></span>
+  <button class="themer" type="button" data-themer>Theme</button>
+</div></nav>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Everything, in one table</h2></div>
+  
+  <div class="rule"></div>
+  
+<div class="chips" style="gap:8px;margin-bottom:6px">
+  <button class="themer" data-f="all" data-v="all">All 49</button><button class="themer" data-f="lane" data-v="sender">Senders</button><button class="themer" data-f="lane" data-v="receiver">Receivers</button><button class="themer" data-f="lane" data-v="runner">Runners</button><button class="themer" data-f="lane" data-v="host">Hosts</button><button class="themer" data-f="lane" data-v="admin">Admin interventions</button><button class="themer" data-f="lane" data-v="prospect">Prospects</button>
+</div>
+<div class="chips" style="gap:8px"><button class="themer" data-f="status" data-v="live">Live</button><button class="themer" data-f="status" data-v="partial">Partial</button><button class="themer" data-f="status" data-v="gap">Not built</button><button class="themer" data-f="status" data-v="defect">Defect</button></div>
+<div class="scroller"><table id="lib">
+<thead><tr><th>ID</th><th>Touchpoint</th><th>Timing</th><th>Channels</th><th>Status</th><th>Template key</th></tr></thead>
+<tbody><tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S1">S1</a></td><td><b>Account is open</b><span class="muted">A new customer sender completes sign-up</span></td><td>Immediately · once</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">sender_onboarding</td></tr>
+<tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S2">S2</a></td><td><b>Booked — drop by</b><span class="muted">Sender completes a booking</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">parcel_booked</td></tr>
+<tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S2b">S2b</a></td><td><b>Still waiting for your drop</b><span class="muted">Booking unpaid or not dropped after the hold window</span></td><td>Once, at half the hold window</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">awaiting_drop</td></tr>
+<tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S2c">S2c</a></td><td><b>Handover code</b><span class="muted">The sender's handover code is released</span></td><td>When a runner is assigned to collect</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">handover_code_ready</td></tr>
+<tr data-lane="sender" data-status="defect"><td class="id"><a href="senders.html#S2d">S2d</a></td><td><b>On the way</b><span class="muted">Parcel handed to the runner and scanned</span></td><td>At scan</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge defect">Defect</span></td><td class="id">parcel_dropped + parcel_handed_to_runner</td></tr>
+<tr data-lane="sender" data-status="partial"><td class="id"><a href="senders.html#S3">S3</a></td><td><b>Delivered — with proof</b><span class="muted">The receiver signs for the parcel</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">delivered</td></tr>
+<tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S4a">S4a</a></td><td><b>Your receiver has not collected</b><span class="muted">Free storage window elapses (72h)</span></td><td>72h after arrival</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_sender_storage_started_72h</td></tr>
+<tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S4b">S4b</a></td><td><b>Coming back to you</b><span class="muted">Parcel uncollected 7 days after arrival</span></td><td>Day 7 · final</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_sender_final_notice_7d</td></tr>
+<tr data-lane="sender" data-status="partial"><td class="id"><a href="senders.html#S5">S5</a></td><td><b>Refund sent</b><span class="muted">A cancellation is refunded</span></td><td>At payout</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">refund_processed</td></tr>
+<tr data-lane="sender" data-status="partial"><td class="id"><a href="senders.html#S6">S6</a></td><td><b>Delivery did not complete</b><span class="muted">A runner cannot complete the delivery</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">failed_delivery</td></tr>
+<tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C1">C1</a></td><td><b>Someone has sent you a parcel</b><span class="muted">A parcel is created for a receiver, or a runner collects it</span></td><td>At pickup</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_picked_up_receiver</td></tr>
+<tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C2">C2</a></td><td><b>It is here — collect with this code</b><span class="muted">Parcel reaches the destination pod or station</span></td><td>On arrival scan</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">parcel_arrived</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C3">C3</a></td><td><b>Running late</b><span class="muted">Promised delivery time passes while the parcel is in transit</span></td><td>At the moment the promise breaks</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C4a">C4a</a></td><td><b>Still waiting · rung 1 (24h)</b><span class="muted">Parcel uncollected 24h after arrival</span></td><td>24h</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">dwell_reminder_24h</td></tr>
+<tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C4b">C4b</a></td><td><b>Still waiting · rung 2 (48h)</b><span class="muted">Parcel uncollected 48h after arrival</span></td><td>48h</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">dwell_reminder_48h</td></tr>
+<tr data-lane="receiver" data-status="defect"><td class="id"><a href="receivers.html#C4c">C4c</a></td><td><b>Storage has started · rung 3 (72h)</b><span class="muted">The free storage window elapses</span></td><td>72h</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge defect">Defect</span></td><td class="id">dwell_storage_started_72h</td></tr>
+<tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C4d">C4d</a></td><td><b>Going back today · rung 4 (7d)</b><span class="muted">Parcel uncollected 7 days after arrival</span></td><td>Day 7 · final</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_final_notice_7d</td></tr>
+<tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C5">C5</a></td><td><b>Collection code</b><span class="muted">A receiver requests collection</span></td><td>On request</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">otp_issued</td></tr>
+<tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C6a">C6a</a></td><td><b>Extra time approved</b><span class="muted">A host approves an extra-time request</span></td><td>On decision</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_extension_approved</td></tr>
+<tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C6b">C6b</a></td><td><b>Extra time declined</b><span class="muted">A host declines an extra-time request</span></td><td>On decision</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_extension_denied</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C7">C7</a></td><td><b>Collected — and the next one is easier</b><span class="muted">Receiver collects the parcel</span></td><td>At collection · once per receiver</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="live"><td class="id"><a href="runners.html#R0">R0</a></td><td><b>Your runner account is open</b><span class="muted">Admin creates a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">runner_invite</td></tr>
+<tr data-lane="runner" data-status="live"><td class="id"><a href="runners.html#R1a">R1a</a></td><td><b>Documents received</b><span class="muted">Runner submits verification documents</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">runner_docs_submitted</td></tr>
+<tr data-lane="runner" data-status="partial"><td class="id"><a href="runners.html#R1b">R1b</a></td><td><b>Approved</b><span class="muted">Admin approves runner verification</span></td><td>On decision</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_kyc_approved</td></tr>
+<tr data-lane="runner" data-status="partial"><td class="id"><a href="runners.html#R1c">R1c</a></td><td><b>Not approved — and why</b><span class="muted">Admin rejects runner verification</span></td><td>On decision</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_kyc_rejected</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R2">R2</a></td><td><b>How a Pinned run works</b><span class="muted">Runner accepts their first delivery</span></td><td>Once, ever · at acceptance</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R3">R3</a></td><td><b>Delivered — earnings reveal</b><span class="muted">Runner completes a delivery</span></td><td>At hand-over</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="partial"><td class="id"><a href="runners.html#R4">R4</a></td><td><b>Document expiry ladder</b><span class="muted">A runner document approaches expiry</span></td><td>Email −30d · SMS −30d, −7d, −1d · in-app from −30d</td><td><span class="chips"><span class="chip email">Email</span><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_licence_expiring + runner_kyc_expired</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R5">R5</a></td><td><b>Running late</b><span class="muted">A delivery passes its promised time</span></td><td>At the promise</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R6">R6</a></td><td><b>Loaded at the pod</b><span class="muted">Runner finishes collecting from a pod</span></td><td>At the last scan</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="defect"><td class="id"><a href="runners.html#R7">R7</a></td><td><b>New delivery available</b><span class="muted">A batch offer is created</span></td><td>On offer and every re-offer</td><td><span class="chips"><span class="chip push">Push</span></span></td><td><span class="badge defect">Defect</span></td><td class="id">Routing::BatchOffer::Build</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A1a">A1a</a></td><td><b>Job reassigned — previous runner</b><span class="muted">Admin reassigns a job away from a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A1b">A1b</a></td><td><b>Job reassigned — new runner</b><span class="muted">Admin assigns a job to a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A2">A2</a></td><td><b>Job floated back to the pool</b><span class="muted">A job is returned to the system from a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A3">A3</a></td><td><b>You have gone offline</b><span class="muted">A runner's status goes offline</span></td><td>At the state change</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A4">A4</a></td><td><b>Ops is asking about this job</b><span class="muted">Ops flags a delayed job</span></td><td>When ops acts</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="host" data-status="partial"><td class="id"><a href="hosts.html#H1a">H1a</a></td><td><b>Your location is live — business sender</b><span class="muted">A business-sender host location goes live</span></td><td>At activation</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">vhost_onboarding_business</td></tr>
+<tr data-lane="host" data-status="partial"><td class="id"><a href="hosts.html#H1b">H1b</a></td><td><b>Your location is live — pod host</b><span class="muted">A pod-host location goes live</span></td><td>At activation</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">vhost_onboarding_pod</td></tr>
+<tr data-lane="host" data-status="partial"><td class="id"><a href="hosts.html#H2">H2</a></td><td><b>A runner is on the way</b><span class="muted">A runner is assigned to collect from the host</span></td><td>At assignment · email the first time only</td><td><span class="chips"><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_accepted_host</td></tr>
+<tr data-lane="host" data-status="partial"><td class="id"><a href="hosts.html#H3">H3</a></td><td><b>A delivery did not complete</b><span class="muted">A runner cannot complete a delivery from this host</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">failed_delivery</td></tr>
+<tr data-lane="host" data-status="partial"><td class="id"><a href="hosts.html#H4">H4</a></td><td><b>Weekly settlement</b><span class="muted">The weekly settlement run completes</span></td><td>Weekly</td><td><span class="chips"><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">Vhost::WeeklySettlementNotifier</td></tr>
+<tr data-lane="host" data-status="partial"><td class="id"><a href="hosts.html#H5">H5</a></td><td><b>Your pod is offline</b><span class="muted">A pod misses its heartbeat</span></td><td>After the grace window</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">station_offline</td></tr>
+<tr data-lane="host" data-status="partial"><td class="id"><a href="hosts.html#H6">H6</a></td><td><b>Invitation to host a pod</b><span class="muted">Admin invites a host user</span></td><td>On invite</td><td><span class="chips"><span class="chip email">Email</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">host_invite</td></tr>
+<tr data-lane="host" data-status="gap"><td class="id"><a href="hosts.html#H7">H7</a></td><td><b>A receiver is asking for more time</b><span class="muted">A receiver requests a dwell extension</span></td><td>On request</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P1">P1</a></td><td><b>Marketplace group reply</b><span class="muted">A delivery question in a Nairobi buy-and-sell or courier group</span></td><td>Within the hour, by a human</td><td><span class="chips"><span class="chip whatsapp">WhatsApp</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P2">P2</a></td><td><b>First reply to an enquiry</b><span class="muted">A direct message or call-back request</span></td><td>Within 5 minutes in working hours</td><td><span class="chips"><span class="chip whatsapp">WhatsApp</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P3">P3</a></td><td><b>You checked a price</b><span class="muted">A quote is generated on the web and not booked</span></td><td>Once, within the hour</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P4">P4</a></td><td><b>You have received — now send</b><span class="muted">A receiver collects their first parcel and has never sent one</span></td><td>24h after collection · once ever</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P5">P5</a></td><td><b>Someone sent you a parcel</b><span class="muted">A receiver's first collection, where the sender is on a referral plan</span></td><td>With the collected message</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr></tbody></table></div>
+<script>
+  var rows = Array.prototype.slice.call(document.querySelectorAll("#lib tbody tr"));
+  document.querySelectorAll("[data-f]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var f = b.dataset.f, v = b.dataset.v;
+      rows.forEach(function (r) {
+        r.style.display = (f === "all" || r.dataset[f] === v) ? "" : "none";
+      });
+    });
+  });
+</script>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Rewrites, side by side</h2></div>
+  <p class="sec-sub">31 of the live templates change. None of them need a migration — every one is a <code>body</code> edit against an existing <code>NotificationTemplate</code> key.</p>
+  <div class="rule"></div>
+  <div class="grid">
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S1</span>
+    <span class="tp-title"><h3>Account is open</h3><p>Prove in one line that Pinned does something, and name somewhere they know.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">99 chars · 1 segment</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your account is ready. Find a Pod near you in the app and drop your first parcel.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">140 chars · 1 segment</span></div><div class="sms-bubble">Welcome to Pinned, <span class="tok">{{name}}</span>. Drop a parcel at any pod, or have a runner collect from you.
+Your nearest pod: <span class="tok">{{pod}}</span>
+<span class="tok">{{link}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S1">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S2</span>
+    <span class="tp-title"><h3>Booked — drop by</h3><p>Give them the one thing the pod will ask for, and the time it stops being valid.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">78 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is booked. Drop it at <span class="tok">{{pod}}</span> to start delivery.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">117 chars · 1 segment</span></div><div class="sms-bubble">Booked. <span class="tok">{{code}}</span> is reserved at <span class="tok">{{pod}}</span> until <span class="tok">{{deadline}}</span>.
+Show this code at the pod — no queue, no paperwork.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S2">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S2b</span>
+    <span class="tp-title"><h3>Still waiting for your drop</h3><p>Remind, and in the same breath remove the reason they have not come.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">70 chars · 1 segment</span></div><div class="old">Reminder: parcel <span class="tok">{{code}}</span> is waiting for drop-off at <span class="tok">{{pod}}</span>.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">146 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> is still held for you at <span class="tok">{{pod}}</span> until <span class="tok">{{deadline}}</span>.
+Can't get there? A runner can collect from you instead: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S2b">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S2c</span>
+    <span class="tp-title"><h3>Handover code</h3><p>One code, one safety rule, nothing else competing for attention.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">100 chars · 1 segment</span></div><div class="old">Your handover code is <span class="tok">{{otp}}</span>. Please present this code to the runner when dropping off your parcel.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">128 chars · 1 segment</span></div><div class="sms-bubble">Handover code for <span class="tok">{{code}}</span>:
+<span class="tok">{{otp}}</span>
+Give it to the runner only after they have scanned the parcel. We never ask for it by phone.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S2c">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S2d</span>
+    <span class="tp-title"><h3>On the way</h3><p>One event, one message. Today two templates describe the same moment.</p></span>
+    <span class="tp-meta"><span class="badge defect">Defect</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">90 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> has been dropped off and is on its way. Track: <span class="tok">{{track_url}}</span>
+— and —
+Parcel <span class="tok">{{code}}</span> has been handed to the runner and is on its way.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">88 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> is with <span class="tok">{{runner}}</span> and on the way to <span class="tok">{{dest}}</span>.
+Follow it: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S2d">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S3</span>
+    <span class="tp-title"><h3>Delivered — with proof</h3><p>The payoff moment. A name, a place and a time beats a thank-you.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">63 chars · 1 segment</span></div><div class="old">Parcel <span class="tok">{{code}}</span> has been delivered. Thank you for using Pinned.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">105 chars · 1 segment</span></div><div class="sms-bubble">Delivered. <span class="tok">{{name}}</span> collected <span class="tok">{{code}}</span> at <span class="tok">{{dest}}</span>, <span class="tok">{{time}}</span>.
+Signed proof and photo: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S3">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S4a</span>
+    <span class="tp-title"><h3>Your receiver has not collected</h3><p>Tell the sender about money before it is charged, not after.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">226 chars · 2 segments</span></div><div class="old">Parcel <span class="tok">{{code}}</span> is still uncollected at <span class="tok">{{station}}</span> — Time has passed. Storage fees are now active at Ksh <span class="tok">{{rate}}</span>/hr. We've contacted your receiver again. If the parcel isn't collected by <span class="tok">{{deadline}}</span>, it will be returned to you.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">157 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. <span class="tok">{{name}}</span> has been reminded.
+Storage is now Ksh <span class="tok">{{rate}}</span>/hr, charged to you. If it is not collected by <span class="tok">{{deadline}}</span> we return it.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S4a">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S4b</span>
+    <span class="tp-title"><h3>Coming back to you</h3><p>State the return as a fact already in motion, with the total.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">220 chars · 2 segments</span></div><div class="old">Final notice. <span class="tok">{{name}}</span>, Parcel <span class="tok">{{code}}</span> has not been collected and is being returned to you today. A runner will collect it from <span class="tok">{{dest}}</span> and bring it to <span class="tok">{{origin}}</span>. Total storage fee: Ksh <span class="tok">{{amount}}</span> — charged to your account.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">112 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> was not collected and comes back to you today, from <span class="tok">{{dest}}</span> to <span class="tok">{{origin}}</span>.
+Storage charged: Ksh <span class="tok">{{amount}}</span>.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S4b">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S5</span>
+    <span class="tp-title"><h3>Refund sent</h3><p>Money messages answer 'when will I see it' before being asked.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">48 chars · 1 segment</span></div><div class="old">KSh <span class="tok">{{amount}}</span> has been refunded for parcel <span class="tok">{{code}}</span>.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">89 chars · 1 segment</span></div><div class="sms-bubble">Refund sent: Ksh <span class="tok">{{amount}}</span> for <span class="tok">{{code}}</span>. It reaches your M-Pesa number within 3 working days.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S5">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S6</span>
+    <span class="tp-title"><h3>Delivery did not complete</h3><p>Name the reason, the current location, the choice and the clock.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">68 chars · 1 segment</span></div><div class="old">We couldn't deliver parcel <span class="tok">{{code}}</span>. Our team will call you shortly.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">155 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> did not reach <span class="tok">{{dest}}</span>: <span class="tok">{{reason}}</span>.
+It is safe at <span class="tok">{{station}}</span>. Choose redeliver or return by <span class="tok">{{deadline}}</span>: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S6">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C1</span>
+    <span class="tp-title"><h3>Someone has sent you a parcel</h3><p>This may be the first time this person has ever heard of Pinned. Say who sent it.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">58 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> has been picked up and is on its way.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">136 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{from}}</span> has sent you a parcel through Pinned.
+<span class="tok">{{runner}}</span> is bringing it to <span class="tok">{{dest}}</span>, about <span class="tok">{{eta}}</span>.
+Follow it: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C1">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C2</span>
+    <span class="tp-title"><h3>It is here — collect with this code</h3><p>Everything needed to walk in and collect, without opening anything.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">86 chars · 1 segment</span></div><div class="old">Hi <span class="tok">{{name}}</span>, parcel <span class="tok">{{code}}</span> has arrived at <span class="tok">{{station}}</span>. Collect with OTP <span class="tok">{{otp}}</span>.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">177 chars · 2 segments</span></div><div class="sms-bubble">Your parcel from <span class="tok">{{from}}</span> is at <span class="tok">{{station}}</span>, open until <span class="tok">{{closing_time}}</span>.
+Collection code: <span class="tok">{{otp}}</span>
+Free storage until <span class="tok">{{deadline}}</span>. Can't come? Door delivery: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C2">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C4a</span>
+    <span class="tp-title"><h3>Still waiting · rung 1 (24h)</h3><p>Neutral. State the facts and the opening hours.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 48 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">103 chars · 1 segment</span></div><div class="sms-bubble">Your parcel is still at <span class="tok">{{station}}</span>, open until <span class="tok">{{closing_time}}</span>.
+Code: <span class="tok">{{otp}}</span>
+Free storage until <span class="tok">{{deadline}}</span>.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C4a">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C4b</span>
+    <span class="tp-title"><h3>Still waiting · rung 2 (48h)</h3><p>Specific. Name the deadline and the rate that starts after it.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 24 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">156 chars · 1 segment</span></div><div class="sms-bubble">24 hours of free storage left on your parcel at <span class="tok">{{station}}</span>.
+Code: <span class="tok">{{otp}}</span>
+From <span class="tok">{{deadline}}</span>: Ksh <span class="tok">{{rate}}</span>/hr. Can't come? Door delivery: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C4b">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C4c</span>
+    <span class="tp-title"><h3>Storage has started · rung 3 (72h)</h3><p>Consequence, stated once, with the way to stop it.</p></span>
+    <span class="tp-meta"><span class="badge defect">Defect</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">227 chars · 2 segments</span></div><div class="old">Storage charges have started on parcel <span class="tok">{{code}}</span> at KES <span class="tok">{{rate}}</span>/hr. Amount so far: KES <span class="tok">{{amount}}</span> Charges stop the moment you collect. Your code: <span class="tok">{{station}}</span> Collect now to stop the clock. Pay and collect here: <span class="tok">{{track_url}}</span></div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">171 chars · 2 segments</span></div><div class="sms-bubble">Storage has started on your parcel at <span class="tok">{{station}}</span>: Ksh <span class="tok">{{rate}}</span>/hr, Ksh <span class="tok">{{amount}}</span> so far.
+It stops the moment you collect.
+Code: <span class="tok">{{otp}}</span>
+Pay and collect: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C4c">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C4d</span>
+    <span class="tp-title"><h3>Going back today · rung 4 (7d)</h3><p>Final rung. A fact, a total, and a human to talk to.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">233 chars · 2 segments</span></div><div class="old">Final notice, <span class="tok">{{name}}</span>. Your parcel <span class="tok">{{code}}</span> from <span class="tok">{{from}}</span> has not been collected and is being returned to the sender today. Total storage fee charged: Ksh <span class="tok">{{amount}}</span>. If you still want this parcel, contact <span class="tok">{{from}}</span> to rearrange.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">150 chars · 1 segment</span></div><div class="sms-bubble">Last day: your parcel from <span class="tok">{{from}}</span> goes back to the sender today.
+Storage charged: Ksh <span class="tok">{{amount}}</span>.
+Still want it? Contact <span class="tok">{{from}}</span> to rearrange.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C4d">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C5</span>
+    <span class="tp-title"><h3>Collection code</h3><p>One code, one line of defence.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">56 chars · 1 segment</span></div><div class="old">Your Pinned collection code is <span class="tok">{{otp}}</span>. Do not share it.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">110 chars · 1 segment</span></div><div class="sms-bubble">Pinned collection code:
+<span class="tok">{{otp}}</span>
+It opens your parcel at <span class="tok">{{station}}</span>. We never ask for this code by phone.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C5">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C6a</span>
+    <span class="tp-title"><h3>Extra time approved</h3><p>Confirm the new deadline, not the decision.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">59 chars · 1 segment</span></div><div class="old">Hold approved for parcel <span class="tok">{{code}}</span>: +<span class="tok">{{hours}}</span>h extra free storage.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">103 chars · 1 segment</span></div><div class="sms-bubble">Approved — <span class="tok">{{hours}}</span> more hours free on your parcel at <span class="tok">{{station}}</span>.
+New deadline: <span class="tok">{{deadline}}</span>
+Code: <span class="tok">{{otp}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C6a">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">C6b</span>
+    <span class="tp-title"><h3>Extra time declined</h3><p>A no that ends with a yes to something else.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">89 chars · 1 segment</span></div><div class="old">Hold denied for parcel <span class="tok">{{code}}</span> (<span class="tok">{{reason}}</span>). The dwell clock is unchanged.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">147 chars · 1 segment</span></div><div class="sms-bubble">We can't extend this one: <span class="tok">{{reason}}</span>.
+Free storage still ends <span class="tok">{{deadline}}</span>. We can bring it to your door instead: <span class="tok">{{track_url}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="receivers.html#C6b">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">R0</span>
+    <span class="tp-title"><h3>Your runner account is open</h3><p>Get them to verification while the decision to join is still warm.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">77 chars · 1 segment</span></div><div class="old">Welcome to Pinned. Sign in at <span class="tok">{{link}}</span> to complete your verification.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">148 chars · 1 segment</span></div><div class="sms-bubble">Welcome to Pinned, <span class="tok">{{name}}</span>. Your runner account is open.
+Verification takes about 6 minutes — then you can go online and take jobs.
+<span class="tok">{{link}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="runners.html#R0">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">R1a</span>
+    <span class="tp-title"><h3>Documents received</h3><p>Close the loop so they stop refreshing, and name the hour they will hear.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">145 chars · 1 segment</span></div><div class="old">Pinned: we've received your documents. Our team is reviewing your application. We'll update you within 24 hours. Need help? hello@pinnedflow.com.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">137 chars · 1 segment</span></div><div class="sms-bubble">Thanks <span class="tok">{{name}}</span> — your documents are in. We review in the order received and you will hear from us by <span class="tok">{{deadline}}</span>.
+Nothing to do until then.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="runners.html#R1a">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">R1b</span>
+    <span class="tp-title"><h3>Approved</h3><p>The moment they became a Pinned runner. Make it feel earned, then point at the switch.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">124 chars · 1 segment</span></div><div class="old">Congratulations <span class="tok">{{name}}</span>! Your Pinned runner account has been approved. You can now go online and start accepting deliveries.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">114 chars · 1 segment</span></div><div class="sms-bubble">You're approved, <span class="tok">{{name}}</span>. Go online in the app and job offers come straight to this phone.
+Welcome to the network.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="runners.html#R1b">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">R1c</span>
+    <span class="tp-title"><h3>Not approved — and why</h3><p>Name exactly one fixable thing and the way back in.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">111 chars · 1 segment</span></div><div class="old">Your Pinned verification was not approved<span class="tok">{{reason}}</span>. Update your documents in the app to reapply.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">146 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, we couldn't approve your account yet: <span class="tok">{{reason}}</span>.
+Fix that one item in the app and resubmit — we review again within a day.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="runners.html#R1c">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">R4</span>
+    <span class="tp-title"><h3>Document expiry ladder</h3><p>Four rungs that escalate in specificity, not volume. The map asks for tone to change; it changes by naming consequences, not by shouting.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">87 chars · 1 segment</span></div><div class="old">Your <span class="tok">{{docs}}</span> will expire soon. Renew in the app to keep your batch eligibility.
+— then —
+Your <span class="tok">{{docs}}</span> has expired. You're restricted from batches until you renew it in the app.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · −30 days</span><span class="count">114 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, your <span class="tok">{{docs}}</span> expires <span class="tok">{{deadline}}</span>. Upload the new one in the app any time before then — two minutes.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · −7 days</span><span class="count">99 chars · 1 segment</span></div><div class="sms-bubble">7 days left on your <span class="tok">{{docs}}</span> (<span class="tok">{{deadline}}</span>). After that date, offers pause until it is renewed.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · −1 day</span><span class="count">95 chars · 1 segment</span></div><div class="sms-bubble">Tomorrow your <span class="tok">{{docs}}</span> expires and offers stop. Upload the renewal now: <span class="tok">{{link}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="runners.html#R4">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">R7</span>
+    <span class="tp-title"><h3>New delivery available</h3><p>The single highest-volume message Pinned sends, and the one doing the most damage.</p></span>
+    <span class="tp-meta"><span class="badge defect">Defect</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">77 chars · 1 segment</span></div><div class="old">New delivery available
+Pickup: Superior - Gatakaini. Batch distance: 15.8 km.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Push · lock screen</span><span class="count">title 29 · body 63</span></div><div class="lock"><span class="ico"><i></i><i></i><i></i><i></i></span><span><span class="l-app">Pinned Runner</span><span class="l-title">Ksh <span class="tok">{{payout}}</span> · <span class="tok">{{stops}}</span> parcels · <span class="tok">{{km}}</span> km</span><span class="l-body"><span class="tok">{{origin}}</span> → <span class="tok">{{dest}}</span>. Tap to accept — this offer closes <span class="tok">{{eta}}</span>.</span></span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="runners.html#R7">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">H1a</span>
+    <span class="tp-title"><h3>Your location is live — business sender</h3><p>Open the door, then teach the operation in the channel that can hold it.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">182 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your station at <span class="tok">{{address}}</span> is now live. You can now send products to your clients using the Pinned network. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">126 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is live on Pinned. You can book deliveries for your clients from today.
+Portal: <span class="tok">{{link}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="hosts.html#H1a">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">H1b</span>
+    <span class="tp-title"><h3>Your location is live — pod host</h3><p>Same moment, different job: this host receives parcels rather than sending them.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">185 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your location at <span class="tok">{{address}}</span> is now registered in the Pinned network. Runners can now start collecting parcels. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">110 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is registered. Runners can start collecting from today.
+Portal: <span class="tok">{{link}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="hosts.html#H1b">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">H2</span>
+    <span class="tp-title"><h3>A runner is on the way</h3><p>The first time, explain the hand-over. Every time after, just state it.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">93 chars · 1 segment</span></div><div class="old">A runner has accepted delivery <span class="tok">{{batch}}</span> from <span class="tok">{{origin}}</span>. Runner: <span class="tok">{{runner}}</span>. Pickup starting soon.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{runner}}</span> is collecting <span class="tok">{{stops}}</span> parcels · ETA <span class="tok">{{eta}}</span></b><p>Have them at the counter. Release the handover code only after the scan.</p></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>How hand-over works at <span class="tok">{{address}}</span></b></div><div class="email-body">A runner is on the way for the first time, so here is the sequence.
+
+1. They arrive and identify themselves in the app — you see the same name in your portal.
+2. They scan each parcel. The scan is what transfers responsibility from you to Pinned.
+3. You release the handover code. After the scan, never before.
+
+That is the whole process. You will not get this email again — from now on it is a line in the portal.</div></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="hosts.html#H2">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">H3</span>
+    <span class="tp-title"><h3>A delivery did not complete</h3><p>Reason, location, choice, deadline — in that order.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">68 chars · 1 segment</span></div><div class="old">We couldn't deliver parcel <span class="tok">{{code}}</span>. Our team will call you shortly.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">155 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> to <span class="tok">{{dest}}</span> did not complete: <span class="tok">{{reason}}</span>.
+It is held at <span class="tok">{{station}}</span>. Choose redeliver or return by <span class="tok">{{deadline}}</span>: <span class="tok">{{link}}</span></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="hosts.html#H3">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">H5</span>
+    <span class="tp-title"><h3>Your pod is offline</h3><p>Say what stopped working for the customer, not what the sensor saw.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">117 chars · 1 segment</span></div><div class="old">Your Pinned pod<span class="tok">{{pod}}</span> appears offline (no heartbeat since <span class="tok">{{since}}</span>). Please check its power and network.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">153 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{pod}}</span> has been offline since <span class="tok">{{since}}</span> — collections there are paused.
+Check the power and the router. If both look fine, call 0700 000 000.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="hosts.html#H5">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">H6</span>
+    <span class="tp-title"><h3>Invitation to host a pod</h3><p>A cold invitation has to answer 'what do I get' before 'click here'.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">69 chars · 1 segment</span></div><div class="old">You've been invited to host a Pinned Pod. Accept at <span class="tok">{{link}}</span>.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>An invitation to host a Pinned pod at <span class="tok">{{address}}</span></b></div><div class="email-body">A Pinned pod is a parcel point inside your premises. It brings people through your door who would not otherwise come, and it pays a fee on every parcel that passes through.
+
+It takes about 2 m² and we install, maintain and insure it.
+
+Accept and we will arrange a site visit: <span class="tok">{{link}}</span></div></div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="hosts.html#H6">Rules and channels →</a></p>
+</div></div>
+</div></section><div class="wrap"><div class="endrule"></div></div>
+<footer>
+  <div class="wrap">
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 9 October 2026</p>
+    <p>Internal working document. Build 4.</p>
+  </div>
+</footer>
+<script>
+  document.querySelectorAll("[data-themer]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var root = document.documentElement;
+      var now = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = now;
+      try { localStorage.setItem("pinned-comms-theme", now); } catch (err) {}
+    });
+  });
+</script>
+</body>
+</html>

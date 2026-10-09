@@ -1,0 +1,29 @@
+# Pinned Communications — static surface, no build step on Netlify.
+# Pages are generated locally by _build/build.sh and committed.
+
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Assets carry ?v= but phones cache hard; a stale stylesheet silently undoes a
+# fix. Revalidating costs a 304 and guarantees the team sees what was shipped.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"

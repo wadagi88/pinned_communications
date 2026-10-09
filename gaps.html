@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Build order · Pinned Communications</title>
+<meta name="description" content="The defects, the gaps and a four-week build order.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/comms.css?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
+<script>
+  // Theme choice is a per-device convenience; failure must never blank the page.
+  try { var t = localStorage.getItem("pinned-comms-theme"); if (t) document.documentElement.dataset.theme = t; } catch (err) {}
+</script>
+</head>
+<body>
+
+<header class="phead"><div class="wrap">
+  <p class="crumb"><a href="index.html">Pinned Communications</a> · Build order</p>
+  <p class="eyebrow" style="margin-top:10px">From map to shipped</p>
+  <h1>What to build, in what order</h1>
+  <p class="lede">Four weeks, smallest blast radius first: stop the damage, rewrite what already fires, close the map's gaps, then make the system enforce its own rules.</p>
+</div></header>
+<nav class="navbar"><div class="wrap">
+  <a class="home" href="index.html">Pinned Comms</a>
+  <a href="index.html">The map</a>
+  <a href="principles.html">Voice</a>
+  <a href="channels.html">Channels &amp; rules</a>
+  <a href="senders.html">Senders</a>
+  <a href="receivers.html">Receivers</a>
+  <a href="runners.html">Runners</a>
+  <a href="hosts.html">Hosts</a>
+  <a href="admin.html">Admin</a>
+  <a href="prospects.html">Prospects</a>
+  <a href="library.html">Copy library</a>
+  <a href="gaps.html" class="on">Build order</a>
+  <span class="spacer"></span>
+  <button class="themer" type="button" data-themer>Theme</button>
+</div></nav>
+<div class="wrap"><div class="stats">
+  <div><b>49</b><small>touchpoints</small></div>
+  <div><b>13</b><small>live today</small></div>
+  <div><b>16</b><small>partial</small></div>
+  <div><b>17</b><small>not built</small></div>
+  <div class="hot"><b>3</b><small>defects</small></div>
+</div></div>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Four weeks</h2></div>
+  
+  <div class="rule"></div>
+  <div class="grid g2"><div class="card accent-mag"><span class="lbl">Week 1</span><h3 style="margin-top:8px">Stop the bleeding</h3><ul><li><b>C4c</b> — Fix the <code>{{station}}</code> token printing where the collection code belongs — receivers on the paid rung are getting the wrong value.</li><li><b>R7</b> — Add a collapse key to <code>FcmSender</code> and key offers on <code>batch_offer:{batch_id}</code>.</li><li><b>R7</b> — Restore the proximity and vehicle-class filters in <code>BatchOffer::Build</code>; stop pushing offers to runners who are offline.</li><li><b>S2d</b> — Retire one of <code>parcel_dropped</code> / <code>parcel_handed_to_runner</code>.</li><li>Normalise currency to Ksh across all 33 live templates.</li></ul></div><div class="card accent-mag"><span class="lbl">Week 2</span><h3 style="margin-top:8px">Rewrite what already fires</h3><ul><li>Replace the body of every live template with the copy in the library. No schema change, no new triggers — it is a content migration against <code>NotificationTemplate</code> keys.</li><li><b>R7</b> — Put payout, stop count and distance in the offer title.</li><li><b>C4a</b> — Retire the 6-hour dwell reminder; the ladder becomes four rungs.</li><li><b>H4</b> — Move the settlement amount into the email subject line.</li></ul></div><div class="card accent-mag"><span class="lbl">Week 3</span><h3 style="margin-top:8px">Close the map's gaps</h3><ul><li><b>R2</b> — First-run primer — SMS, email and in-app, once ever. The highest-value missing message in the business.</li><li><b>R3</b> — Delivery-completed earnings reveal in-app.</li><li><b>R5 R6</b> — In-run prompts: running late, loaded at the pod.</li><li><b>A1a A1b A2 A3 A4</b> — The five admin interventions. None of them exist today.</li><li><b>C3</b> — Receiver delay message.</li><li><b>H7</b> — Host-side dwell request — the question behind two answers that already ship.</li></ul></div><div class="card accent-mag"><span class="lbl">Week 4</span><h3 style="margin-top:8px">Make it compound</h3><ul><li><b>C7</b> — Collected → save your address.</li><li><b>P3 P4 P5</b> — The three prospect sequences, each capped at one message.</li><li>Quiet hours and the per-person frequency cap, enforced in <code>Notifications::DispatchWorker</code> rather than per caller.</li><li>A send log per recipient, so the cap and the one-event-one-message law can be checked rather than hoped for.</li></ul></div></div>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>The three defects</h2></div>
+  <p class="sec-sub">These are not copy preferences. Each one is doing measurable damage every day it ships.</p>
+  <div class="rule"></div>
+  
+<article class="tp" id="S2d">
+  <div class="tp-head">
+    <span class="tp-id">S2d</span>
+    <span class="tp-title"><h3>On the way</h3><p>One event, one message. Today two templates describe the same moment.</p></span>
+    <span class="tp-meta"><span class="badge defect">Defect</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>Parcel handed to the runner and scanned</span></div>
+      <div><b>Timing</b><span>At scan</span></div>
+      <div><b>Source</b><span>Live templates</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">parcel_dropped + parcel_handed_to_runner</span><span class="chip">Hook · Reward</span></div>
+    <div class="tp-note warn"><b>Two SMS for one event.</b> <code>parcel_dropped</code> and <code>parcel_handed_to_runner</code> both fire at hand-over and say the same thing in different words. Retire one, keep the one that names the runner.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">88 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> is with <span class="tok">{{runner}}</span> and on the way to <span class="tok">{{dest}}</span>.
+Follow it: <span class="tok">{{track_url}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Picked up by <span class="tok">{{runner}}</span></b><p>Arriving <span class="tok">{{dest}}</span> about <span class="tok">{{eta}}</span>. Live map in the app.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">90 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> has been dropped off and is on its way. Track: <span class="tok">{{track_url}}</span>
+— and —
+Parcel <span class="tok">{{code}}</span> has been handed to the runner and is on its way.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>One event, one message, one channel per recipient. Duplicates are not redundancy, they are noise that teaches people to ignore us.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="C4c">
+  <div class="tp-head">
+    <span class="tp-id">C4c</span>
+    <span class="tp-title"><h3>Storage has started · rung 3 (72h)</h3><p>Consequence, stated once, with the way to stop it.</p></span>
+    <span class="tp-meta"><span class="badge defect">Defect</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>The free storage window elapses</span></div>
+      <div><b>Timing</b><span>72h</span></div>
+      <div><b>Source</b><span>Map · Receiver 3</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">dwell_storage_started_72h</span><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note warn"><b>Live copy bug.</b> The template reads <code>Your code: {{station}}</code> — it prints the station name where the collection code belongs. Receivers on this rung are being charged and handed the wrong token. Fix before anything else on this page.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">171 chars · 2 segments</span></div><div class="sms-bubble">Storage has started on your parcel at <span class="tok">{{station}}</span>: Ksh <span class="tok">{{rate}}</span>/hr, Ksh <span class="tok">{{amount}}</span> so far.
+It stops the moment you collect.
+Code: <span class="tok">{{otp}}</span>
+Pay and collect: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">227 chars · 2 segments</span></div><div class="old">Storage charges have started on parcel <span class="tok">{{code}}</span> at KES <span class="tok">{{rate}}</span>/hr. Amount so far: KES <span class="tok">{{amount}}</span> Charges stop the moment you collect. Your code: <span class="tok">{{station}}</span> Collect now to stop the clock. Pay and collect here: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Charges stop the moment you collect' is the single most useful sentence in the ladder. It stays, and it goes above the code.</li><li>Ksh, not KES. One currency spelling across the estate.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="R7">
+  <div class="tp-head">
+    <span class="tp-id">R7</span>
+    <span class="tp-title"><h3>New delivery available</h3><p>The single highest-volume message Pinned sends, and the one doing the most damage.</p></span>
+    <span class="tp-meta"><span class="badge defect">Defect</span><span class="chips"><span class="chip push">Push</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A batch offer is created</span></div>
+      <div><b>Timing</b><span>On offer and every re-offer</span></div>
+      <div><b>Source</b><span>Live code · not in the map</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Routing::BatchOffer::Build</span><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note warn"><b>Evidence.</b> A runner lock screen on 9 Oct carried four identical notifications — 4m, 5m, 10m and 24m ago — all reading <i>“New delivery available · Pickup: Superior - Gatakaini. Batch distance: 15.8 km.”</i> Same batch, same words, stacked. By the fourth, the notification has taught the runner that Pinned pushes mean nothing.</div><div class="tp-note warn"><b>Three causes, all in code.</b> (1) <code>app/services/routing/batch_offer/build.rb</code> notifies every <code>Runner.available</code> — the radius and vehicle-class filters are commented out. (2) Every re-offer sends a fresh notification; nothing collapses them. (3) <code>FcmSender</code> sends no <code>collapse_key</code> / <code>apns-collapse-id</code>, so the OS has no way to replace the previous one.</div><div class="tp-note hook"><b>The hook is already here and it is being wasted.</b> A job offer is the purest variable reward in the business — payout, parcel count and distance differ every time. Put those three numbers in the title and the offer becomes the thing runners open the phone to check. Repeat the same seven words four times and it becomes the thing they swipe away.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Push · lock screen</span><span class="count">title 29 · body 63</span></div><div class="lock"><span class="ico"><i></i><i></i><i></i><i></i></span><span><span class="l-app">Pinned Runner</span><span class="l-title">Ksh <span class="tok">{{payout}}</span> · <span class="tok">{{stops}}</span> parcels · <span class="tok">{{km}}</span> km</span><span class="l-body"><span class="tok">{{origin}}</span> → <span class="tok">{{dest}}</span>. Tap to accept — this offer closes <span class="tok">{{eta}}</span>.</span></span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">77 chars · 1 segment</span></div><div class="old">New delivery available
+Pickup: Superior - Gatakaini. Batch distance: 15.8 km.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li><b>One live offer per batch, per runner.</b> Collapse key <code>batch_offer:{batch_id}</code>; a re-offer replaces the notification in place, it never stacks.</li><li><b>Cooldown.</b> No more than 3 offer pushes to one runner in 15 minutes, whatever the batch.</li><li><b>Radius before volume.</b> Restore the proximity and vehicle-class filters. An offer a runner cannot take is a notification that costs trust and returns nothing.</li><li><b>Money in the title.</b> The title is the only part read on a locked phone. Ksh first, parcels second, distance third.</li><li><b>Expiry in the body.</b> An offer with no closing time has no reason to be opened now.</li><li><b>Silence when offline.</b> Runners who are not online do not get offer pushes. Today they do.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Not built</h2></div>
+  <p class="sec-sub">17 touchpoints the map asks for, or the hook needs, that nothing sends today.</p>
+  <div class="rule"></div>
+  <div class="scroller"><table><thead><tr><th>ID</th><th>Touchpoint</th><th>Timing</th><th>Channels</th><th>Status</th><th>Template key</th></tr></thead><tbody><tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C3">C3</a></td><td><b>Running late</b><span class="muted">Promised delivery time passes while the parcel is in transit</span></td><td>At the moment the promise breaks</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C7">C7</a></td><td><b>Collected — and the next one is easier</b><span class="muted">Receiver collects the parcel</span></td><td>At collection · once per receiver</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R2">R2</a></td><td><b>How a Pinned run works</b><span class="muted">Runner accepts their first delivery</span></td><td>Once, ever · at acceptance</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R3">R3</a></td><td><b>Delivered — earnings reveal</b><span class="muted">Runner completes a delivery</span></td><td>At hand-over</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R5">R5</a></td><td><b>Running late</b><span class="muted">A delivery passes its promised time</span></td><td>At the promise</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="runner" data-status="gap"><td class="id"><a href="runners.html#R6">R6</a></td><td><b>Loaded at the pod</b><span class="muted">Runner finishes collecting from a pod</span></td><td>At the last scan</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A1a">A1a</a></td><td><b>Job reassigned — previous runner</b><span class="muted">Admin reassigns a job away from a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A1b">A1b</a></td><td><b>Job reassigned — new runner</b><span class="muted">Admin assigns a job to a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A2">A2</a></td><td><b>Job floated back to the pool</b><span class="muted">A job is returned to the system from a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A3">A3</a></td><td><b>You have gone offline</b><span class="muted">A runner's status goes offline</span></td><td>At the state change</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="admin" data-status="gap"><td class="id"><a href="admin.html#A4">A4</a></td><td><b>Ops is asking about this job</b><span class="muted">Ops flags a delayed job</span></td><td>When ops acts</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="host" data-status="gap"><td class="id"><a href="hosts.html#H7">H7</a></td><td><b>A receiver is asking for more time</b><span class="muted">A receiver requests a dwell extension</span></td><td>On request</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P1">P1</a></td><td><b>Marketplace group reply</b><span class="muted">A delivery question in a Nairobi buy-and-sell or courier group</span></td><td>Within the hour, by a human</td><td><span class="chips"><span class="chip whatsapp">WhatsApp</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P2">P2</a></td><td><b>First reply to an enquiry</b><span class="muted">A direct message or call-back request</span></td><td>Within 5 minutes in working hours</td><td><span class="chips"><span class="chip whatsapp">WhatsApp</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P3">P3</a></td><td><b>You checked a price</b><span class="muted">A quote is generated on the web and not booked</span></td><td>Once, within the hour</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P4">P4</a></td><td><b>You have received — now send</b><span class="muted">A receiver collects their first parcel and has never sent one</span></td><td>24h after collection · once ever</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P5">P5</a></td><td><b>Someone sent you a parcel</b><span class="muted">A receiver's first collection, where the sender is on a referral plan</span></td><td>With the collected message</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr></tbody></table></div>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Where this lands in the code</h2></div>
+  <p class="sec-sub">Nothing here needs a new messaging stack. The seams already exist.</p>
+  <div class="rule"></div>
+  <div class="card"><div class="kv"><div><b style="min-width:230px"><code>NotificationTemplate</code></b><span>33 seeded keys with editable bodies and a token set. Every rewrite on this site is a change to <code>body</code> — no migration needed.</span></div></div><div class="kv"><div><b style="min-width:230px"><code>Notifications::DispatchWorker</code></b><span>The one place every channel passes through. Quiet hours, frequency caps and the send log belong here, not in each caller.</span></div></div><div class="kv"><div><b style="min-width:230px"><code>FcmSender</code></b><span>Posts title, body, tokens and data. No collapse key, no priority, no TTL — add all three.</span></div></div><div class="kv"><div><b style="min-width:230px"><code>Routing::BatchOffer::Build</code></b><span>Builds the offer push. Radius and vehicle-class filters are commented out; the body is assembled inline rather than from a template.</span></div></div><div class="kv"><div><b style="min-width:230px"><code>MessageTemplate</code></b><span>Campaign copy, with a validator that already refuses promotional bodies without an opt-out. The prospect sequences belong here.</span></div></div><div class="kv"><div><b style="min-width:230px"><code>MessageSender</code></b><span>Sender identity: PINNED for SMS and WhatsApp, notifications@pinned.app for email.</span></div></div></div>
+</div></section><div class="wrap"><div class="endrule"></div></div>
+<footer>
+  <div class="wrap">
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 9 October 2026</p>
+    <p>Internal working document. Build 4.</p>
+  </div>
+</footer>
+<script>
+  document.querySelectorAll("[data-themer]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var root = document.documentElement;
+      var now = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = now;
+      try { localStorage.setItem("pinned-comms-theme", now); } catch (err) {}
+    });
+  });
+</script>
+</body>
+</html>

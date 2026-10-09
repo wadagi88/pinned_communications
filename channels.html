@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Channels &amp; rules · Pinned Communications</title>
+<meta name="description" content="Channel doctrine, the eight laws, the escalation ladder and the token set.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/comms.css?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
+<script>
+  // Theme choice is a per-device convenience; failure must never blank the page.
+  try { var t = localStorage.getItem("pinned-comms-theme"); if (t) document.documentElement.dataset.theme = t; } catch (err) {}
+</script>
+</head>
+<body>
+
+<header class="phead"><div class="wrap">
+  <p class="crumb"><a href="index.html">Pinned Communications</a> · Channels &amp; rules</p>
+  <p class="eyebrow" style="margin-top:10px">What each channel is for</p>
+  <h1>Six channels, eight laws</h1>
+  <p class="lede">A channel is a job, not a copy of the message. “(sms, email, in-app)” in the map means three different jobs — not the same sentence three times.</p>
+</div></header>
+<nav class="navbar"><div class="wrap">
+  <a class="home" href="index.html">Pinned Comms</a>
+  <a href="index.html">The map</a>
+  <a href="principles.html">Voice</a>
+  <a href="channels.html" class="on">Channels &amp; rules</a>
+  <a href="senders.html">Senders</a>
+  <a href="receivers.html">Receivers</a>
+  <a href="runners.html">Runners</a>
+  <a href="hosts.html">Hosts</a>
+  <a href="admin.html">Admin</a>
+  <a href="prospects.html">Prospects</a>
+  <a href="library.html">Copy library</a>
+  <a href="gaps.html">Build order</a>
+  <span class="spacer"></span>
+  <button class="themer" type="button" data-themer>Theme</button>
+</div></nav>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Channel doctrine</h2></div>
+  
+  <div class="rule"></div>
+  <div class="grid g2">
+<div class="card">
+  <span class="chips"><span class="chip sms">SMS</span></span>
+  <h3 style="margin-top:10px">Lands anywhere, costs money, cannot be taken back</h3>
+  <div class="kv">
+    <div><b>Use for</b><span>Anything that must reach a person who is not in the app: arrival, codes, money, deadlines, failures.</span></div>
+    <div><b>Never for</b><span>Progress updates, thank-yous, anything a push or an in-app card can carry.</span></div>
+  </div>
+  <span class="lbl" style="margin-top:16px">Rules</span>
+  <ul><li>160 GSM-7 characters is one segment. Two segments are allowed when the message carries money, a deadline and an action — never for warmth.</li><li>Sender ID PINNED on everything.</li><li>No link shorteners the customer cannot read. The domain is the trust signal.</li><li>Non-urgent SMS is held between 21:00 and 06:30 EAT.</li></ul>
+</div>
+<div class="card">
+  <span class="chips"><span class="chip push">Push</span></span>
+  <h3 style="margin-top:10px">Free, instant, and the easiest thing in the world to turn off</h3>
+  <div class="kv">
+    <div><b>Use for</b><span>Live operational state while the app is where the action happens: offers, route changes, ETAs, in-run prompts.</span></div>
+    <div><b>Never for</b><span>Anything the runner must still be told if they never open the phone. Push is not delivery, it is a nudge.</span></div>
+  </div>
+  <span class="lbl" style="margin-top:16px">Rules</span>
+  <ul><li>Every push carries a collapse key. A second push about the same thing replaces the first; it never stacks.</li><li>Maximum 3 pushes to one person in 15 minutes, across all types.</li><li>Title ≤ 45 characters, body ≤ 110 — past that, the lock screen truncates and the sentence is wasted.</li><li>Never push to someone who is offline or off shift.</li></ul>
+</div>
+<div class="card">
+  <span class="chips"><span class="chip inapp">In-app</span></span>
+  <h3 style="margin-top:10px">The record. Everything that happened, in order, forever</h3>
+  <div class="kv">
+    <div><b>Use for</b><span>Every event, without exception, including ones that also went out by SMS.</span></div>
+    <div><b>Never for</b><span>Being the only channel for money, deadlines or a code. If it matters off-app, it goes off-app too.</span></div>
+  </div>
+  <span class="lbl" style="margin-top:16px">Rules</span>
+  <ul><li>The in-app entry is written first; the SMS is a compression of it.</li><li>Earnings and settlement figures always appear in the same place, in the same shape.</li><li>Nothing in the in-app feed disappears. A customer should be able to prove what we told them.</li></ul>
+</div>
+<div class="card">
+  <span class="chips"><span class="chip email">Email</span></span>
+  <h3 style="margin-top:10px">The channel that can hold a process or a document</h3>
+  <div class="kv">
+    <div><b>Use for</b><span>Onboarding primers, settlement statements, approvals and rejections with detail, anything with an attachment.</span></div>
+    <div><b>Never for</b><span>Urgency. Nobody in this business reads email on the road.</span></div>
+  </div>
+  <span class="lbl" style="margin-top:16px">Rules</span>
+  <ul><li>The subject line carries the fact — the amount, the date, the decision.</li><li>From notifications@pinned.app, display name Pinned.</li><li>One-time explanatory emails say in the message that they are one-time.</li></ul>
+</div>
+<div class="card">
+  <span class="chips"><span class="chip whatsapp">WhatsApp</span></span>
+  <h3 style="margin-top:10px">Two-way, where Kenyan commerce actually happens</h3>
+  <div class="kv">
+    <div><b>Use for</b><span>Enquiries, group replies, and anything where the answer is a conversation.</span></div>
+    <div><b>Never for</b><span>Automated transactional blasts. The moment it feels like SMS, the thread gets blocked.</span></div>
+  </div>
+  <span class="lbl" style="margin-top:16px">Rules</span>
+  <ul><li>Replies come from a human within 5 minutes in working hours, or the channel is not open.</li><li>Template-initiated messages only where the person has written to us first.</li><li>Priced like SMS. It is not free, and it is not a dumping ground.</li></ul>
+</div>
+<div class="card">
+  <span class="chips"><span class="chip voice">Call</span></span>
+  <h3 style="margin-top:10px">The exception path, by a person</h3>
+  <div class="kv">
+    <div><b>Use for</b><span>A failed delivery with something valuable in it, a dispute, a safety issue.</span></div>
+    <div><b>Never for</b><span>Everything else. Pinned does not make automated calls.</span></div>
+  </div>
+  <span class="lbl" style="margin-top:16px">Rules</span>
+  <ul><li>A call is always preceded by the SMS that explains why someone is about to ring.</li><li>Never an automated voice. If it is worth a call, it is worth a person.</li></ul>
+</div></div>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>The eight laws</h2></div>
+  <p class="sec-sub">These are the decisions that stop the estate drifting back into noise. Each one is enforceable in <code>Notifications::DispatchWorker</code> rather than trusted to whoever writes the next template.</p>
+  <div class="rule"></div>
+  <div class="grid g2"><div class="card accent-mag"><span class="sec-num">01</span><h3 style="margin-top:6px">One event, one message</h3><p>A single thing that happened produces a single message per person. Two templates describing the same moment is a bug, not thoroughness. Today the hand-over fires twice and the batch offer fires as many times as the system re-offers.</p></div><div class="card accent-mag"><span class="sec-num">02</span><h3 style="margin-top:6px">Channel ladder, not channel broadcast</h3><p>In-app always. SMS only when the action happens away from the app. Push only when the app is the destination. Email only when it is a document or a process. The map's '(sms, email, in-app)' means a ladder of three different jobs, not the same sentence three times.</p></div><div class="card accent-mag"><span class="sec-num">03</span><h3 style="margin-top:6px">Collapse before you send</h3><p>Every push carries a collapse key built from what it is about — <code>batch_offer:{batch_id}</code>, <code>parcel:{code}</code>. The second notification replaces the first. Four identical notifications on a lock screen is the single clearest evidence of a system that does not know what it has already said.</p></div><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">Quiet hours, 21:00 – 06:30 EAT</h3><p>Non-urgent SMS and push are held until morning. Urgent is defined narrowly and in code: a delivery in progress, a collection code, a security event, money leaving an account. Nothing else is urgent at 23:00.</p></div><div class="card accent-mag"><span class="sec-num">05</span><h3 style="margin-top:6px">Four rungs, then silence</h3><p>Reminder ladders escalate by specificity — neutral, specific, consequence, final — and stop. Pinned does not send a fifth message, and it never sends one after the final notice. The 6-hour dwell reminder is a fifth rung at the wrong end and should go.</p></div><div class="card accent-mag"><span class="sec-num">06</span><h3 style="margin-top:6px">One promotional message per person per week</h3><p>Across every sequence, every lane. Transactional messages are uncapped, but each one must pass the clarity contract — a transactional message that fails it is promotional with extra steps.</p></div><div class="card accent-mag"><span class="sec-num">07</span><h3 style="margin-top:6px">Every escape hatch is in the message</h3><p>If there is an alternative — door delivery, redeliver, extend, decline — it appears in the message that creates the problem, not in a later one. The 48-hour dwell reminder converts because the escape hatch is right there.</p></div><div class="card accent-mag"><span class="sec-num">08</span><h3 style="margin-top:6px">Internal words stay internal</h3><p>Dwell, batch, OTP, eligibility, heartbeat, float, SLA, vhost. None of these reach a customer or a runner. The customer-facing word is listed beside each one in the glossary.</p></div></div>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03</span><h2>The escalation ladder</h2></div>
+  <p class="sec-sub">Every reminder sequence uses the same four rungs. Tone escalates by specificity, never by volume, and nothing follows the fourth.</p>
+  <div class="rule"></div>
+  
+<div class="grid g4">
+  <div class="card accent-flow"><span class="lbl">Rung 1 · neutral</span>
+    <p class="tight">State the fact and the opening hours. Mention no charge, because none applies.</p>
+    <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">Your parcel is still at Shell Kileleshwa, open until 21:00.</span></div>
+  <div class="card accent-lock"><span class="lbl">Rung 2 · specific</span>
+    <p class="tight">Name the deadline, the rate that follows it, and the alternative.</p>
+    <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">24 hours of free storage left. From Friday: Ksh 50/hr.</span></div>
+  <div class="card accent-org"><span class="lbl">Rung 3 · consequence</span>
+    <p class="tight">The charge has started. Say how to stop it in the same line.</p>
+    <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">Ksh 50/hr, Ksh 1,250 so far. It stops the moment you collect.</span></div>
+  <div class="card accent-ink"><span class="lbl">Rung 4 · final</span>
+    <p class="tight">A fact already in motion, a total, and a human to talk to. Then silence.</p>
+    <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">Last day: it goes back to the sender today.</span></div>
+</div>
+</div></section>
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Tokens</h2></div>
+  <p class="sec-sub">The value in the right column is what the character counts on this site are measured with — the longest realistic value, not a short one.</p>
+  <div class="rule"></div>
+  <div class="scroller"><table><thead><tr><th>Token</th><th>Measured as</th></tr></thead><tbody><tr><td class="id">{{address}}</td><td>Ngong Road, Kilimani</td></tr><tr><td class="id">{{amount}}</td><td>1,250</td></tr><tr><td class="id">{{batch}}</td><td>B-2291</td></tr><tr><td class="id">{{closing_time}}</td><td>21:00</td></tr><tr><td class="id">{{code}}</td><td>PN-4K7Q2</td></tr><tr><td class="id">{{deadline}}</td><td>Fri 18:00</td></tr><tr><td class="id">{{dest}}</td><td>Lavington</td></tr><tr><td class="id">{{docs}}</td><td>driving licence</td></tr><tr><td class="id">{{eta}}</td><td>14:20</td></tr><tr><td class="id">{{from}}</td><td>Sokoni Stores</td></tr><tr><td class="id">{{hours}}</td><td>24</td></tr><tr><td class="id">{{km}}</td><td>15.8</td></tr><tr><td class="id">{{link}}</td><td>pinnedflow.app/r</td></tr><tr><td class="id">{{name}}</td><td>Wanjiru</td></tr><tr><td class="id">{{origin}}</td><td>Westlands</td></tr><tr><td class="id">{{otp}}</td><td>840 213</td></tr><tr><td class="id">{{payout}}</td><td>640</td></tr><tr><td class="id">{{pod}}</td><td>Shell Kileleshwa</td></tr><tr><td class="id">{{rate}}</td><td>50</td></tr><tr><td class="id">{{reason}}</td><td>the photo was unreadable</td></tr><tr><td class="id">{{runner}}</td><td>Brian M.</td></tr><tr><td class="id">{{since}}</td><td>06:40 today</td></tr><tr><td class="id">{{station}}</td><td>Shell Kileleshwa</td></tr><tr><td class="id">{{stops}}</td><td>4</td></tr><tr><td class="id">{{time}}</td><td>13:42</td></tr><tr><td class="id">{{track_url}}</td><td>pinnedflow.app/t/4K7Q2</td></tr></tbody></table></div>
+</div></section><div class="wrap"><div class="endrule"></div></div>
+<footer>
+  <div class="wrap">
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 9 October 2026</p>
+    <p>Internal working document. Build 4.</p>
+  </div>
+</footer>
+<script>
+  document.querySelectorAll("[data-themer]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var root = document.documentElement;
+      var now = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = now;
+      try { localStorage.setItem("pinned-comms-theme", now); } catch (err) {}
+    });
+  });
+</script>
+</body>
+</html>
