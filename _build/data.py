@@ -12,7 +12,7 @@ Status values
   defect  — it fires, and what it does is wrong
 """
 
-BUILD = 7
+BUILD = 9
 UPDATED = "13 October 2026 · team review applied"
 
 SITE = dict(
@@ -181,8 +181,8 @@ TOUCHPOINTS = [
              "Nothing else ships in a code message. No tracking link, no marketing, no thanks."]),
 
     T(id="S2d", lane="sender", stage="In transit", name="On the way",
-      trigger="Parcel handed to the runner and scanned",
-      timing="At scan", channels=["sms", "in_app"],
+      trigger="The handover code is accepted and the parcel changes hands",
+      timing="At hand-over", channels=["sms", "in_app"],
       status="defect", key="parcel_dropped + parcel_handed_to_runner",
       source="Live templates", hook="Reward",
       intent="One event, one message. Today two templates describe the same moment.",
@@ -208,7 +208,7 @@ TOUCHPOINTS = [
              "Proof is the product. Every delivered message links to it."]),
 
     T(id="S4a", lane="sender", stage="Not collected", name="Your receiver has not collected",
-      trigger="Free storage window elapses (72h)", timing="72h after arrival", channels=["sms", "in_app"],
+      trigger="The free storage clock runs out", timing="When 24 countable hours have elapsed", channels=["sms", "in_app"],
       status="live", key="dwell_sender_storage_started_72h", source="Map · Senders 4", hook="Trigger",
       intent="Tell the sender about money before it is charged, not after.",
       old="Parcel {{code}} is still uncollected at {{station}} — Time has passed. Storage fees are now active at Ksh {{rate}}/hr. We've contacted your receiver again. If the parcel isn't collected by {{deadline}}, it will be returned to you.",
@@ -290,8 +290,8 @@ TOUCHPOINTS = [
       rules=["Never 'we apologise for any inconvenience caused'. Give a new time instead; that is the apology.",
              "Promise the next message. A delay is tolerable when you know when you will next hear something."]),
 
-    T(id="C4a", lane="receiver", stage="Waiting", name="Still waiting · rung 1 (24h)",
-      trigger="Parcel uncollected 24h after arrival", timing="24h", channels=["sms"],
+    T(id="C4a", lane="receiver", stage="Waiting", name="Still waiting · rung 1",
+      trigger="Half the free storage clock has run", timing="12 countable hours left", channels=["sms"],
       status="partial", key="dwell_reminder_24h", source="Map · Receiver 3", hook="Action",
       intent="Neutral. State the facts and the opening hours.",
       old="Your parcel {{code}} is still at {{station}}. Free storage ends in 48 hours. After that: Ksh {{rate}}/hr applies. Your code: {{otp}} Open until: {{closing_time}} Can't make it? Request door delivery: {{track_url}}",
@@ -299,20 +299,23 @@ TOUCHPOINTS = [
           ("sms", "Your parcel is still at {{station}}, open until {{closing_time}}.\nCode: {{otp}}\nFree storage until {{deadline}}."),
       ],
       rules=["Rung 1 does not mention the rate. Nothing is being charged yet, so nothing about charging is said.",
-             "Retire the 6-hour reminder. It arrives while people are still at work and teaches them we message for no reason."]),
+             "Retire the 6-hour reminder. It arrives while people are still at work and teaches them we message for no reason.",
+             "Scheduled on the storage clock, not the wall clock, so it can never fire overnight or while the pod is shut."]),
 
-    T(id="C4b", lane="receiver", stage="Waiting", name="Still waiting · rung 2 (48h)",
-      trigger="Parcel uncollected 48h after arrival", timing="48h", channels=["sms"],
+    T(id="C4b", lane="receiver", stage="Waiting", name="Still waiting · rung 2",
+      trigger="The free storage clock is nearly out", timing="4 countable hours left", channels=["sms"],
       status="partial", key="dwell_reminder_48h", source="Map · Receiver 3", hook="Action",
       intent="Specific. Name the deadline and the rate that starts after it.",
       old="Your parcel {{code}} is still at {{station}}. Free storage ends in 24 hours. After that: Ksh {{rate}}/hr applies. Your code: {{otp}} Open until: {{closing_time}} Can't make it? Request door delivery: {{track_url}}",
       msgs=[
-          ("sms", "24 hours of free storage left on your parcel at {{station}}.\nCode: {{otp}}\nFrom {{deadline}}: Ksh {{rate}}/hr. Can't come? Door delivery: {{track_url}}"),
+          ("sms", "Free storage on your parcel at {{station}} ends {{deadline}}.\nCode: {{otp}}\nAfter that: Ksh {{rate}}/hr. Can't come? We can bring it to you: {{track_url}}"),
       ],
-      rules=["Rung 2 is where the escape hatch earns its place. Most door-delivery conversions happen here."]),
+      rules=["Rung 2 is where the escape hatch earns its place. Most door-delivery conversions happen here.",
+             "A deadline, never a countdown. “4 hours left” sent at 17:00 is wrong by the next morning, "
+             "because the clock stops at 19:00 and restarts at 08:00."]),
 
-    T(id="C4c", lane="receiver", stage="Waiting", name="Storage has started · rung 3 (72h)",
-      trigger="The free storage window elapses", timing="72h", channels=["sms"],
+    T(id="C4c", lane="receiver", stage="Waiting", name="Storage has started · rung 3",
+      trigger="The free storage clock runs out", timing="After 24 countable hours", channels=["sms"],
       status="defect", key="dwell_storage_started_72h", source="Map · Receiver 3", hook="Trigger",
       intent="Consequence, stated once, with the way to stop it.",
       old="Storage charges have started on parcel {{code}} at KES {{rate}}/hr. Amount so far: KES {{amount}} Charges stop the moment you collect. Your code: {{station}} Collect now to stop the clock. Pay and collect here: {{track_url}}",
@@ -349,10 +352,12 @@ TOUCHPOINTS = [
       intent="Confirm the new deadline, not the decision.",
       old="Hold approved for parcel {{code}}: +{{hours}}h extra free storage.",
       msgs=[
-          ("sms", "Approved — {{hours}} more hours free on your parcel at {{station}}.\nNew deadline: {{deadline}}\nCode: {{otp}}"),
-          ("in_app", ("Extended to {{deadline}}", "{{hours}} more hours of free storage at {{station}}. Code {{otp}}.")),
+          ("sms", "Approved — free storage on your parcel at {{station}} now runs to {{deadline}}.\nCode: {{otp}}"),
+          ("in_app", ("Extended to {{deadline}}", "{{hours}} more countable hours of free storage at {{station}}. Code {{otp}}.")),
       ],
-      rules=["People do not want the decision, they want the new date. Lead with the deadline."]),
+      rules=["People do not want the decision, they want the new date. Lead with the deadline.",
+             "An extension is granted in countable hours and communicated as a timestamp. The two are "
+             "not the same number and the customer only ever sees the timestamp."]),
 
     T(id="C6b", lane="receiver", stage="Dwell request", name="Extra time declined",
       trigger="A host declines an extra-time request", timing="On decision", channels=["sms", "in_app"],
@@ -837,7 +842,7 @@ LAWS = [
     dict(t="One promotional message per person per week",
          p="Across every sequence, every lane. Transactional messages are uncapped, but each one must pass the clarity contract — a transactional message that fails it is promotional with extra steps."),
     dict(t="Every escape hatch is in the message",
-         p="If there is an alternative — door delivery, redeliver, extend, decline — it appears in the message that creates the problem, not in a later one. The 48-hour dwell reminder converts because the escape hatch is right there."),
+         p="If there is an alternative — door delivery, redeliver, extend, decline — it appears in the message that creates the problem, not in a later one. Rung 2 of the storage ladder converts because the escape hatch is right there."),
     dict(t="Internal words stay internal",
          p="Dwell, batch, OTP, eligibility, heartbeat, float, SLA, vhost. None of these reach a customer or a runner. The customer-facing word is listed beside each one in the glossary."),
 ]
@@ -871,6 +876,10 @@ BUILD_ORDER = [
          items=[("—", "Replace the body of every live template with the copy in the library. No schema change, no new triggers — it is a content migration against <code>NotificationTemplate</code> keys."),
                 ("R7", "Put payout, stop count and distance in the offer title."),
                 ("C4a", "Retire the 6-hour dwell reminder; the ladder becomes four rungs."),
+                ("C4a C4b C4c", "Re-time the ladder onto the 24-hour storage clock. The seeded keys "
+                                "<code>dwell_reminder_24h</code>, <code>_48h</code> and "
+                                "<code>_storage_started_72h</code> describe a 72-hour free window that "
+                                "does not exist — the names become misleading the day the schedule changes."),
                 ("H4", "Move the settlement amount into the email subject line."),
                 ("—", "Apply the review's channel decisions: 9 touchpoints change channel, 1 is retired. "
                       "Most are a channel flag, not new copy."),
@@ -917,7 +926,6 @@ CODE_NOTES = [
 # touchpoint of the same id; NEW_TOUCHPOINTS adds what the review asked for.
 # ═════════════════════════════════════════════════════════════════════════════
 
-SAMPLES["device"] = "Samsung A14"
 SAMPLES["reason_short"] = "your ID photo was unreadable"
 
 REVIEW_SOURCES = [
@@ -953,9 +961,9 @@ WARMTH_MOVES = [
          yes="Delivery complete · Ksh 640 earned. Keep going — your next job is waiting.",
          no="Congratulations! Your parcel has successfully entered the sorting process!"),
     dict(n="05", t="Assume the kind reason",
-         p="People miss a drop-off because the day ran away with them, go offline because the battery died, and fail to collect because they are at work. Write as if that is true, because it usually is.",
-         yes="If the day got away from you, a runner can come to you instead.",
-         no="You have failed to drop off your parcel as required."),
+         p="People go offline because the battery died, miss a drop-off because the day ran away with them, and fail to collect because they are at work. Write as if that is true, because it usually is.",
+         yes="If that wasn't you, open the app and tap Go online.",
+         no="You have failed to remain available as required."),
     dict(n="06", t="Leave the door open on a no",
          p="Every rejection, denial, suspension or failure names the way back in the same message — and says it in a sentence a person would actually say out loud.",
          yes="If you think this is wrong, you can appeal here.",
@@ -999,15 +1007,26 @@ REVIEW = {
     "S2b": dict(
         channels=["sms"], status="live",
         review="<b>SMS works.</b> Kept as it is.",
-        warmth="Assume the kind reason — the day got away from them.",
-        msgs=[("sms", "{{name}}, Parcel {{code}} is still held for you at {{pod}} until {{deadline}}.\nIf the day got away from you, a runner can come and collect instead: {{track_url}}")]),
+        warmth="Lead with the favour, not the chase. The message exists to save them a journey.",
+        rules=["This is not a reminder, it is an offer — so the offer goes first and the reminder "
+               "second. “You have not dropped your parcel” is a complaint; “save yourself the trip” "
+               "is a service.",
+               "One message only. If the hold lapses, the booking card says so; we do not chase twice."],
+        msgs=[("sms", "{{name}}, save yourself the trip — a runner can collect Parcel {{code}} from you instead: {{track_url}}\nOtherwise it stays held at {{pod}} until {{deadline}}.")]),
 
     "S2c": dict(
         channels=["sms", "in_app"], status="change",
         review="<b>Add in-app.</b> The code should be readable in the app as well as the SMS — senders "
-               "at a counter with a flat battery are the whole reason this message exists twice.",
-        msgs=[("sms", "Your handover code for Parcel {{code}} is {{otp}}.\nShow it to {{runner}} once they have scanned the parcel. We never ask for this code by phone."),
-              ("in_app", ("Handover code for Parcel {{code}}", "{{otp}}\nShow it to the runner after the scan, never before."))]),
+               "at a counter with a flat battery are the whole reason this message exists twice.<br><br>"
+               "<b>No scan.</b> An earlier draft said to give the code “once they have scanned the parcel”. "
+               "That is not the procedure: on the sender side the code <i>is</i> the hand-over. There is no "
+               "scan action for a sender to wait for.",
+        rules=["The code is the hand-over. Nothing precedes it and nothing has to be witnessed first, so "
+               "the copy must not invent a step the sender will stand there waiting for.",
+               "The security line names the actual attack — “by phone” — not “do not share”.",
+               "Nothing else ships in a code message. No tracking link, no marketing, no thanks."],
+        msgs=[("sms", "Your handover code for Parcel {{code}} is {{otp}}.\nGive it to {{runner}} as you hand the parcel over. We never ask for this code by phone."),
+              ("in_app", ("Handover code for Parcel {{code}}", "{{otp}}\nGive it to the runner as you hand the parcel over."))]),
 
     "S2d": dict(
         channels=["in_app"], status="change",
@@ -1241,16 +1260,20 @@ NEW_TOUCHPOINTS = [
              "Nothing else ships with a code. No welcome offer, no tracking link, no app download."]),
 
     T(id="S0b", lane="sender", stage="Access", name="Sign-in code",
-      trigger="A sender signs in on a device", timing="Each sign-in · expires in 5 minutes",
+      trigger="A sender signs in", timing="Each sign-in · expires in 5 minutes",
       channels=["sms"], status="gap", source="Brief · 13 Oct", hook="Trigger",
-      intent="A sign-in code is also a security alert. It should read like one.",
+      intent="A sign-in code is also a security alert. It should read like one — without claiming to know things we do not know.",
       old="Your OTP code is ….",
-      warmth="Reassure in the same line as the warning — ignoring it is enough, they do not have to do anything.",
-      review="<b>Detailed, and device-aware.</b> Naming the device turns a code into something that "
-             "protects the account rather than just unlocking it.",
-      msgs=[("sms", "{{name}}, your Pinned sign-in code is {{otp}}.\nSomeone is signing in on a {{device}}. If that is not you, ignore this message — your account stays locked. Expires in 5 minutes.")],
-      rules=["If sender sign-in moves to a device PIN the way the runner app is doing, this message fires "
-             "only on a new device. That is the better end state and the open question below.",
+      warmth="Reassure in the same line as the warning. Ignoring it is enough; they do not have to do anything.",
+      review="<b>No device name.</b> An earlier draft read <i>“Someone is signing in on a Samsung A14”</i>. "
+             "We have no device visibility, so that sentence is void. What is left still does the job: "
+             "what the code is for, how long it lasts, what to do if it was not them, and the fraud line.",
+      msgs=[("sms", "{{name}}, your Pinned sign-in code is {{otp}}.\nIt expires in 5 minutes. If you did not ask to sign in, ignore this message — your account stays locked and we never call or text to ask for this code.")],
+      rules=["Write only what the system can actually see. A security message that names a device we "
+             "cannot identify is worse than one that does not, because the first time it is wrong the "
+             "customer stops believing all of them.",
+             "Naming the device and the town is the upgrade the moment device data exists. Until then "
+             "this copy stands.",
              "Never include a link in a sign-in message. Every phishing SMS in this market has one."]),
 
     T(id="R8a", lane="runner", stage="Access", name="Sign-up code",
@@ -1419,9 +1442,9 @@ JOURNEYS = {
             J("3a", "Arrives at a pod", "C2", "sms", "Station, opening hours, collection code, free-storage deadline, door-delivery escape", "Two segments. Each line in it saves a phone call."),
             J("3b", "Arrives at the door", "C1b", "sms", "Runner at the door — code at hand-over", "The alternative branch: a door delivery skips the pod message entirely.", off=True),
             J("+", "Running late", "C3", "sms", "New time, reason, and when we will text next", "A broken promise gets its own message."),
-            J("+", "24h uncollected", "C4a", "sms", "Still here, code, opening hours", "Rung 1. No mention of charges — none apply yet."),
-            J("+", "48h", "C4b", "sms", "24 hours of free storage left, then the rate", "Rung 2. Where most door-delivery conversions happen."),
-            J("+", "72h", "C4c", "sms", "Storage started, and how to stop it", "Rung 3. Money is moving."),
+            J("+", "Half the clock gone", "C4a", "sms", "Still here, code, opening hours, deadline", "Rung 1. No mention of charges — none apply yet."),
+            J("+", "4 clock-hours left", "C4b", "sms", "Free storage ends {{deadline}}, then the rate", "Rung 2. Where most door-delivery conversions happen."),
+            J("+", "Clock runs out", "C4c", "sms", "Storage started, and how to stop it", "Rung 3. Money is moving."),
             J("+", "Day 7", "C4d", "sms", "Goes back today, total charged", "Rung 4. Then silence."),
             J("+", "Requests more time", "C6a", "sms", "Approved — new deadline", "A decision they are waiting on."),
             J("+", "…declined", "C6b", "sms", "Declined, with door delivery offered instead", "A no that ends with a yes."),
@@ -1496,7 +1519,36 @@ JOURNEYS = {
         ]),
 }
 
+STORAGE_CLOCK = dict(
+    headline="Free storage is 24 hours, and the clock is not the wall clock",
+    body="A parcel gets <b>24 countable hours</b> of free storage. The clock does not run between "
+         "<b>19:00 and 08:00</b>, and it does not run while the pod is closed. A parcel that lands at "
+         "15:00 on Monday is therefore free until the middle of Wednesday, not until Tuesday afternoon.",
+    rules=[
+        ("Never state a duration to a customer",
+         "“24 hours of free storage” is true in our database and wrong on their phone. Every message "
+         "states <code>{{deadline}}</code> — a day and a time the person can plan around."),
+        ("Schedule the ladder on the storage clock",
+         "Rungs fire at 12 countable hours left, 4 countable hours left, and at expiry. Because they are "
+         "scheduled on the clock rather than on elapsed time, no rung can arrive overnight or while the "
+         "pod the parcel is sitting in is shut."),
+        ("Charging starts when the clock does, and stops when they collect",
+         "The paused hours are free hours. If a customer disputes a charge, the answer has to be a line "
+         "they can check themselves — which is why the amount so far appears in rung 3."),
+        ("An extension is granted in hours and communicated as a time",
+         "Hosts approve “+24 hours”; receivers are told “now runs to Thursday 11:00”. The two numbers "
+         "are never the same, and only one of them belongs in an SMS."),
+    ])
+
 OPEN_QUESTIONS = [
+    dict(q="Does a runner scan at a host counter, or is the code the whole hand-over there too?",
+         why="On the sender side the code <i>is</i> the hand-over — there is no scan action, and the "
+             "sender copy has been corrected. But the host review document asks for the opposite: its "
+             "H1b email is to explain “how to verify a runner, scan every parcel, release the handover "
+             "code only after scanning”. Either hosts scan and senders do not, or the host copy is "
+             "describing a step that does not exist. Until this is settled the host and runner lanes "
+             "still say “after the scan”.",
+         who="Operations"),
     dict(q="Does sender sign-in move to a device PIN, the way the runner app is doing?",
          why="The runner review retires the per-sign-in code SMS in favour of a PIN after the first "
              "sign-up code. The same argument applies to senders, and it is the single biggest SMS "

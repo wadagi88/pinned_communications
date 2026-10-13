@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=7">
+<link rel="stylesheet" href="assets/comms.css?v=9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -71,9 +71,9 @@
   <div class="jstep is-sms"><span class="jn">3a</span><span class="jwhen">Arrives at a pod</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Station, opening hours, collection code, free-storage deadline, door-delivery escape</span><span class="jwhy">Two segments. Each line in it saves a phone call.</span></div>
   <div class="jstep is-sms"><span class="jn">3b</span><span class="jwhen">Arrives at the door</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Runner at the door — code at hand-over</span><span class="jwhy">The alternative branch: a door delivery skips the pod message entirely.</span></div>
   <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Running late</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">New time, reason, and when we will text next</span><span class="jwhy">A broken promise gets its own message.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">24h uncollected</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Still here, code, opening hours</span><span class="jwhy">Rung 1. No mention of charges — none apply yet.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">48h</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">24 hours of free storage left, then the rate</span><span class="jwhy">Rung 2. Where most door-delivery conversions happen.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">72h</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, and how to stop it</span><span class="jwhy">Rung 3. Money is moving.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Half the clock gone</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Still here, code, opening hours, deadline</span><span class="jwhy">Rung 1. No mention of charges — none apply yet.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">4 clock-hours left</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Free storage ends <span class="tok">{{deadline}}</span>, then the rate</span><span class="jwhy">Rung 2. Where most door-delivery conversions happen.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Clock runs out</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, and how to stop it</span><span class="jwhy">Rung 3. Money is moving.</span></div>
   <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Day 7</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Goes back today, total charged</span><span class="jwhy">Rung 4. Then silence.</span></div>
   <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Requests more time</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Approved — new deadline</span><span class="jwhy">A decision they are waiting on.</span></div>
   <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">…declined</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Declined, with door delivery offered instead</span><span class="jwhy">A no that ends with a yes.</span></div>
@@ -173,13 +173,13 @@ We text again the moment it lands at <span class="tok">{{station}}</span>.</div>
 <article class="tp" id="C4a">
   <div class="tp-head">
     <span class="tp-id">C4a</span>
-    <span class="tp-title"><h3>Still waiting · rung 1 (24h)</h3><p>Neutral. State the facts and the opening hours.</p></span>
+    <span class="tp-title"><h3>Still waiting · rung 1</h3><p>Neutral. State the facts and the opening hours.</p></span>
     <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>Parcel uncollected 24h after arrival</span></div>
-      <div><b>Timing</b><span>24h</span></div>
+      <div><b>Trigger</b><span>Half the free storage clock has run</span></div>
+      <div><b>Timing</b><span>12 countable hours left</span></div>
       <div><b>Source</b><span>Map · Receiver 3</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_reminder_24h</span><span class="chip">Hook · Action</span></div>
@@ -188,42 +188,42 @@ We text again the moment it lands at <span class="tok">{{station}}</span>.</div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">103 chars · 1 segment</span></div><div class="sms-bubble">Your parcel is still at <span class="tok">{{station}}</span>, open until <span class="tok">{{closing_time}}</span>.
 Code: <span class="tok">{{otp}}</span>
 Free storage until <span class="tok">{{deadline}}</span>.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 48 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 1 does not mention the rate. Nothing is being charged yet, so nothing about charging is said.</li><li>Retire the 6-hour reminder. It arrives while people are still at work and teaches them we message for no reason.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 48 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 1 does not mention the rate. Nothing is being charged yet, so nothing about charging is said.</li><li>Retire the 6-hour reminder. It arrives while people are still at work and teaches them we message for no reason.</li><li>Scheduled on the storage clock, not the wall clock, so it can never fire overnight or while the pod is shut.</li></ul></div></div>
     </div>
   </div>
 </article>
 <article class="tp" id="C4b">
   <div class="tp-head">
     <span class="tp-id">C4b</span>
-    <span class="tp-title"><h3>Still waiting · rung 2 (48h)</h3><p>Specific. Name the deadline and the rate that starts after it.</p></span>
+    <span class="tp-title"><h3>Still waiting · rung 2</h3><p>Specific. Name the deadline and the rate that starts after it.</p></span>
     <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>Parcel uncollected 48h after arrival</span></div>
-      <div><b>Timing</b><span>48h</span></div>
+      <div><b>Trigger</b><span>The free storage clock is nearly out</span></div>
+      <div><b>Timing</b><span>4 countable hours left</span></div>
       <div><b>Source</b><span>Map · Receiver 3</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_reminder_48h</span><span class="chip">Hook · Action</span></div>
     
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">156 chars · 1 segment</span></div><div class="sms-bubble">24 hours of free storage left on your parcel at <span class="tok">{{station}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">159 chars · 1 segment</span></div><div class="sms-bubble">Free storage on your parcel at <span class="tok">{{station}}</span> ends <span class="tok">{{deadline}}</span>.
 Code: <span class="tok">{{otp}}</span>
-From <span class="tok">{{deadline}}</span>: Ksh <span class="tok">{{rate}}</span>/hr. Can't come? Door delivery: <span class="tok">{{track_url}}</span></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 24 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 2 is where the escape hatch earns its place. Most door-delivery conversions happen here.</li></ul></div></div>
+After that: Ksh <span class="tok">{{rate}}</span>/hr. Can't come? We can bring it to you: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 24 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 2 is where the escape hatch earns its place. Most door-delivery conversions happen here.</li><li>A deadline, never a countdown. “4 hours left” sent at 17:00 is wrong by the next morning, because the clock stops at 19:00 and restarts at 08:00.</li></ul></div></div>
     </div>
   </div>
 </article>
 <article class="tp" id="C4c">
   <div class="tp-head">
     <span class="tp-id">C4c</span>
-    <span class="tp-title"><h3>Storage has started · rung 3 (72h)</h3><p>Consequence, stated once, with the way to stop it.</p></span>
+    <span class="tp-title"><h3>Storage has started · rung 3</h3><p>Consequence, stated once, with the way to stop it.</p></span>
     <span class="tp-meta"><span class="badge defect">Defect</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>The free storage window elapses</span></div>
-      <div><b>Timing</b><span>72h</span></div>
+      <div><b>Trigger</b><span>The free storage clock runs out</span></div>
+      <div><b>Timing</b><span>After 24 countable hours</span></div>
       <div><b>Source</b><span>Map · Receiver 3</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_storage_started_72h</span><span class="chip">Hook · Trigger</span></div>
@@ -296,10 +296,9 @@ It opens your parcel at <span class="tok">{{station}}</span>. We never ask for t
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_extension_approved</span><span class="chip">Hook · Reward</span></div>
     
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">103 chars · 1 segment</span></div><div class="sms-bubble">Approved — <span class="tok">{{hours}}</span> more hours free on your parcel at <span class="tok">{{station}}</span>.
-New deadline: <span class="tok">{{deadline}}</span>
-Code: <span class="tok">{{otp}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Extended to <span class="tok">{{deadline}}</span></b><p><span class="tok">{{hours}}</span> more hours of free storage at <span class="tok">{{station}}</span>. Code <span class="tok">{{otp}}</span>.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">59 chars · 1 segment</span></div><div class="old">Hold approved for parcel <span class="tok">{{code}}</span>: +<span class="tok">{{hours}}</span>h extra free storage.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>People do not want the decision, they want the new date. Lead with the deadline.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">95 chars · 1 segment</span></div><div class="sms-bubble">Approved — free storage on your parcel at <span class="tok">{{station}}</span> now runs to <span class="tok">{{deadline}}</span>.
+Code: <span class="tok">{{otp}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Extended to <span class="tok">{{deadline}}</span></b><p><span class="tok">{{hours}}</span> more countable hours of free storage at <span class="tok">{{station}}</span>. Code <span class="tok">{{otp}}</span>.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">59 chars · 1 segment</span></div><div class="old">Hold approved for parcel <span class="tok">{{code}}</span>: +<span class="tok">{{hours}}</span>h extra free storage.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>People do not want the decision, they want the new date. Lead with the deadline.</li><li>An extension is granted in countable hours and communicated as a timestamp. The two are not the same number and the customer only ever sees the timestamp.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -349,7 +348,7 @@ Next time <span class="tok">{{from}}</span> sends to you, we can bring it to <sp
 <footer>
   <div class="wrap">
     <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 13 October 2026 · team review applied</p>
-    <p>Internal working document. Build 7.</p>
+    <p>Internal working document. Build 9.</p>
   </div>
 </footer>
 <script>

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=7">
+<link rel="stylesheet" href="assets/comms.css?v=9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -110,21 +110,21 @@ It sets up this phone as yours and expires in 5 minutes. We never call or text t
 <article class="tp" id="S0b">
   <div class="tp-head">
     <span class="tp-id">S0b</span>
-    <span class="tp-title"><h3>Sign-in code</h3><p>A sign-in code is also a security alert. It should read like one.</p></span>
+    <span class="tp-title"><h3>Sign-in code</h3><p>A sign-in code is also a security alert. It should read like one — without claiming to know things we do not know.</p></span>
     <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>A sender signs in on a device</span></div>
+      <div><b>Trigger</b><span>A sender signs in</span></div>
       <div><b>Timing</b><span>Each sign-in · expires in 5 minutes</span></div>
       <div><b>Source</b><span>Brief · 13 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Detailed, and device-aware.</b> Naming the device turns a code into something that protects the account rather than just unlocking it.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Reassure in the same line as the warning — ignoring it is enough, they do not have to do anything.</div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>No device name.</b> An earlier draft read <i>“Someone is signing in on a Samsung A14”</i>. We have no device visibility, so that sentence is void. What is left still does the job: what the code is for, how long it lasts, what to do if it was not them, and the fraud line.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Reassure in the same line as the warning. Ignoring it is enough; they do not have to do anything.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">176 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, your Pinned sign-in code is <span class="tok">{{otp}}</span>.
-Someone is signing in on a <span class="tok">{{device}}</span>. If that is not you, ignore this message — your account stays locked. Expires in 5 minutes.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">19 chars · 1 segment</span></div><div class="old">Your OTP code is ….</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>If sender sign-in moves to a device PIN the way the runner app is doing, this message fires only on a new device. That is the better end state and the open question below.</li><li>Never include a link in a sign-in message. Every phishing SMS in this market has one.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">197 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, your Pinned sign-in code is <span class="tok">{{otp}}</span>.
+It expires in 5 minutes. If you did not ask to sign in, ignore this message — your account stays locked and we never call or text to ask for this code.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">19 chars · 1 segment</span></div><div class="old">Your OTP code is ….</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Write only what the system can actually see. A security message that names a device we cannot identify is worse than one that does not, because the first time it is wrong the customer stops believing all of them.</li><li>Naming the device and the town is the upgrade the moment device data exists. Until then this copy stands.</li><li>Never include a link in a sign-in message. Every phishing SMS in this market has one.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Sign-up</h3>
@@ -181,11 +181,11 @@ Someone is signing in on a <span class="tok">{{device}}</span>. If that is not y
       <div><b>Source</b><span>Map · Senders 2</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">awaiting_drop</span><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>SMS works.</b> Kept as it is.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Assume the kind reason — the day got away from them.</div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>SMS works.</b> Kept as it is.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Lead with the favour, not the chase. The message exists to save them a journey.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">175 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, Parcel <span class="tok">{{code}}</span> is still held for you at <span class="tok">{{pod}}</span> until <span class="tok">{{deadline}}</span>.
-If the day got away from you, a runner can come and collect instead: <span class="tok">{{track_url}}</span></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">70 chars · 1 segment</span></div><div class="old">Reminder: parcel <span class="tok">{{code}}</span> is waiting for drop-off at <span class="tok">{{pod}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Every reminder carries the escape hatch. A reminder with no alternative is nagging.</li><li>One reminder only. If the hold lapses, the booking message says so — it does not chase.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">172 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, save yourself the trip — a runner can collect Parcel <span class="tok">{{code}}</span> from you instead: <span class="tok">{{track_url}}</span>
+Otherwise it stays held at <span class="tok">{{pod}}</span> until <span class="tok">{{deadline}}</span>.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">70 chars · 1 segment</span></div><div class="old">Reminder: parcel <span class="tok">{{code}}</span> is waiting for drop-off at <span class="tok">{{pod}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>This is not a reminder, it is an offer — so the offer goes first and the reminder second. “You have not dropped your parcel” is a complaint; “save yourself the trip” is a service.</li><li>One message only. If the hold lapses, the booking card says so; we do not chase twice.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Hand-over</h3>
@@ -202,11 +202,11 @@ If the day got away from you, a runner can come and collect instead: <span class
       <div><b>Source</b><span>Live template</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">handover_code_ready</span><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Add in-app.</b> The code should be readable in the app as well as the SMS — senders at a counter with a flat battery are the whole reason this message exists twice.</div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Add in-app.</b> The code should be readable in the app as well as the SMS — senders at a counter with a flat battery are the whole reason this message exists twice.<br><br><b>No scan.</b> An earlier draft said to give the code “once they have scanned the parcel”. That is not the procedure: on the sender side the code <i>is</i> the hand-over. There is no scan action for a sender to wait for.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">142 chars · 1 segment</span></div><div class="sms-bubble">Your handover code for Parcel <span class="tok">{{code}}</span> is <span class="tok">{{otp}}</span>.
-Show it to <span class="tok">{{runner}}</span> once they have scanned the parcel. We never ask for this code by phone.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Handover code for Parcel <span class="tok">{{code}}</span></b><p><span class="tok">{{otp}}</span><br>Show it to the runner after the scan, never before.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">100 chars · 1 segment</span></div><div class="old">Your handover code is <span class="tok">{{otp}}</span>. Please present this code to the runner when dropping off your parcel.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The security line names the actual attack — 'by phone' — not 'do not share'.</li><li>Nothing else ships in a code message. No tracking link, no marketing, no thanks.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">136 chars · 1 segment</span></div><div class="sms-bubble">Your handover code for Parcel <span class="tok">{{code}}</span> is <span class="tok">{{otp}}</span>.
+Give it to <span class="tok">{{runner}}</span> as you hand the parcel over. We never ask for this code by phone.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Handover code for Parcel <span class="tok">{{code}}</span></b><p><span class="tok">{{otp}}</span><br>Give it to the runner as you hand the parcel over.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">100 chars · 1 segment</span></div><div class="old">Your handover code is <span class="tok">{{otp}}</span>. Please present this code to the runner when dropping off your parcel.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The code is the hand-over. Nothing precedes it and nothing has to be witnessed first, so the copy must not invent a step the sender will stand there waiting for.</li><li>The security line names the actual attack — “by phone” — not “do not share”.</li><li>Nothing else ships in a code message. No tracking link, no marketing, no thanks.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">In transit</h3>
@@ -218,8 +218,8 @@ Show it to <span class="tok">{{runner}}</span> once they have scanned the parcel
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>Parcel handed to the runner and scanned</span></div>
-      <div><b>Timing</b><span>At scan</span></div>
+      <div><b>Trigger</b><span>The handover code is accepted and the parcel changes hands</span></div>
+      <div><b>Timing</b><span>At hand-over</span></div>
       <div><b>Source</b><span>Live templates</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">parcel_dropped + parcel_handed_to_runner</span><span class="chip">Hook · Reward</span></div>
@@ -261,8 +261,8 @@ Photo, signature and the full timeline are saved to this parcel. Thank you for u
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>Free storage window elapses (72h)</span></div>
-      <div><b>Timing</b><span>72h after arrival</span></div>
+      <div><b>Trigger</b><span>The free storage clock runs out</span></div>
+      <div><b>Timing</b><span>When 24 countable hours have elapsed</span></div>
       <div><b>Source</b><span>Map · Senders 4</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_sender_storage_started_72h</span><span class="chip">Hook · Trigger</span></div>
@@ -341,7 +341,7 @@ It is safe at <span class="tok">{{station}}</span>. Choose redeliver or return b
 <footer>
   <div class="wrap">
     <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 13 October 2026 · team review applied</p>
-    <p>Internal working document. Build 7.</p>
+    <p>Internal working document. Build 9.</p>
   </div>
 </footer>
 <script>

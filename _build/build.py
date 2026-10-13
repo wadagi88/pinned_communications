@@ -580,7 +580,7 @@ def build_channels():
     <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">Your parcel is still at Shell Kileleshwa, open until 21:00.</span></div>
   <div class="card accent-lock"><span class="lbl">Rung 2 · specific</span>
     <p class="tight">Name the deadline, the rate that follows it, and the alternative.</p>
-    <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">24 hours of free storage left. From Friday: Ksh 50/hr.</span></div>
+    <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">Free storage ends Fri 18:00. After that: Ksh 50/hr.</span></div>
   <div class="card accent-org"><span class="lbl">Rung 3 · consequence</span>
     <p class="tight">The charge has started. Say how to stop it in the same line.</p>
     <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">Ksh 50/hr, Ksh 1,250 so far. It stops the moment you collect.</span></div>
@@ -589,9 +589,19 @@ def build_channels():
     <span class="ex" style="display:block;font-family:var(--mono);font-size:.84rem;background:var(--sunk);padding:9px 11px;border-radius:3px;margin-top:10px">Last day: it goes back to the sender today.</span></div>
 </div>""")
 
+    sc = D.STORAGE_CLOCK
+    sc_rules = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
+                       % (e(a), b) for a, b in sc["rules"])
+    body += section("04", "The storage clock",
+                    "The one fact that most copy on this site depends on, and the easiest to get wrong.",
+                    '<div class="card accent-org"><h3>%s</h3><p>%s</p></div>'
+                    '<div class="grid g2" style="margin-top:16px">%s</div>'
+                    % (e(sc["headline"]), sc["body"], sc_rules),
+                    anchor="storage")
+
     toks = "".join('<tr><td class="id">{{%s}}</td><td>%s</td></tr>' % (e(k), e(v))
                    for k, v in sorted(D.SAMPLES.items()))
-    body += section("04", "Tokens",
+    body += section("05", "Tokens",
                     "The value in the right column is what the character counts on this site are measured "
                     "with — the longest realistic value, not a short one.",
                     '<div class="scroller"><table><thead><tr><th>Token</th><th>Measured as</th></tr>'
