@@ -12,8 +12,8 @@ Status values
   defect  — it fires, and what it does is wrong
 """
 
-BUILD = 4
-UPDATED = "9 October 2026"
+BUILD = 7
+UPDATED = "13 October 2026 · team review applied"
 
 SITE = dict(
     name="Pinned Communications",
@@ -864,19 +864,28 @@ BUILD_ORDER = [
                 ("R7", "Add a collapse key to <code>FcmSender</code> and key offers on <code>batch_offer:{batch_id}</code>."),
                 ("R7", "Restore the proximity and vehicle-class filters in <code>BatchOffer::Build</code>; stop pushing offers to runners who are offline."),
                 ("S2d", "Retire one of <code>parcel_dropped</code> / <code>parcel_handed_to_runner</code>."),
-                ("—", "Normalise currency to Ksh across all 33 live templates.")]),
+                ("—", "Normalise currency to Ksh across all 33 live templates."),
+                ("R8b", "Retire the per-sign-in code SMS in favour of a device PIN — the single biggest "
+                        "SMS saving on the estate, and the review has already approved it.")]),
     dict(w="Week 2", t="Rewrite what already fires",
          items=[("—", "Replace the body of every live template with the copy in the library. No schema change, no new triggers — it is a content migration against <code>NotificationTemplate</code> keys."),
                 ("R7", "Put payout, stop count and distance in the offer title."),
                 ("C4a", "Retire the 6-hour dwell reminder; the ladder becomes four rungs."),
-                ("H4", "Move the settlement amount into the email subject line.")]),
+                ("H4", "Move the settlement amount into the email subject line."),
+                ("—", "Apply the review's channel decisions: 9 touchpoints change channel, 1 is retired. "
+                      "Most are a channel flag, not new copy."),
+                ("S0 S0b", "Replace “Your OTP code is …” with the detailed sign-up and sign-in messages.")]),
     dict(w="Week 3", t="Close the map's gaps",
          items=[("R2", "First-run primer — SMS, email and in-app, once ever. The highest-value missing message in the business."),
                 ("R3", "Delivery-completed earnings reveal in-app."),
                 ("R5 R6", "In-run prompts: running late, loaded at the pod."),
                 ("A1a A1b A2 A3 A4", "The five admin interventions. None of them exist today."),
                 ("C3", "Receiver delay message."),
-                ("H7", "Host-side dwell request — the question behind two answers that already ship.")]),
+                ("H7", "Host-side dwell request — the question behind two answers that already ship."),
+                ("R9 R10 R11", "Suspension, reinstatement and account deletion. None of them exist, and "
+                               "the first one is the most frightening message Pinned can send."),
+                ("H5b", "Pod back online. An alert with no all-clear trains hosts to ignore alerts."),
+                ("C1 C1b", "Split the receiver's first contact: a parcel created is not a parcel moving.")]),
     dict(w="Week 4", t="Make it compound",
          items=[("C7", "Collected → save your address."),
                 ("P3 P4 P5", "The three prospect sequences, each capped at one message."),
@@ -891,4 +900,628 @@ CODE_NOTES = [
     ("<code>Routing::BatchOffer::Build</code>", "Builds the offer push. Radius and vehicle-class filters are commented out; the body is assembled inline rather than from a template."),
     ("<code>MessageTemplate</code>", "Campaign copy, with a validator that already refuses promotional bodies without an opt-out. The prospect sequences belong here."),
     ("<code>MessageSender</code>", "Sender identity: PINNED for SMS and WhatsApp, notifications@pinned.app for email."),
+]
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# ROUND 2 — the team review, 13 October 2026
+#
+# Three documents and one annotated screenshot came back from the team:
+#   Senders Communication Touchpoints.docx  — copy + keep/remove per channel
+#   PINNED RUNNERS COMMS.docx               — rewritten copy, warmer
+#   PINNED HOST TOUCHPOINTS REVIEW.docx     — channel decisions + policy flags
+#   Runner comms screenshot                 — keep / move / missing messages
+#
+# Their decisions are applied below rather than edited into the round-1 block,
+# so the provenance of every change stays readable. REVIEW merges onto the
+# touchpoint of the same id; NEW_TOUCHPOINTS adds what the review asked for.
+# ═════════════════════════════════════════════════════════════════════════════
+
+SAMPLES["device"] = "Samsung A14"
+SAMPLES["reason_short"] = "your ID photo was unreadable"
+
+REVIEW_SOURCES = [
+    ("Senders Communication Touchpoints.docx", "Copy rewrites and a keep/remove recommendation on every sender touchpoint."),
+    ("PINNED RUNNERS COMMS.docx", "Six runner messages rewritten warmer, in the team's own voice."),
+    ("PINNED HOST TOUCHPOINTS REVIEW .docx", "Channel decisions plus three policy questions that have to be answered before the copy can ship."),
+    ("Runner comms screenshot, 9 Oct", "Keep / move markings per channel, and four messages that do not exist yet."),
+]
+
+# ── the warmth layer ─────────────────────────────────────────────────────────
+
+WARMTH_INTRO = (
+    "Round one was correct and cold. It answered <i>what happened, what do I do</i> and never "
+    "<i>why should I care</i>. Warmth is not decoration and it is not exclamation marks — it is "
+    "the four or five places in a journey where a person has something at stake, and we show that "
+    "we know it. Everywhere else, warmth is noise.")
+
+WARMTH_MOVES = [
+    dict(n="01", t="Use their name where there is a person, not a parcel",
+         p="At the start, at a milestone, at a failure and anywhere money moves. Not on routine status.",
+         yes="Wanjiru, your refund of Ksh 1,250 for Parcel PN-4K7Q2 has been processed.",
+         no="Hi Wanjiru! Parcel PN-4K7Q2 is now in transit, Wanjiru."),
+    dict(n="02", t="Name the stake, not the record",
+         p="“Your first job”, “someone has sent you something”, “your account is open”. The sentence that tells them why this message is about them and not about our database.",
+         yes="Congratulations Brian on your first job.",
+         no="Batch B-2291 status: accepted."),
+    dict(n="03", t="Acknowledge the wait or the effort — once",
+         p="A single line of recognition where someone has given us time, documents or patience. One line. Never two, never in every message.",
+         yes="Thank you Brian for submitting your documents. We appreciate your patience.",
+         no="We appreciate your patience. Thank you for bearing with us. Sorry for the wait."),
+    dict(n="04", t="Celebrate the real milestone, ignore the fake one",
+         p="Approval, first run, first delivery, the week they beat their own record. Not “your parcel has moved to the next stage”.",
+         yes="Delivery complete · Ksh 640 earned. Keep going — your next job is waiting.",
+         no="Congratulations! Your parcel has successfully entered the sorting process!"),
+    dict(n="05", t="Assume the kind reason",
+         p="People miss a drop-off because the day ran away with them, go offline because the battery died, and fail to collect because they are at work. Write as if that is true, because it usually is.",
+         yes="If the day got away from you, a runner can come to you instead.",
+         no="You have failed to drop off your parcel as required."),
+    dict(n="06", t="Leave the door open on a no",
+         p="Every rejection, denial, suspension or failure names the way back in the same message — and says it in a sentence a person would actually say out loud.",
+         yes="If you think this is wrong, you can appeal here.",
+         no="This decision is final. Contact support for further information."),
+]
+
+WARMTH_BUDGET = [
+    ("Senders", "Sign-up, handover code, delivered, refund, return. Five warm moments in a journey of a dozen messages."),
+    ("Receivers", "The first message — someone has sent you something — and the collected message. The ladder in between stays plain; warmth inside a charging notice reads as sarcasm."),
+    ("Runners", "Welcome, documents received, approved or not approved, first job, every job completion, suspension and its reversal. The runner lane carries the most warmth because it carries the most at stake."),
+    ("Hosts", "Activation and the weekly settlement. A host is a business, and a business wants the number and the facts — but the first week and the money are still human moments."),
+]
+
+
+# ── what the team changed ────────────────────────────────────────────────────
+# status "change" = the message stays, the channel mix does not
+# status "retire" = the message goes away entirely
+
+REVIEW = {
+
+    # ── SENDERS ──
+    "S1": dict(
+        channels=["in_app"], status="change",
+        review="<b>In-app only.</b> The welcome SMS is dropped — nothing in it is time-critical, "
+               "and the sign-up code SMS has already landed on the same phone a minute earlier.",
+        warmth="Their name, and a pod they can picture. That is the whole warmth budget for a welcome.",
+        msgs=[("in_app", ("Welcome to Pinned, {{name}}",
+                          "Your nearest pod is {{pod}}, {{km}} km away. Booking takes about a minute, and you pay after the price is shown."))]),
+
+    "S2": dict(
+        channels=["in_app", "sms"], status="change",
+        review="<b>In-app only — with one exception.</b> The SMS fires only when no drop-off slot was "
+               "booked, because then the code is the only thing the sender is holding.",
+        rules=["A booking message states an expiry. A reservation without a deadline is a wish.",
+               "The in-app card carries no code because the app already holds it. The SMS exception does, "
+               "on its own line, in DM Mono — the brand reserves mono for codes."],
+        msgs=[("in_app", ("Booked — drop by {{deadline}}",
+                          "{{pod}} · open until {{closing_time}}. Directions, or switch to runner collection, in one tap.")),
+              ("sms", "Booked. Parcel {{code}} is reserved at {{pod}} until {{deadline}}. Enter this code at the pod — no queue, no paperwork.\n[only when no slot was booked]")]),
+
+    "S2b": dict(
+        channels=["sms"], status="live",
+        review="<b>SMS works.</b> Kept as it is.",
+        warmth="Assume the kind reason — the day got away from them.",
+        msgs=[("sms", "{{name}}, Parcel {{code}} is still held for you at {{pod}} until {{deadline}}.\nIf the day got away from you, a runner can come and collect instead: {{track_url}}")]),
+
+    "S2c": dict(
+        channels=["sms", "in_app"], status="change",
+        review="<b>Add in-app.</b> The code should be readable in the app as well as the SMS — senders "
+               "at a counter with a flat battery are the whole reason this message exists twice.",
+        msgs=[("sms", "Your handover code for Parcel {{code}} is {{otp}}.\nShow it to {{runner}} once they have scanned the parcel. We never ask for this code by phone."),
+              ("in_app", ("Handover code for Parcel {{code}}", "{{otp}}\nShow it to the runner after the scan, never before."))]),
+
+    "S2d": dict(
+        channels=["in_app"], status="change",
+        review="<b>In-app only.</b> This also settles the round-one defect: with the SMS dropped, "
+               "<code>parcel_dropped</code> and <code>parcel_handed_to_runner</code> stop competing — "
+               "one in-app card replaces both.",
+        msgs=[("in_app", ("Picked up by {{runner}}", "Parcel {{code}} arriving {{dest}} about {{eta}}. Live map in the app."))]),
+
+    "S3": dict(
+        channels=["sms", "in_app"], status="live",
+        review="<b>Looks good.</b> Two segments, and the team kept the thank-you — this is the one "
+               "message in the sender journey that has earned it.",
+        warmth="Celebrate the real milestone. The parcel arrived, a named person took it, and we can prove it.",
+        rules=["Round one said gratitude belongs where it costs nothing. The team overruled that here and "
+               "they are right: this is the one sender message that has earned a thank-you, because it is "
+               "the one that reports a success.",
+               "Proof is the product. Every delivered message links to it.",
+               "Two segments. A delivery confirmation that drops the name, the place or the time to save "
+               "a segment is a worse message and a cheaper one."],
+        msgs=[("sms", "Delivered. {{name}} collected Parcel {{code}} at {{dest}}, {{time}}.\nPhoto, signature and the full timeline are saved to this parcel. Thank you for using Pinned."),
+              ("in_app", ("Delivered · {{time}}", "{{name}} collected Parcel {{code}} at {{dest}}. Photo, signature and the full timeline are saved to this parcel."))]),
+
+    "S4a": dict(
+        channels=["sms", "in_app"], status="live",
+        review="<b>Looks good.</b>",
+        msgs=[("sms", "Parcel {{code}} is still at {{station}}. {{name}} has been reminded.\nStorage is now Ksh {{rate}}/hr, charged to you. If it is not collected by {{deadline}} it will be returned to you."),
+              ("in_app", ("Storage running on Parcel {{code}}",
+                          "Ksh {{rate}}/hr from today, Ksh {{amount}} so far. Returns to you after {{deadline}}.\n[ Message the receiver ]  [ Return it now ]"))]),
+
+    "S4b": dict(
+        channels=["sms", "in_app"], status="change",
+        review="<b>Add in-app.</b> A return is a thing the sender has to plan around, so it belongs in "
+               "the parcel record, not only in a text they will scroll past.",
+        warmth="No scolding of the receiver, and no 'final notice'. State the fact, carry the cost once.",
+        msgs=[("sms", "Parcel {{code}} comes back to you today — {{name}} did not collect it.\nA runner brings it from {{dest}} to {{origin}}. Storage charged: Ksh {{amount}}."),
+              ("in_app", ("Returning to you today", "Parcel {{code}} from {{dest}}. A runner brings it to {{origin}}. Storage charged: Ksh {{amount}}."))]),
+
+    "S5": dict(
+        channels=["sms"], status="live",
+        review="<b>Looks good.</b> The team's wording is used as written — it is warmer than round one and "
+               "answers the only question a refund raises.",
+        warmth="Thank them for the patience the refund cost them.",
+        msgs=[("sms", "{{name}}, your refund of Ksh {{amount}} for Parcel {{code}} has been processed.\nIt will reflect on your M-Pesa within 3 working days. Thank you for your patience.")]),
+
+    "S6": dict(
+        channels=["sms", "in_app"], status="live",
+        review="<b>Looks good.</b>",
+        msgs=[("sms", "Parcel {{code}} did not reach {{dest}}: {{reason}}.\nIt is safe at {{station}}. Choose redeliver or return by {{deadline}}: {{track_url}}"),
+              ("in_app", ("Parcel {{code}} held at {{station}}",
+                          "{{reason}}. Redeliver tomorrow at no extra cost, or have it returned. Choose by {{deadline}}."))]),
+
+    # ── RUNNERS ──
+    "R0": dict(
+        channels=["sms"], status="live",
+        review="<b>Keep.</b> The team's own wording, used as written.",
+        warmth="Name the stake — six minutes between here and earning.",
+        msgs=[("sms", "Hello {{name}}, welcome to Pinned Runners.\nIn just 6 minutes you will be able to access jobs on your app. Follow these simple steps to complete verification: {{link}}")]),
+
+    "R1a": dict(
+        channels=["in_app"], status="change",
+        review="<b>Move to in-app.</b> The screenshot marks the document-upload SMS <i>move to in app</i> "
+               "and the application-under-review card <i>keep</i>. So the warm copy the team wrote for the "
+               "SMS carries over to the card, and the SMS is dropped.",
+        warmth="Thank them for the documents, and own the wait rather than explaining it away.",
+        rules=["{{hours}} is filled from a real review clock, not written into the sentence. “Within 24 "
+               "hours” is a promise nobody can measure us against; a number the system computes is one "
+               "we can be held to.",
+               "“We appreciate your patience” does the job “nothing to do until then” did in round one — "
+               "it tells them to stop refreshing. Keep one of the two, never both.",
+               "The support email in the live SMS goes nowhere: runners call or use in-app help. It is "
+               "dropped with the SMS."],
+        msgs=[("in_app", ("We're reviewing your documents",
+                          "Thank you {{name}} for submitting your documents. We are reviewing them and you will hear from us within {{hours}} hours. We appreciate your patience."))]),
+
+    "R1b": dict(
+        channels=["sms", "in_app"], status="change",
+        review="<b>SMS, kept.</b> Email is dropped here — the screenshot lists this one as SMS only. "
+               "Pay day, the support number and what was verified move to the first-run email (R2), which "
+               "is where a runner actually needs them.",
+        warmth="Congratulations, by name. This is the moment they became a Pinned runner.",
+        rules=["Pay day, the support number and what was verified are the things a runner needs twice. "
+               "Round one put them in an approval email; the review drops that email, so they move to the "
+               "first-run email at R2 — the point where a runner actually goes looking for them.",
+               "An exclamation mark is allowed here and almost nowhere else. Somebody just got a job."],
+        msgs=[("sms", "Congratulations {{name}}! Your application has been approved.\nClick the link below or download the app to access available jobs. Welcome to Pinned.\n{{link}}"),
+              ("in_app", ("Approved — you can go online", "Tap Go online and offers near {{origin}} will start arriving."))]),
+
+    "R1c": dict(
+        channels=["sms", "in_app"], status="change",
+        review="<b>SMS, kept.</b> Email dropped — the screenshot lists SMS only, and a rejection that needs "
+               "an email to be understood has been written badly.",
+        warmth="Leave the door open: one fixable thing, and a day to a second answer.",
+        msgs=[("sms", "Unfortunately {{name}}, we couldn't approve your account yet.\nKindly {{reason}}. Resubmit your application to be reviewed within a day."),
+              ("in_app", ("One thing to fix", "{{reason}}. Replace your {{docs}} and submit again — we review within a day.\n[ Replace document ]"))]),
+
+    "R2": dict(
+        channels=["sms", "email", "in_app"], status="gap",
+        review="<b>Still to build.</b> The team wrote the SMS; note they replaced “scan every parcel” with "
+               "“leave your app open during delivery”. Both matter — the open app is what gives live "
+               "tracking, the scan is what transfers custody — so the SMS carries the team's three, and "
+               "the scan rule stays in the email where it can be explained.",
+        warmth="Congratulate the first job. It is the only first job they will ever have.",
+        msgs=[("sms", "Congratulations {{name}} on your first job.\nThree things that matter: arrive by {{eta}}, leave your app open during delivery, and never hand over without the code.\nFull guide: {{link}}"),
+              ("email", ("Your first Pinned run — what happens at each stop",
+                         "Congratulations on your first job.\n\n1. Collect. Scan each parcel at the pod or counter. The app will not let you leave with an unscanned parcel, and that is what protects you if anything is questioned later.\n\n2. Keep the app open. That is what gives the sender and the receiver live tracking, and what proves where you were.\n\n3. Custody. From the scan until hand-over the parcel is yours. If anything looks wrong — open box, wet, wrong label — photograph it in the app before you move.\n\n4. Hand over. The receiver reads you their code. You enter it. Never accept a code sent to you by anyone else, and never read the code out first.\n\n5. Get paid. Earnings land every {{deadline}} on the M-Pesa number on your account.\n\nIf a receiver is not there: wait 5 minutes, call from the app, then mark 'not available'. Do not leave a parcel with a neighbour.\n\nHelp, any time: 0700 000 000.")),
+              ("in_app", ("Three rules for every run", "Arrive on time · keep the app open · no hand-over without the code.\n[ 90-second guide ]"))]),
+
+    "R3": dict(
+        channels=["in_app"], status="gap",
+        review="<b>Still to build.</b> The screenshot calls it a job-completion pop-up and gives the "
+               "closing line. It is merged with the earnings reveal — the money and the encouragement "
+               "belong in the same card, not two.",
+        warmth="Celebrate, then point at the next one. This is the single most repeated warm moment in the business.",
+        msgs=[("in_app", ("Delivery complete · Ksh {{payout}} earned",
+                          "Parcel {{code}} handed to {{name}} at {{dest}}.\nToday: {{stops}} stops · Ksh {{amount}}\nKeep going — accept your next job to earn more."))]),
+
+    "R5": dict(
+        channels=["in_app"], status="gap",
+        review="<b>Still to build.</b> The team's wording, with the live-updates line they added.",
+        warmth="No reprimand. Hand them the button that fixes it for the receiver.",
+        msgs=[("in_app", ("Running late to {{dest}}",
+                          "You are running late for your delivery to {{dest}}. Send the receiver a new ETA, and leave the app open for live updates.\n[ Send ETA ]  [ I need help ]"))]),
+
+    "R7": dict(
+        review="<b>Team wording:</b> <i>“New pinned delivery available near you, Pick up {{origin}} batch "
+               "distance {{km}} km, view in app.”</i> “Near you” is kept — it is the reason to look. The "
+               "money still has to lead, because the title is the only line read on a locked phone, and "
+               "because four identical titles are what caused the damage in the first place.",
+        msgs=[("push", ("Ksh {{payout}} · {{stops}} parcels · {{km}} km",
+                        "New delivery near you from {{origin}}. Tap to view and accept — closes {{eta}}."))]),
+
+    # ── HOSTS ──
+    "H1a": dict(
+        channels=["sms", "email", "in_app"], status="partial",
+        review="<b>Keep all three — but stop them repeating each other.</b> SMS activates, email teaches "
+               "the operation (booking, same-day cut-off, collection, handover codes, failed deliveries, "
+               "weekly settlement), in-app asks for exactly three things: cut-off time, counter contact, "
+               "settlement number."),
+
+    "H1b": dict(
+        channels=["sms", "email", "in_app"], status="partial",
+        review="<b>Keep it separate from H1a.</b> A pod host receives, stores and releases; a business "
+               "sender sends. The email covers verifying a runner, scanning every parcel, releasing the "
+               "handover code only after the scan, and verifying a customer's collection code. The in-app "
+               "card asks for opening hours and counter contact."),
+
+    "H2": dict(
+        channels=["in_app", "email"], status="partial",
+        review="<b>In-app, plus the explanatory email the first time only.</b> Fire once per assignment, "
+               "and never repeat it without a meaningful change — an updated ETA goes out only when the "
+               "estimate moves materially.",
+        msgs=[("in_app", ("{{runner}} is collecting {{stops}} parcels · ETA {{eta}}",
+                          "Have them at the counter. Release the handover code only after the scan.")),
+              ("email", ("How hand-over works at {{address}}",
+                         "A runner is on the way for the first time, so here is the sequence.\n\n1. They arrive and identify themselves in the app — you see the same name in your portal.\n2. They scan each parcel. The scan is what transfers responsibility from you to Pinned.\n3. You release the handover code. After the scan, never before.\n\nThat is the whole process. You will not get this email again — from now on it is a line in the portal."))]),
+
+    "H3": dict(
+        channels=["sms", "in_app"], status="partial",
+        review="<b>Keep both, fire immediately.</b> The portal carries Redeliver and Return as actions and "
+               "states what happens if the host does nothing. The vague “our team will call you shortly” "
+               "is removed.",
+        notes_add=[("warn", "<b>Policy to confirm.</b> Automatic redelivery as the no-response default is "
+                            "only correct if that is the approved operational policy. If it is not, the "
+                            "in-app copy below has to change before it ships.")]),
+
+    "H4": dict(
+        channels=["email", "in_app"], status="partial",
+        review="<b>Keep both.</b> Amount in the subject line, and the email states the amount, the parcel "
+               "count, the period, when the money arrives and where the statement is. Statement stays "
+               "available as an attachment and in the portal under Settlements.",
+        notes_add=[("warn", "<b>Policy to confirm.</b> “Within one working day” must match what finance "
+                            "actually does. If it does not, change the sentence rather than the finance "
+                            "process — a settlement promise we miss costs more than a vaguer one.")]),
+
+    "H5": dict(
+        channels=["sms"], status="partial",
+        review="<b>Keep the SMS, after the approved grace period.</b> Support number stays in the message "
+               "so the host never has to open a portal while standing next to a dead pod. Prolonged "
+               "outages escalate to operations."),
+
+    "H6": dict(
+        channels=["email"], status="partial",
+        review="<b>Keep email — but activate the template and finish it first.</b> It has to explain the "
+               "offer, the benefit to the host, the space needed, who installs and maintains, the "
+               "commercial terms, and how to proceed. Sell the opportunity before asking for the click.",
+        notes_add=[("warn", "<b>Policy to confirm.</b> The 2 m², installation, maintenance and insurance "
+                            "commitments, and the fee structure, must be confirmed as real before this "
+                            "goes out. State the approved fee rather than implying unspecified earnings.")]),
+
+    "H7": dict(
+        channels=["in_app"], status="gap",
+        review="<b>Build it.</b> Show who is asking, how long for, the pod and when free storage ends, with "
+               "Approve and Decline. The receiver already gets an answer; the host currently gets no question.",
+        msgs=[("in_app", ("{{name}} wants {{hours}}h more on a parcel",
+                          "At {{station}}, free storage ends {{deadline}}.\n[ Approve ]  [ Decline ]"))],
+        notes_add=[("warn", "<b>Policy to confirm.</b> What happens if the host does not answer before the "
+                            "deadline? Auto-approve, auto-decline or escalate — the copy cannot be finished "
+                            "until that is decided.")]),
+}
+
+
+# The receiver lane was not in the review pack, so these two changes come from
+# the brief directly: a parcel that has merely been created is a different
+# message from a parcel that is actually on its way.
+REVIEW["C1"] = dict(
+    name="A parcel has been created for you",
+    stage="First contact",
+    trigger="A sender or a virtual host creates a parcel addressed to this person",
+    timing="At creation", channels=["sms"], status="change",
+    intent="A heads-up, not an instruction. Nothing is moving yet and there is nothing to do.",
+    review="<b>Split in two.</b> A notification that a parcel exists and a parcel that is actually on "
+           "its way are different messages with different jobs. This one tells them something is coming "
+           "and asks for nothing; C1b tells them it is moving and gives them a time.",
+    warmth="Name the stake: someone thought of them. It is the only message in the lane that gets to be nice.",
+    msgs=[("sms", "Good news {{name}} — {{from}} is sending you a parcel through Pinned.\nIt is being prepared at {{origin}}. Nothing to do yet; we will text you the moment it is on its way.")])
+
+NEW_TOUCHPOINTS = [
+
+    # ── sender and runner access ──
+    T(id="S0", lane="sender", stage="Access", name="Sign-up code",
+      trigger="A new sender requests a verification code", timing="On request · expires in 5 minutes",
+      channels=["sms"], status="gap", source="Brief · 13 Oct", hook="Action",
+      intent="The first message Pinned ever sends a sender. It has to do the job and teach the safety rule at the same time.",
+      old="Your OTP code is ….",
+      warmth="Welcome them in the same breath as the code — it costs six words.",
+      review="<b>Make it detailed.</b> “Your OTP is…” tells a person nothing about what the code does, "
+             "how long they have, or what a fraudster will try. All three fit.",
+      msgs=[("sms", "Welcome to Pinned. Your sign-up code is {{otp}}.\nIt sets up this phone as yours and expires in 5 minutes. We never call or text to ask for this code.")],
+      rules=["Never write “OTP” to a customer. It is a sign-up code or a sign-in code.",
+             "The expiry and the fraud line are not optional extras — they are the two questions every code message raises.",
+             "Nothing else ships with a code. No welcome offer, no tracking link, no app download."]),
+
+    T(id="S0b", lane="sender", stage="Access", name="Sign-in code",
+      trigger="A sender signs in on a device", timing="Each sign-in · expires in 5 minutes",
+      channels=["sms"], status="gap", source="Brief · 13 Oct", hook="Trigger",
+      intent="A sign-in code is also a security alert. It should read like one.",
+      old="Your OTP code is ….",
+      warmth="Reassure in the same line as the warning — ignoring it is enough, they do not have to do anything.",
+      review="<b>Detailed, and device-aware.</b> Naming the device turns a code into something that "
+             "protects the account rather than just unlocking it.",
+      msgs=[("sms", "{{name}}, your Pinned sign-in code is {{otp}}.\nSomeone is signing in on a {{device}}. If that is not you, ignore this message — your account stays locked. Expires in 5 minutes.")],
+      rules=["If sender sign-in moves to a device PIN the way the runner app is doing, this message fires "
+             "only on a new device. That is the better end state and the open question below.",
+             "Never include a link in a sign-in message. Every phishing SMS in this market has one."]),
+
+    T(id="R8a", lane="runner", stage="Access", name="Sign-up code",
+      trigger="A runner requests a verification code at sign-up", timing="Once, at sign-up",
+      channels=["sms"], status="partial", source="Review screenshot", hook="Action",
+      intent="One code, once. After this the device is trusted and the PIN takes over.",
+      warmth="Welcome, then the code. The runner lane earns warmth at every door.",
+      msgs=[("sms", "Welcome to Pinned Runners. Your sign-up code is {{otp}}.\nIt sets up this phone as yours and expires in 5 minutes. We never call or text to ask for this code.")],
+      rules=["This is the only code SMS a runner should ever receive on a device they keep."]),
+
+    T(id="R8b", lane="runner", stage="Access", name="Sign-in code on every sign-in",
+      trigger="A runner signs in", timing="Every sign-in, today",
+      channels=["sms"], status="retire", source="Review screenshot", hook="Action",
+      intent="A runner signs in several times a day. An SMS each time is a cost, a delay and a habit that teaches them codes are routine.",
+      old="OTP to log in to the account",
+      review="<b>Retire.</b> The screenshot is explicit: move to a PIN at sign-in after the first code at "
+             "sign-up. Riders sign in on the roadside with one bar of signal — a four-digit PIN on a "
+             "trusted device is faster, cheaper and safer than an SMS that may take a minute to arrive.",
+      msgs=[],
+      notes=[("team", "<b>Replaced by nothing.</b> After the sign-up code, sign-in is a 4-digit PIN on the "
+                      "trusted device. A code SMS fires again only on a new device, a PIN reset, or 30 days "
+                      "of inactivity.")],
+      rules=["Dropping this removes the single highest-volume SMS in the runner lane.",
+             "A new device, a PIN reset or 30 days of inactivity still earns one code SMS. Nothing else does."]),
+
+    # ── runner account state, from the review screenshot ──
+    T(id="R9", lane="runner", stage="Account state", name="Account suspended",
+      trigger="Admin suspends a runner account", timing="Immediately", channels=["sms", "in_app"],
+      status="gap", source="Review screenshot · missing", hook="Action",
+      intent="The most frightening message Pinned sends. It has to carry the reason and the way back, in that order.",
+      warmth="Leave the door open, in a sentence a person would say out loud.",
+      review="<b>Missing — build it.</b> The team's wording, with the appeal link made explicit.",
+      msgs=[("sms", "Hi {{name}}, your Pinned account has been suspended: {{reason}}.\nIf you feel this was wrong, you can appeal here: {{link}}"),
+            ("in_app", ("Account suspended", "{{reason}}. Offers are paused while this is open.\n[ Appeal this ]  [ Call support ]"))],
+      rules=["Never suspend silently. A runner who finds out by seeing no offers assumes the app is broken, and tells other runners it is broken.",
+             "The reason is specific and in plain words — never a policy code.",
+             "The appeal route is in the first message, not in a follow-up."]),
+
+    T(id="R10", lane="runner", stage="Account state", name="Suspension lifted",
+      trigger="Admin reverses a suspension", timing="Immediately", channels=["sms", "in_app"],
+      status="gap", source="Review screenshot · missing", hook="Reward",
+      intent="Get them earning again in one sentence, and say the record is clear.",
+      warmth="Good news, said as good news. This person has been out of work.",
+      msgs=[("sms", "Good news {{name}} — your account has been reviewed and the suspension lifted.\nYou can go online and start accepting jobs again."),
+            ("in_app", ("You're back online", "The suspension has been lifted and your rating is unchanged.\n[ Go online ]"))],
+      rules=["Say the rating and standing are unchanged, if they are. Silence on that point reads as a permanent mark.",
+             "This message goes out the moment the decision is made, not on the next batch run. Every hour of delay is money the runner did not earn."]),
+
+    T(id="R11", lane="runner", stage="Account state", name="Account deleted",
+      trigger="A runner deletes their account", timing="Immediately", channels=["sms", "email"],
+      status="gap", source="Review screenshot · missing", hook="Trigger",
+      intent="Confirm it happened, and give a human a window to undo a mistake.",
+      warmth="No guilt, no win-back offer. They asked; we confirm and leave the door unlocked.",
+      msgs=[("sms", "Hi {{name}}, your Pinned account has been deleted.\nIf this was an error, contact customer care on 0102482883 within 30 days and we can restore it."),
+            ("email", ("Your Pinned account has been deleted",
+                       "Your account is closed and you will not receive job offers.\n\nAny earnings already approved are paid on the normal settlement date to the M-Pesa number on the account.\n\nYour delivery records are kept for the period the law requires and are not used for anything else.\n\nIf this was a mistake, call 0102482883 within 30 days and we can restore the account exactly as it was."))],
+      rules=["No retention offer, no survey, no “are you sure” after the fact. They already decided.",
+             "Say what happens to money and to records. Those are the two things people worry about after they press delete."]),
+
+    # ── receiver: the parcel that is actually moving ──
+    T(id="C1b", lane="receiver", stage="First contact", name="It is on its way to you",
+      trigger="A runner collects the parcel and it is moving toward the receiver",
+      timing="At pickup", channels=["sms"], status="partial", key="runner_picked_up_receiver",
+      source="Brief · 13 Oct", hook="Trigger",
+      intent="The expected parcel. Now there is a person, a place and a time.",
+      review="<b>The second half of the split.</b> C1 says something is coming; this one says it is moving "
+             "and gives them a time they can plan around.",
+      msgs=[("sms", "Your parcel from {{from}} is on the way to {{dest}} with {{runner}}, arriving about {{eta}}.\nFollow it: {{track_url}}")],
+      rules=["A time is the whole point of this message. If there is no reliable ETA, do not send it — wait for the arrival message instead.",
+             "For a pod delivery this message is optional. For a door delivery it is not, because somebody has to be home."]),
+
+    # ── host: the other half of the offline alert ──
+    T(id="H5b", lane="host", stage="Hardware", name="Your pod is back online",
+      trigger="A pod resumes its heartbeat after an outage", timing="On recovery", channels=["sms"],
+      status="gap", source="Host review · missing", hook="Reward",
+      intent="Close the loop the offline alert opened. An alert with no all-clear trains hosts to ignore alerts.",
+      warmth="Good news, and a thank-you for whatever they did.",
+      review="<b>Add it.</b> The host review asks for a recovery notification, and for prolonged outages to "
+             "escalate to operations.",
+      msgs=[("sms", "Good news — {{pod}} is back online since {{since}} and collections have resumed. Thank you for sorting it out.")],
+      rules=["Only sent if an offline alert went out first. No alert, no all-clear.",
+             "If the outage passes the escalation window, operations calls the host before this SMS exists."]),
+]
+
+
+# ── merge the review onto round one ──────────────────────────────────────────
+
+TOUCHPOINTS += NEW_TOUCHPOINTS
+for _t in TOUCHPOINTS:
+    _t.setdefault("review", None)
+    _t.setdefault("warmth", None)
+
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+for _id, _patch in REVIEW.items():
+    _tp = _by_id.get(_id)
+    if _tp is None:
+        raise KeyError("review targets an unknown touchpoint: %s" % _id)
+    for _k, _v in _patch.items():
+        if _k == "notes_add":
+            _tp["notes"] = list(_tp["notes"]) + list(_v)
+        else:
+            _tp[_k] = _v
+
+ORDER = [
+    "S0", "S0b", "S1", "S2", "S2b", "S2c", "S2d", "S3", "S4a", "S4b", "S5", "S6",
+    "C1", "C1b", "C2", "C3", "C4a", "C4b", "C4c", "C4d", "C5", "C6a", "C6b", "C7",
+    "R0", "R8a", "R8b", "R1a", "R1b", "R1c", "R2", "R7", "R6", "R5", "R3", "R4",
+    "R9", "R10", "R11",
+    "H6", "H1a", "H1b", "H2", "H3", "H7", "H5", "H5b", "H4",
+    "A1a", "A1b", "A2", "A3", "A4",
+    "P1", "P2", "P3", "P4", "P5",
+]
+_missing = [t["id"] for t in TOUCHPOINTS if t["id"] not in ORDER]
+if _missing:
+    raise KeyError("touchpoints missing from ORDER: %s" % _missing)
+TOUCHPOINTS.sort(key=lambda t: ORDER.index(t["id"]))
+
+STATUS_WORD = {
+    "live": "Live", "partial": "Partial", "gap": "Not built",
+    "defect": "Defect", "change": "Channel change", "retire": "Retire",
+}
+
+
+# ── the SMS journey, per lane ────────────────────────────────────────────────
+# ch: the channel that carries this moment. "sms" steps are the budget; every
+# other step is a deliberate decision NOT to spend an SMS on it.
+
+def J(n, when, tp, ch, what, why, flag=None, off=False):
+    """off=True marks a step that only happens when something goes wrong, so the
+    SMS budget quoted on each lane is the budget for a journey that works."""
+    return dict(n=n, when=when, tp=tp, ch=ch, what=what, why=why, flag=flag,
+                off=off or n in ("+", "—"))
+
+
+JOURNEYS = {
+
+    "sender": dict(
+        headline="Four SMS on a journey that works — three once sign-in moves to a PIN",
+        sub="Sign-up code, sign-in code, handover code, delivered — and the sign-in code should become a "
+            "PIN. Everything between them is in-app, because the sender is holding the app. That is the "
+            "whole difference between a sender and a receiver.",
+        steps=[
+            J("1", "Creates an account", "S0", "sms", "Sign-up code, with the expiry and the fraud line", "The only way to prove the phone is theirs."),
+            J("2", "Signs in", "S0b", "sms", "Sign-in code naming the device", "Security, not convenience. Moves to a device PIN if we follow the runner decision.", flag="open"),
+            J("3", "Account opens", "S1", "in_app", "Welcome and the nearest pod", "Nothing time-critical. The code SMS landed a minute ago."),
+            J("4", "Books a parcel", "S2", "in_app", "Booked — drop by, with directions", "They are in the app, looking at the booking they just made."),
+            J("—", "…booked with no drop-off slot", "S2", "sms", "The reservation code", "The exception: with no slot, the code is the only thing they hold."),
+            J("+", "Has not dropped it", "S2b", "sms", "Still held for you, plus runner collection", "They are away from the app. This is what SMS is for."),
+            J("5", "Pays / runner assigned", "S2c", "sms", "Handover code — and nothing else", "The one message that must survive a flat battery at a counter."),
+            J("6", "Runner collects", "S2d", "in_app", "Picked up by {{runner}}, ETA", "A status update, not an instruction. One in-app card replaces the two SMS firing today."),
+            J("7", "Delivered", "S3", "sms", "Who collected it, where, at what time", "The payoff. Two segments, and worth every one."),
+            J("+", "Receiver has not collected", "S4a", "sms", "Storage started, charged to you", "Money moving against them. Always SMS."),
+            J("+", "Day 7", "S4b", "sms", "Coming back to you today", "A thing they have to plan around."),
+            J("+", "Refund", "S5", "sms", "Amount, and when it reaches M-Pesa", "Money moving toward them. Always SMS."),
+            J("+", "Delivery failed", "S6", "sms", "Reason, location, choice, deadline", "A decision only they can make, on a clock."),
+        ]),
+
+    "receiver": dict(
+        headline="Four SMS on a journey that works — and the receiver has no app",
+        sub="Every receiver rule is the inverse of the sender rules. There is no in-app to fall back on, "
+            "so SMS carries everything — which is exactly why the ladder has to stop at four rungs. "
+            "A parcel that has been created and a parcel that is moving are two different messages.",
+        steps=[
+            J("1", "Parcel created for them", "C1", "sms", "Someone is sending you a parcel. Nothing to do yet", "The notification. Informational, no action, no code."),
+            J("2", "Runner collects it", "C1b", "sms", "On its way, with a runner and an ETA", "The expected parcel. Optional for a pod drop, required for a door delivery."),
+            J("3a", "Arrives at a pod", "C2", "sms", "Station, opening hours, collection code, free-storage deadline, door-delivery escape", "Two segments. Each line in it saves a phone call."),
+            J("3b", "Arrives at the door", "C1b", "sms", "Runner at the door — code at hand-over", "The alternative branch: a door delivery skips the pod message entirely.", off=True),
+            J("+", "Running late", "C3", "sms", "New time, reason, and when we will text next", "A broken promise gets its own message."),
+            J("+", "24h uncollected", "C4a", "sms", "Still here, code, opening hours", "Rung 1. No mention of charges — none apply yet."),
+            J("+", "48h", "C4b", "sms", "24 hours of free storage left, then the rate", "Rung 2. Where most door-delivery conversions happen."),
+            J("+", "72h", "C4c", "sms", "Storage started, and how to stop it", "Rung 3. Money is moving."),
+            J("+", "Day 7", "C4d", "sms", "Goes back today, total charged", "Rung 4. Then silence."),
+            J("+", "Requests more time", "C6a", "sms", "Approved — new deadline", "A decision they are waiting on."),
+            J("+", "…declined", "C6b", "sms", "Declined, with door delivery offered instead", "A no that ends with a yes."),
+            J("4", "Collects", "C7", "sms", "Thanks — save your address for next time", "Once per receiver, ever. The only ask in the lane."),
+        ]),
+
+    "runner": dict(
+        headline="Four SMS to get someone working, then almost none",
+        sub="Retiring the sign-in code removes the highest-volume SMS in the business. What is left is "
+            "the account lifecycle — the messages that decide whether somebody can work today — and "
+            "everything about the job itself moves to push and in-app, where the runner already is.",
+        steps=[
+            J("1", "Admin creates the runner", "R0", "sms", "Welcome, six minutes to verification", "They are not in the app yet. There is no other channel."),
+            J("2", "Signs up", "R8a", "sms", "Sign-up code, once", "The device becomes trusted here."),
+            J("3", "Signs in, every time", "R8b", "retire", "Nothing — a 4-digit PIN on the trusted device", "Retired. Roadside, one bar of signal, several times a day.", flag="retire"),
+            J("4", "Submits documents", "R1a", "in_app", "We're reviewing your documents", "Moved off SMS by the review. They are in the app, having just uploaded."),
+            J("5", "Approved", "R1b", "sms", "Congratulations, go online", "The moment they can start earning. Email dropped."),
+            J("+", "Not approved", "R1c", "sms", "The one thing to fix, and a day to a second answer", "Email dropped — a rejection that needs an email is badly written."),
+            J("6", "First job accepted", "R2", "sms", "Three things that matter, once ever", "Peak attention. SMS, email and in-app all fire — once."),
+            J("7", "A job is offered", "R7", "push", "Payout, parcels, distance, closing time", "Free, instant, collapsible. One live offer per batch."),
+            J("8", "Loaded at the pod", "R6", "in_app", "{{stops}} on board, next stop", "One button."),
+            J("9", "Running late", "R5", "in_app", "Send the receiver a new ETA", "A button, not a reprimand."),
+            J("10", "Delivery complete", "R3", "in_app", "Ksh earned, day total, next job", "The reward moment, repeated several times a day."),
+            J("+", "Document expiring", "R4", "sms", "−30, −7 and −1 days, plus an email at −30", "Their ability to work. Three SMS, escalating by specificity."),
+            J("+", "Suspended", "R9", "sms", "Reason, and the appeal link", "Never suspend silently."),
+            J("+", "Reinstated", "R10", "sms", "You can go online again", "Every hour of delay is money they did not earn."),
+            J("+", "Account deleted", "R11", "sms", "Confirmed, and 30 days to undo", "Plus an email covering money and records."),
+        ]),
+
+    "host": dict(
+        headline="One SMS to open the counter — email does the teaching",
+        sub="A host is a business at a counter. SMS is reserved for the two things that stop the counter "
+            "working: a failed delivery they must decide about, and a dead pod. The operation itself is "
+            "taught by email, once, and stated in the portal every time after.",
+        steps=[
+            J("1", "Invited", "H6", "email", "The offer, the space, the terms, the fee", "Sell before asking for the click.", flag="open"),
+            J("2", "Location goes live", "H1a", "sms", "You are live, portal link", "Short. The email behind it teaches the operation."),
+            J("—", "…and the primer", "H1a", "email", "Booking, cut-off, collection, handover codes, failures, settlement", "The only channel that can hold a process."),
+            J("—", "…and the setup card", "H1a", "in_app", "Cut-off time, counter contact, settlement number", "Exactly three actions, no more."),
+            J("3", "Runner assigned", "H2", "in_app", "{{runner}}, {{stops}} parcels, real ETA", "Once per assignment. Updated only on a material change."),
+            J("—", "…first time only", "H2", "email", "How hand-over works", "Explained once, stated thereafter."),
+            J("+", "Delivery fails", "H3", "sms", "Reason, where it is held, the choice, the deadline", "A decision on a clock, away from the portal.", flag="open"),
+            J("+", "Receiver asks for more time", "H7", "in_app", "Approve or decline", "Build it — the receiver already gets the answer.", flag="open"),
+            J("+", "Pod goes offline", "H5", "sms", "Offline since, collections paused, call this number", "They are standing next to it, not sitting at a screen."),
+            J("+", "Pod recovers", "H5b", "sms", "Back online, collections resumed", "An alert with no all-clear trains hosts to ignore alerts."),
+            J("4", "Weekly settlement", "H4", "email", "Amount in the subject line", "The number they open the week for.", flag="open"),
+            J("—", "…and in the portal", "H4", "in_app", "Amount, parcel count, link to the statement", "Same place, same shape, every week."),
+        ]),
+
+    "admin": dict(
+        headline="Four SMS, all of them about somebody's income",
+        sub="Every message in this lane is a human changing a runner's plan. Each one answers the two "
+            "questions a runner actually has: did I do something wrong, and can I work now.",
+        steps=[
+            J("1", "Job reassigned away", "A1a", "sms", "Reassigned, nothing owed, rating unchanged", "Silence here is read as a penalty."),
+            J("2", "Job assigned to them", "A1b", "sms", "Parcels, origin, payout, distance", "An assignment is an offer with the decision already made."),
+            J("3", "Job floated back", "A2", "sms", "Released — you can take new offers now", "Without that sentence, runners sit and wait."),
+            J("4", "Goes offline", "A3", "sms", "No offers until you are back on", "Usually a flat battery. Write as if it is."),
+            J("5", "Ops chases a delay", "A4", "in_app", "Send your ETA to the receiver and ops at once", "In-app only. An SMS from 'ops' reads as a warning letter."),
+        ]),
+
+    "prospect": dict(
+        headline="One message per person, once, ever",
+        sub="Nobody in this lane has asked to hear from us. Each sequence is capped at a single message, "
+            "carries an opt-out, and counts against the one-promotional-per-week cap across the estate.",
+        steps=[
+            J("1", "Asks in a group", "P1", "whatsapp", "Answer the question, then the price and the link", "A human, within the hour."),
+            J("2", "Messages us", "P2", "whatsapp", "Two questions: pickup area, drop area", "Every extra question halves the replies."),
+            J("3", "Checks a price, does not book", "P3", "sms", "The same figures they saw, and the link", "Once, within the hour. Never twice."),
+            J("4", "Collected but never sent", "P4", "sms", "You have seen it work — sending starts at…", "The largest warm audience Pinned has."),
+            J("5", "Referred by a sender", "P5", "sms", "Their first send, discounted", "Rides on a delivery that already landed."),
+        ]),
+}
+
+OPEN_QUESTIONS = [
+    dict(q="Does sender sign-in move to a device PIN, the way the runner app is doing?",
+         why="The runner review retires the per-sign-in code SMS in favour of a PIN after the first "
+             "sign-up code. The same argument applies to senders, and it is the single biggest SMS "
+             "saving available. The site currently keeps the sender code SMS until this is decided.",
+         who="Product"),
+    dict(q="If a host does not answer a dwell-extension request before the deadline, what happens?",
+         why="Auto-approve, auto-decline or escalate to ops. The receiver-facing approval and denial "
+             "messages already exist, so the copy for H7 cannot be finished until the default is set.",
+         who="Operations"),
+    dict(q="Is automatic redelivery the approved default when a host does not respond to a failed delivery?",
+         why="H3 tells the host what happens if they do nothing. If that sentence is wrong, it is worse "
+             "than having no sentence.",
+         who="Operations"),
+    dict(q="Does settlement actually reach a host within one working day?",
+         why="H4 puts the amount in the subject line and the timing in the body. A settlement promise we "
+             "miss costs more than a vaguer one — change the sentence, not the finance process.",
+         who="Finance"),
+    dict(q="What are the real pod-host commercial terms?",
+         why="H6 is currently inactive and the draft promises 2 m², installation, maintenance and "
+             "insurance. It must state the approved fee structure rather than implying unspecified "
+             "earnings, and none of it ships until the terms are confirmed.",
+         who="Commercial"),
+    dict(q="The receiver lane was not in the review pack.",
+         why="Senders, runners and hosts came back marked. The receiver changes on this site — splitting "
+             "the created notification from the moving parcel, and dropping the 6-hour rung — come from "
+             "the brief rather than from the team, and still need the same keep/remove pass.",
+         who="The team"),
 ]

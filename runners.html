@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=4">
+<link rel="stylesheet" href="assets/comms.css?v=7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -20,7 +20,7 @@
 
 <header class="phead"><div class="wrap">
   <p class="crumb"><a href="index.html">Pinned Communications</a> · Runners</p>
-  <p class="eyebrow" style="margin-top:10px">10 touchpoints</p>
+  <p class="eyebrow" style="margin-top:10px">15 touchpoints · 4 SMS on a journey that works</p>
   <h1>Runners</h1>
   <p class="lede">The rider on the road. Pinned is their income, and their phone is their workplace.</p>
 </div></header>
@@ -59,8 +59,32 @@
     </div></div>
 </div>
 </div></section>
+<section id="journey"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>The SMS journey</h2></div>
+  <p class="sec-sub">Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: <b>4 on a journey that works</b>, 5 more only when something goes wrong. A row numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision not to spend an SMS.</p>
+  <div class="rule"></div>
+  
+<div class="jrny">
+  <div class="jrny-head"><h3>Four SMS to get someone working, then almost none</h3><p>Retiring the sign-in code removes the highest-volume SMS in the business. What is left is the account lifecycle — the messages that decide whether somebody can work today — and everything about the job itself moves to push and in-app, where the runner already is.</p></div>
+  <div class="jstep is-sms"><span class="jn">1</span><span class="jwhen">Admin creates the runner</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Welcome, six minutes to verification</span><span class="jwhy">They are not in the app yet. There is no other channel.</span></div>
+  <div class="jstep is-sms"><span class="jn">2</span><span class="jwhen">Signs up</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Sign-up code, once</span><span class="jwhy">The device becomes trusted here.</span></div>
+  <div class="jstep is-retire"><span class="jn">3</span><span class="jwhen">Signs in, every time</span><span class="jch"><span class="chip ">None</span></span><span class="jwhat">Nothing — a 4-digit PIN on the trusted device<span class="flag">retired</span></span><span class="jwhy">Retired. Roadside, one bar of signal, several times a day.</span></div>
+  <div class="jstep"><span class="jn">4</span><span class="jwhen">Submits documents</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">We're reviewing your documents</span><span class="jwhy">Moved off SMS by the review. They are in the app, having just uploaded.</span></div>
+  <div class="jstep is-sms"><span class="jn">5</span><span class="jwhen">Approved</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Congratulations, go online</span><span class="jwhy">The moment they can start earning. Email dropped.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Not approved</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">The one thing to fix, and a day to a second answer</span><span class="jwhy">Email dropped — a rejection that needs an email is badly written.</span></div>
+  <div class="jstep is-sms"><span class="jn">6</span><span class="jwhen">First job accepted</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Three things that matter, once ever</span><span class="jwhy">Peak attention. SMS, email and in-app all fire — once.</span></div>
+  <div class="jstep"><span class="jn">7</span><span class="jwhen">A job is offered</span><span class="jch"><span class="chip push">Push</span></span><span class="jwhat">Payout, parcels, distance, closing time</span><span class="jwhy">Free, instant, collapsible. One live offer per batch.</span></div>
+  <div class="jstep"><span class="jn">8</span><span class="jwhen">Loaded at the pod</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat"><span class="tok">{{stops}}</span> on board, next stop</span><span class="jwhy">One button.</span></div>
+  <div class="jstep"><span class="jn">9</span><span class="jwhen">Running late</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Send the receiver a new ETA</span><span class="jwhy">A button, not a reprimand.</span></div>
+  <div class="jstep"><span class="jn">10</span><span class="jwhen">Delivery complete</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Ksh earned, day total, next job</span><span class="jwhy">The reward moment, repeated several times a day.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Document expiring</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">−30, −7 and −1 days, plus an email at −30</span><span class="jwhy">Their ability to work. Three SMS, escalating by specificity.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Suspended</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Reason, and the appeal link</span><span class="jwhy">Never suspend silently.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Reinstated</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">You can go online again</span><span class="jwhy">Every hour of delay is money they did not earn.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Account deleted</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Confirmed, and 30 days to undo</span><span class="jwhy">Plus an email covering money and records.</span></div>
+</div>
+</div></section>
 <section><div class="wrap">
-  <div class="sec-head"><span class="sec-num">02</span><h2>Touchpoints</h2></div>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Touchpoints</h2></div>
   
   <div class="rule"></div>
   <h3 style="margin-top:38px">Invite</h3>
@@ -77,12 +101,52 @@
       <div><b>Source</b><span>Live template</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">runner_invite</span><span class="chip">Hook · Trigger</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Keep.</b> The team's own wording, used as written.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Name the stake — six minutes between here and earning.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">148 chars · 1 segment</span></div><div class="sms-bubble">Welcome to Pinned, <span class="tok">{{name}}</span>. Your runner account is open.
-Verification takes about 6 minutes — then you can go online and take jobs.
-<span class="tok">{{link}}</span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">173 chars · 2 segments</span></div><div class="sms-bubble">Hello <span class="tok">{{name}}</span>, welcome to Pinned Runners.
+In just 6 minutes you will be able to access jobs on your app. Follow these simple steps to complete verification: <span class="tok">{{link}}</span></div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">77 chars · 1 segment</span></div><div class="old">Welcome to Pinned. Sign in at <span class="tok">{{link}}</span> to complete your verification.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Say how long it takes. An unquantified task gets postponed.</li><li>One link. A runner SMS with two links gets neither tapped.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">Access</h3>
+<article class="tp" id="R8a">
+  <div class="tp-head">
+    <span class="tp-id">R8a</span>
+    <span class="tp-title"><h3>Sign-up code</h3><p>One code, once. After this the device is trusted and the PIN takes over.</p></span>
+    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A runner requests a verification code at sign-up</span></div>
+      <div><b>Timing</b><span>Once, at sign-up</span></div>
+      <div><b>Source</b><span>Review screenshot</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    <div class="tp-note warm"><span class="nlbl">Warmth</span>Welcome, then the code. The runner lane earns warmth at every door.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">157 chars · 1 segment</span></div><div class="sms-bubble">Welcome to Pinned Runners. Your sign-up code is <span class="tok">{{otp}}</span>.
+It sets up this phone as yours and expires in 5 minutes. We never call or text to ask for this code.</div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>This is the only code SMS a runner should ever receive on a device they keep.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="R8b">
+  <div class="tp-head">
+    <span class="tp-id">R8b</span>
+    <span class="tp-title"><h3>Sign-in code on every sign-in</h3><p>A runner signs in several times a day. An SMS each time is a cost, a delay and a habit that teaches them codes are routine.</p></span>
+    <span class="tp-meta"><span class="badge retire">Retire</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A runner signs in</span></div>
+      <div><b>Timing</b><span>Every sign-in, today</span></div>
+      <div><b>Source</b><span>Review screenshot</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Retire.</b> The screenshot is explicit: move to a PIN at sign-in after the first code at sign-up. Riders sign in on the roadside with one bar of signal — a four-digit PIN on a trusted device is faster, cheaper and safer than an SMS that may take a minute to arrive.</div><div class="tp-note team"><b>Replaced by nothing.</b> After the sign-up code, sign-in is a 4-digit PIN on the trusted device. A code SMS fires again only on a new device, a PIN reset, or 30 days of inactivity.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">28 chars · 1 segment</span></div><div class="old">OTP to log in to the account</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Dropping this removes the single highest-volume SMS in the runner lane.</li><li>A new device, a PIN reset or 30 days of inactivity still earns one code SMS. Nothing else does.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Onboarding</h3>
@@ -90,7 +154,7 @@ Verification takes about 6 minutes — then you can go online and take jobs.
   <div class="tp-head">
     <span class="tp-id">R1a</span>
     <span class="tp-title"><h3>Documents received</h3><p>Close the loop so they stop refreshing, and name the hour they will hear.</p></span>
-    <span class="tp-meta"><span class="badge live">Live</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
+    <span class="tp-meta"><span class="badge change">Channel change</span><span class="chips"><span class="chip inapp">In-app</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
@@ -99,11 +163,10 @@ Verification takes about 6 minutes — then you can go online and take jobs.
       <div><b>Source</b><span>Map · Runners 1a</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">runner_docs_submitted</span><span class="chip">Hook · Trigger</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Move to in-app.</b> The screenshot marks the document-upload SMS <i>move to in app</i> and the application-under-review card <i>keep</i>. So the warm copy the team wrote for the SMS carries over to the card, and the SMS is dropped.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Thank them for the documents, and own the wait rather than explaining it away.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">137 chars · 1 segment</span></div><div class="sms-bubble">Thanks <span class="tok">{{name}}</span> — your documents are in. We review in the order received and you will hear from us by <span class="tok">{{deadline}}</span>.
-Nothing to do until then.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>In review</b><p>We are checking your <span class="tok">{{docs}}</span>. You will get an SMS the moment there is a decision — no need to keep the app open.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">145 chars · 1 segment</span></div><div class="old">Pinned: we've received your documents. Our team is reviewing your application. We'll update you within 24 hours. Need help? hello@pinnedflow.com.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Within 24 hours' is a promise nobody tracks. '{{deadline}}' is a promise the system can keep, and be measured against.</li><li>'Nothing to do until then' is the most reassuring sentence in onboarding. Keep it.</li><li>An email address in a runner SMS is wasted characters — runners call or use in-app help.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>We're reviewing your documents</b><p>Thank you <span class="tok">{{name}}</span> for submitting your documents. We are reviewing them and you will hear from us within <span class="tok">{{hours}}</span> hours. We appreciate your patience.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">145 chars · 1 segment</span></div><div class="old">Pinned: we've received your documents. Our team is reviewing your application. We'll update you within 24 hours. Need help? hello@pinnedflow.com.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>{{hours}} is filled from a real review clock, not written into the sentence. “Within 24 hours” is a promise nobody can measure us against; a number the system computes is one we can be held to.</li><li>“We appreciate your patience” does the job “nothing to do until then” did in round one — it tells them to stop refreshing. Keep one of the two, never both.</li><li>The support email in the live SMS goes nowhere: runners call or use in-app help. It is dropped with the SMS.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -111,7 +174,7 @@ Nothing to do until then.</div></div><div class="msg"><div class="msg-cap"><span
   <div class="tp-head">
     <span class="tp-id">R1b</span>
     <span class="tp-title"><h3>Approved</h3><p>The moment they became a Pinned runner. Make it feel earned, then point at the switch.</p></span>
-    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></span>
+    <span class="tp-meta"><span class="badge change">Channel change</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
@@ -120,17 +183,12 @@ Nothing to do until then.</div></div><div class="msg"><div class="msg-cap"><span
       <div><b>Source</b><span>Map · Runners 1b</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">runner_kyc_approved</span><span class="chip">Hook · Reward</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>SMS, kept.</b> Email is dropped here — the screenshot lists this one as SMS only. Pay day, the support number and what was verified move to the first-run email (R2), which is where a runner actually needs them.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Congratulations, by name. This is the moment they became a Pinned runner.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">114 chars · 1 segment</span></div><div class="sms-bubble">You're approved, <span class="tok">{{name}}</span>. Go online in the app and job offers come straight to this phone.
-Welcome to the network.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>You're a Pinned runner, <span class="tok">{{name}}</span></b></div><div class="email-body">Your verification is complete.
-
-What is approved: <span class="tok">{{docs}}</span>
-When you are paid: every <span class="tok">{{deadline}}</span>, to the M-Pesa number on your account
-Where to get help: in-app Help, or call 0700 000 000
-
-Go online in the app and your first offer will arrive on <span class="tok">{{name}}</span>'s phone. Offers show the payout, the number of parcels and the distance before you accept.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Approved — you can go online</b><p>Tap Go online and offers near <span class="tok">{{origin}}</span> will start arriving.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">124 chars · 1 segment</span></div><div class="old">Congratulations <span class="tok">{{name}}</span>! Your Pinned runner account has been approved. You can now go online and start accepting deliveries.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Email carries the things a runner needs twice: pay day, support number, what was verified. SMS carries only the switch.</li><li>The map asks for all three channels here. Email is the one missing today.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">163 chars · 2 segments</span></div><div class="sms-bubble">Congratulations <span class="tok">{{name}}</span>! Your application has been approved.
+Click the link below or download the app to access available jobs. Welcome to Pinned.
+<span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Approved — you can go online</b><p>Tap Go online and offers near <span class="tok">{{origin}}</span> will start arriving.</p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">124 chars · 1 segment</span></div><div class="old">Congratulations <span class="tok">{{name}}</span>! Your Pinned runner account has been approved. You can now go online and start accepting deliveries.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Pay day, the support number and what was verified are the things a runner needs twice. Round one put them in an approval email; the review drops that email, so they move to the first-run email at R2 — the point where a runner actually goes looking for them.</li><li>An exclamation mark is allowed here and almost nowhere else. Somebody just got a job.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -138,7 +196,7 @@ Go online in the app and your first offer will arrive on <span class="tok">{{nam
   <div class="tp-head">
     <span class="tp-id">R1c</span>
     <span class="tp-title"><h3>Not approved — and why</h3><p>Name exactly one fixable thing and the way back in.</p></span>
-    <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span><span class="chip inapp">In-app</span></span></span>
+    <span class="tp-meta"><span class="badge change">Channel change</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
@@ -147,15 +205,10 @@ Go online in the app and your first offer will arrive on <span class="tok">{{nam
       <div><b>Source</b><span>Map · Runners 1c</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">runner_kyc_rejected</span><span class="chip">Hook · Action</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>SMS, kept.</b> Email dropped — the screenshot lists SMS only, and a rejection that needs an email to be understood has been written badly.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Leave the door open: one fixable thing, and a day to a second answer.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">146 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, we couldn't approve your account yet: <span class="tok">{{reason}}</span>.
-Fix that one item in the app and resubmit — we review again within a day.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>What to fix on your Pinned application</b></div><div class="email-body">We could not approve your application yet.
-
-What we need: <span class="tok">{{reason}}</span>
-How to fix it: open the app, go to Documents, replace the <span class="tok">{{docs}}</span> and submit.
-
-Photos work best in daylight, flat on a table, with all four corners in frame. We review again within a day of your resubmission.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>One thing to fix</b><p><span class="tok">{{reason}}</span>. Replace your <span class="tok">{{docs}}</span> and submit again — we review within a day.<br><span class="chip">Replace document</span></p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">148 chars · 1 segment</span></div><div class="sms-bubble">Unfortunately <span class="tok">{{name}}</span>, we couldn't approve your account yet.
+Kindly <span class="tok">{{reason}}</span>. Resubmit your application to be reviewed within a day.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>One thing to fix</b><p><span class="tok">{{reason}}</span>. Replace your <span class="tok">{{docs}}</span> and submit again — we review within a day.<br><span class="chip">Replace document</span></p></div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">111 chars · 1 segment</span></div><div class="old">Your Pinned verification was not approved<span class="tok">{{reason}}</span>. Update your documents in the app to reapply.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>A rejection names one item, not a list. A list reads as 'you are not wanted'.</li><li>'Not approved' never appears without 'yet'. The relationship is not over.</li></ul></div></div>
     </div>
   </div>
@@ -173,62 +226,50 @@ Photos work best in daylight, flat on a table, with all four corners in frame. W
       <div><b>Source</b><span>Map · Runners 2</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Investment</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Still to build.</b> The team wrote the SMS; note they replaced “scan every parcel” with “leave your app open during delivery”. Both matter — the open app is what gives live tracking, the scan is what transfers custody — so the SMS carries the team's three, and the scan rule stays in the email where it can be explained.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Congratulate the first job. It is the only first job they will ever have.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">153 chars · 1 segment</span></div><div class="sms-bubble">First job accepted, <span class="tok">{{name}}</span>. Three things that matter: arrive by <span class="tok">{{eta}}</span>, scan every parcel, never hand over without the code.
-Full guide: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>Your first Pinned run — what happens at each stop</b></div><div class="email-body">1. Collect. Scan each parcel at the pod or counter. The app will not let you leave with an unscanned parcel, and that protects you.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">189 chars · 2 segments</span></div><div class="sms-bubble">Congratulations <span class="tok">{{name}}</span> on your first job.
+Three things that matter: arrive by <span class="tok">{{eta}}</span>, leave your app open during delivery, and never hand over without the code.
+Full guide: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>Your first Pinned run — what happens at each stop</b></div><div class="email-body">Congratulations on your first job.
 
-2. Custody. From the scan until hand-over, the parcel is yours. If anything looks wrong — open box, wet, wrong label — photograph it in the app before you move.
+1. Collect. Scan each parcel at the pod or counter. The app will not let you leave with an unscanned parcel, and that is what protects you if anything is questioned later.
 
-3. Hand over. The receiver reads you their code. You enter it. Never accept a code sent to you by anyone else, and never read the code out loud first.
+2. Keep the app open. That is what gives the sender and the receiver live tracking, and what proves where you were.
 
-4. Get paid. Earnings land every <span class="tok">{{deadline}}</span> on the M-Pesa number on your account.
+3. Custody. From the scan until hand-over the parcel is yours. If anything looks wrong — open box, wet, wrong label — photograph it in the app before you move.
 
-If a receiver is not there: wait 5 minutes, call from the app, then mark 'not available'. Do not leave a parcel with a neighbour.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Three rules for every run</b><p>Arrive on time · scan everything · no hand-over without the code. Tap for the 90-second version.</p></div></div></div>
+4. Hand over. The receiver reads you their code. You enter it. Never accept a code sent to you by anyone else, and never read the code out first.
+
+5. Get paid. Earnings land every <span class="tok">{{deadline}}</span> on the M-Pesa number on your account.
+
+If a receiver is not there: wait 5 minutes, call from the app, then mark 'not available'. Do not leave a parcel with a neighbour.
+
+Help, any time: 0700 000 000.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Three rules for every run</b><p>Arrive on time · keep the app open · no hand-over without the code.<br><span class="chip">90-second guide</span></p></div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Once, ever. The map is explicit: email and SMS fire a single time.</li><li>This is the highest-value message in the runner lane and it does not exist yet.</li></ul></div></div>
     </div>
   </div>
+</article><h3 style="margin-top:38px">Offers</h3>
+<article class="tp" id="R7">
+  <div class="tp-head">
+    <span class="tp-id">R7</span>
+    <span class="tp-title"><h3>New delivery available</h3><p>The single highest-volume message Pinned sends, and the one doing the most damage.</p></span>
+    <span class="tp-meta"><span class="badge defect">Defect</span><span class="chips"><span class="chip push">Push</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A batch offer is created</span></div>
+      <div><b>Timing</b><span>On offer and every re-offer</span></div>
+      <div><b>Source</b><span>Live code · not in the map</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Routing::BatchOffer::Build</span><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Team wording:</b> <i>“New pinned delivery available near you, Pick up {{origin}} batch distance {{km}} km, view in app.”</i> “Near you” is kept — it is the reason to look. The money still has to lead, because the title is the only line read on a locked phone, and because four identical titles are what caused the damage in the first place.</div><div class="tp-note warn"><b>Evidence.</b> A runner lock screen on 9 Oct carried four identical notifications — 4m, 5m, 10m and 24m ago — all reading <i>“New delivery available · Pickup: Superior - Gatakaini. Batch distance: 15.8 km.”</i> Same batch, same words, stacked. By the fourth, the notification has taught the runner that Pinned pushes mean nothing.</div><div class="tp-note warn"><b>Three causes, all in code.</b> (1) <code>app/services/routing/batch_offer/build.rb</code> notifies every <code>Runner.available</code> — the radius and vehicle-class filters are commented out. (2) Every re-offer sends a fresh notification; nothing collapses them. (3) <code>FcmSender</code> sends no <code>collapse_key</code> / <code>apns-collapse-id</code>, so the OS has no way to replace the previous one.</div><div class="tp-note hook"><b>The hook is already here and it is being wasted.</b> A job offer is the purest variable reward in the business — payout, parcel count and distance differ every time. Put those three numbers in the title and the offer becomes the thing runners open the phone to check. Repeat the same seven words four times and it becomes the thing they swipe away.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Push · lock screen</span><span class="count">title 29 · body 76</span></div><div class="lock"><span class="ico"><i></i><i></i><i></i><i></i></span><span><span class="l-app">Pinned Runner</span><span class="l-title">Ksh <span class="tok">{{payout}}</span> · <span class="tok">{{stops}}</span> parcels · <span class="tok">{{km}}</span> km</span><span class="l-body">New delivery near you from <span class="tok">{{origin}}</span>. Tap to view and accept — closes <span class="tok">{{eta}}</span>.</span></span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">77 chars · 1 segment</span></div><div class="old">New delivery available
+Pickup: Superior - Gatakaini. Batch distance: 15.8 km.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li><b>One live offer per batch, per runner.</b> Collapse key <code>batch_offer:{batch_id}</code>; a re-offer replaces the notification in place, it never stacks.</li><li><b>Cooldown.</b> No more than 3 offer pushes to one runner in 15 minutes, whatever the batch.</li><li><b>Radius before volume.</b> Restore the proximity and vehicle-class filters. An offer a runner cannot take is a notification that costs trust and returns nothing.</li><li><b>Money in the title.</b> The title is the only part read on a locked phone. Ksh first, parcels second, distance third.</li><li><b>Expiry in the body.</b> An offer with no closing time has no reason to be opened now.</li><li><b>Silence when offline.</b> Runners who are not online do not get offer pushes. Today they do.</li></ul></div></div>
+    </div>
+  </div>
 </article><h3 style="margin-top:38px">Working</h3>
-<article class="tp" id="R3">
-  <div class="tp-head">
-    <span class="tp-id">R3</span>
-    <span class="tp-title"><h3>Delivered — earnings reveal</h3><p>The variable reward. The number is the message.</p></span>
-    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip inapp">In-app</span></span></span>
-  </div>
-  <div class="tp-body">
-    <div class="kv">
-      <div><b>Trigger</b><span>Runner completes a delivery</span></div>
-      <div><b>Timing</b><span>At hand-over</span></div>
-      <div><b>Source</b><span>Map · Runners 3</span></div>
-    </div>
-    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Reward</span></div>
-    
-    <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Delivered · Ksh <span class="tok">{{payout}}</span> added</b><p><span class="tok">{{code}}</span> handed to <span class="tok">{{name}}</span> at <span class="tok">{{dest}}</span>.<br>Today: <span class="tok">{{stops}}</span> stops · Ksh <span class="tok">{{amount}}</span></p></div></div></div>
-      <div><div class="msg"><span class="lbl">Rules</span><ul><li>In-app only, as the map says. An SMS per delivery would cost more than the delivery earns.</li><li>Same place, same shape, every single time. A reward that moves around stops being a reward.</li><li>The running day total is what turns one more job into a habit.</li></ul></div></div>
-    </div>
-  </div>
-</article>
-<article class="tp" id="R5">
-  <div class="tp-head">
-    <span class="tp-id">R5</span>
-    <span class="tp-title"><h3>Running late</h3><p>Hand the runner the action that fixes the receiver's experience. Never a reprimand.</p></span>
-    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip inapp">In-app</span></span></span>
-  </div>
-  <div class="tp-body">
-    <div class="kv">
-      <div><b>Trigger</b><span>A delivery passes its promised time</span></div>
-      <div><b>Timing</b><span>At the promise</span></div>
-      <div><b>Source</b><span>Map · Runners 5</span></div>
-    </div>
-    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
-    
-    <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{code}}</span> is past its time</b><p>You are <span class="tok">{{hours}}</span> behind on <span class="tok">{{dest}}</span>. One tap sends the receiver a new ETA — that is usually all they want.<br><span class="chip">Send ETA</span>  <span class="chip">I need help</span></p></div></div></div>
-      <div><div class="msg"><span class="lbl">Rules</span><ul><li>A delay message that only states the delay makes the runner defensive. A delay message with a button makes them useful.</li><li>Never surface a delay to the runner and the receiver in a way that implies blame to either.</li></ul></div></div>
-    </div>
-  </div>
-</article>
 <article class="tp" id="R6">
   <div class="tp-head">
     <span class="tp-id">R6</span>
@@ -246,6 +287,46 @@ If a receiver is not there: wait 5 minutes, call from the app, then mark 'not av
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{stops}}</span> parcels on board</b><p>Next stop <span class="tok">{{dest}}</span> · <span class="tok">{{km}}</span> km. Scan each one at hand-over.<br><span class="chip">Start route</span></p></div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>This message exists to make the next tap obvious. It carries exactly one button.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="R5">
+  <div class="tp-head">
+    <span class="tp-id">R5</span>
+    <span class="tp-title"><h3>Running late</h3><p>Hand the runner the action that fixes the receiver's experience. Never a reprimand.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A delivery passes its promised time</span></div>
+      <div><b>Timing</b><span>At the promise</span></div>
+      <div><b>Source</b><span>Map · Runners 5</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Still to build.</b> The team's wording, with the live-updates line they added.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>No reprimand. Hand them the button that fixes it for the receiver.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Running late to <span class="tok">{{dest}}</span></b><p>You are running late for your delivery to <span class="tok">{{dest}}</span>. Send the receiver a new ETA, and leave the app open for live updates.<br><span class="chip">Send ETA</span>  <span class="chip">I need help</span></p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>A delay message that only states the delay makes the runner defensive. A delay message with a button makes them useful.</li><li>Never surface a delay to the runner and the receiver in a way that implies blame to either.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="R3">
+  <div class="tp-head">
+    <span class="tp-id">R3</span>
+    <span class="tp-title"><h3>Delivered — earnings reveal</h3><p>The variable reward. The number is the message.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>Runner completes a delivery</span></div>
+      <div><b>Timing</b><span>At hand-over</span></div>
+      <div><b>Source</b><span>Map · Runners 3</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Reward</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Still to build.</b> The screenshot calls it a job-completion pop-up and gives the closing line. It is merged with the earnings reveal — the money and the encouragement belong in the same card, not two.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Celebrate, then point at the next one. This is the single most repeated warm moment in the business.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Delivery complete · Ksh <span class="tok">{{payout}}</span> earned</b><p>Parcel <span class="tok">{{code}}</span> handed to <span class="tok">{{name}}</span> at <span class="tok">{{dest}}</span>.<br>Today: <span class="tok">{{stops}}</span> stops · Ksh <span class="tok">{{amount}}</span><br>Keep going — accept your next job to earn more.</p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>In-app only, as the map says. An SMS per delivery would cost more than the delivery earns.</li><li>Same place, same shape, every single time. A reward that moves around stops being a reward.</li><li>The running day total is what turns one more job into a habit.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Compliance</h3>
@@ -272,33 +353,81 @@ If it lapses, offers pause automatically on <span class="tok">{{deadline}}</span
 Your <span class="tok">{{docs}}</span> has expired. You're restricted from batches until you renew it in the app.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Batch eligibility' is internal language. Runners hear 'offers'.</li><li>Escalation is specificity: 'expires {{deadline}}' → '7 days left' → 'tomorrow, offers stop' → 'offers paused'. No capital letters, no warnings about warnings.</li><li>Always say what does not change. Fear of losing the account is why runners avoid opening these messages.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Offers</h3>
-<article class="tp" id="R7">
+</article><h3 style="margin-top:38px">Account state</h3>
+<article class="tp" id="R9">
   <div class="tp-head">
-    <span class="tp-id">R7</span>
-    <span class="tp-title"><h3>New delivery available</h3><p>The single highest-volume message Pinned sends, and the one doing the most damage.</p></span>
-    <span class="tp-meta"><span class="badge defect">Defect</span><span class="chips"><span class="chip push">Push</span></span></span>
+    <span class="tp-id">R9</span>
+    <span class="tp-title"><h3>Account suspended</h3><p>The most frightening message Pinned sends. It has to carry the reason and the way back, in that order.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>A batch offer is created</span></div>
-      <div><b>Timing</b><span>On offer and every re-offer</span></div>
-      <div><b>Source</b><span>Live code · not in the map</span></div>
+      <div><b>Trigger</b><span>Admin suspends a runner account</span></div>
+      <div><b>Timing</b><span>Immediately</span></div>
+      <div><b>Source</b><span>Review screenshot · missing</span></div>
     </div>
-    <div class="chips" style="margin-top:14px"><span class="chip">Routing::BatchOffer::Build</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note warn"><b>Evidence.</b> A runner lock screen on 9 Oct carried four identical notifications — 4m, 5m, 10m and 24m ago — all reading <i>“New delivery available · Pickup: Superior - Gatakaini. Batch distance: 15.8 km.”</i> Same batch, same words, stacked. By the fourth, the notification has taught the runner that Pinned pushes mean nothing.</div><div class="tp-note warn"><b>Three causes, all in code.</b> (1) <code>app/services/routing/batch_offer/build.rb</code> notifies every <code>Runner.available</code> — the radius and vehicle-class filters are commented out. (2) Every re-offer sends a fresh notification; nothing collapses them. (3) <code>FcmSender</code> sends no <code>collapse_key</code> / <code>apns-collapse-id</code>, so the OS has no way to replace the previous one.</div><div class="tp-note hook"><b>The hook is already here and it is being wasted.</b> A job offer is the purest variable reward in the business — payout, parcel count and distance differ every time. Put those three numbers in the title and the offer becomes the thing runners open the phone to check. Repeat the same seven words four times and it becomes the thing they swipe away.</div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Missing — build it.</b> The team's wording, with the appeal link made explicit.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Leave the door open, in a sentence a person would say out loud.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Push · lock screen</span><span class="count">title 29 · body 63</span></div><div class="lock"><span class="ico"><i></i><i></i><i></i><i></i></span><span><span class="l-app">Pinned Runner</span><span class="l-title">Ksh <span class="tok">{{payout}}</span> · <span class="tok">{{stops}}</span> parcels · <span class="tok">{{km}}</span> km</span><span class="l-body"><span class="tok">{{origin}}</span> → <span class="tok">{{dest}}</span>. Tap to accept — this offer closes <span class="tok">{{eta}}</span>.</span></span></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">77 chars · 1 segment</span></div><div class="old">New delivery available
-Pickup: Superior - Gatakaini. Batch distance: 15.8 km.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li><b>One live offer per batch, per runner.</b> Collapse key <code>batch_offer:{batch_id}</code>; a re-offer replaces the notification in place, it never stacks.</li><li><b>Cooldown.</b> No more than 3 offer pushes to one runner in 15 minutes, whatever the batch.</li><li><b>Radius before volume.</b> Restore the proximity and vehicle-class filters. An offer a runner cannot take is a notification that costs trust and returns nothing.</li><li><b>Money in the title.</b> The title is the only part read on a locked phone. Ksh first, parcels second, distance third.</li><li><b>Expiry in the body.</b> An offer with no closing time has no reason to be opened now.</li><li><b>Silence when offline.</b> Runners who are not online do not get offer pushes. Today they do.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">143 chars · 1 segment</span></div><div class="sms-bubble">Hi <span class="tok">{{name}}</span>, your Pinned account has been suspended: <span class="tok">{{reason}}</span>.
+If you feel this was wrong, you can appeal here: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Account suspended</b><p><span class="tok">{{reason}}</span>. Offers are paused while this is open.<br><span class="chip">Appeal this</span>  <span class="chip">Call support</span></p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Never suspend silently. A runner who finds out by seeing no offers assumes the app is broken, and tells other runners it is broken.</li><li>The reason is specific and in plain words — never a policy code.</li><li>The appeal route is in the first message, not in a follow-up.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="R10">
+  <div class="tp-head">
+    <span class="tp-id">R10</span>
+    <span class="tp-title"><h3>Suspension lifted</h3><p>Get them earning again in one sentence, and say the record is clear.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>Admin reverses a suspension</span></div>
+      <div><b>Timing</b><span>Immediately</span></div>
+      <div><b>Source</b><span>Review screenshot · missing</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Reward</span></div>
+    <div class="tp-note warm"><span class="nlbl">Warmth</span>Good news, said as good news. This person has been out of work.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">127 chars · 1 segment</span></div><div class="sms-bubble">Good news <span class="tok">{{name}}</span> — your account has been reviewed and the suspension lifted.
+You can go online and start accepting jobs again.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>You're back online</b><p>The suspension has been lifted and your rating is unchanged.<br><span class="chip">Go online</span></p></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Say the rating and standing are unchanged, if they are. Silence on that point reads as a permanent mark.</li><li>This message goes out the moment the decision is made, not on the next batch run. Every hour of delay is money the runner did not earn.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="R11">
+  <div class="tp-head">
+    <span class="tp-id">R11</span>
+    <span class="tp-title"><h3>Account deleted</h3><p>Confirm it happened, and give a human a window to undo a mistake.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span><span class="chip email">Email</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A runner deletes their account</span></div>
+      <div><b>Timing</b><span>Immediately</span></div>
+      <div><b>Source</b><span>Review screenshot · missing</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note warm"><span class="nlbl">Warmth</span>No guilt, no win-back offer. They asked; we confirm and leave the door unlocked.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">145 chars · 1 segment</span></div><div class="sms-bubble">Hi <span class="tok">{{name}}</span>, your Pinned account has been deleted.
+If this was an error, contact customer care on 0102482883 within 30 days and we can restore it.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>Your Pinned account has been deleted</b></div><div class="email-body">Your account is closed and you will not receive job offers.
+
+Any earnings already approved are paid on the normal settlement date to the M-Pesa number on the account.
+
+Your delivery records are kept for the period the law requires and are not used for anything else.
+
+If this was a mistake, call 0102482883 within 30 days and we can restore the account exactly as it was.</div></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>No retention offer, no survey, no “are you sure” after the fact. They already decided.</li><li>Say what happens to money and to records. Those are the two things people worry about after they press delete.</li></ul></div></div>
     </div>
   </div>
 </article>
 </div></section><div class="wrap"><div class="endrule"></div></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 9 October 2026</p>
-    <p>Internal working document. Build 4.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 13 October 2026 · team review applied</p>
+    <p>Internal working document. Build 7.</p>
   </div>
 </footer>
 <script>

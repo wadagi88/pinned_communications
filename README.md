@@ -8,7 +8,9 @@ what it says, and why it says it that way.
 A static site. No build step on Netlify; pages are generated locally and
 committed.
 
-**49 touchpoints** — 13 live today, 16 partial, 17 not built, 3 defects.
+**58 touchpoints** — 11 live today, 12 partial, 23 not built, 9 channel changes,
+2 defects. Every lane page opens with its **SMS journey**: the moments in order,
+which channel carries each one, and how many of them cost an SMS.
 
 ## Where it came from
 
@@ -17,8 +19,35 @@ committed.
 | `PINNED COMMUNICATION MAP.pdf` (9 Oct 2026) | The touchpoint inventory for runners, virtual hosts, admin, senders and receivers. Every touchpoint traceable to it carries a `Map · …` source line. |
 | `pinned-core` `db/seeds.rb` | The 33 live `NotificationTemplate` bodies, quoted verbatim as “Live today” beside each rewrite. |
 | `pinned-core` `app/services/routing/batch_offer/build.rb`, `app/workers/notifications/dispatch_worker.rb`, `app/services/fcm_sender.rb` | The runner offer push, and the three code-level causes of the duplicate-notification defect. |
-| `PINNED BRAND GUIDE2.pdf` | Colour, type and the rule that DM Mono is reserved for codes, OTPs and tracking references. The brand guide has no verbal identity section — the Voice page is the gap it leaves. |
+| `PINNED BRAND GUIDE2.pdf` | Colour, type and the rule that DM Mono is reserved for codes and tracking references. The brand guide has no verbal identity section — the Voice page is the gap it leaves. |
 | Runner lock-screen capture, 9 Oct 2026 | Four identical offer notifications in 24 minutes. The evidence the whole thing is built around. |
+
+### Round two — the team review, 13 October 2026
+
+| Source | What it changed |
+| --- | --- |
+| `Senders Communication Touchpoints.docx` | Copy rewrites and a keep/remove recommendation on every sender touchpoint. Four messages move to in-app only. |
+| `PINNED RUNNERS COMMS.docx` | Six runner messages rewritten warmer, in the team's own voice. Used as written. |
+| `PINNED HOST TOUCHPOINTS REVIEW .docx` | Channel decisions, plus three policy questions that block copy. |
+| Runner comms screenshot | Keep / move markings per channel, and four messages that do not exist: suspension, reinstatement, account deletion, and the sign-in code that should become a PIN. |
+
+Their decisions live in a `REVIEW` merge layer at the end of `_build/data.py`
+rather than edited into the round-one block, so the provenance of every change
+stays readable. `NEW_TOUCHPOINTS` adds what the review asked for, and `ORDER`
+sets the display sequence.
+
+Two things the review asked for that are not channel decisions:
+
+- **The warmth layer** (`principles.html#warmth`) — round one answered *what
+  happened, what do I do* and never *why should I care*. Six warmth moves, and a
+  per-lane budget, because warmth spent everywhere is warmth nobody feels.
+- **The SMS journey** (`JOURNEYS` in `data.py`) — on every lane page. Steps
+  numbered `+` only happen when something goes wrong, so the budget quoted is the
+  budget for a journey that works.
+
+The receiver lane was **not** in the review pack. Its changes come from the brief
+and still need the same keep/remove pass — see Open questions on the Build order
+page.
 
 Two lanes are not in the PDF and were added:
 
@@ -58,17 +87,17 @@ so a deploy is never masked by a phone's cache. Pages carry
 ## Structure
 
 ```
-index.html          the map: evidence, the six lanes, every touchpoint
-principles.html     eight principles, the clarity contract, the hook framework, the glossary
+index.html          the map: evidence, the review, the six lanes, every touchpoint
+principles.html     eight principles, the warmth layer, the clarity contract, the hook, the glossary
 channels.html       channel doctrine, the eight laws, the escalation ladder, tokens
-senders.html        10 touchpoints
-receivers.html      11
-runners.html        10
-hosts.html           8
-admin.html           5
-prospects.html       5
+senders.html        12 touchpoints ·  4 SMS on a journey that works
+receivers.html      12 ·  4
+runners.html        15 ·  4
+hosts.html           9 ·  1
+admin.html           5 ·  4
+prospects.html       5 ·  3
 library.html        the full table, filterable, plus every rewrite side by side
-gaps.html           the three defects, what is missing, a four-week build order
+gaps.html           what the review changed, open questions, defects, four-week build order
 assets/comms.css    one stylesheet; brand tokens shared with the Growth Desk
 _build/data.py      all content — touchpoints, copy, principles, laws
 _build/build.py     the generator
@@ -88,8 +117,14 @@ T(id="C2", lane="receiver", stage="Arrived", name="It is here — collect with t
   old="the verbatim copy that is live today, or None",
   msgs=[("sms", "..."), ("in_app", ("title", "body"))],
   rules=["the decisions behind the copy"],
+  review="what the team decided about channels, 13 Oct",
+  warmth="the warmth move this message uses, if any",
   notes=[("warn", "defects and evidence"), ("hook", "hook commentary")])
 ```
+
+Statuses: `live`, `partial`, `gap`, `defect`, `change` (the message stays, the
+channel mix does not) and `retire` (it goes away — a retired touchpoint carries
+no copy, which the lint allows only for that status).
 
 Character counts are measured with the longest realistic token values
 (`SAMPLES` in `data.py`) filled in, not with the tokens left empty. An SMS that
@@ -99,6 +134,11 @@ Bump `BUILD` in `data.py` when assets change; it is the `?v=` cache buster.
 
 ## Status
 
-Draft for review. Nothing here has been applied to `pinned-core`. The rewrites
-are `NotificationTemplate#body` edits against existing keys — no migration —
-and the three defects are code changes listed on the Build order page.
+Draft. Nothing here has been applied to `pinned-core`. Most rewrites are
+`NotificationTemplate#body` edits against existing keys — no migration — and the
+defects and channel changes are the code work listed on the Build order page.
+
+Six decisions are not ours to make and block copy that is otherwise written:
+sender sign-in PIN, the dwell no-response default, the failed-delivery default,
+the settlement timing promise, the pod-host commercial terms, and the receiver
+lane's missing review. All six are on the Build order page under Open questions.

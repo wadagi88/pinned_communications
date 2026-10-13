@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=4">
+<link rel="stylesheet" href="assets/comms.css?v=7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -20,7 +20,7 @@
 
 <header class="phead"><div class="wrap">
   <p class="crumb"><a href="index.html">Pinned Communications</a> · Receivers</p>
-  <p class="eyebrow" style="margin-top:10px">11 touchpoints</p>
+  <p class="eyebrow" style="margin-top:10px">12 touchpoints · 4 SMS on a journey that works</p>
   <h1>Receivers</h1>
   <p class="lede">The person the parcel is for. Often has never heard of Pinned before the first SMS.</p>
 </div></header>
@@ -59,30 +59,71 @@
     </div></div>
 </div>
 </div></section>
+<section id="journey"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>The SMS journey</h2></div>
+  <p class="sec-sub">Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: <b>4 on a journey that works</b>, 8 more only when something goes wrong. A row numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision not to spend an SMS.</p>
+  <div class="rule"></div>
+  
+<div class="jrny">
+  <div class="jrny-head"><h3>Four SMS on a journey that works — and the receiver has no app</h3><p>Every receiver rule is the inverse of the sender rules. There is no in-app to fall back on, so SMS carries everything — which is exactly why the ladder has to stop at four rungs. A parcel that has been created and a parcel that is moving are two different messages.</p></div>
+  <div class="jstep is-sms"><span class="jn">1</span><span class="jwhen">Parcel created for them</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Someone is sending you a parcel. Nothing to do yet</span><span class="jwhy">The notification. Informational, no action, no code.</span></div>
+  <div class="jstep is-sms"><span class="jn">2</span><span class="jwhen">Runner collects it</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">On its way, with a runner and an ETA</span><span class="jwhy">The expected parcel. Optional for a pod drop, required for a door delivery.</span></div>
+  <div class="jstep is-sms"><span class="jn">3a</span><span class="jwhen">Arrives at a pod</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Station, opening hours, collection code, free-storage deadline, door-delivery escape</span><span class="jwhy">Two segments. Each line in it saves a phone call.</span></div>
+  <div class="jstep is-sms"><span class="jn">3b</span><span class="jwhen">Arrives at the door</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Runner at the door — code at hand-over</span><span class="jwhy">The alternative branch: a door delivery skips the pod message entirely.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Running late</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">New time, reason, and when we will text next</span><span class="jwhy">A broken promise gets its own message.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">24h uncollected</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Still here, code, opening hours</span><span class="jwhy">Rung 1. No mention of charges — none apply yet.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">48h</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">24 hours of free storage left, then the rate</span><span class="jwhy">Rung 2. Where most door-delivery conversions happen.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">72h</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, and how to stop it</span><span class="jwhy">Rung 3. Money is moving.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Day 7</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Goes back today, total charged</span><span class="jwhy">Rung 4. Then silence.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Requests more time</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Approved — new deadline</span><span class="jwhy">A decision they are waiting on.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">…declined</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Declined, with door delivery offered instead</span><span class="jwhy">A no that ends with a yes.</span></div>
+  <div class="jstep is-sms"><span class="jn">4</span><span class="jwhen">Collects</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Thanks — save your address for next time</span><span class="jwhy">Once per receiver, ever. The only ask in the lane.</span></div>
+</div>
+</div></section>
 <section><div class="wrap">
-  <div class="sec-head"><span class="sec-num">02</span><h2>Touchpoints</h2></div>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Touchpoints</h2></div>
   
   <div class="rule"></div>
   <h3 style="margin-top:38px">First contact</h3>
 <article class="tp" id="C1">
   <div class="tp-head">
     <span class="tp-id">C1</span>
-    <span class="tp-title"><h3>Someone has sent you a parcel</h3><p>This may be the first time this person has ever heard of Pinned. Say who sent it.</p></span>
+    <span class="tp-title"><h3>A parcel has been created for you</h3><p>A heads-up, not an instruction. Nothing is moving yet and there is nothing to do.</p></span>
+    <span class="tp-meta"><span class="badge change">Channel change</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A sender or a virtual host creates a parcel addressed to this person</span></div>
+      <div><b>Timing</b><span>At creation</span></div>
+      <div><b>Source</b><span>Map · Receiver 1</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">runner_picked_up_receiver</span><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Split in two.</b> A notification that a parcel exists and a parcel that is actually on its way are different messages with different jobs. This one tells them something is coming and asks for nothing; C1b tells them it is moving and gives them a time.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Name the stake: someone thought of them. It is the only message in the lane that gets to be nice.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">173 chars · 2 segments</span></div><div class="sms-bubble">Good news <span class="tok">{{name}}</span> — <span class="tok">{{from}}</span> is sending you a parcel through Pinned.
+It is being prepared at <span class="tok">{{origin}}</span>. Nothing to do yet; we will text you the moment it is on its way.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">58 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> has been picked up and is on its way.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>A receiver who does not know the sender's name assumes a scam. The sender's name is the trust signal, so it goes first.</li><li>Never open a receiver's first message with 'Your parcel {{code}}'. A code they have never seen is not a greeting.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="C1b">
+  <div class="tp-head">
+    <span class="tp-id">C1b</span>
+    <span class="tp-title"><h3>It is on its way to you</h3><p>The expected parcel. Now there is a person, a place and a time.</p></span>
     <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>A parcel is created for a receiver, or a runner collects it</span></div>
+      <div><b>Trigger</b><span>A runner collects the parcel and it is moving toward the receiver</span></div>
       <div><b>Timing</b><span>At pickup</span></div>
-      <div><b>Source</b><span>Map · Receiver 1</span></div>
+      <div><b>Source</b><span>Brief · 13 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">runner_picked_up_receiver</span><span class="chip">Hook · Trigger</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>The second half of the split.</b> C1 says something is coming; this one says it is moving and gives them a time they can plan around.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">136 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{from}}</span> has sent you a parcel through Pinned.
-<span class="tok">{{runner}}</span> is bringing it to <span class="tok">{{dest}}</span>, about <span class="tok">{{eta}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">128 chars · 1 segment</span></div><div class="sms-bubble">Your parcel from <span class="tok">{{from}}</span> is on the way to <span class="tok">{{dest}}</span> with <span class="tok">{{runner}}</span>, arriving about <span class="tok">{{eta}}</span>.
 Follow it: <span class="tok">{{track_url}}</span></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">58 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> has been picked up and is on its way.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>A receiver who does not know the sender's name assumes a scam. The sender's name is the trust signal, so it goes first.</li><li>Never open a receiver's first message with 'Your parcel {{code}}'. A code they have never seen is not a greeting.</li></ul></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>A time is the whole point of this message. If there is no reliable ETA, do not send it — wait for the arrival message instead.</li><li>For a pod delivery this message is optional. For a door delivery it is not, because somebody has to be home.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Arrived</h3>
@@ -307,8 +348,8 @@ Next time <span class="tok">{{from}}</span> sends to you, we can bring it to <sp
 </div></section><div class="wrap"><div class="endrule"></div></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 9 October 2026</p>
-    <p>Internal working document. Build 4.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 13 October 2026 · team review applied</p>
+    <p>Internal working document. Build 7.</p>
   </div>
 </footer>
 <script>

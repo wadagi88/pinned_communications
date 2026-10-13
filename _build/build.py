@@ -57,7 +57,7 @@ def chips(channels):
     )
 
 
-STATUS_WORD = {"live": "Live", "partial": "Partial", "gap": "Not built", "defect": "Defect"}
+STATUS_WORD = D.STATUS_WORD
 
 
 def badge(status):
@@ -151,7 +151,14 @@ def render_tp(t):
     if t["rules"]:
         right.append('<div class="msg"><span class="lbl">Rules</span><ul>%s</ul></div>'
                      % "".join("<li>%s</li>" % r for r in t["rules"]))
-    notes = "".join('<div class="tp-note %s">%s</div>' % (kind, text) for kind, text in t["notes"])
+    notes = ""
+    if t.get("review"):
+        notes += ('<div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span>%s</div>'
+                  % t["review"])
+    if t.get("warmth"):
+        notes += ('<div class="tp-note warm"><span class="nlbl">Warmth</span>%s</div>'
+                  % e(t["warmth"]))
+    notes += "".join('<div class="tp-note %s">%s</div>' % (kind, text) for kind, text in t["notes"])
     meta = []
     if t["key"]:
         meta.append('<span class="chip">%s</span>' % e(t["key"]))
@@ -274,6 +281,42 @@ def section(num, title, sub, body, anchor=None):
 </div></section>""" % (a, e(num), e(title), sub_html, body)
 
 
+CH_SHORT = {"sms": "SMS", "push": "Push", "in_app": "In-app", "email": "Email",
+            "whatsapp": "WhatsApp", "retire": "None"}
+
+
+def render_journey(lane_key):
+    j = D.JOURNEYS.get(lane_key)
+    if not j:
+        return ""
+    rows = []
+    for st in j["steps"]:
+        cls = "jstep"
+        if st["ch"] == "sms":
+            cls += " is-sms"
+        if st["ch"] == "retire" or st.get("flag") == "retire":
+            cls += " is-retire"
+        chip_cls = D.CHANNEL_CLASS.get(st["ch"], "")
+        flag = ""
+        if st.get("flag") == "open":
+            flag = '<span class="flag">open question</span>'
+        elif st.get("flag") == "retire":
+            flag = '<span class="flag">retired</span>'
+        rows.append(
+            '<div class="%s"><span class="jn">%s</span>'
+            '<span class="jwhen">%s</span>'
+            '<span class="jch"><span class="chip %s">%s</span></span>'
+            '<span class="jwhat">%s%s</span>'
+            '<span class="jwhy">%s</span></div>'
+            % (cls, e(st["n"]), e(st["when"]), chip_cls, e(CH_SHORT.get(st["ch"], st["ch"])),
+               tok_html(st["what"]), flag, e(st["why"])))
+    return """
+<div class="jrny">
+  <div class="jrny-head"><h3>%s</h3><p>%s</p></div>
+  %s
+</div>""" % (e(j["headline"]), e(j["sub"]), "\n  ".join(rows))
+
+
 # ── pages ────────────────────────────────────────────────────────────────────
 
 def by_lane(key):
@@ -281,10 +324,18 @@ def by_lane(key):
 
 
 def counts():
-    c = {"live": 0, "partial": 0, "gap": 0, "defect": 0}
+    c = {k: 0 for k in STATUS_WORD}
     for t in D.TOUCHPOINTS:
         c[t["status"]] += 1
     return c
+
+
+def sms_steps(lane_key, path_only=False):
+    j = D.JOURNEYS.get(lane_key)
+    if not j:
+        return []
+    return [st for st in j["steps"]
+            if st["ch"] == "sms" and not (path_only and st["off"])]
 
 
 def matrix_rows(tps, link_page=None):
@@ -312,10 +363,11 @@ def build_index():
             for t in tps)
         lanes.append("""
 <div class="lane %s">
-  <div class="lane-head"><h3>%s</h3><a href="%s">%d touchpoints →</a></div>
+  <div class="lane-head"><h3>%s</h3><a href="%s#journey">%d touchpoints · %d SMS →</a></div>
   <p style="padding:0 20px;color:var(--text-2);font-size:.93rem">%s</p>
   <ol>%s</ol>
-</div>""" % (l["colour"], e(l["title"]), l["page"], len(tps), e(l["who"]), items))
+</div>""" % (l["colour"], e(l["title"]), l["page"], len(tps),
+             len(sms_steps(l["key"], True)), e(l["who"]), items))
 
     body = """
 <header class="mast">
@@ -332,6 +384,7 @@ def build_index():
       <div><b>%(live)d</b><small>live today</small></div>
       <div><b>%(partial)d</b><small>partial</small></div>
       <div><b>%(gap)d</b><small>not built</small></div>
+      <div><b>%(change)d</b><small>channel changes</small></div>
       <div><b>%(defect)d</b><small>defects</small></div>
     </div>
   </div>
@@ -340,7 +393,7 @@ def build_index():
 """ % dict(total=len(D.TOUCHPOINTS), nav=navbar("index.html"), **c)
 
     body += section("00", "Why this exists", None, """
-<div class="grid g2">
+<div class="grid g3">
   <div class="card accent-org">
     <span class="lbl">Evidence</span>
     <h3 style="margin-top:8px">%s</h3>
@@ -357,6 +410,17 @@ def build_index():
       written down, and then enforced in code: one event one message, one action per message,
       four rungs then silence, the code on its own line.</p>
     <p><a href="principles.html">The eight principles →</a></p>
+  </div>
+  <div class="card accent-flow">
+    <span class="lbl">Round two · 13 October</span>
+    <h3 style="margin-top:8px">The team marked every channel</h3>
+    <p>Three documents and an annotated screenshot came back: which channel to keep, which to drop,
+      which message to move, and four that do not exist at all. Nine touchpoints change channel, one
+      is retired outright, and the copy follows the team's own wording wherever they wrote it.</p>
+    <p>The other verdict was that round one was correct and cold — it never answered
+      <i>why should I care</i>. Hence the warmth layer, and an SMS journey on every lane page so the
+      cost of a channel decision is visible before it is taken.</p>
+    <p><a href="gaps.html">What the review changed →</a> · <a href="principles.html#warmth">The warmth layer →</a></p>
   </div>
 </div>""" % (e(D.EVIDENCE["title"]), D.EVIDENCE["body"], e(D.EVIDENCE["close"])))
 
@@ -389,9 +453,10 @@ def build_index():
 
 def build_principles():
     body = phead("Voice", "How Pinned speaks",
-                 "Eight principles, and a contract every message signs",
+                 "Eight principles, a warmth layer, and a contract every message signs",
                  "Clarity is not a style. It is the same four questions answered in the same order, "
-                 "every time, in every channel — and a short list of things we never do.")
+                 "every time, in every channel. Warmth is not a style either — it is the four or five "
+                 "moments in a journey where somebody has something at stake, and we show that we know it.")
     body += navbar("principles.html")
 
     cards = []
@@ -408,10 +473,34 @@ def build_principles():
 </div>""" % (e(p["n"]), e(p["t"]), e(p["p"]), e(p["yes"]).replace("\n", "<br>"), e(p["no"])))
     body += section("01", "The principles", None, '<div class="grid">%s</div>' % "".join(cards))
 
+    wcards = []
+    for w in D.WARMTH_MOVES:
+        wcards.append("""
+<div class="card accent-mag">
+  <span class="sec-num">%s</span>
+  <h3 style="margin-top:6px">%s</h3>
+  <p>%s</p>
+  <div class="dd" style="margin-top:14px">
+    <div class="y"><span class="lbl">Write this</span><span class="ex">%s</span></div>
+    <div class="n"><span class="lbl">Not this</span><span class="ex">%s</span></div>
+  </div>
+</div>""" % (e(w["n"]), e(w["t"]), e(w["p"]), e(w["yes"]), e(w["no"])))
+    budget = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
+                     % (e(a), e(b)) for a, b in D.WARMTH_BUDGET)
+    body += section("02", "The warmth layer",
+                    D.WARMTH_INTRO,
+                    '<div class="grid g2">%s</div>'
+                    '<h3 style="margin:38px 0 0">Where the warmth is allowed to go</h3>'
+                    '<p class="sec-sub" style="margin-top:10px">Warmth spent everywhere is warmth nobody '
+                    'feels. Each lane gets a short list of moments, and the messages in between stay plain.</p>'
+                    '<div class="grid g4" style="margin-top:16px">%s</div>'
+                    % ("".join(wcards), budget),
+                    anchor="warmth")
+
     rows = "".join(
         '<div class="card"><span class="lbl">%d. %s</span><p class="tight">%s</p></div>' % (i + 1, e(q), e(a))
         for i, (q, a) in enumerate(D.CONTRACT))
-    body += section("02", "The clarity contract",
+    body += section("03", "The clarity contract",
                     "Every Pinned message answers these four questions, in this order. A message that "
                     "cannot answer the third should not be sent.",
                     '<div class="grid g4">%s</div>' % rows)
@@ -432,7 +521,7 @@ def build_principles():
     <div><b>Investment</b><span>%s</span></div>
   </div>
 </div>""" % (l["colour"], e(l["title"]), e(h["trigger"]), e(h["action"]), e(h["reward"]), e(h["investment"])))
-    body += section("03", "The hook, applied",
+    body += section("04", "The hook, applied",
                     "Trigger, action, variable reward, investment. Pinned already has genuine variable "
                     "rewards — the runner's payout, the host's weekly figure, the proof photo. None of "
                     "them are currently where the person looks.",
@@ -440,7 +529,7 @@ def build_principles():
                     % (hooks, "".join(lane_hooks)))
 
     gl = "".join('<tr><td><b>%s</b></td><td>%s</td></tr>' % (e(a), e(b)) for a, b in D.GLOSSARY)
-    body += section("04", "Words we do not use",
+    body += section("05", "Words we do not use",
                     "Internal vocabulary leaks into customer copy whenever nobody writes it down.",
                     '<div class="scroller"><table><thead><tr><th>Inside Pinned</th>'
                     '<th>What the customer reads</th></tr></thead><tbody>%s</tbody></table></div>' % gl)
@@ -515,7 +604,9 @@ def build_channels():
 def build_lane(lane):
     tps = by_lane(lane["key"])
     h = lane["hook"]
-    body = phead(lane["title"], "%d touchpoints" % len(tps), lane["title"], e(lane["who"]))
+    body = phead(lane["title"],
+                 "%d touchpoints · %d SMS on a journey that works" % (len(tps), len(sms_steps(lane["key"], True))),
+                 lane["title"], e(lane["who"]))
     body += navbar(lane["page"])
     body += section("01", "What they are here for", None, """
 <div class="grid g2">
@@ -541,7 +632,14 @@ def build_lane(lane):
     for stage in seen:
         items = "".join(render_tp(t) for t in tps if t["stage"] == stage)
         stages.append('<h3 style="margin-top:38px">%s</h3>%s' % (e(stage), items))
-    body += section("02", "Touchpoints", None, "".join(stages))
+    n_path, n_all = len(sms_steps(lane["key"], True)), len(sms_steps(lane["key"]))
+    body += section("02", "The SMS journey",
+                    "Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: "
+                    "<b>%d on a journey that works</b>, %d more only when something goes wrong. A row "
+                    "numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision "
+                    "not to spend an SMS." % (n_path, n_all - n_path),
+                    render_journey(lane["key"]), anchor="journey")
+    body += section("03", "Touchpoints", None, "".join(stages))
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page(lane["page"], "%s · Pinned Communications" % lane["title"],
                 "Every Pinned message to %s." % lane["title"].lower(), body)
@@ -619,8 +717,28 @@ def build_gaps():
   <div><b>%(live)d</b><small>live today</small></div>
   <div><b>%(partial)d</b><small>partial</small></div>
   <div><b>%(gap)d</b><small>not built</small></div>
+  <div><b>%(change)d</b><small>channel changes</small></div>
   <div class="hot"><b>%(defect)d</b><small>defects</small></div>
 </div></div>""" % dict(total=len(D.TOUCHPOINTS), **c)
+
+    changes = [t for t in D.TOUCHPOINTS if t["status"] in ("change", "retire")]
+    srcs = "".join('<div><b>%s</b><p>%s</p></div>' % (e(a), e(b)) for a, b in D.REVIEW_SOURCES)
+    body += section("01", "What the review changed",
+                    "Three documents and an annotated screenshot came back from the team on 13 October. "
+                    "Every channel decision below is theirs; the copy follows their wording wherever they "
+                    "wrote it.",
+                    '<div class="srcs">%s</div>'
+                    '<div class="scroller" style="margin-top:22px"><table><thead><tr><th>ID</th>'
+                    '<th>Touchpoint</th><th>Timing</th><th>Channels now</th><th>Status</th>'
+                    '<th>Template key</th></tr></thead><tbody>%s</tbody></table></div>'
+                    % (srcs, matrix_rows(changes)))
+
+    qs = "".join('<div><span class="who">%s</span><h4>%s</h4><p>%s</p></div>'
+                 % (e(q["who"]), e(q["q"]), e(q["why"])) for q in D.OPEN_QUESTIONS)
+    body += section("02", "Open questions",
+                    "Six decisions that are not ours to make. Each one blocks copy that is otherwise "
+                    "written and ready.",
+                    '<div class="qs">%s</div>' % qs)
 
     weeks = []
     for w in D.BUILD_ORDER:
@@ -630,15 +748,15 @@ def build_gaps():
         weeks.append('<div class="card accent-mag"><span class="lbl">%s</span>'
                      '<h3 style="margin-top:8px">%s</h3><ul>%s</ul></div>'
                      % (e(w["w"]), e(w["t"]), items))
-    body += section("01", "Four weeks", None, '<div class="grid g2">%s</div>' % "".join(weeks))
+    body += section("03", "Four weeks", None, '<div class="grid g2">%s</div>' % "".join(weeks))
 
     defects = [t for t in D.TOUCHPOINTS if t["status"] == "defect"]
-    body += section("02", "The three defects",
-                    "These are not copy preferences. Each one is doing measurable damage every day it ships.",
+    body += section("04", "The defects",
+                    "Not copy preferences. Each one is doing measurable damage every day it ships.",
                     "".join(render_tp(t) for t in defects))
 
     gaps = [t for t in D.TOUCHPOINTS if t["status"] == "gap"]
-    body += section("03", "Not built",
+    body += section("05", "Not built",
                     "%d touchpoints the map asks for, or the hook needs, that nothing sends today."
                     % len(gaps),
                     '<div class="scroller"><table><thead><tr><th>ID</th><th>Touchpoint</th>'
@@ -647,7 +765,7 @@ def build_gaps():
 
     notes = "".join('<div class="kv"><div><b style="min-width:230px">%s</b><span>%s</span></div></div>'
                     % (a, b) for a, b in D.CODE_NOTES)
-    body += section("04", "Where this lands in the code",
+    body += section("06", "Where this lands in the code",
                     "Nothing here needs a new messaging stack. The seams already exist.",
                     '<div class="card">%s</div>' % notes)
     body += '<div class="wrap"><div class="endrule"></div></div>'

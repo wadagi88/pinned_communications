@@ -53,9 +53,11 @@ for t in D.TOUCHPOINTS:
     ids.add(t["id"])
     if t["lane"] not in D.LANE_BY_KEY:
         fails.append("%s has unknown lane %s" % (t["id"], t["lane"]))
-    if t["status"] not in ("live", "partial", "gap", "defect"):
+    if t["status"] not in D.STATUS_WORD:
         fails.append("%s has unknown status %s" % (t["id"], t["status"]))
     msg_channels = {c for c, _ in t["msgs"]}
+    if t["status"] == "retire":
+        continue  # a retired touchpoint documents a removal, not a message
     if not msg_channels:
         fails.append("%s has no copy" % t["id"])
     for c in msg_channels:
