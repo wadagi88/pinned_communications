@@ -453,7 +453,7 @@ def build_index():
 
 def build_principles():
     body = phead("Voice", "How Pinned speaks",
-                 "Eight principles, a warmth layer, and a contract every message signs",
+                 "Nine principles, a warmth layer, and a contract every message signs",
                  "Clarity is not a style. It is the same four questions answered in the same order, "
                  "every time, in every channel. Warmth is not a style either — it is the four or five "
                  "moments in a journey where somebody has something at stake, and we show that we know it.")
@@ -487,6 +487,9 @@ def build_principles():
 </div>""" % (e(w["n"]), e(w["t"]), e(w["p"]), e(w["yes"]), e(w["no"])))
     budget = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
                      % (e(a), e(b)) for a, b in D.WARMTH_BUDGET)
+    pos = D.POSITIONING
+    pos_rules = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
+                        % (e(a), e(b)) for a, b in pos["where"])
     body += section("02", "The warmth layer",
                     D.WARMTH_INTRO,
                     '<div class="grid g2">%s</div>'
@@ -494,7 +497,12 @@ def build_principles():
                     '<p class="sec-sub" style="margin-top:10px">Warmth spent everywhere is warmth nobody '
                     'feels. Each lane gets a short list of moments, and the messages in between stay plain.</p>'
                     '<div class="grid g4" style="margin-top:16px">%s</div>'
-                    % ("".join(wcards), budget),
+                    '<h3 style="margin:38px 0 0">The positioning line</h3>'
+                    '<div class="card accent-mag" style="margin-top:16px">'
+                    '<p style="font-size:1.5rem;font-weight:800;letter-spacing:-.02em;color:var(--text);margin:0">%s</p>'
+                    '<p>%s</p></div>'
+                    '<div class="grid g4" style="margin-top:16px">%s</div>'
+                    % ("".join(wcards), budget, e(pos["line"]), e(pos["body"]), pos_rules),
                     anchor="warmth")
 
     rows = "".join(

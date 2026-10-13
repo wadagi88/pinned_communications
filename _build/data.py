@@ -12,7 +12,7 @@ Status values
   defect  — it fires, and what it does is wrong
 """
 
-BUILD = 9
+BUILD = 10
 UPDATED = "13 October 2026 · team review applied"
 
 SITE = dict(
@@ -768,6 +768,10 @@ PRINCIPLES = [
          p="One short apology, then the new time or the new plan. Repeated sorries read as a system that knows it is unreliable and expects to stay that way.",
          yes="Sorry — late. Now about 14:20, and we text when it lands.",
          no="We sincerely apologise for the inconvenience. We apologise again for any disruption this may have caused."),
+    dict(n="09", t="First contact names the pain, not the feature",
+         p="The first message any audience gets has one job beyond its own: say what Pinned takes off their hands. A runner hears “six minutes to jobs”, a host hears what the pod pays, a sender hears the end of ringing people to ask where things are. Features come later, to people who already care.",
+         yes="Karibu Pinned, Wanjiru — your answer to UKO WAPI?",
+         no="Welcome to Pinned. Your sign-up code is 840 213."),
 ]
 
 CONTRACT = [
@@ -792,7 +796,7 @@ CHANNELS = [
     dict(k="sms", t="SMS", role="Lands anywhere, costs money, cannot be taken back",
          use="Anything that must reach a person who is not in the app: arrival, codes, money, deadlines, failures.",
          avoid="Progress updates, thank-yous, anything a push or an in-app card can carry.",
-         rules=["160 GSM-7 characters is one segment. Two segments are allowed when the message carries money, a deadline and an action — never for warmth.",
+         rules=["160 GSM-7 characters is one segment. Two segments are allowed when the message carries money, a deadline and an action — and once per audience for first contact, where the second segment buys the reason to care.",
                 "Sender ID PINNED on everything.",
                 "No link shorteners the customer cannot read. The domain is the trust signal.",
                 "Non-urgent SMS is held between 21:00 and 06:30 EAT."]),
@@ -847,6 +851,23 @@ LAWS = [
          p="Dwell, batch, OTP, eligibility, heartbeat, float, SLA, vhost. None of these reach a customer or a runner. The customer-facing word is listed beside each one in the glossary."),
 ]
 
+POSITIONING = dict(
+    line="Uko wapi?",
+    body="The question every delivery in Nairobi collapses into. The sender rings the rider, the receiver "
+         "rings the sender, the shop rings everybody, and nobody has an answer. Pinned's product is the "
+         "answer — a code, a map and a pod instead of four phone calls.",
+    where=[
+        ("First contact, once per person", "The sign-up message, and nowhere else in the sender journey. "
+                                           "A line this good survives exactly as long as it stays rare."),
+        ("Marketing, freely", "Groups, print, the landing, the merch. Repetition is the job there."),
+        ("Never in a transactional message", "A storage charge, a failed delivery or a collection code is "
+                                             "not the moment for a slogan. It reads as a company enjoying "
+                                             "itself while the customer has a problem."),
+        ("Never translated into English in copy", "“Your answer to where are you?” is a different, worse "
+                                                  "sentence. It works because it is the words people "
+                                                  "actually use."),
+    ])
+
 GLOSSARY = [
     ("dwell", "free storage"), ("batch", "job, or run"), ("OTP", "collection code"),
     ("handover code", "handover code — keep it, runners and hosts use it daily"),
@@ -855,6 +876,9 @@ GLOSSARY = [
     ("pod", "pod — it is on the hardware, customers learn it"),
     ("KES / KSh / Ksh", "Ksh, everywhere, no exceptions"),
     ("parcel", "parcel — never 'package', never 'item', never 'shipment'"),
+    ("trip", "trip — the delivery itself and its fee, as the sender app already calls it "
+             "(SENDER_APP_V2_SURFACES.md). You send a parcel; the trip is what moves it. "
+             "The verb is 'create a trip'"),
 ]
 
 EVIDENCE = dict(
@@ -1249,15 +1273,23 @@ NEW_TOUCHPOINTS = [
     T(id="S0", lane="sender", stage="Access", name="Sign-up code",
       trigger="A new sender requests a verification code", timing="On request · expires in 5 minutes",
       channels=["sms"], status="gap", source="Brief · 13 Oct", hook="Action",
-      intent="The first message Pinned ever sends a sender. It has to do the job and teach the safety rule at the same time.",
+      intent="The first message Pinned ever sends a sender. It carries the code, and it names the pain Pinned exists to remove.",
       old="Your OTP code is ….",
-      warmth="Welcome them in the same breath as the code — it costs six words.",
-      review="<b>Make it detailed.</b> “Your OTP is…” tells a person nothing about what the code does, "
-             "how long they have, or what a fraudster will try. All three fit.",
-      msgs=[("sms", "Welcome to Pinned. Your sign-up code is {{otp}}.\nIt sets up this phone as yours and expires in 5 minutes. We never call or text to ask for this code.")],
-      rules=["Never write “OTP” to a customer. It is a sign-up code or a sign-in code.",
-             "The expiry and the fraud line are not optional extras — they are the two questions every code message raises.",
-             "Nothing else ships with a code. No welcome offer, no tracking link, no app download."]),
+      warmth="Their name, and a promise in the language the problem is actually argued in.",
+      review="<b>Lead with the painkiller.</b> An earlier draft — <i>“Welcome to Pinned. Your sign-up code "
+             "is …”</i> — was correct and said nothing. It carried no name and no reason to care. "
+             "<b>Uko wapi?</b> is the question every delivery in this city turns into: the sender ringing "
+             "the rider, the receiver ringing the sender, nobody with an answer. Pinned <i>is</i> the "
+             "answer, and the first message is the one place that claim belongs.",
+      msgs=[("sms", "Karibu Pinned, {{name}} — your answer to UKO WAPI?\nSign-up code: {{otp}}\nCreate your first trip and never ask again: watch your parcel move, minute by minute.\nExpires in 5 minutes. We never ask for this code by phone.")],
+      rules=["<b>The sign-up code is the one code message allowed to sell.</b> It is first contact as well "
+             "as authentication. Every later code — sign-in, collection, handover — ships bare.",
+             "Never write “OTP” to a customer. It is a sign-up code or a collection code.",
+             "The expiry and the fraud line survive the rewrite. They are the two questions every code "
+             "message raises, and dropping them to make room for the promise would be the wrong trade.",
+             "“Trip” is the sender app's own word for a delivery and its fee — see the glossary. The verb "
+             "is <i>create a trip</i>, which is what the app's button says.",
+             "Two segments, and the only message in the lane where the second one is spent on warmth."]),
 
     T(id="S0b", lane="sender", stage="Access", name="Sign-in code",
       trigger="A sender signs in", timing="Each sign-in · expires in 5 minutes",
