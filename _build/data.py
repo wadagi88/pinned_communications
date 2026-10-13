@@ -12,7 +12,7 @@ Status values
   defect  — it fires, and what it does is wrong
 """
 
-BUILD = 10
+BUILD = 11
 UPDATED = "13 October 2026 · team review applied"
 
 SITE = dict(
@@ -876,9 +876,9 @@ GLOSSARY = [
     ("pod", "pod — it is on the hardware, customers learn it"),
     ("KES / KSh / Ksh", "Ksh, everywhere, no exceptions"),
     ("parcel", "parcel — never 'package', never 'item', never 'shipment'"),
-    ("trip", "trip — the delivery itself and its fee, as the sender app already calls it "
-             "(SENDER_APP_V2_SURFACES.md). You send a parcel; the trip is what moves it. "
-             "The verb is 'create a trip'"),
+    ("trip", "trip — the app's word for the delivery and its fee (SENDER_APP_V2_SURFACES.md). "
+             "It stays in the app, where a button can carry it. In an SMS, say what the person is "
+             "doing: 'send your first package'"),
 ]
 
 EVIDENCE = dict(
@@ -1281,14 +1281,22 @@ NEW_TOUCHPOINTS = [
              "<b>Uko wapi?</b> is the question every delivery in this city turns into: the sender ringing "
              "the rider, the receiver ringing the sender, nobody with an answer. Pinned <i>is</i> the "
              "answer, and the first message is the one place that claim belongs.",
-      msgs=[("sms", "Karibu Pinned, {{name}} — your answer to UKO WAPI?\nSign-up code: {{otp}}\nCreate your first trip and never ask again: watch your parcel move, minute by minute.\nExpires in 5 minutes. We never ask for this code by phone.")],
+      msgs=[("sms", "Karibu Pinned, {{name}} — your answer to UKO WAPI?\nSign-up code: {{otp}}\nSend your first package and watch it move, every second.\nOTP Expires in 5 minutes. We never ask for this code by phone.")],
+      notes=[("warn", "<b>Two words for one thing, twice.</b> This copy is approved as written, and it "
+                      "carries two unresolved vocabulary questions that reach past this message. "
+                      "<b>“package”</b> — every live template, the team's sender review and the rest of "
+                      "this site say <i>parcel</i>; the brand guide's own push mock-up says "
+                      "<i>“Your package has arrived…”</i>. One of them has to give. "
+                      "<b>“OTP”</b> — line two calls it a sign-up code and line four calls it an OTP, "
+                      "four lines apart. Kenyan customers genuinely know the word OTP from M-Pesa and "
+                      "banking, so the rule against it may be the thing that is wrong — but not both "
+                      "names in one SMS. Both are on the Build order page as open questions.")],
       rules=["<b>The sign-up code is the one code message allowed to sell.</b> It is first contact as well "
              "as authentication. Every later code — sign-in, collection, handover — ships bare.",
-             "Never write “OTP” to a customer. It is a sign-up code or a collection code.",
              "The expiry and the fraud line survive the rewrite. They are the two questions every code "
              "message raises, and dropping them to make room for the promise would be the wrong trade.",
-             "“Trip” is the sender app's own word for a delivery and its fee — see the glossary. The verb "
-             "is <i>create a trip</i>, which is what the app's button says.",
+             "“Watch it move, every second” is a promise the runner app has to keep. Live tracking depends "
+             "on the runner's app staying open — which is exactly why R2 teaches that on day one.",
              "Two segments, and the only message in the lane where the second one is spent on warmth."]),
 
     T(id="S0b", lane="sender", stage="Access", name="Sign-in code",
@@ -1573,6 +1581,23 @@ STORAGE_CLOCK = dict(
     ])
 
 OPEN_QUESTIONS = [
+    dict(q="Is it a parcel or a package?",
+         why="All 33 live templates, the team's sender review and every message on this site say "
+             "<i>parcel</i>. The brand guide's push mock-up and the approved sign-up SMS say "
+             "<i>package</i>. Either is defensible; using both is not, and the cost of choosing late "
+             "is a find-and-replace across the template table plus the app strings. "
+             "<b>Recommendation: parcel</b>, because it is already in production and in the team's own "
+             "copy — and change the brand guide mock-up to match.",
+         who="Brand"),
+    dict(q="Do we say OTP to customers, or not at all?",
+         why="The site's rule says never — OTP is our word. The counter-argument is strong: Kenyans meet "
+             "the term daily through M-Pesa and banking, so it may be the clearest word available. What "
+             "cannot stand is the approved sign-up SMS calling it a <i>sign-up code</i> on line two and "
+             "an <i>OTP</i> on line four. "
+             "<b>Recommendation: pick OTP for codes people type to sign in, and keep “collection code” "
+             "for the one they read out at a pod</b> — those are different objects and the difference is "
+             "worth the two words.",
+         who="Product"),
     dict(q="Does a runner scan at a host counter, or is the code the whole hand-over there too?",
          why="On the sender side the code <i>is</i> the hand-over — there is no scan action, and the "
              "sender copy has been corrected. But the host review document asks for the opposite: its "
