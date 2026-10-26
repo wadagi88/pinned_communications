@@ -8,8 +8,8 @@ what it says, and why it says it that way.
 A static site. No build step on Netlify; pages are generated locally and
 committed.
 
-**58 touchpoints** — 11 live today, 12 partial, 23 not built, 9 channel changes,
-2 defects. Every lane page opens with its **SMS journey**: the moments in order,
+**63 touchpoints** — 10 live today, 12 partial, 28 not built, 10 channel
+changes, 2 defects. Every lane page opens with its **SMS journey**: the moments in order,
 which channel carries each one, and how many of them cost an SMS.
 
 ## Where it came from
@@ -45,9 +45,30 @@ Two things the review asked for that are not channel decisions:
   numbered `+` only happen when something goes wrong, so the budget quoted is the
   budget for a journey that works.
 
-The receiver lane was **not** in the review pack. Its changes come from the brief
-and still need the same keep/remove pass — see Open questions on the Build order
-page.
+### Round three — the receiver lane, 27 October 2026
+
+Two inputs, and they disagreed.
+
+| Source | What it contributed |
+| --- | --- |
+| `PINNED RECEIVERS COMMS(1).docx` | The lane missing from round two: branch triggers, the waiting ladder, and a rung 4 that still offers a doorstep delivery on the last day. |
+| **publicchoicepage.netlify.app** | The page every receiver SMS links to — and from today the reference for tone. |
+
+The page wins on voice, because it is the surface a receiver is holding when the
+SMS arrives: if the two do not sound like the same company, the link looks like
+a phishing link. The pack wins on triggers, because operations knows what fires
+when. Six specific disagreements are laid out on the Build order page under
+**The pack against the page**.
+
+The substantive one: the pack sells the paid doorstep delivery and never
+mentions that collecting is free, while the live page offers free collection
+four times over and adds *no charge, no pressure*. Free is named first now, in
+every variant.
+
+The page also carries three touchpoints neither the Communication Map nor the
+pack had — *your runner can't find you*, the priced relocation, and the runner
+rating — and it supplies the real sample values, so character counts here are
+counts of the actual thing.
 
 Two lanes are not in the PDF and were added:
 
@@ -91,7 +112,7 @@ index.html          the map: evidence, the review, the six lanes, every touchpoi
 principles.html     eight principles, the warmth layer, the clarity contract, the hook, the glossary
 channels.html       channel doctrine, the eight laws, the escalation ladder, tokens
 senders.html        12 touchpoints ·  4 SMS on a journey that works
-receivers.html      12 ·  4
+receivers.html      17 ·  4
 runners.html        15 ·  4
 hosts.html           9 ·  1
 admin.html           5 ·  4
@@ -138,7 +159,9 @@ Draft. Nothing here has been applied to `pinned-core`. Most rewrites are
 `NotificationTemplate#body` edits against existing keys — no migration — and the
 defects and channel changes are the code work listed on the Build order page.
 
-Six decisions are not ours to make and block copy that is otherwise written:
-sender sign-in PIN, the dwell no-response default, the failed-delivery default,
-the settlement timing promise, the pod-host commercial terms, and the receiver
-lane's missing review. All six are on the Build order page under Open questions.
+Decisions that are not ours to make and that block copy which is otherwise
+written are all on the Build order page under Open questions. The one at the top
+is free storage: the receiver pack says six hours in one place and twelve in
+another, and this site carries 24 countable hours with the clock paused
+overnight. Nothing was changed on the strength of a draft, because the ladder,
+the charging trigger and the sender-side return all hang off that number.

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=11">
+<link rel="stylesheet" href="assets/comms.css?v=13">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -124,7 +124,7 @@ Accept and we will arrange a site visit: <span class="tok">{{link}}</span></div>
     <div class="chips" style="margin-top:14px"><span class="chip">vhost_onboarding_business</span><span class="chip">Hook · Trigger</span></div>
     <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Keep all three — but stop them repeating each other.</b> SMS activates, email teaches the operation (booking, same-day cut-off, collection, handover codes, failed deliveries, weekly settlement), in-app asks for exactly three things: cut-off time, counter contact, settlement number.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">126 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is live on Pinned. You can book deliveries for your clients from today.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">128 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is live on Pinned. You can book deliveries for your clients from today.
 Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b><span class="tok">{{address}}</span> is live — how the operation runs</b></div><div class="email-body">Your station is active from today.
 
 Booking: create a delivery in the portal, or let a client book to you. Cut-off for same-day is <span class="tok">{{closing_time}}</span>.
@@ -138,7 +138,7 @@ Failures: if a delivery cannot complete, you choose redeliver or return in the p
 Money: settlement runs every week and the statement arrives by email.
 
 Help: 0700 000 000, or Help in the portal.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Welcome — three things to set up</b><p>Cut-off time, counter contact and your settlement number. Two minutes.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">182 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your station at <span class="tok">{{address}}</span> is now live. You can now send products to your clients using the Pinned network. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The map says this one message carries 'important info on the operations'. That does not fit in an SMS, so the SMS opens the door and the email does the teaching.</li><li>Never 'Welcome, {{name}}!' with an exclamation mark on a business account. Warm, not excitable.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">184 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your station at <span class="tok">{{address}}</span> is now live. You can now send products to your clients using the Pinned network. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The map says this one message carries 'important info on the operations'. That does not fit in an SMS, so the SMS opens the door and the email does the teaching.</li><li>Never 'Welcome, {{name}}!' with an exclamation mark on a business account. Warm, not excitable.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -157,7 +157,7 @@ Help: 0700 000 000, or Help in the portal.</div></div></div><div class="msg"><di
     <div class="chips" style="margin-top:14px"><span class="chip">vhost_onboarding_pod</span><span class="chip">Hook · Trigger</span></div>
     <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Keep it separate from H1a.</b> A pod host receives, stores and releases; a business sender sends. The email covers verifying a runner, scanning every parcel, releasing the handover code only after the scan, and verifying a customer's collection code. The in-app card asks for opening hours and counter contact.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">110 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is registered. Runners can start collecting from today.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">112 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is registered. Runners can start collecting from today.
 Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b><span class="tok">{{address}}</span> is on the network — what to expect at the counter</b></div><div class="email-body">Runners will start arriving from today.
 
 What a runner shows you: their name in the app, and a scan for every parcel. No scan, no hand-over.
@@ -169,7 +169,7 @@ Collections by customers: the customer reads you their collection code. Enter it
 If the pod is offline: you will get an SMS. Check power and the router first; if both are fine, call 0700 000 000.
 
 Settlement: weekly, with a statement by email.</div></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{address}}</span> is on the network</b><p>Set your counter contact and opening hours so runners arrive when you are open. Two minutes.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">185 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your location at <span class="tok">{{address}}</span> is now registered in the Pinned network. Runners can now start collecting parcels. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Two onboarding templates for two different jobs is correct. Merging them would make both vague.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">187 chars · 2 segments</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your location at <span class="tok">{{address}}</span> is now registered in the Pinned network. Runners can now start collecting parcels. Open your Pinned Host portal: <span class="tok">{{link}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Two onboarding templates for two different jobs is correct. Merging them would make both vague.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Collection</h3>
@@ -195,7 +195,7 @@ Settlement: weekly, with a statement by email.</div></div></div><div class="msg"
 3. You release the handover code. After the scan, never before.
 
 That is the whole process. You will not get this email again — from now on it is a line in the portal.</div></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">93 chars · 1 segment</span></div><div class="old">A runner has accepted delivery <span class="tok">{{batch}}</span> from <span class="tok">{{origin}}</span>. Runner: <span class="tok">{{runner}}</span>. Pickup starting soon.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The map is explicit: email once. The rule generalises — the first time a host meets a process, email explains it; after that, in-app states it.</li><li>'Pickup starting soon' is not a time. Give the ETA or give nothing.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">99 chars · 1 segment</span></div><div class="old">A runner has accepted delivery <span class="tok">{{batch}}</span> from <span class="tok">{{origin}}</span>. Runner: <span class="tok">{{runner}}</span>. Pickup starting soon.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The map is explicit: email once. The rule generalises — the first time a host meets a process, email explains it; after that, in-app states it.</li><li>'Pickup starting soon' is not a time. Give the ETA or give nothing.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Exception</h3>
@@ -214,9 +214,9 @@ That is the whole process. You will not get this email again — from now on it 
     <div class="chips" style="margin-top:14px"><span class="chip">failed_delivery</span><span class="chip">Hook · Action</span></div>
     <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Keep both, fire immediately.</b> The portal carries Redeliver and Return as actions and states what happens if the host does nothing. The vague “our team will call you shortly” is removed.</div><div class="tp-note warn"><b>Policy to confirm.</b> Automatic redelivery as the no-response default is only correct if that is the approved operational policy. If it is not, the in-app copy below has to change before it ships.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">155 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> to <span class="tok">{{dest}}</span> did not complete: <span class="tok">{{reason}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">165 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{code}}</span> to <span class="tok">{{dest}}</span> did not complete: <span class="tok">{{reason}}</span>.
 It is held at <span class="tok">{{station}}</span>. Choose redeliver or return by <span class="tok">{{deadline}}</span>: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Held at <span class="tok">{{station}}</span> — your call</b><p><span class="tok">{{reason}}</span>. Redeliver tomorrow, or return to you. If nothing is chosen by <span class="tok">{{deadline}}</span> we redeliver.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">68 chars · 1 segment</span></div><div class="old">We couldn't deliver parcel <span class="tok">{{code}}</span>. Our team will call you shortly.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>State the default. 'If nothing is chosen by {{deadline}} we redeliver' saves a phone call from every host who is busy.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">65 chars · 1 segment</span></div><div class="old">We couldn't deliver parcel <span class="tok">{{code}}</span>. Our team will call you shortly.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>State the default. 'If nothing is chosen by {{deadline}} we redeliver' saves a phone call from every host who is busy.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Dwell request</h3>
@@ -255,9 +255,9 @@ It is held at <span class="tok">{{station}}</span>. Choose redeliver or return b
     <div class="chips" style="margin-top:14px"><span class="chip">station_offline</span><span class="chip">Hook · Action</span></div>
     <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Keep the SMS, after the approved grace period.</b> Support number stays in the message so the host never has to open a portal while standing next to a dead pod. Prolonged outages escalate to operations.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">153 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{pod}}</span> has been offline since <span class="tok">{{since}}</span> — collections there are paused.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">152 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{pod}}</span> has been offline since <span class="tok">{{since}}</span> — collections there are paused.
 Check the power and the router. If both look fine, call 0700 000 000.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">117 chars · 1 segment</span></div><div class="old">Your Pinned pod<span class="tok">{{pod}}</span> appears offline (no heartbeat since <span class="tok">{{since}}</span>). Please check its power and network.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'No heartbeat' is our word. The host's word is 'offline', and what they need to know is that customers cannot collect.</li><li>Give the phone number in full. A host standing next to a dead pod is not going to open a portal.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">116 chars · 1 segment</span></div><div class="old">Your Pinned pod<span class="tok">{{pod}}</span> appears offline (no heartbeat since <span class="tok">{{since}}</span>). Please check its power and network.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'No heartbeat' is our word. The host's word is 'offline', and what they need to know is that customers cannot collect.</li><li>Give the phone number in full. A host standing next to a dead pod is not going to open a portal.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -276,7 +276,7 @@ Check the power and the router. If both look fine, call 0700 000 000.</div></div
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Reward</span></div>
     <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Add it.</b> The host review asks for a recovery notification, and for prolonged outages to escalate to operations.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Good news, and a thank-you for whatever they did.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">121 chars · 1 segment</span></div><div class="sms-bubble">Good news — <span class="tok">{{pod}}</span> is back online since <span class="tok">{{since}}</span> and collections have resumed. Thank you for sorting it out.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">120 chars · 1 segment</span></div><div class="sms-bubble">Good news — <span class="tok">{{pod}}</span> is back online since <span class="tok">{{since}}</span> and collections have resumed. Thank you for sorting it out.</div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Only sent if an offline alert went out first. No alert, no all-clear.</li><li>If the outage passes the escalation window, operations calls the host before this SMS exists.</li></ul></div></div>
     </div>
   </div>
@@ -308,8 +308,8 @@ The full statement — every parcel, every fee — is attached and in the portal
 </div></section><div class="wrap"><div class="endrule"></div></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 13 October 2026 · team review applied</p>
-    <p>Internal working document. Build 11.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
+    <p>Internal working document. Build 13.</p>
   </div>
 </footer>
 <script>

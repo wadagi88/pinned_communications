@@ -409,18 +409,19 @@ def build_index():
     <p>Clarity and intuitiveness are not a tone of voice. They are a set of decisions taken once,
       written down, and then enforced in code: one event one message, one action per message,
       four rungs then silence, the code on its own line.</p>
-    <p><a href="principles.html">The eight principles →</a></p>
+    <p><a href="principles.html">The nine principles →</a></p>
   </div>
   <div class="card accent-flow">
-    <span class="lbl">Round two · 13 October</span>
-    <h3 style="margin-top:8px">The team marked every channel</h3>
-    <p>Three documents and an annotated screenshot came back: which channel to keep, which to drop,
-      which message to move, and four that do not exist at all. Nine touchpoints change channel, one
-      is retired outright, and the copy follows the team's own wording wherever they wrote it.</p>
-    <p>The other verdict was that round one was correct and cold — it never answered
-      <i>why should I care</i>. Hence the warmth layer, and an SMS journey on every lane page so the
-      cost of a channel decision is visible before it is taken.</p>
-    <p><a href="gaps.html">What the review changed →</a> · <a href="principles.html#warmth">The warmth layer →</a></p>
+    <span class="lbl">Round three · 27 October</span>
+    <h3 style="margin-top:8px">The receiver page sets the voice</h3>
+    <p>Every receiver SMS ends in a link to <b>publicchoicepage.netlify.app</b>, and the two are read
+      forty seconds apart. That page is now the reference for tone, and the receiver lane has been
+      rewritten against it rather than against this site.</p>
+    <p>It overturned the review pack on one substantive point: the pack sells the paid doorstep
+      delivery and never mentions that collecting is free, while the page offers free collection four
+      times over and adds <i>no charge, no pressure</i>. Free is named first now, in every variant.</p>
+    <p><a href="gaps.html#packvspage">The pack against the page →</a> ·
+       <a href="principles.html#tone">The reference →</a></p>
   </div>
 </div>""" % (e(D.EVIDENCE["title"]), D.EVIDENCE["body"], e(D.EVIDENCE["close"])))
 
@@ -487,10 +488,20 @@ def build_principles():
 </div>""" % (e(w["n"]), e(w["t"]), e(w["p"]), e(w["yes"]), e(w["no"])))
     budget = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
                      % (e(a), e(b)) for a, b in D.WARMTH_BUDGET)
+    tr = D.TONE_REFERENCE
+    tr_rules = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
+                       % (e(a), b) for a, b in tr["rules"])
+    body += section("02", "The reference", None,
+                    '<div class="card accent-lock"><span class="lbl">%s</span>'
+                    '<h3 style="margin-top:8px">%s</h3><p>%s</p></div>'
+                    '<div class="grid g2" style="margin-top:16px">%s</div>'
+                    % (e(tr["url"]), e(tr["title"]), e(tr["body"]), tr_rules),
+                    anchor="tone")
+
     pos = D.POSITIONING
     pos_rules = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
                         % (e(a), e(b)) for a, b in pos["where"])
-    body += section("02", "The warmth layer",
+    body += section("03", "The warmth layer",
                     D.WARMTH_INTRO,
                     '<div class="grid g2">%s</div>'
                     '<h3 style="margin:38px 0 0">Where the warmth is allowed to go</h3>'
@@ -508,7 +519,7 @@ def build_principles():
     rows = "".join(
         '<div class="card"><span class="lbl">%d. %s</span><p class="tight">%s</p></div>' % (i + 1, e(q), e(a))
         for i, (q, a) in enumerate(D.CONTRACT))
-    body += section("03", "The clarity contract",
+    body += section("04", "The clarity contract",
                     "Every Pinned message answers these four questions, in this order. A message that "
                     "cannot answer the third should not be sent.",
                     '<div class="grid g4">%s</div>' % rows)
@@ -529,7 +540,7 @@ def build_principles():
     <div><b>Investment</b><span>%s</span></div>
   </div>
 </div>""" % (l["colour"], e(l["title"]), e(h["trigger"]), e(h["action"]), e(h["reward"]), e(h["investment"])))
-    body += section("04", "The hook, applied",
+    body += section("05", "The hook, applied",
                     "Trigger, action, variable reward, investment. Pinned already has genuine variable "
                     "rewards — the runner's payout, the host's weekly figure, the proof photo. None of "
                     "them are currently where the person looks.",
@@ -537,7 +548,7 @@ def build_principles():
                     % (hooks, "".join(lane_hooks)))
 
     gl = "".join('<tr><td><b>%s</b></td><td>%s</td></tr>' % (e(a), e(b)) for a, b in D.GLOSSARY)
-    body += section("05", "Words we do not use",
+    body += section("06", "Words we do not use",
                     "Internal vocabulary leaks into customer copy whenever nobody writes it down.",
                     '<div class="scroller"><table><thead><tr><th>Inside Pinned</th>'
                     '<th>What the customer reads</th></tr></thead><tbody>%s</tbody></table></div>' % gl)
@@ -739,9 +750,19 @@ def build_gaps():
   <div class="hot"><b>%(defect)d</b><small>defects</small></div>
 </div></div>""" % dict(total=len(D.TOUCHPOINTS), **c)
 
+    pvp = "".join(
+        '<div class="card"><h3>%s</h3><p>%s</p><p style="color:var(--text)">%s</p></div>'
+        % (e(x["t"]), x["p"], x["v"]) for x in D.PACK_VS_PAGE)
+    body += section("01", "The pack against the page",
+                    "The receiver pack and the live receiver page disagreed in six places. The page wins "
+                    "on voice, because it is the surface the receiver is holding when the SMS arrives; "
+                    "the pack wins on triggers, because operations knows what fires when.",
+                    '<div class="grid g2">%s</div>' % pvp,
+                    anchor="packvspage")
+
     changes = [t for t in D.TOUCHPOINTS if t["status"] in ("change", "retire")]
     srcs = "".join('<div><b>%s</b><p>%s</p></div>' % (e(a), e(b)) for a, b in D.REVIEW_SOURCES)
-    body += section("01", "What the review changed",
+    body += section("02", "What the reviews changed",
                     "Three documents and an annotated screenshot came back from the team on 13 October. "
                     "Every channel decision below is theirs; the copy follows their wording wherever they "
                     "wrote it.",
@@ -753,8 +774,8 @@ def build_gaps():
 
     qs = "".join('<div><span class="who">%s</span><h4>%s</h4><p>%s</p></div>'
                  % (e(q["who"]), e(q["q"]), e(q["why"])) for q in D.OPEN_QUESTIONS)
-    body += section("02", "Open questions",
-                    "Six decisions that are not ours to make. Each one blocks copy that is otherwise "
+    body += section("03", "Open questions",
+                    "Decisions that are not ours to make. Each one blocks copy that is otherwise "
                     "written and ready.",
                     '<div class="qs">%s</div>' % qs)
 
@@ -766,15 +787,15 @@ def build_gaps():
         weeks.append('<div class="card accent-mag"><span class="lbl">%s</span>'
                      '<h3 style="margin-top:8px">%s</h3><ul>%s</ul></div>'
                      % (e(w["w"]), e(w["t"]), items))
-    body += section("03", "Four weeks", None, '<div class="grid g2">%s</div>' % "".join(weeks))
+    body += section("04", "Four weeks", None, '<div class="grid g2">%s</div>' % "".join(weeks))
 
     defects = [t for t in D.TOUCHPOINTS if t["status"] == "defect"]
-    body += section("04", "The defects",
+    body += section("05", "The defects",
                     "Not copy preferences. Each one is doing measurable damage every day it ships.",
                     "".join(render_tp(t) for t in defects))
 
     gaps = [t for t in D.TOUCHPOINTS if t["status"] == "gap"]
-    body += section("05", "Not built",
+    body += section("06", "Not built",
                     "%d touchpoints the map asks for, or the hook needs, that nothing sends today."
                     % len(gaps),
                     '<div class="scroller"><table><thead><tr><th>ID</th><th>Touchpoint</th>'
@@ -783,7 +804,7 @@ def build_gaps():
 
     notes = "".join('<div class="kv"><div><b style="min-width:230px">%s</b><span>%s</span></div></div>'
                     % (a, b) for a, b in D.CODE_NOTES)
-    body += section("06", "Where this lands in the code",
+    body += section("07", "Where this lands in the code",
                     "Nothing here needs a new messaging stack. The seams already exist.",
                     '<div class="card">%s</div>' % notes)
     body += '<div class="wrap"><div class="endrule"></div></div>'

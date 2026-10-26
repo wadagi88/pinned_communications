@@ -12,8 +12,8 @@ Status values
   defect  — it fires, and what it does is wrong
 """
 
-BUILD = 11
-UPDATED = "13 October 2026 · team review applied"
+BUILD = 13
+UPDATED = "27 October 2026 · receiver lane against the live page"
 
 SITE = dict(
     name="Pinned Communications",
@@ -1634,3 +1634,370 @@ OPEN_QUESTIONS = [
              "the brief rather than from the team, and still need the same keep/remove pass.",
          who="The team"),
 ]
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# ROUND 3 — the receiver pack, against the live page, 27 October 2026
+#
+# Two inputs, and they disagree.
+#
+#   PINNED RECEIVERS COMMS(1).docx — the lane missing from round two.
+#   publicchoicepage.netlify.app   — the page every receiver SMS links to,
+#                                    and from today the reference for tone.
+#
+# The page wins on voice, because it is the surface a receiver is holding when
+# they read the SMS: if the two do not sound like the same company, the link
+# looks like a phishing link. It also wins on one substantive point the pack
+# missed entirely, which is the free-collection offer.
+# ═════════════════════════════════════════════════════════════════════════════
+
+# The reference page's own sample values. Character counts on this site are
+# measured with these, so a count here is a count of the real thing.
+SAMPLES.update({
+    "name": "Charlotte", "from": "Amina's Shop", "station": "Pinned Kilimani",
+    "pod": "Pinned Kilimani", "code": "P7X4K", "otp": "934727",
+    "track_url": "pinnedflow.app/p/7K4QX", "dest": "Imani Apartments, Ruiru",
+    "runner": "Brian K.", "amount": "2,400", "origin": "Pinned Kilimani",
+})
+
+TONE_REFERENCE = dict(
+    url="publicchoicepage.netlify.app",
+    title="The receiver page is the reference",
+    body="Every receiver SMS ends in a link to this page, and the two are read forty seconds apart. If "
+         "they do not sound like the same company, the link looks like a phishing link — which in this "
+         "market is the end of the conversation. From 27 October the page is the reference for tone, and "
+         "receiver copy is harmonised to it rather than written against this site.",
+    rules=[
+        ("Free first, every time",
+         "The page says <i>“I'll collect it myself · Free”</i>, <i>“Collecting it yourself is always "
+         "free”</i>, <i>“Rather not pay? Collect it free”</i> and <i>“no charge, no pressure”</i>. The "
+         "SMS matches: <b>Collect it free, or have it delivered to your door.</b> Free is named first "
+         "and it is named plainly."),
+        ("“Good news” when it is news, “Hi” when it has travelled",
+         "A parcel created for someone opens <i>Good news {{name}} —</i>. A parcel that has actually "
+         "arrived from another town opens <i>Hi {{name}} —</i>. The page uses both and the difference is "
+         "real: one is a surprise, the other is a thing they were waiting for."),
+        ("Money gets its own sentence, with the method and the payee",
+         "<i>“On delivery you'll pay the Ksh 735 trip fee by M-Pesa, and Ksh 2,400 for the goods to "
+         "Amina's Shop.”</i> Amount, channel, recipient. Never a total that hides what it is made of."),
+        ("The gate is stated, never threatened",
+         "<i>“Your handover code appears once it's paid.”</i> Not “you will not receive your parcel "
+         "until”. The same fact, told as a mechanism rather than a consequence."),
+        ("Contractions, and the limits up front",
+         "It's, you'll, we'll, can't. And every cap said before it is hit: <i>“One update per delivery, "
+         "up to 3 km”</i>, <i>“One extension only”</i>, <i>“returns to the branch after a 20-min wait — "
+         "no charge”</i>."),
+        ("The link stands alone",
+         "No “click the link below”. The page is the next step and the URL is the whole invitation."),
+    ])
+
+PACK_VS_PAGE = [
+    dict(t="The pack never mentions free collection",
+         p="Every first-contact draft in the pack opens with the paid option — <i>“Save yourself the "
+           "trip, we will bring it to you… see the pricing”</i> — and the free alternative does not "
+           "appear at all. The live page offers free collection four separate times and goes out of its "
+           "way to say there is no pressure. Shipping the pack's wording would quietly turn a generous "
+           "product into a pushy one, in the first message a receiver ever gets.",
+         v="<b>Page wins.</b> Free first, then the door option."),
+    dict(t="A second SMS when the address is known",
+         p="The pack proposes a separate first message for the case where the shop already has an "
+           "address — <i>“we are bringing it to your doorstep… confirm your location”</i>. The live "
+           "page's “Address known · confirm &amp; pay” flow sends the <i>same</i> SMS and handles the "
+           "confirmation on the page, which is where the address field already is.",
+         v="<b>Page wins, with one exception.</b> The pre-paid individual flow does have its own SMS, "
+           "because there is genuinely no choice to make. That is C1a."),
+    dict(t="Free storage: 6 hours, 12 hours, or 24 countable hours",
+         p="The pack says six hours on pod arrival and twelve on both waiting rungs. This site carries "
+           "24 countable hours with the clock paused overnight, which is what was stated on 13 October. "
+           "The page does not mention storage at all, so it cannot settle it.",
+         v="<b>Unresolved.</b> Nothing has been changed on the strength of a draft. Top of the open "
+           "questions."),
+    dict(t="“Do not share the code for security purposes”",
+         p="The pack's collection-code message carries a line headed DISCLAIMER. The page says "
+           "<i>“Give this only to your Pinned runner at the door.”</i> — the same protection, as an "
+           "instruction a person can actually follow.",
+         v="<b>Page wins.</b>"),
+    dict(t="“is on his way”",
+         p="The pack's in-transit message assumes the runner is a man. The page never does.",
+         v="<b>Page wins.</b> “On the way”, which is also shorter."),
+    dict(t="What the pack has that the page does not",
+         p="Branch triggers. The pack is the only source that says the in-transit message fires when "
+           "<i>the shop owner inputs the runner's handover code</i>, that door arrival fires on the "
+           "runner's GPS ping, and that rung 4 should still offer a doorstep delivery on the last day. "
+           "All three are adopted.",
+         v="<b>Pack wins.</b> Operations knows what fires when; the page knows how it sounds."),
+]
+
+
+SAMPLES.update({"fee": "735", "goods": "2,400"})
+
+RECEIVER_REVIEW = {
+
+    "C1": dict(
+        name="A parcel has been created for you",
+        stage="First contact",
+        trigger="A business sender creates a parcel addressed to this person",
+        timing="At creation", channels=["sms"], status="change",
+        source="Receiver page · 27 Oct", hook="Trigger",
+        intent="First contact, and a choice. Two ways to get it, the free one named first.",
+        old="Hi {{name}} Your Parcel from {{from}} is ready. Save yourself the trip, we will bring it to you. Click the link below to pin point your location and see the pricing. {{track_url}}",
+        warmth="“Good news” is doing real work here. Somebody thought of them, and the message says so before it says anything operational.",
+        review="<b>Taken from the live page, not from the pack.</b> The pack's draft sells the doorstep "
+               "delivery and never mentions that collecting is free. The page offers free collection four "
+               "times over and adds <i>“no charge, no pressure”</i> — so the SMS leads with free too, or "
+               "the link lands on a page that contradicts the text that sent them there.<br><br>"
+               "<b>Money, when there is money.</b> It gets its own sentence naming the amount, the "
+               "method and who it goes to, and the code gate is stated as a mechanism: "
+               "<i>“Your handover code appears once it's paid.”</i>",
+        msgs=[("sms", "Good news {{name}} — {{from}} has created a parcel for you, ready at {{station}}.\nCollect it free, or have it delivered to your door:\n{{track_url}}"),
+              ("sms", "Good news {{name}} — {{from}} has created a parcel for you and is covering the delivery, ready at {{station}}.\nCollect it free, or have it delivered to your door:\n{{track_url}}\n[sender covers the trip fee]"),
+              ("sms", "Good news {{name}} — {{from}} has created a parcel for you, ready at {{station}}.\nCollect it free, or have it delivered to your door:\n{{track_url}}\nOn delivery you'll pay Ksh {{fee}} for the trip by M-Pesa and Ksh {{goods}} for the goods to {{from}}. Your code appears once both are paid.\n[pay on delivery, with goods owed]")],
+        rules=["<b>Free is named before the paid option, in every variant.</b> It is the single clearest "
+               "signal that Pinned is not trying to extract something from a person who did not choose "
+               "to be a customer.",
+               "The money line never appears when there is nothing to pay. Four variants exist so that "
+               "three of them can stay short.",
+               "No code, no deadline, nothing else to act on. The link is the only action.",
+               "The link stands on its own line with no “click below”. The page is the invitation."]),
+
+    "C1a": dict(
+        name="It's paid, and already heading to you",
+        stage="First contact",
+        trigger="An individual sender books and pays, with the receiver's address already set",
+        timing="At booking", channels=["sms"], status="gap",
+        source="Receiver page · 27 Oct", hook="Trigger",
+        intent="No choice to offer. Someone has paid, it is coming, and the only thing they might need to fix is the address.",
+        warmth="Name the person who sent it. For an individual sender that name is the whole message.",
+        review="<b>The one case that earns its own SMS.</b> The pack wanted a second first-contact message "
+               "whenever the address is known; the live page sends the same SMS for business senders and "
+               "confirms the address on the page. The exception is a pre-paid individual send, where "
+               "there is genuinely no choice to present — so the page's own variant drops the offer and "
+               "goes straight to tracking, on a <code>/track/</code> link rather than <code>/p/</code>.",
+        msgs=[("sms", "Good news {{name}} — {{sender_name}} has sent you a parcel through Pinned.\nIt's at {{station}}, heading to you now.\nTrack it: {{track_url}}")],
+        rules=["A different link. <code>/p/</code> is the choice page; <code>/track/</code> is the "
+               "tracking page. Sending a pre-paid receiver to a page with a price on it is how you "
+               "generate a support call.",
+               "The address is still editable on the tracking page — the sender set it, and the person "
+               "living there is the one who knows if it is wrong."]),
+
+    "C1c": dict(
+        name="Your parcel has arrived from upcountry",
+        stage="First contact",
+        trigger="A parcel handler receives a parcel addressed to this person",
+        timing="On arrival at the handler", channels=["sms"], status="gap",
+        source="Receiver page · 27 Oct", hook="Trigger",
+        intent="The parcel genuinely travelled. That changes the opener and the verb.",
+        warmth="Restrained on purpose. This person was already waiting for this parcel; the news is that it is here, not that it exists.",
+        review="<b>“Hi”, not “Good news”.</b> The page uses both openers and the difference is real: a "
+               "parcel created for you is a surprise, a parcel that has come from Nakuru is a thing you "
+               "have been waiting for. Telling someone it is good news when they already knew it was "
+               "coming is the small false note that makes a brand sound automated.",
+        msgs=[("sms", "Hi {{name}} — your parcel from {{from}} has arrived at {{station}}.\nCollect it free, or have it delivered to your door:\n{{track_url}}")],
+        rules=["The sender is written as name plus town — <i>Amalia (Nakuru)</i> — because for a handler "
+               "shipment the town is half the identification.",
+               "The station is the handler's own business name and street, not a Pinned name. It is where "
+               "the person will actually walk."]),
+
+    "C1b": dict(
+        name="A runner has your parcel",
+        stage="In transit",
+        trigger="The shop enters the runner's handover code",
+        timing="At hand-over", channels=["sms"], status="partial",
+        source="Receiver pack · 27 Oct", hook="Trigger",
+        intent="It is moving, with a name and a time on it.",
+        review="<b>Trigger from the pack, voice from the page.</b> The pack names the trigger precisely — "
+               "<i>the shop owner inputs the runner's handover code</i> — which is also the second piece "
+               "of evidence that a counter hand-over is a code being typed, not a parcel being "
+               "scanned.<br><br>"
+               "<b>Changed from the draft:</b> <i>“is on his way”</i> becomes <i>“is on the way”</i>. Not "
+               "every runner is a man. <i>“Arrives in {{eta}}”</i> becomes an arrival time, because a "
+               "text read forty minutes late makes a countdown a lie.",
+        msgs=[("sms", "{{runner}} has your parcel from {{from}} and is on the way to {{dest}}, arriving about {{eta}}.\nFollow it live: {{track_url}}")],
+        rules=["Never a gendered pronoun for a runner, a host or a receiver.",
+               "An arrival time, never a countdown."]),
+
+    "C2": dict(
+        channels=["sms", "in_app"], status="live",
+        review="<b>Kept, with the page's offer restored.</b> The pack's pod arrival says the storage is "
+               "<i>“free for 6 hours after the drop”</i>; this site states a deadline instead, because "
+               "the clock pauses overnight and a duration is wrong by morning. The number itself is "
+               "contested — see the open questions — and has not been changed on the strength of a draft.",
+        msgs=[("sms", "Hi {{name}}, your parcel from {{from}} is at {{station}}, open until {{closing_time}}.\nCollection code: {{otp}}\nFree storage until {{deadline}}. Can't make it? We'll bring it to you: {{track_url}}"),
+              ("in_app", ("Ready at {{station}}", "Code {{otp}} · open until {{closing_time}} · free storage until {{deadline}}.\n[ Directions ]  [ Send it to my door ]"))]),
+
+    "C2b": dict(
+        name="Your runner is at the door",
+        stage="Arrived",
+        trigger="The runner's GPS pings at the delivery address",
+        timing="On arrival", channels=["sms"], status="gap",
+        source="Receiver pack + page · 27 Oct", hook="Action",
+        intent="Hand-over in one message. What it says depends entirely on whether the trip is already paid for.",
+        warmth="None. Somebody is standing outside; this is the one moment that wants no personality at all.",
+        review="<b>Trigger from the pack, both branches from the page.</b> The pack covers the unpaid "
+               "case — <i>“settle the delivery account to see the handover code”</i> — which matches the "
+               "page's gate exactly. The paid case needs its own line, or a receiver who has already paid "
+               "is sent to a payment screen and assumes they are being charged twice.<br><br>"
+               "<b>Changed from the draft:</b> <i>“Settle the Delivery account”</i> becomes "
+               "<i>“pay the Ksh {{fee}} trip fee”</i>. Nobody outside the company has a delivery account, "
+               "and the page always names the amount.",
+        msgs=[("sms", "{{runner}} is outside {{dest}} with your parcel.\nYour handover code: {{otp}}\nGive this only to your Pinned runner at the door.\n[trip already paid]"),
+              ("sms", "{{runner}} is outside {{dest}} with your parcel.\nPay the Ksh {{fee}} trip fee by M-Pesa and your handover code appears: {{track_url}}\n[pay on delivery]")],
+        rules=["Two branches, never one message that covers both.",
+               "<i>“Give this only to your Pinned runner at the door”</i> is the page's own line, and it "
+               "beats every abstract warning: it tells a person exactly who may hear the code."]),
+
+    "C3": dict(
+        channels=["sms"], status="gap", source="Receiver pack · 27 Oct",
+        review="<b>Kept, trimmed.</b> <i>“Unfortunately”</i> and <i>“Thank you for your patience”</i> in "
+               "four lines is apologising twice. The thanks stays — it is house language the team already "
+               "use in the refund SMS — and <i>unfortunately</i> goes, because the new time is the apology.",
+        msgs=[("sms", "Your parcel is running late — {{reason}}. New arrival time: {{eta}}.\nThanks for your patience. Follow it here: {{track_url}}")]),
+
+    "C4b": dict(
+        channels=["sms"], status="partial",
+        review="<b>Changed from the draft.</b> <i>“Failure to collect it before then, will attract a "
+               "charge”</i> is a letter from a council. Numbers are facts, never threats — so the rate is "
+               "stated next to the deadline and the way out comes straight after it.",
+        msgs=[("sms", "Your parcel is still at {{station}}. Free storage ends {{deadline}}, then Ksh {{rate}}/hr.\nCode: {{otp}}\nCan't make it? We'll bring it to you: {{track_url}}")]),
+
+    "C4c": dict(
+        channels=["sms"], status="defect",
+        review="<b>The pack keeps the best sentence in the ladder</b> — <i>the charges stop the moment you "
+               "collect</i> — and adds something this site had missed: at this rung the door-delivery link "
+               "has to settle the storage charge too, or it sends somebody to a page that cannot finish "
+               "the job.",
+        msgs=[("sms", "Free storage has ended on your parcel at {{station}}: Ksh {{rate}}/hr, Ksh {{amount}} so far.\nIt stops the moment you collect.\nCode: {{otp}}\nPay and collect, or we'll bring it to you: {{track_url}}")]),
+
+    "C4d": dict(
+        channels=["sms"], status="change",
+        intent="Final rung. A fact already in motion, the total, and — new in this pack — a last chance.",
+        review="<b>The pack improves on this site.</b> Round two ended the ladder with “contact {{from}} "
+               "to rearrange”, which hands the problem to the sender. The pack keeps the doorstep offer "
+               "alive to the last message, which is kinder and the only version that can still recover "
+               "both the delivery and the storage fee on the day.",
+        warmth="A last door, held open on the day it closes.",
+        msgs=[("sms", "Hi {{name}}, your parcel goes back to {{from}} today at {{time}}, after 7 days at {{station}}.\nStorage owed: Ksh {{amount}}.\nStill want it? We can bring it to you today: {{track_url}}")],
+        rules=["Four rungs, then silence — and the fourth still offers a way to keep the parcel.",
+               "The total is stated once, because there is no later message."]),
+
+    "C5": dict(
+        channels=["sms"], status="live",
+        review="<b>Changed from the draft.</b> <i>“DISCLAIMER; Do not share the code for security "
+               "purposes”</i> becomes the page's own line. A customer cannot act on “for security "
+               "purposes”; they can act on being told exactly who is allowed to hear it. "
+               "<i>“Dear {{name}}”</i> goes too — it is the register of a bank letter.",
+        msgs=[("sms", "{{name}}, your collection code is {{otp}}.\nShow it at {{station}} to collect. Give it only to Pinned staff at the counter — we never call or text to ask for it.")]),
+
+    "C7": dict(
+        name="Delivered — and how was your runner?",
+        channels=["sms"], status="gap", source="Receiver pack + page · 27 Oct",
+        review="<b>Both sources agree, and the page adds the rating.</b> The pack asks for the saved "
+               "address; the page ends on <i>“Your runner just wrapped up — were they 5-star?”</i>. One "
+               "message carries both, because they are the same moment and a second SMS would not be sent.",
+        msgs=[("sms", "Delivered — it's all yours, {{name}}. Thanks for choosing Pinned.\nHow was {{runner}}? Rate them, and save your address so the next one comes straight to your door: {{track_url}}")]),
+}
+
+
+SAMPLES.update({"spot": "Kitengela Mall", "ext_fee": "150", "ext_km": "2.1",
+                "sender_name": "David"})
+
+# Scaffolds for the touchpoints RECEIVER_REVIEW fills, plus two the live page
+# carries that neither this site nor the pack had.
+TOUCHPOINTS += [
+    T(id="C1a", lane="receiver", stage="First contact", name="(filled by review)",
+      trigger="—", timing="—", channels=["sms"], status="gap", intent="—"),
+    T(id="C1c", lane="receiver", stage="First contact", name="(filled by review)",
+      trigger="—", timing="—", channels=["sms"], status="gap", intent="—"),
+    T(id="C2b", lane="receiver", stage="Arrived", name="(filled by review)",
+      trigger="—", timing="—", channels=["sms"], status="gap", intent="—"),
+
+    T(id="C8", lane="receiver", stage="Arrived", name="Your runner can't find you",
+      trigger="The runner is at the address and cannot reach the receiver",
+      timing="On the runner reporting it", channels=["sms"],
+      status="gap", source="Receiver page · 27 Oct", hook="Action",
+      intent="Somebody is standing in the wrong place. Fix it in one tap, without blaming anyone.",
+      warmth="“Moved on?” is the whole trick. It assumes the ordinary explanation instead of asking why they are not where they said.",
+      review="<b>Only the live page has this.</b> Neither the Communication Map nor the receiver pack "
+             "includes it, and it is the moment a delivery is most likely to fail. The page's wording is "
+             "used almost as written, because it is already the voice.",
+      msgs=[("sms", "{{runner}} is at {{spot}} and can't find you at {{dest}}.\nMoved on? Tell us where you are now: {{track_url}}")],
+      rules=["The page states the limit before anyone hits it: <i>one update per delivery, up to 3 km "
+             "from your first address</i>. That sentence belongs on the page, not in the SMS — the SMS "
+             "has one job, which is to get them to the page.",
+             "The fallback is generous and it is said out loud on the page: <i>if we can't reach you at "
+             "your door, it returns to the branch after a 20-min wait — no charge</i>. A failed delivery "
+             "that costs the receiver nothing is the reason this message can stay calm.",
+             "Never “you were not available”. The runner is the one who cannot find them, and that is "
+             "how the sentence is built."]),
+
+    T(id="C9", lane="receiver", stage="Arrived", name="Moving the drop — priced",
+      trigger="The receiver gives a new location within the cap",
+      timing="Immediately after C8", channels=["sms"],
+      status="gap", source="Receiver page · 27 Oct", hook="Action",
+      intent="A priced change of plan. Every number shown, including where the money goes.",
+      warmth="Telling them the runner keeps the whole fee. It costs nothing to say and it changes what the charge feels like.",
+      review="<b>Not the same thing as a storage extension.</b> C6a and C6b extend free storage at a pod; "
+             "this extends a <i>delivery</i> to a new address and it is priced. Two different objects "
+             "that were both being called an extension.",
+      msgs=[("sms", "Moving your delivery to {{spot}} is {{ext_km}} km further — Ksh {{ext_fee}} by M-Pesa.\nPay and your handover code unlocks: {{track_url}}\n{{runner}} keeps the full fee.")],
+      rules=["The fee is broken down on the page — base plus distance — never presented as one unexplained number.",
+             "<i>“Your handover code stays locked until this clears.”</i> The gate is a mechanism, stated plainly, exactly as on the page.",
+             "One extension, up to 3 km, said before it is needed."]),
+]
+for _t in TOUCHPOINTS:
+    _t.setdefault("review", None)
+    _t.setdefault("warmth", None)
+
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+for _id, _patch in RECEIVER_REVIEW.items():
+    _tp = _by_id.get(_id)
+    if _tp is None:
+        raise KeyError("receiver review targets an unknown touchpoint: %s" % _id)
+    _tp.update(_patch)
+
+for _new, _after in (("C1a", "C1"), ("C1c", "C1a"), ("C2b", "C2"), ("C8", "C2b"), ("C9", "C8")):
+    ORDER.insert(ORDER.index(_after) + 1, _new)
+TOUCHPOINTS.sort(key=lambda t: ORDER.index(t["id"]))
+
+JOURNEYS["receiver"] = dict(
+    headline="Four SMS on a journey that works — and the receiver has no app",
+    sub="Every receiver rule is the inverse of the sender rules. There is no in-app to fall back on, so "
+        "SMS carries everything, and each message hands over to publicchoicepage.netlify.app — which is "
+        "why the two have to sound like one company. First contact branches on who sent it and whether "
+        "anything is owed; arrival branches between a door and a pod.",
+    steps=[
+        J("1", "Business sender creates it", "C1", "sms", "Collect it free, or have it delivered", "First contact. Free is named first, every time."),
+        J("1b", "…an individual pre-paid it", "C1a", "sms", "It's paid and heading to you — track it", "No choice to offer, so none is presented.", off=True),
+        J("1c", "…or it came from a handler", "C1c", "sms", "Hi — your parcel has arrived at {{station}}", "“Hi”, not “Good news”. They were already waiting.", off=True),
+        J("2", "Shop enters the runner's code", "C1b", "sms", "{{runner}} has it, arriving about {{eta}}", "A counter hand-over is a code typed, not a parcel scanned."),
+        J("3", "Runner reaches the door", "C2b", "sms", "Handover code — or pay the trip fee to unlock it", "Branches on whether the trip is already paid."),
+        J("3b", "…or it arrives at a pod", "C2", "sms", "Station, hours, code, deadline, door-delivery offer", "Two segments. Each line saves a phone call.", off=True),
+        J("4", "Collects", "C7", "sms", "It's all yours — rate your runner, save your address", "The page ends on the rating; so does the SMS."),
+        J("+", "Runner can't find them", "C8", "sms", "Moved on? Tell us where you are now", "The moment a delivery is most likely to fail."),
+        J("+", "They give a new spot", "C9", "sms", "Ksh {{ext_fee}} to move it — the runner keeps it all", "Priced, capped, and the code stays locked until it clears."),
+        J("+", "Running late", "C3", "sms", "New arrival time, reason, tracking", "A broken promise gets its own message."),
+        J("+", "Half the clock gone", "C4a", "sms", "Still here, code, opening hours, deadline", "Rung 1. No charges apply, so none are mentioned."),
+        J("+", "Clock nearly out", "C4b", "sms", "Free storage ends {{deadline}}, then the rate", "Rung 2. Where most door-delivery conversions happen."),
+        J("+", "Clock runs out", "C4c", "sms", "Storage started, and how to stop it", "Rung 3. The link has to settle the charge, not just book a delivery."),
+        J("+", "Day 7", "C4d", "sms", "Goes back today — or we bring it to you today", "Rung 4. The pack keeps the door open to the last message."),
+        J("+", "Asks for more storage time", "C6a", "sms", "Approved — new deadline", "Not the same thing as C9. One is time, the other is distance."),
+    ])
+
+OPEN_QUESTIONS = [
+    dict(q="How long is free storage — 6 hours, 12 hours, or 24 countable hours?",
+         why="Three numbers in one document. The receiver pack says <i>“free for 6 hours after the "
+             "drop”</i> on pod arrival and <i>“{{12hrs after drop off}}”</i> on both waiting rungs; this "
+             "site carries 24 countable hours with the clock paused 19:00–08:00 and whenever the pod is "
+             "shut, which is what was stated on 13 October. The live page does not mention storage, so "
+             "it cannot settle it. Nothing here has been changed on the strength of a draft, because the "
+             "whole ladder, the charging trigger and the sender-side return all hang off this number. "
+             "<b>One answer, and it is a ten-minute change on this site.</b>",
+         who="Operations"),
+    dict(q="Can the notification layer supply a sender's name?",
+         why="The live page's pre-paid variant reads <i>“David has sent you a parcel”</i>. "
+             "<code>{{sender_name}}</code> has been added to the token set here so C1a reads correctly, "
+             "but <code>NotificationTemplate::TOKENS</code> in pinned-core has no such token and nothing "
+             "currently resolves it. For an individual send it is the most important word in the message "
+             "— without it the SMS cannot say who the parcel is from.",
+         who="Engineering"),
+] + OPEN_QUESTIONS

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=11">
+<link rel="stylesheet" href="assets/comms.css?v=13">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -28,11 +28,11 @@
       who has not signed up yet — what fires it, which channel carries it, what it says, and why.
       Drafted from the Communication Map and audited against the templates running in pinned-core today.</p>
     <div class="mast-facts">
-      <div><b>58</b><small>touchpoints</small></div>
-      <div><b>11</b><small>live today</small></div>
+      <div><b>63</b><small>touchpoints</small></div>
+      <div><b>10</b><small>live today</small></div>
       <div><b>12</b><small>partial</small></div>
-      <div><b>23</b><small>not built</small></div>
-      <div><b>9</b><small>channel changes</small></div>
+      <div><b>28</b><small>not built</small></div>
+      <div><b>10</b><small>channel changes</small></div>
       <div><b>2</b><small>defects</small></div>
     </div>
   </div>
@@ -76,18 +76,19 @@
     <p>Clarity and intuitiveness are not a tone of voice. They are a set of decisions taken once,
       written down, and then enforced in code: one event one message, one action per message,
       four rungs then silence, the code on its own line.</p>
-    <p><a href="principles.html">The eight principles →</a></p>
+    <p><a href="principles.html">The nine principles →</a></p>
   </div>
   <div class="card accent-flow">
-    <span class="lbl">Round two · 13 October</span>
-    <h3 style="margin-top:8px">The team marked every channel</h3>
-    <p>Three documents and an annotated screenshot came back: which channel to keep, which to drop,
-      which message to move, and four that do not exist at all. Nine touchpoints change channel, one
-      is retired outright, and the copy follows the team's own wording wherever they wrote it.</p>
-    <p>The other verdict was that round one was correct and cold — it never answered
-      <i>why should I care</i>. Hence the warmth layer, and an SMS journey on every lane page so the
-      cost of a channel decision is visible before it is taken.</p>
-    <p><a href="gaps.html">What the review changed →</a> · <a href="principles.html#warmth">The warmth layer →</a></p>
+    <span class="lbl">Round three · 27 October</span>
+    <h3 style="margin-top:8px">The receiver page sets the voice</h3>
+    <p>Every receiver SMS ends in a link to <b>publicchoicepage.netlify.app</b>, and the two are read
+      forty seconds apart. That page is now the reference for tone, and the receiver lane has been
+      rewritten against it rather than against this site.</p>
+    <p>It overturned the review pack on one substantive point: the pack sells the paid doorstep
+      delivery and never mentions that collecting is free, while the page offers free collection four
+      times over and adds <i>no charge, no pressure</i>. Free is named first now, in every variant.</p>
+    <p><a href="gaps.html#packvspage">The pack against the page →</a> ·
+       <a href="principles.html#tone">The reference →</a></p>
   </div>
 </div>
 </div></section>
@@ -121,9 +122,9 @@
   <ol><li><b>S0</b> Sign-up code <em>SMS</em></li><li><b>S0b</b> Sign-in code <em>SMS</em></li><li><b>S1</b> Account is open <em>In-app</em></li><li><b>S2</b> Booked — drop by <em>In-app · SMS</em></li><li><b>S2b</b> Still waiting for your drop <em>SMS</em></li><li><b>S2c</b> Handover code <em>SMS · In-app</em></li><li><b>S2d</b> On the way <em>In-app</em></li><li><b>S3</b> Delivered — with proof <em>SMS · In-app</em></li><li><b>S4a</b> Your receiver has not collected <em>SMS · In-app</em></li><li><b>S4b</b> Coming back to you <em>SMS · In-app</em></li><li><b>S5</b> Refund sent <em>SMS</em></li><li><b>S6</b> Delivery did not complete <em>SMS · In-app</em></li></ol>
 </div>
 <div class="lane accent-lock">
-  <div class="lane-head"><h3>Receivers</h3><a href="receivers.html#journey">12 touchpoints · 4 SMS →</a></div>
+  <div class="lane-head"><h3>Receivers</h3><a href="receivers.html#journey">17 touchpoints · 4 SMS →</a></div>
   <p style="padding:0 20px;color:var(--text-2);font-size:.93rem">The person the parcel is for. Often has never heard of Pinned before the first SMS.</p>
-  <ol><li><b>C1</b> A parcel has been created for you <em>SMS</em></li><li><b>C1b</b> It is on its way to you <em>SMS</em></li><li><b>C2</b> It is here — collect with this code <em>SMS · In-app</em></li><li><b>C3</b> Running late <em>SMS</em></li><li><b>C4a</b> Still waiting · rung 1 <em>SMS</em></li><li><b>C4b</b> Still waiting · rung 2 <em>SMS</em></li><li><b>C4c</b> Storage has started · rung 3 <em>SMS</em></li><li><b>C4d</b> Going back today · rung 4 (7d) <em>SMS</em></li><li><b>C5</b> Collection code <em>SMS</em></li><li><b>C6a</b> Extra time approved <em>SMS · In-app</em></li><li><b>C6b</b> Extra time declined <em>SMS · In-app</em></li><li><b>C7</b> Collected — and the next one is easier <em>SMS</em></li></ol>
+  <ol><li><b>C1</b> A parcel has been created for you <em>SMS</em></li><li><b>C1a</b> It's paid, and already heading to you <em>SMS</em></li><li><b>C1c</b> Your parcel has arrived from upcountry <em>SMS</em></li><li><b>C1b</b> A runner has your parcel <em>SMS</em></li><li><b>C2</b> It is here — collect with this code <em>SMS · In-app</em></li><li><b>C2b</b> Your runner is at the door <em>SMS</em></li><li><b>C8</b> Your runner can't find you <em>SMS</em></li><li><b>C9</b> Moving the drop — priced <em>SMS</em></li><li><b>C3</b> Running late <em>SMS</em></li><li><b>C4a</b> Still waiting · rung 1 <em>SMS</em></li><li><b>C4b</b> Still waiting · rung 2 <em>SMS</em></li><li><b>C4c</b> Storage has started · rung 3 <em>SMS</em></li><li><b>C4d</b> Going back today · rung 4 (7d) <em>SMS</em></li><li><b>C5</b> Collection code <em>SMS</em></li><li><b>C6a</b> Extra time approved <em>SMS · In-app</em></li><li><b>C6b</b> Extra time declined <em>SMS · In-app</em></li><li><b>C7</b> Delivered — and how was your runner? <em>SMS</em></li></ol>
 </div>
 <div class="lane accent-flow">
   <div class="lane-head"><h3>Runners</h3><a href="runners.html#journey">15 touchpoints · 4 SMS →</a></div>
@@ -165,18 +166,23 @@
 <tr data-lane="sender" data-status="change"><td class="id"><a href="senders.html#S4b">S4b</a></td><td><b>Coming back to you</b><span class="muted">Parcel uncollected 7 days after arrival</span></td><td>Day 7 · final</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">dwell_sender_final_notice_7d</td></tr>
 <tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S5">S5</a></td><td><b>Refund sent</b><span class="muted">A cancellation is refunded</span></td><td>At payout</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">refund_processed</td></tr>
 <tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S6">S6</a></td><td><b>Delivery did not complete</b><span class="muted">A runner cannot complete the delivery</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">failed_delivery</td></tr>
-<tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C1">C1</a></td><td><b>A parcel has been created for you</b><span class="muted">A sender or a virtual host creates a parcel addressed to this person</span></td><td>At creation</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">runner_picked_up_receiver</td></tr>
-<tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C1b">C1b</a></td><td><b>It is on its way to you</b><span class="muted">A runner collects the parcel and it is moving toward the receiver</span></td><td>At pickup</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_picked_up_receiver</td></tr>
+<tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C1">C1</a></td><td><b>A parcel has been created for you</b><span class="muted">A business sender creates a parcel addressed to this person</span></td><td>At creation</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">runner_picked_up_receiver</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1a">C1a</a></td><td><b>It's paid, and already heading to you</b><span class="muted">An individual sender books and pays, with the receiver's address already set</span></td><td>At booking</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1c">C1c</a></td><td><b>Your parcel has arrived from upcountry</b><span class="muted">A parcel handler receives a parcel addressed to this person</span></td><td>On arrival at the handler</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C1b">C1b</a></td><td><b>A runner has your parcel</b><span class="muted">The shop enters the runner's handover code</span></td><td>At hand-over</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_picked_up_receiver</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C2">C2</a></td><td><b>It is here — collect with this code</b><span class="muted">Parcel reaches the destination pod or station</span></td><td>On arrival scan</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">parcel_arrived</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C2b">C2b</a></td><td><b>Your runner is at the door</b><span class="muted">The runner's GPS pings at the delivery address</span></td><td>On arrival</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C8">C8</a></td><td><b>Your runner can't find you</b><span class="muted">The runner is at the address and cannot reach the receiver</span></td><td>On the runner reporting it</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C9">C9</a></td><td><b>Moving the drop — priced</b><span class="muted">The receiver gives a new location within the cap</span></td><td>Immediately after C8</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C3">C3</a></td><td><b>Running late</b><span class="muted">Promised delivery time passes while the parcel is in transit</span></td><td>At the moment the promise breaks</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C4a">C4a</a></td><td><b>Still waiting · rung 1</b><span class="muted">Half the free storage clock has run</span></td><td>12 countable hours left</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">dwell_reminder_24h</td></tr>
 <tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C4b">C4b</a></td><td><b>Still waiting · rung 2</b><span class="muted">The free storage clock is nearly out</span></td><td>4 countable hours left</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">dwell_reminder_48h</td></tr>
 <tr data-lane="receiver" data-status="defect"><td class="id"><a href="receivers.html#C4c">C4c</a></td><td><b>Storage has started · rung 3</b><span class="muted">The free storage clock runs out</span></td><td>After 24 countable hours</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge defect">Defect</span></td><td class="id">dwell_storage_started_72h</td></tr>
-<tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C4d">C4d</a></td><td><b>Going back today · rung 4 (7d)</b><span class="muted">Parcel uncollected 7 days after arrival</span></td><td>Day 7 · final</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_final_notice_7d</td></tr>
+<tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C4d">C4d</a></td><td><b>Going back today · rung 4 (7d)</b><span class="muted">Parcel uncollected 7 days after arrival</span></td><td>Day 7 · final</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">dwell_final_notice_7d</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C5">C5</a></td><td><b>Collection code</b><span class="muted">A receiver requests collection</span></td><td>On request</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">otp_issued</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C6a">C6a</a></td><td><b>Extra time approved</b><span class="muted">A host approves an extra-time request</span></td><td>On decision</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_extension_approved</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C6b">C6b</a></td><td><b>Extra time declined</b><span class="muted">A host declines an extra-time request</span></td><td>On decision</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_extension_denied</td></tr>
-<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C7">C7</a></td><td><b>Collected — and the next one is easier</b><span class="muted">Receiver collects the parcel</span></td><td>At collection · once per receiver</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C7">C7</a></td><td><b>Delivered — and how was your runner?</b><span class="muted">Receiver collects the parcel</span></td><td>At collection · once per receiver</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="runner" data-status="live"><td class="id"><a href="runners.html#R0">R0</a></td><td><b>Your runner account is open</b><span class="muted">Admin creates a runner</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">runner_invite</td></tr>
 <tr data-lane="runner" data-status="partial"><td class="id"><a href="runners.html#R8a">R8a</a></td><td><b>Sign-up code</b><span class="muted">A runner requests a verification code at sign-up</span></td><td>Once, at sign-up</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">—</td></tr>
 <tr data-lane="runner" data-status="retire"><td class="id"><a href="runners.html#R8b">R8b</a></td><td><b>Sign-in code on every sign-in</b><span class="muted">A runner signs in</span></td><td>Every sign-in, today</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge retire">Retire</span></td><td class="id">—</td></tr>
@@ -214,8 +220,8 @@
 </div></section><div class="wrap"><div class="endrule"></div></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 13 October 2026 · team review applied</p>
-    <p>Internal working document. Build 11.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
+    <p>Internal working document. Build 13.</p>
   </div>
 </footer>
 <script>

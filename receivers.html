@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=11">
+<link rel="stylesheet" href="assets/comms.css?v=13">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -20,7 +20,7 @@
 
 <header class="phead"><div class="wrap">
   <p class="crumb"><a href="index.html">Pinned Communications</a> · Receivers</p>
-  <p class="eyebrow" style="margin-top:10px">12 touchpoints · 4 SMS on a journey that works</p>
+  <p class="eyebrow" style="margin-top:10px">17 touchpoints · 4 SMS on a journey that works</p>
   <h1>Receivers</h1>
   <p class="lede">The person the parcel is for. Often has never heard of Pinned before the first SMS.</p>
 </div></header>
@@ -61,23 +61,26 @@
 </div></section>
 <section id="journey"><div class="wrap">
   <div class="sec-head"><span class="sec-num">02</span><h2>The SMS journey</h2></div>
-  <p class="sec-sub">Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: <b>4 on a journey that works</b>, 8 more only when something goes wrong. A row numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision not to spend an SMS.</p>
+  <p class="sec-sub">Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: <b>4 on a journey that works</b>, 11 more only when something goes wrong. A row numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision not to spend an SMS.</p>
   <div class="rule"></div>
   
 <div class="jrny">
-  <div class="jrny-head"><h3>Four SMS on a journey that works — and the receiver has no app</h3><p>Every receiver rule is the inverse of the sender rules. There is no in-app to fall back on, so SMS carries everything — which is exactly why the ladder has to stop at four rungs. A parcel that has been created and a parcel that is moving are two different messages.</p></div>
-  <div class="jstep is-sms"><span class="jn">1</span><span class="jwhen">Parcel created for them</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Someone is sending you a parcel. Nothing to do yet</span><span class="jwhy">The notification. Informational, no action, no code.</span></div>
-  <div class="jstep is-sms"><span class="jn">2</span><span class="jwhen">Runner collects it</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">On its way, with a runner and an ETA</span><span class="jwhy">The expected parcel. Optional for a pod drop, required for a door delivery.</span></div>
-  <div class="jstep is-sms"><span class="jn">3a</span><span class="jwhen">Arrives at a pod</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Station, opening hours, collection code, free-storage deadline, door-delivery escape</span><span class="jwhy">Two segments. Each line in it saves a phone call.</span></div>
-  <div class="jstep is-sms"><span class="jn">3b</span><span class="jwhen">Arrives at the door</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Runner at the door — code at hand-over</span><span class="jwhy">The alternative branch: a door delivery skips the pod message entirely.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Running late</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">New time, reason, and when we will text next</span><span class="jwhy">A broken promise gets its own message.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Half the clock gone</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Still here, code, opening hours, deadline</span><span class="jwhy">Rung 1. No mention of charges — none apply yet.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">4 clock-hours left</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Free storage ends <span class="tok">{{deadline}}</span>, then the rate</span><span class="jwhy">Rung 2. Where most door-delivery conversions happen.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Clock runs out</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, and how to stop it</span><span class="jwhy">Rung 3. Money is moving.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Day 7</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Goes back today, total charged</span><span class="jwhy">Rung 4. Then silence.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Requests more time</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Approved — new deadline</span><span class="jwhy">A decision they are waiting on.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">…declined</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Declined, with door delivery offered instead</span><span class="jwhy">A no that ends with a yes.</span></div>
-  <div class="jstep is-sms"><span class="jn">4</span><span class="jwhen">Collects</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Thanks — save your address for next time</span><span class="jwhy">Once per receiver, ever. The only ask in the lane.</span></div>
+  <div class="jrny-head"><h3>Four SMS on a journey that works — and the receiver has no app</h3><p>Every receiver rule is the inverse of the sender rules. There is no in-app to fall back on, so SMS carries everything, and each message hands over to publicchoicepage.netlify.app — which is why the two have to sound like one company. First contact branches on who sent it and whether anything is owed; arrival branches between a door and a pod.</p></div>
+  <div class="jstep is-sms"><span class="jn">1</span><span class="jwhen">Business sender creates it</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Collect it free, or have it delivered</span><span class="jwhy">First contact. Free is named first, every time.</span></div>
+  <div class="jstep is-sms"><span class="jn">1b</span><span class="jwhen">…an individual pre-paid it</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">It's paid and heading to you — track it</span><span class="jwhy">No choice to offer, so none is presented.</span></div>
+  <div class="jstep is-sms"><span class="jn">1c</span><span class="jwhen">…or it came from a handler</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Hi — your parcel has arrived at <span class="tok">{{station}}</span></span><span class="jwhy">“Hi”, not “Good news”. They were already waiting.</span></div>
+  <div class="jstep is-sms"><span class="jn">2</span><span class="jwhen">Shop enters the runner's code</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat"><span class="tok">{{runner}}</span> has it, arriving about <span class="tok">{{eta}}</span></span><span class="jwhy">A counter hand-over is a code typed, not a parcel scanned.</span></div>
+  <div class="jstep is-sms"><span class="jn">3</span><span class="jwhen">Runner reaches the door</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Handover code — or pay the trip fee to unlock it</span><span class="jwhy">Branches on whether the trip is already paid.</span></div>
+  <div class="jstep is-sms"><span class="jn">3b</span><span class="jwhen">…or it arrives at a pod</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Station, hours, code, deadline, door-delivery offer</span><span class="jwhy">Two segments. Each line saves a phone call.</span></div>
+  <div class="jstep is-sms"><span class="jn">4</span><span class="jwhen">Collects</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">It's all yours — rate your runner, save your address</span><span class="jwhy">The page ends on the rating; so does the SMS.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Runner can't find them</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Moved on? Tell us where you are now</span><span class="jwhy">The moment a delivery is most likely to fail.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">They give a new spot</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Ksh <span class="tok">{{ext_fee}}</span> to move it — the runner keeps it all</span><span class="jwhy">Priced, capped, and the code stays locked until it clears.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Running late</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">New arrival time, reason, tracking</span><span class="jwhy">A broken promise gets its own message.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Half the clock gone</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Still here, code, opening hours, deadline</span><span class="jwhy">Rung 1. No charges apply, so none are mentioned.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Clock nearly out</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Free storage ends <span class="tok">{{deadline}}</span>, then the rate</span><span class="jwhy">Rung 2. Where most door-delivery conversions happen.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Clock runs out</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, and how to stop it</span><span class="jwhy">Rung 3. The link has to settle the charge, not just book a delivery.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Day 7</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Goes back today — or we bring it to you today</span><span class="jwhy">Rung 4. The pack keeps the door open to the last message.</span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Asks for more storage time</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Approved — new deadline</span><span class="jwhy">Not the same thing as C9. One is time, the other is distance.</span></div>
 </div>
 </div></section>
 <section><div class="wrap">
@@ -88,42 +91,92 @@
 <article class="tp" id="C1">
   <div class="tp-head">
     <span class="tp-id">C1</span>
-    <span class="tp-title"><h3>A parcel has been created for you</h3><p>A heads-up, not an instruction. Nothing is moving yet and there is nothing to do.</p></span>
+    <span class="tp-title"><h3>A parcel has been created for you</h3><p>First contact, and a choice. Two ways to get it, the free one named first.</p></span>
     <span class="tp-meta"><span class="badge change">Channel change</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>A sender or a virtual host creates a parcel addressed to this person</span></div>
+      <div><b>Trigger</b><span>A business sender creates a parcel addressed to this person</span></div>
       <div><b>Timing</b><span>At creation</span></div>
-      <div><b>Source</b><span>Map · Receiver 1</span></div>
+      <div><b>Source</b><span>Receiver page · 27 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">runner_picked_up_receiver</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Split in two.</b> A notification that a parcel exists and a parcel that is actually on its way are different messages with different jobs. This one tells them something is coming and asks for nothing; C1b tells them it is moving and gives them a time.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Name the stake: someone thought of them. It is the only message in the lane that gets to be nice.</div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Taken from the live page, not from the pack.</b> The pack's draft sells the doorstep delivery and never mentions that collecting is free. The page offers free collection four times over and adds <i>“no charge, no pressure”</i> — so the SMS leads with free too, or the link lands on a page that contradicts the text that sent them there.<br><br><b>Money, when there is money.</b> It gets its own sentence naming the amount, the method and who it goes to, and the code gate is stated as a mechanism: <i>“Your handover code appears once it's paid.”</i></div><div class="tp-note warm"><span class="nlbl">Warmth</span>“Good news” is doing real work here. Somebody thought of them, and the message says so before it says anything operational.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">173 chars · 2 segments</span></div><div class="sms-bubble">Good news <span class="tok">{{name}}</span> — <span class="tok">{{from}}</span> is sending you a parcel through Pinned.
-It is being prepared at <span class="tok">{{origin}}</span>. Nothing to do yet; we will text you the moment it is on its way.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">58 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> has been picked up and is on its way.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>A receiver who does not know the sender's name assumes a scam. The sender's name is the trust signal, so it goes first.</li><li>Never open a receiver's first message with 'Your parcel {{code}}'. A code they have never seen is not a greeting.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">165 chars · 2 segments</span></div><div class="sms-bubble">Good news <span class="tok">{{name}}</span> — <span class="tok">{{from}}</span> has created a parcel for you, ready at <span class="tok">{{station}}</span>.
+Collect it free, or have it delivered to your door:
+<span class="tok">{{track_url}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · sender covers the trip fee</span><span class="count">194 chars · 2 segments</span></div><div class="sms-bubble">Good news <span class="tok">{{name}}</span> — <span class="tok">{{from}}</span> has created a parcel for you and is covering the delivery, ready at <span class="tok">{{station}}</span>.
+Collect it free, or have it delivered to your door:
+<span class="tok">{{track_url}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · pay on delivery, with goods owed</span><span class="count">302 chars · 2 segments</span></div><div class="sms-bubble">Good news <span class="tok">{{name}}</span> — <span class="tok">{{from}}</span> has created a parcel for you, ready at <span class="tok">{{station}}</span>.
+Collect it free, or have it delivered to your door:
+<span class="tok">{{track_url}}</span>
+On delivery you'll pay Ksh <span class="tok">{{fee}}</span> for the trip by M-Pesa and Ksh <span class="tok">{{goods}}</span> for the goods to <span class="tok">{{from}}</span>. Your code appears once both are paid.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">193 chars · 2 segments</span></div><div class="old">Hi <span class="tok">{{name}}</span> Your Parcel from <span class="tok">{{from}}</span> is ready. Save yourself the trip, we will bring it to you. Click the link below to pin point your location and see the pricing. <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li><b>Free is named before the paid option, in every variant.</b> It is the single clearest signal that Pinned is not trying to extract something from a person who did not choose to be a customer.</li><li>The money line never appears when there is nothing to pay. Four variants exist so that three of them can stay short.</li><li>No code, no deadline, nothing else to act on. The link is the only action.</li><li>The link stands on its own line with no “click below”. The page is the invitation.</li></ul></div></div>
     </div>
   </div>
 </article>
+<article class="tp" id="C1a">
+  <div class="tp-head">
+    <span class="tp-id">C1a</span>
+    <span class="tp-title"><h3>It's paid, and already heading to you</h3><p>No choice to offer. Someone has paid, it is coming, and the only thing they might need to fix is the address.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>An individual sender books and pays, with the receiver's address already set</span></div>
+      <div><b>Timing</b><span>At booking</span></div>
+      <div><b>Source</b><span>Receiver page · 27 Oct</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>The one case that earns its own SMS.</b> The pack wanted a second first-contact message whenever the address is known; the live page sends the same SMS for business senders and confirms the address on the page. The exception is a pre-paid individual send, where there is genuinely no choice to present — so the page's own variant drops the offer and goes straight to tracking, on a <code>/track/</code> link rather than <code>/p/</code>.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Name the person who sent it. For an individual sender that name is the whole message.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">143 chars · 1 segment</span></div><div class="sms-bubble">Good news <span class="tok">{{name}}</span> — <span class="tok">{{sender_name}}</span> has sent you a parcel through Pinned.
+It's at <span class="tok">{{station}}</span>, heading to you now.
+Track it: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>A different link. <code>/p/</code> is the choice page; <code>/track/</code> is the tracking page. Sending a pre-paid receiver to a page with a price on it is how you generate a support call.</li><li>The address is still editable on the tracking page — the sender set it, and the person living there is the one who knows if it is wrong.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="C1c">
+  <div class="tp-head">
+    <span class="tp-id">C1c</span>
+    <span class="tp-title"><h3>Your parcel has arrived from upcountry</h3><p>The parcel genuinely travelled. That changes the opener and the verb.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>A parcel handler receives a parcel addressed to this person</span></div>
+      <div><b>Timing</b><span>On arrival at the handler</span></div>
+      <div><b>Source</b><span>Receiver page · 27 Oct</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>“Hi”, not “Good news”.</b> The page uses both openers and the difference is real: a parcel created for you is a surprise, a parcel that has come from Nakuru is a thing you have been waiting for. Telling someone it is good news when they already knew it was coming is the small false note that makes a brand sound automated.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Restrained on purpose. This person was already waiting for this parcel; the news is that it is here, not that it exists.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">151 chars · 1 segment</span></div><div class="sms-bubble">Hi <span class="tok">{{name}}</span> — your parcel from <span class="tok">{{from}}</span> has arrived at <span class="tok">{{station}}</span>.
+Collect it free, or have it delivered to your door:
+<span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>The sender is written as name plus town — <i>Amalia (Nakuru)</i> — because for a handler shipment the town is half the identification.</li><li>The station is the handler's own business name and street, not a Pinned name. It is where the person will actually walk.</li></ul></div></div>
+    </div>
+  </div>
+</article><h3 style="margin-top:38px">In transit</h3>
 <article class="tp" id="C1b">
   <div class="tp-head">
     <span class="tp-id">C1b</span>
-    <span class="tp-title"><h3>It is on its way to you</h3><p>The expected parcel. Now there is a person, a place and a time.</p></span>
+    <span class="tp-title"><h3>A runner has your parcel</h3><p>It is moving, with a name and a time on it.</p></span>
     <span class="tp-meta"><span class="badge partial">Partial</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
-      <div><b>Trigger</b><span>A runner collects the parcel and it is moving toward the receiver</span></div>
-      <div><b>Timing</b><span>At pickup</span></div>
-      <div><b>Source</b><span>Brief · 13 Oct</span></div>
+      <div><b>Trigger</b><span>The shop enters the runner's handover code</span></div>
+      <div><b>Timing</b><span>At hand-over</span></div>
+      <div><b>Source</b><span>Receiver pack · 27 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">runner_picked_up_receiver</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>The second half of the split.</b> C1 says something is coming; this one says it is moving and gives them a time they can plan around.</div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Trigger from the pack, voice from the page.</b> The pack names the trigger precisely — <i>the shop owner inputs the runner's handover code</i> — which is also the second piece of evidence that a counter hand-over is a code being typed, not a parcel being scanned.<br><br><b>Changed from the draft:</b> <i>“is on his way”</i> becomes <i>“is on the way”</i>. Not every runner is a man. <i>“Arrives in {{eta}}”</i> becomes an arrival time, because a text read forty minutes late makes a countdown a lie.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">128 chars · 1 segment</span></div><div class="sms-bubble">Your parcel from <span class="tok">{{from}}</span> is on the way to <span class="tok">{{dest}}</span> with <span class="tok">{{runner}}</span>, arriving about <span class="tok">{{eta}}</span>.
-Follow it: <span class="tok">{{track_url}}</span></div></div></div>
-      <div><div class="msg"><span class="lbl">Rules</span><ul><li>A time is the whole point of this message. If there is no reliable ETA, do not send it — wait for the arrival message instead.</li><li>For a pod delivery this message is optional. For a door delivery it is not, because somebody has to be home.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">149 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{runner}}</span> has your parcel from <span class="tok">{{from}}</span> and is on the way to <span class="tok">{{dest}}</span>, arriving about <span class="tok">{{eta}}</span>.
+Follow it live: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Never a gendered pronoun for a runner, a host or a receiver.</li><li>An arrival time, never a countdown.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Arrived</h3>
@@ -140,12 +193,78 @@ Follow it: <span class="tok">{{track_url}}</span></div></div></div>
       <div><b>Source</b><span>Map · Receiver 1</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">parcel_arrived</span><span class="chip">Hook · Action</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Kept, with the page's offer restored.</b> The pack's pod arrival says the storage is <i>“free for 6 hours after the drop”</i>; this site states a deadline instead, because the clock pauses overnight and a duration is wrong by morning. The number itself is contested — see the open questions — and has not been changed on the strength of a draft.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">177 chars · 2 segments</span></div><div class="sms-bubble">Your parcel from <span class="tok">{{from}}</span> is at <span class="tok">{{station}}</span>, open until <span class="tok">{{closing_time}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">199 chars · 2 segments</span></div><div class="sms-bubble">Hi <span class="tok">{{name}}</span>, your parcel from <span class="tok">{{from}}</span> is at <span class="tok">{{station}}</span>, open until <span class="tok">{{closing_time}}</span>.
 Collection code: <span class="tok">{{otp}}</span>
-Free storage until <span class="tok">{{deadline}}</span>. Can't come? Door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Ready at <span class="tok">{{station}}</span></b><p>Code <span class="tok">{{otp}}</span> · open until <span class="tok">{{closing_time}}</span> · free storage until <span class="tok">{{deadline}}</span>.<br><span class="chip">Directions</span>  <span class="chip">Send it to my door</span></p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">86 chars · 1 segment</span></div><div class="old">Hi <span class="tok">{{name}}</span>, parcel <span class="tok">{{code}}</span> has arrived at <span class="tok">{{station}}</span>. Collect with OTP <span class="tok">{{otp}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Two segments is the right price for this message. It carries a code, an address, an opening time, a deadline and an escape hatch — each one saves a call.</li><li>Never write 'OTP' to a customer. It is 'collection code'. OTP is our word, not theirs.</li></ul></div></div>
+Free storage until <span class="tok">{{deadline}}</span>. Can't make it? We'll bring it to you: <span class="tok">{{track_url}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Ready at <span class="tok">{{station}}</span></b><p>Code <span class="tok">{{otp}}</span> · open until <span class="tok">{{closing_time}}</span> · free storage until <span class="tok">{{deadline}}</span>.<br><span class="chip">Directions</span>  <span class="chip">Send it to my door</span></p></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">83 chars · 1 segment</span></div><div class="old">Hi <span class="tok">{{name}}</span>, parcel <span class="tok">{{code}}</span> has arrived at <span class="tok">{{station}}</span>. Collect with OTP <span class="tok">{{otp}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Two segments is the right price for this message. It carries a code, an address, an opening time, a deadline and an escape hatch — each one saves a call.</li><li>Never write 'OTP' to a customer. It is 'collection code'. OTP is our word, not theirs.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="C2b">
+  <div class="tp-head">
+    <span class="tp-id">C2b</span>
+    <span class="tp-title"><h3>Your runner is at the door</h3><p>Hand-over in one message. What it says depends entirely on whether the trip is already paid for.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>The runner's GPS pings at the delivery address</span></div>
+      <div><b>Timing</b><span>On arrival</span></div>
+      <div><b>Source</b><span>Receiver pack + page · 27 Oct</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Trigger from the pack, both branches from the page.</b> The pack covers the unpaid case — <i>“settle the delivery account to see the handover code”</i> — which matches the page's gate exactly. The paid case needs its own line, or a receiver who has already paid is sent to a payment screen and assumes they are being charged twice.<br><br><b>Changed from the draft:</b> <i>“Settle the Delivery account”</i> becomes <i>“pay the Ksh {{fee}} trip fee”</i>. Nobody outside the company has a delivery account, and the page always names the amount.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>None. Somebody is standing outside; this is the one moment that wants no personality at all.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · trip already paid</span><span class="count">138 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{runner}}</span> is outside <span class="tok">{{dest}}</span> with your parcel.
+Your handover code: <span class="tok">{{otp}}</span>
+Give this only to your Pinned runner at the door.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · pay on delivery</span><span class="count">151 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{runner}}</span> is outside <span class="tok">{{dest}}</span> with your parcel.
+Pay the Ksh <span class="tok">{{fee}}</span> trip fee by M-Pesa and your handover code appears: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>Two branches, never one message that covers both.</li><li><i>“Give this only to your Pinned runner at the door”</i> is the page's own line, and it beats every abstract warning: it tells a person exactly who may hear the code.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="C8">
+  <div class="tp-head">
+    <span class="tp-id">C8</span>
+    <span class="tp-title"><h3>Your runner can't find you</h3><p>Somebody is standing in the wrong place. Fix it in one tap, without blaming anyone.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>The runner is at the address and cannot reach the receiver</span></div>
+      <div><b>Timing</b><span>On the runner reporting it</span></div>
+      <div><b>Source</b><span>Receiver page · 27 Oct</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Only the live page has this.</b> Neither the Communication Map nor the receiver pack includes it, and it is the moment a delivery is most likely to fail. The page's wording is used almost as written, because it is already the voice.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>“Moved on?” is the whole trick. It assumes the ordinary explanation instead of asking why they are not where they said.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">136 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{runner}}</span> is at <span class="tok">{{spot}}</span> and can't find you at <span class="tok">{{dest}}</span>.
+Moved on? Tell us where you are now: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>The page states the limit before anyone hits it: <i>one update per delivery, up to 3 km from your first address</i>. That sentence belongs on the page, not in the SMS — the SMS has one job, which is to get them to the page.</li><li>The fallback is generous and it is said out loud on the page: <i>if we can't reach you at your door, it returns to the branch after a 20-min wait — no charge</i>. A failed delivery that costs the receiver nothing is the reason this message can stay calm.</li><li>Never “you were not available”. The runner is the one who cannot find them, and that is how the sentence is built.</li></ul></div></div>
+    </div>
+  </div>
+</article>
+<article class="tp" id="C9">
+  <div class="tp-head">
+    <span class="tp-id">C9</span>
+    <span class="tp-title"><h3>Moving the drop — priced</h3><p>A priced change of plan. Every number shown, including where the money goes.</p></span>
+    <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>The receiver gives a new location within the cap</span></div>
+      <div><b>Timing</b><span>Immediately after C8</span></div>
+      <div><b>Source</b><span>Receiver page · 27 Oct</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Not the same thing as a storage extension.</b> C6a and C6b extend free storage at a pod; this extends a <i>delivery</i> to a new address and it is priced. Two different objects that were both being called an extension.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Telling them the runner keeps the whole fee. It costs nothing to say and it changes what the charge feels like.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">165 chars · 2 segments</span></div><div class="sms-bubble">Moving your delivery to <span class="tok">{{spot}}</span> is <span class="tok">{{ext_km}}</span> km further — Ksh <span class="tok">{{ext_fee}}</span> by M-Pesa.
+Pay and your handover code unlocks: <span class="tok">{{track_url}}</span>
+<span class="tok">{{runner}}</span> keeps the full fee.</div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>The fee is broken down on the page — base plus distance — never presented as one unexplained number.</li><li><i>“Your handover code stays locked until this clears.”</i> The gate is a mechanism, stated plainly, exactly as on the page.</li><li>One extension, up to 3 km, said before it is needed.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Exception</h3>
@@ -159,13 +278,13 @@ Free storage until <span class="tok">{{deadline}}</span>. Can't come? Door deliv
     <div class="kv">
       <div><b>Trigger</b><span>Promised delivery time passes while the parcel is in transit</span></div>
       <div><b>Timing</b><span>At the moment the promise breaks</span></div>
-      <div><b>Source</b><span>Map · Receiver 2</span></div>
+      <div><b>Source</b><span>Receiver pack · 27 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Kept, trimmed.</b> <i>“Unfortunately”</i> and <i>“Thank you for your patience”</i> in four lines is apologising twice. The thanks stays — it is house language the team already use in the refund SMS — and <i>unfortunately</i> goes, because the new time is the apology.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">146 chars · 1 segment</span></div><div class="sms-bubble">Your parcel from <span class="tok">{{from}}</span> is running late — now about <span class="tok">{{eta}}</span>. <span class="tok">{{reason}}</span>.
-We text again the moment it lands at <span class="tok">{{station}}</span>.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">145 chars · 1 segment</span></div><div class="sms-bubble">Your parcel is running late — <span class="tok">{{reason}}</span>. New arrival time: <span class="tok">{{eta}}</span>.
+Thanks for your patience. Follow it here: <span class="tok">{{track_url}}</span></div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Never 'we apologise for any inconvenience caused'. Give a new time instead; that is the apology.</li><li>Promise the next message. A delay is tolerable when you know when you will next hear something.</li></ul></div></div>
     </div>
   </div>
@@ -185,10 +304,10 @@ We text again the moment it lands at <span class="tok">{{station}}</span>.</div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_reminder_24h</span><span class="chip">Hook · Action</span></div>
     
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">103 chars · 1 segment</span></div><div class="sms-bubble">Your parcel is still at <span class="tok">{{station}}</span>, open until <span class="tok">{{closing_time}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">101 chars · 1 segment</span></div><div class="sms-bubble">Your parcel is still at <span class="tok">{{station}}</span>, open until <span class="tok">{{closing_time}}</span>.
 Code: <span class="tok">{{otp}}</span>
 Free storage until <span class="tok">{{deadline}}</span>.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 48 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 1 does not mention the rate. Nothing is being charged yet, so nothing about charging is said.</li><li>Retire the 6-hour reminder. It arrives while people are still at work and teaches them we message for no reason.</li><li>Scheduled on the storage clock, not the wall clock, so it can never fire overnight or while the pod is shut.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">205 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 48 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 1 does not mention the rate. Nothing is being charged yet, so nothing about charging is said.</li><li>Retire the 6-hour reminder. It arrives while people are still at work and teaches them we message for no reason.</li><li>Scheduled on the storage clock, not the wall clock, so it can never fire overnight or while the pod is shut.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -205,12 +324,12 @@ Free storage until <span class="tok">{{deadline}}</span>.</div></div></div>
       <div><b>Source</b><span>Map · Receiver 3</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_reminder_48h</span><span class="chip">Hook · Action</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Changed from the draft.</b> <i>“Failure to collect it before then, will attract a charge”</i> is a letter from a council. Numbers are facts, never threats — so the rate is stated next to the deadline and the way out comes straight after it.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">159 chars · 1 segment</span></div><div class="sms-bubble">Free storage on your parcel at <span class="tok">{{station}}</span> ends <span class="tok">{{deadline}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">159 chars · 1 segment</span></div><div class="sms-bubble">Your parcel is still at <span class="tok">{{station}}</span>. Free storage ends <span class="tok">{{deadline}}</span>, then Ksh <span class="tok">{{rate}}</span>/hr.
 Code: <span class="tok">{{otp}}</span>
-After that: Ksh <span class="tok">{{rate}}</span>/hr. Can't come? We can bring it to you: <span class="tok">{{track_url}}</span></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">210 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 24 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 2 is where the escape hatch earns its place. Most door-delivery conversions happen here.</li><li>A deadline, never a countdown. “4 hours left” sent at 17:00 is wrong by the next morning, because the clock stops at 19:00 and restarts at 08:00.</li></ul></div></div>
+Can't make it? We'll bring it to you: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">205 chars · 2 segments</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. Free storage ends in 24 hours. After that: Ksh <span class="tok">{{rate}}</span>/hr applies. Your code: <span class="tok">{{otp}}</span> Open until: <span class="tok">{{closing_time}}</span> Can't make it? Request door delivery: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Rung 2 is where the escape hatch earns its place. Most door-delivery conversions happen here.</li><li>A deadline, never a countdown. “4 hours left” sent at 17:00 is wrong by the next morning, because the clock stops at 19:00 and restarts at 08:00.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -227,21 +346,21 @@ After that: Ksh <span class="tok">{{rate}}</span>/hr. Can't come? We can bring i
       <div><b>Source</b><span>Map · Receiver 3</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_storage_started_72h</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note warn"><b>Live copy bug.</b> The template reads <code>Your code: {{station}}</code> — it prints the station name where the collection code belongs. Receivers on this rung are being charged and handed the wrong token. Fix before anything else on this page.</div>
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>The pack keeps the best sentence in the ladder</b> — <i>the charges stop the moment you collect</i> — and adds something this site had missed: at this rung the door-delivery link has to settle the storage charge too, or it sends somebody to a page that cannot finish the job.</div><div class="tp-note warn"><b>Live copy bug.</b> The template reads <code>Your code: {{station}}</code> — it prints the station name where the collection code belongs. Receivers on this rung are being charged and handed the wrong token. Fix before anything else on this page.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">171 chars · 2 segments</span></div><div class="sms-bubble">Storage has started on your parcel at <span class="tok">{{station}}</span>: Ksh <span class="tok">{{rate}}</span>/hr, Ksh <span class="tok">{{amount}}</span> so far.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">198 chars · 2 segments</span></div><div class="sms-bubble">Free storage has ended on your parcel at <span class="tok">{{station}}</span>: Ksh <span class="tok">{{rate}}</span>/hr, Ksh <span class="tok">{{amount}}</span> so far.
 It stops the moment you collect.
 Code: <span class="tok">{{otp}}</span>
-Pay and collect: <span class="tok">{{track_url}}</span></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">227 chars · 2 segments</span></div><div class="old">Storage charges have started on parcel <span class="tok">{{code}}</span> at KES <span class="tok">{{rate}}</span>/hr. Amount so far: KES <span class="tok">{{amount}}</span> Charges stop the moment you collect. Your code: <span class="tok">{{station}}</span> Collect now to stop the clock. Pay and collect here: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Charges stop the moment you collect' is the single most useful sentence in the ladder. It stays, and it goes above the code.</li><li>Ksh, not KES. One currency spelling across the estate.</li></ul></div></div>
+Pay and collect, or we'll bring it to you: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">223 chars · 2 segments</span></div><div class="old">Storage charges have started on parcel <span class="tok">{{code}}</span> at KES <span class="tok">{{rate}}</span>/hr. Amount so far: KES <span class="tok">{{amount}}</span> Charges stop the moment you collect. Your code: <span class="tok">{{station}}</span> Collect now to stop the clock. Pay and collect here: <span class="tok">{{track_url}}</span></div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Charges stop the moment you collect' is the single most useful sentence in the ladder. It stays, and it goes above the code.</li><li>Ksh, not KES. One currency spelling across the estate.</li></ul></div></div>
     </div>
   </div>
 </article>
 <article class="tp" id="C4d">
   <div class="tp-head">
     <span class="tp-id">C4d</span>
-    <span class="tp-title"><h3>Going back today · rung 4 (7d)</h3><p>Final rung. A fact, a total, and a human to talk to.</p></span>
-    <span class="tp-meta"><span class="badge live">Live</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+    <span class="tp-title"><h3>Going back today · rung 4 (7d)</h3><p>Final rung. A fact already in motion, the total, and — new in this pack — a last chance.</p></span>
+    <span class="tp-meta"><span class="badge change">Channel change</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
@@ -250,12 +369,12 @@ Pay and collect: <span class="tok">{{track_url}}</span></div></div></div>
       <div><b>Source</b><span>Map · Receiver 3</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_final_notice_7d</span><span class="chip">Hook · Trigger</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>The pack improves on this site.</b> Round two ended the ladder with “contact {{from}} to rearrange”, which hands the problem to the sender. The pack keeps the doorstep offer alive to the last message, which is kinder and the only version that can still recover both the delivery and the storage fee on the day.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>A last door, held open on the day it closes.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">150 chars · 1 segment</span></div><div class="sms-bubble">Last day: your parcel from <span class="tok">{{from}}</span> goes back to the sender today.
-Storage charged: Ksh <span class="tok">{{amount}}</span>.
-Still want it? Contact <span class="tok">{{from}}</span> to rearrange.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">233 chars · 2 segments</span></div><div class="old">Final notice, <span class="tok">{{name}}</span>. Your parcel <span class="tok">{{code}}</span> from <span class="tok">{{from}}</span> has not been collected and is being returned to the sender today. Total storage fee charged: Ksh <span class="tok">{{amount}}</span>. If you still want this parcel, contact <span class="tok">{{from}}</span> to rearrange.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Four rungs, never five. Neutral, specific, consequence, final — then silence.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">193 chars · 2 segments</span></div><div class="sms-bubble">Hi <span class="tok">{{name}}</span>, your parcel goes back to <span class="tok">{{from}}</span> today at <span class="tok">{{time}}</span>, after 7 days at <span class="tok">{{station}}</span>.
+Storage owed: Ksh <span class="tok">{{amount}}</span>.
+Still want it? We can bring it to you today: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">230 chars · 2 segments</span></div><div class="old">Final notice, <span class="tok">{{name}}</span>. Your parcel <span class="tok">{{code}}</span> from <span class="tok">{{from}}</span> has not been collected and is being returned to the sender today. Total storage fee charged: Ksh <span class="tok">{{amount}}</span>. If you still want this parcel, contact <span class="tok">{{from}}</span> to rearrange.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Four rungs, then silence — and the fourth still offers a way to keep the parcel.</li><li>The total is stated once, because there is no later message.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Security</h3>
@@ -272,12 +391,11 @@ Still want it? Contact <span class="tok">{{from}}</span> to rearrange.</div></di
       <div><b>Source</b><span>Live template</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">otp_issued</span><span class="chip">Hook · Action</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Changed from the draft.</b> <i>“DISCLAIMER; Do not share the code for security purposes”</i> becomes the page's own line. A customer cannot act on “for security purposes”; they can act on being told exactly who is allowed to hear it. <i>“Dear {{name}}”</i> goes too — it is the register of a bank letter.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">110 chars · 1 segment</span></div><div class="sms-bubble">Pinned collection code:
-<span class="tok">{{otp}}</span>
-It opens your parcel at <span class="tok">{{station}}</span>. We never ask for this code by phone.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">56 chars · 1 segment</span></div><div class="old">Your Pinned collection code is <span class="tok">{{otp}}</span>. Do not share it.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Do not share it' is advice. 'We never ask for this code by phone' is a rule the customer can use to spot the fraud.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">164 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, your collection code is <span class="tok">{{otp}}</span>.
+Show it at <span class="tok">{{station}}</span> to collect. Give it only to Pinned staff at the counter — we never call or text to ask for it.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">55 chars · 1 segment</span></div><div class="old">Your Pinned collection code is <span class="tok">{{otp}}</span>. Do not share it.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Do not share it' is advice. 'We never ask for this code by phone' is a rule the customer can use to spot the fraud.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Dwell request</h3>
@@ -296,9 +414,9 @@ It opens your parcel at <span class="tok">{{station}}</span>. We never ask for t
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_extension_approved</span><span class="chip">Hook · Reward</span></div>
     
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">95 chars · 1 segment</span></div><div class="sms-bubble">Approved — free storage on your parcel at <span class="tok">{{station}}</span> now runs to <span class="tok">{{deadline}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">93 chars · 1 segment</span></div><div class="sms-bubble">Approved — free storage on your parcel at <span class="tok">{{station}}</span> now runs to <span class="tok">{{deadline}}</span>.
 Code: <span class="tok">{{otp}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Extended to <span class="tok">{{deadline}}</span></b><p><span class="tok">{{hours}}</span> more countable hours of free storage at <span class="tok">{{station}}</span>. Code <span class="tok">{{otp}}</span>.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">59 chars · 1 segment</span></div><div class="old">Hold approved for parcel <span class="tok">{{code}}</span>: +<span class="tok">{{hours}}</span>h extra free storage.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>People do not want the decision, they want the new date. Lead with the deadline.</li><li>An extension is granted in countable hours and communicated as a timestamp. The two are not the same number and the customer only ever sees the timestamp.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">56 chars · 1 segment</span></div><div class="old">Hold approved for parcel <span class="tok">{{code}}</span>: +<span class="tok">{{hours}}</span>h extra free storage.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>People do not want the decision, they want the new date. Lead with the deadline.</li><li>An extension is granted in countable hours and communicated as a timestamp. The two are not the same number and the customer only ever sees the timestamp.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -319,27 +437,27 @@ Code: <span class="tok">{{otp}}</span></div></div><div class="msg"><div class="m
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">147 chars · 1 segment</span></div><div class="sms-bubble">We can't extend this one: <span class="tok">{{reason}}</span>.
 Free storage still ends <span class="tok">{{deadline}}</span>. We can bring it to your door instead: <span class="tok">{{track_url}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Not extended — <span class="tok">{{reason}}</span></b><p>Free storage still ends <span class="tok">{{deadline}}</span>. Door delivery is available today.<br><span class="chip">Send it to my door</span></p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">89 chars · 1 segment</span></div><div class="old">Hold denied for parcel <span class="tok">{{code}}</span> (<span class="tok">{{reason}}</span>). The dwell clock is unchanged.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Every decline offers the alternative in the same message. A no with no door is a complaint waiting to happen.</li><li>'Dwell clock' is internal language. Customers hear 'free storage'.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">86 chars · 1 segment</span></div><div class="old">Hold denied for parcel <span class="tok">{{code}}</span> (<span class="tok">{{reason}}</span>). The dwell clock is unchanged.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Every decline offers the alternative in the same message. A no with no door is a complaint waiting to happen.</li><li>'Dwell clock' is internal language. Customers hear 'free storage'.</li></ul></div></div>
     </div>
   </div>
 </article><h3 style="margin-top:38px">Collected</h3>
 <article class="tp" id="C7">
   <div class="tp-head">
     <span class="tp-id">C7</span>
-    <span class="tp-title"><h3>Collected — and the next one is easier</h3><p>Convert a one-off collection into a saved address.</p></span>
+    <span class="tp-title"><h3>Delivered — and how was your runner?</h3><p>Convert a one-off collection into a saved address.</p></span>
     <span class="tp-meta"><span class="badge gap">Not built</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
     <div class="kv">
       <div><b>Trigger</b><span>Receiver collects the parcel</span></div>
       <div><b>Timing</b><span>At collection · once per receiver</span></div>
-      <div><b>Source</b><span>New · hook: investment</span></div>
+      <div><b>Source</b><span>Receiver pack + page · 27 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Investment</span></div>
-    
+    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Both sources agree, and the page adds the rating.</b> The pack asks for the saved address; the page ends on <i>“Your runner just wrapped up — were they 5-star?”</i>. One message carries both, because they are the same moment and a second SMS would not be sent.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">146 chars · 1 segment</span></div><div class="sms-bubble">Collected — thanks, <span class="tok">{{name}}</span>.
-Next time <span class="tok">{{from}}</span> sends to you, we can bring it to <span class="tok">{{dest}}</span> instead. Save your address: <span class="tok">{{track_url}}</span></div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">185 chars · 2 segments</span></div><div class="sms-bubble">Delivered — it's all yours, <span class="tok">{{name}}</span>. Thanks for choosing Pinned.
+How was <span class="tok">{{runner}}</span>? Rate them, and save your address so the next one comes straight to your door: <span class="tok">{{track_url}}</span></div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Sent once per receiver, ever. The second one is spam.</li><li>This is the only receiver message that asks for something. It asks after we have delivered, never before.</li></ul></div></div>
     </div>
   </div>
@@ -347,8 +465,8 @@ Next time <span class="tok">{{from}}</span> sends to you, we can bring it to <sp
 </div></section><div class="wrap"><div class="endrule"></div></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 13 October 2026 · team review applied</p>
-    <p>Internal working document. Build 11.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
+    <p>Internal working document. Build 13.</p>
   </div>
 </footer>
 <script>
