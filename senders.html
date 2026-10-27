@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=13">
+<link rel="stylesheet" href="assets/comms.css?v=14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -18,31 +18,71 @@
 </head>
 <body>
 
-<header class="phead"><div class="wrap">
-  <p class="crumb"><a href="index.html">Pinned Communications</a> · Senders</p>
-  <p class="eyebrow" style="margin-top:10px">12 touchpoints · 4 SMS on a journey that works</p>
-  <h1>Senders</h1>
-  <p class="lede">Anyone who books a parcel — an individual in the app, or a business through a virtual host.</p>
-</div></header>
-<nav class="navbar"><div class="wrap">
-  <a class="home" href="index.html">Pinned Comms</a>
+<div class="shell">
+<aside class="side"><div class="side-in">
+  <a class="side-home" href="index.html"><span class="logomark sm"><span></span><span></span><span></span><span></span></span>Pinned Comms</a>
+  <nav class="side-nav"><p class="side-grp">Foundations</p>
   <a href="index.html">The map</a>
   <a href="principles.html">Voice</a>
   <a href="channels.html">Channels &amp; rules</a>
+  <p class="side-grp">Lanes</p>
   <a href="senders.html" class="on">Senders</a>
+  <span class="side-subs"><a href="#journey">The SMS journey</a><a href="#cases">Which message fires, and when</a><a href="#what-they-are-here-for">What they are here for</a><a href="#touchpoints">Touchpoints</a></span>
   <a href="receivers.html">Receivers</a>
   <a href="runners.html">Runners</a>
   <a href="hosts.html">Hosts</a>
   <a href="admin.html">Admin</a>
   <a href="prospects.html">Prospects</a>
+  <p class="side-grp">Reference</p>
   <a href="library.html">Copy library</a>
-  <a href="gaps.html">Build order</a>
-  <span class="spacer"></span>
+  <a href="gaps.html">Build order</a></nav>
   <button class="themer" type="button" data-themer>Theme</button>
-</div></nav>
-<section><div class="wrap">
-  <div class="sec-head"><span class="sec-num">01</span><h2>What they are here for</h2></div>
+</div></aside>
+<main class="main">
+<header class="phead"><div class="wrap">
+  <p class="eyebrow">The lanes</p>
+  <h1>Senders</h1>
+  <p class="phead-meta">12 touchpoints · 4 SMS on a journey that works · 6 more only when something goes wrong</p>
   
+</div></header>
+<section id="journey"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>The SMS journey</h2></div>
+  <p class="sec-sub">Every moment in order, grouped, and the channel that carries it. Highlighted rows cost an SMS; everything unhighlighted is a deliberate decision not to spend one. The arrow on the right of each row jumps to the copy.</p>
+  <div class="rule"></div>
+  
+<div class="jrny">
+  <div class="jrny-head"><h3>Four SMS on a journey that works — three once sign-in moves to a PIN</h3><p>Two codes to get into the account, one instruction about the parcel, and the proof at the end. The instruction is the one that keeps going wrong: a booking gets <b>either</b> the drop SMS <b>or</b> the handover code, never both, and which one depends entirely on whether a runner is coming.</p></div>
+  <div class="jgrp">Access · two codes, and one of them should go</div>
+  <div class="jstep is-sms"><span class="jn">1</span><span class="jwhen">Creates an account</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Sign-up code, with the expiry and the fraud line</span><span class="jwhy">The only way to prove the phone is theirs.</span><span class="jgo"><a href="#S0">S0 &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">2</span><span class="jwhen">Signs in</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Sign-in code naming the device<span class="flag">open question</span></span><span class="jwhy">Security, not convenience. Moves to a device PIN if we follow the runner decision.</span><span class="jgo"><a href="#S0b">S0b &darr;</a></span></div>
+  <div class="jstep"><span class="jn">3</span><span class="jwhen">Account opens</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Welcome and the nearest pod</span><span class="jwhy">Nothing time-critical. The code SMS landed a minute ago.</span><span class="jgo"><a href="#S1">S1 &darr;</a></span></div>
+  <div class="jgrp">The one instruction · drop, or hand over</div>
+  <div class="jstep is-sms"><span class="jn">4a</span><span class="jwhen">Books a drop</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Reservation code to enter at the pod, and the deadline</span><span class="jwhy">The instruction. One of two, never both.</span><span class="jgo"><a href="#S2">S2 &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">4b</span><span class="jwhen">…or books a runner collection</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Handover code to give the runner, and the safety line</span><span class="jwhy">The other one. The same booking must never receive both.</span><span class="jgo"><a href="#S2c">S2c &darr;</a></span></div>
+  <div class="jstep"><span class="jn">—</span><span class="jwhen">Either way</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Booked — directions, or switch to a runner in one tap</span><span class="jwhy">They are in the app, looking at the booking they just made.</span><span class="jgo"><a href="#S2">S2 &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Has not dropped it</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Save yourself the trip — a runner can collect</span><span class="jwhy">They are away from the app. This is what SMS is for.</span><span class="jgo"><a href="#S2b">S2b &darr;</a></span></div>
+  <div class="jgrp">On the road</div>
+  <div class="jstep"><span class="jn">5</span><span class="jwhen">Runner collects</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Picked up by <span class="tok">{{runner}}</span>, ETA</span><span class="jwhy">A status update, not an instruction. One card replaces the two SMS firing today.</span><span class="jgo"><a href="#S2d">S2d &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">6</span><span class="jwhen">Delivered</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Who collected it, where, at what time</span><span class="jwhy">The payoff. Two segments, and worth every one.</span><span class="jgo"><a href="#S3">S3 &darr;</a></span></div>
+  <div class="jgrp">Exceptions · only when something goes wrong</div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Receiver has not collected</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, charged to you</span><span class="jwhy">Money moving against them. Always SMS.</span><span class="jgo"><a href="#S4a">S4a &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Day 7</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Coming back to you today</span><span class="jwhy">A thing they have to plan around.</span><span class="jgo"><a href="#S4b">S4b &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Refund</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Amount, and when it reaches M-Pesa</span><span class="jwhy">Money moving toward them. Always SMS.</span><span class="jgo"><a href="#S5">S5 &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Delivery failed</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Reason, location, choice, deadline</span><span class="jwhy">A decision only they can make, on a clock.</span><span class="jgo"><a href="#S6">S6 &darr;</a></span></div>
+</div>
+</div></section>
+<section id="cases"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Which message fires, and when</h2></div>
+  <p class="sec-sub">A sender is told what to do with the parcel exactly once. Which message that is depends on one thing only: whether a runner is coming to them.</p>
+  <div class="rule"></div>
+  <div class="grid g2"><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">The sender is told what to do once — drop, or hand over</h3><p>A booking that will be dropped gets the drop SMS and never a handover code. A booking a runner will collect gets the handover code and never a drop reminder. Today both can fire against the same booking, because nothing in the code treats them as alternatives.</p></div></div><div style="margin-top:22px">
+<div class="scroller"><table class="dtab">
+<thead><tr><th>The booking</th><th>Sends</th><th>Saying</th><th>Never also</th><th>Why not</th></tr></thead>
+<tbody><tr><td><b>The sender will drop it at a pod</b></td><td class="id"><a class="idchip" href="#S2">S2</a></td><td>The reservation code to enter at the pod, and the hold deadline.</td><td class="id"><span class="idchip no">S2c</span></td><td>There is no runner at the counter, so there is nobody to hand a code to.</td></tr><tr><td><b>A runner will collect it</b></td><td class="id"><a class="idchip" href="#S2c">S2c</a></td><td>The handover code to give the runner, and the one safety line.</td><td class="id"><span class="idchip no">S2</span></td><td>There is no drop to remind them about, and a drop reminder against a runner booking is the single most confusing message we send.</td></tr></tbody></table></div></div>
+</div></section>
+<section id="what-they-are-here-for"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03</span><h2>What they are here for</h2></div>
+  <p class="sec-sub">Anyone who books a parcel — an individual in the app, or a business through a virtual host.</p>
   <div class="rule"></div>
   
 <div class="grid g2">
@@ -59,33 +99,11 @@
     </div></div>
 </div>
 </div></section>
-<section id="journey"><div class="wrap">
-  <div class="sec-head"><span class="sec-num">02</span><h2>The SMS journey</h2></div>
-  <p class="sec-sub">Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: <b>4 on a journey that works</b>, 6 more only when something goes wrong. A row numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision not to spend an SMS.</p>
-  <div class="rule"></div>
-  
-<div class="jrny">
-  <div class="jrny-head"><h3>Four SMS on a journey that works — three once sign-in moves to a PIN</h3><p>Sign-up code, sign-in code, handover code, delivered — and the sign-in code should become a PIN. Everything between them is in-app, because the sender is holding the app. That is the whole difference between a sender and a receiver.</p></div>
-  <div class="jstep is-sms"><span class="jn">1</span><span class="jwhen">Creates an account</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Sign-up code, with the expiry and the fraud line</span><span class="jwhy">The only way to prove the phone is theirs.</span></div>
-  <div class="jstep is-sms"><span class="jn">2</span><span class="jwhen">Signs in</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Sign-in code naming the device<span class="flag">open question</span></span><span class="jwhy">Security, not convenience. Moves to a device PIN if we follow the runner decision.</span></div>
-  <div class="jstep"><span class="jn">3</span><span class="jwhen">Account opens</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Welcome and the nearest pod</span><span class="jwhy">Nothing time-critical. The code SMS landed a minute ago.</span></div>
-  <div class="jstep"><span class="jn">4</span><span class="jwhen">Books a parcel</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Booked — drop by, with directions</span><span class="jwhy">They are in the app, looking at the booking they just made.</span></div>
-  <div class="jstep is-sms"><span class="jn">—</span><span class="jwhen">…booked with no drop-off slot</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">The reservation code</span><span class="jwhy">The exception: with no slot, the code is the only thing they hold.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Has not dropped it</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Still held for you, plus runner collection</span><span class="jwhy">They are away from the app. This is what SMS is for.</span></div>
-  <div class="jstep is-sms"><span class="jn">5</span><span class="jwhen">Pays / runner assigned</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Handover code — and nothing else</span><span class="jwhy">The one message that must survive a flat battery at a counter.</span></div>
-  <div class="jstep"><span class="jn">6</span><span class="jwhen">Runner collects</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Picked up by <span class="tok">{{runner}}</span>, ETA</span><span class="jwhy">A status update, not an instruction. One in-app card replaces the two SMS firing today.</span></div>
-  <div class="jstep is-sms"><span class="jn">7</span><span class="jwhen">Delivered</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Who collected it, where, at what time</span><span class="jwhy">The payoff. Two segments, and worth every one.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Receiver has not collected</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, charged to you</span><span class="jwhy">Money moving against them. Always SMS.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Day 7</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Coming back to you today</span><span class="jwhy">A thing they have to plan around.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Refund</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Amount, and when it reaches M-Pesa</span><span class="jwhy">Money moving toward them. Always SMS.</span></div>
-  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Delivery failed</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Reason, location, choice, deadline</span><span class="jwhy">A decision only they can make, on a clock.</span></div>
-</div>
-</div></section>
-<section><div class="wrap">
-  <div class="sec-head"><span class="sec-num">03</span><h2>Touchpoints</h2></div>
+<section id="touchpoints"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Touchpoints</h2></div>
   
   <div class="rule"></div>
-  <h3 style="margin-top:38px">Access</h3>
+  <h3 class="stage">Access</h3>
 <article class="tp" id="S0">
   <div class="tp-head">
     <span class="tp-id">S0</span>
@@ -99,7 +117,7 @@
       <div><b>Source</b><span>Brief · 13 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Lead with the painkiller.</b> An earlier draft — <i>“Welcome to Pinned. Your sign-up code is …”</i> — was correct and said nothing. It carried no name and no reason to care. <b>Uko wapi?</b> is the question every delivery in this city turns into: the sender ringing the rider, the receiver ringing the sender, nobody with an answer. Pinned <i>is</i> the answer, and the first message is the one place that claim belongs.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Their name, and a promise in the language the problem is actually argued in.</div><div class="tp-note warn"><b>Two words for one thing, twice.</b> This copy is approved as written, and it carries two unresolved vocabulary questions that reach past this message. <b>“package”</b> — every live template, the team's sender review and the rest of this site say <i>parcel</i>; the brand guide's own push mock-up says <i>“Your package has arrived…”</i>. One of them has to give. <b>“OTP”</b> — line two calls it a sign-up code and line four calls it an OTP, four lines apart. Kenyan customers genuinely know the word OTP from M-Pesa and banking, so the rule against it may be the thing that is wrong — but not both names in one SMS. Both are on the Build order page as open questions.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Lead with the painkiller.</b> An earlier draft — <i>“Welcome to Pinned. Your sign-up code is …”</i> — was correct and said nothing. It carried no name and no reason to care. <b>Uko wapi?</b> is the question every delivery in this city turns into: the sender ringing the rider, the receiver ringing the sender, nobody with an answer. Pinned <i>is</i> the answer, and the first message is the one place that claim belongs.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Their name, and a promise in the language the problem is actually argued in.</div><div class="tp-note warn"><b>Two words for one thing, twice.</b> This copy is approved as written, and it carries two unresolved vocabulary questions that reach past this message. <b>“package”</b> — every live template, the team's sender review and the rest of this site say <i>parcel</i>; the brand guide's own push mock-up says <i>“Your package has arrived…”</i>. One of them has to give. <b>“OTP”</b> — line two calls it a sign-up code and line four calls it an OTP, four lines apart. Kenyan customers genuinely know the word OTP from M-Pesa and banking, so the rule against it may be the thing that is wrong — but not both names in one SMS. Both are on the Build order page as open questions.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">192 chars · 2 segments</span></div><div class="sms-bubble">Karibu Pinned, <span class="tok">{{name}}</span> — your answer to UKO WAPI?
 Sign-up code: <span class="tok">{{otp}}</span>
@@ -122,14 +140,14 @@ OTP Expires in 5 minutes. We never ask for this code by phone.</div></div></div>
       <div><b>Source</b><span>Brief · 13 Oct</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>No device name.</b> An earlier draft read <i>“Someone is signing in on a Samsung A14”</i>. We have no device visibility, so that sentence is void. What is left still does the job: what the code is for, how long it lasts, what to do if it was not them, and the fraud line.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Reassure in the same line as the warning. Ignoring it is enough; they do not have to do anything.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>No device name.</b> An earlier draft read <i>“Someone is signing in on a Samsung A14”</i>. We have no device visibility, so that sentence is void. What is left still does the job: what the code is for, how long it lasts, what to do if it was not them, and the fraud line.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Reassure in the same line as the warning. Ignoring it is enough; they do not have to do anything.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">198 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, your Pinned sign-in code is <span class="tok">{{otp}}</span>.
 It expires in 5 minutes. If you did not ask to sign in, ignore this message — your account stays locked and we never call or text to ask for this code.</div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">19 chars · 1 segment</span></div><div class="old">Your OTP code is ….</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Write only what the system can actually see. A security message that names a device we cannot identify is worse than one that does not, because the first time it is wrong the customer stops believing all of them.</li><li>Naming the device and the town is the upgrade the moment device data exists. Until then this copy stands.</li><li>Never include a link in a sign-in message. Every phishing SMS in this market has one.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Sign-up</h3>
+</article><h3 class="stage">Sign-up</h3>
 <article class="tp" id="S1">
   <div class="tp-head">
     <span class="tp-id">S1</span>
@@ -143,13 +161,13 @@ It expires in 5 minutes. If you did not ask to sign in, ignore this message — 
       <div><b>Source</b><span>Map · Senders 1</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">sender_onboarding</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>In-app only.</b> The welcome SMS is dropped — nothing in it is time-critical, and the sign-up code SMS has already landed on the same phone a minute earlier.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Their name, and a pod they can picture. That is the whole warmth budget for a welcome.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>In-app only.</b> The welcome SMS is dropped — nothing in it is time-critical, and the sign-up code SMS has already landed on the same phone a minute earlier.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Their name, and a pod they can picture. That is the whole warmth budget for a welcome.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Welcome to Pinned, <span class="tok">{{name}}</span></b><p>Your nearest pod is <span class="tok">{{pod}}</span>, <span class="tok">{{km}}</span> km away. Booking takes about a minute, and you pay after the price is shown.</p></div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">101 chars · 1 segment</span></div><div class="old">Welcome, <span class="tok">{{name}}</span>! Your account is ready. Find a Pod near you in the app and drop your first parcel.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The first message names a real place near them. 'Find a Pod near you' is an instruction; '{{pod}}' is an answer.</li><li>No exclamation mark in the first line. Pinned is calm before it is friendly.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Booking</h3>
+</article><h3 class="stage">Booking</h3>
 <article class="tp" id="S2">
   <div class="tp-head">
     <span class="tp-id">S2</span>
@@ -163,10 +181,10 @@ It expires in 5 minutes. If you did not ask to sign in, ignore this message — 
       <div><b>Source</b><span>Map · Senders 2</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">parcel_booked</span><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>In-app only — with one exception.</b> The SMS fires only when no drop-off slot was booked, because then the code is the only thing the sender is holding.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>In-app only — with one exception.</b> The SMS fires only when no drop-off slot was booked, because then the code is the only thing the sender is holding.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Booked — drop by <span class="tok">{{deadline}}</span></b><p><span class="tok">{{pod}}</span> · open until <span class="tok">{{closing_time}}</span>. Directions, or switch to runner collection, in one tap.</p></div></div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · only when no slot was booked</span><span class="count">121 chars · 1 segment</span></div><div class="sms-bubble">Booked. Parcel <span class="tok">{{code}}</span> is reserved at <span class="tok">{{pod}}</span> until <span class="tok">{{deadline}}</span>. Enter this code at the pod — no queue, no paperwork.</div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">74 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is booked. Drop it at <span class="tok">{{pod}}</span> to start delivery.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>A booking message states an expiry. A reservation without a deadline is a wish.</li><li>The in-app card carries no code because the app already holds it. The SMS exception does, on its own line, in DM Mono — the brand reserves mono for codes.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">74 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> is booked. Drop it at <span class="tok">{{pod}}</span> to start delivery.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>A booking message states an expiry. A reservation without a deadline is a wish.</li><li>The in-app card carries no code because the app already holds it. The SMS exception does, on its own line, in DM Mono — the brand reserves mono for codes.</li><li><b>One instruction per booking.</b> A drop booking gets S2 and never S2c; a runner collection gets S2c and never S2. Nothing in <code>pinned-core</code> treats them as alternatives today, so both can fire against the same parcel.</li></ul></div></div>
     </div>
   </div>
 </article>
@@ -183,14 +201,14 @@ It expires in 5 minutes. If you did not ask to sign in, ignore this message — 
       <div><b>Source</b><span>Map · Senders 2</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">awaiting_drop</span><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>SMS works.</b> Kept as it is.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Lead with the favour, not the chase. The message exists to save them a journey.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>SMS works.</b> Kept as it is.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Lead with the favour, not the chase. The message exists to save them a journey.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">170 chars · 2 segments</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, save yourself the trip — a runner can collect Parcel <span class="tok">{{code}}</span> from you instead: <span class="tok">{{track_url}}</span>
 Otherwise it stays held at <span class="tok">{{pod}}</span> until <span class="tok">{{deadline}}</span>.</div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">66 chars · 1 segment</span></div><div class="old">Reminder: parcel <span class="tok">{{code}}</span> is waiting for drop-off at <span class="tok">{{pod}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>This is not a reminder, it is an offer — so the offer goes first and the reminder second. “You have not dropped your parcel” is a complaint; “save yourself the trip” is a service.</li><li>One message only. If the hold lapses, the booking card says so; we do not chase twice.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Hand-over</h3>
+</article><h3 class="stage">Hand-over</h3>
 <article class="tp" id="S2c">
   <div class="tp-head">
     <span class="tp-id">S2c</span>
@@ -204,14 +222,14 @@ Otherwise it stays held at <span class="tok">{{pod}}</span> until <span class="t
       <div><b>Source</b><span>Live template</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">handover_code_ready</span><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Add in-app.</b> The code should be readable in the app as well as the SMS — senders at a counter with a flat battery are the whole reason this message exists twice.<br><br><b>No scan.</b> An earlier draft said to give the code “once they have scanned the parcel”. That is not the procedure: on the sender side the code <i>is</i> the hand-over. There is no scan action for a sender to wait for.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Add in-app.</b> The code should be readable in the app as well as the SMS — senders at a counter with a flat battery are the whole reason this message exists twice.<br><br><b>No scan.</b> An earlier draft said to give the code “once they have scanned the parcel”. That is not the procedure: on the sender side the code <i>is</i> the hand-over. There is no scan action for a sender to wait for.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">132 chars · 1 segment</span></div><div class="sms-bubble">Your handover code for Parcel <span class="tok">{{code}}</span> is <span class="tok">{{otp}}</span>.
 Give it to <span class="tok">{{runner}}</span> as you hand the parcel over. We never ask for this code by phone.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Handover code for Parcel <span class="tok">{{code}}</span></b><p><span class="tok">{{otp}}</span><br>Give it to the runner as you hand the parcel over.</p></div></div></div>
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">99 chars · 1 segment</span></div><div class="old">Your handover code is <span class="tok">{{otp}}</span>. Please present this code to the runner when dropping off your parcel.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The code is the hand-over. Nothing precedes it and nothing has to be witnessed first, so the copy must not invent a step the sender will stand there waiting for.</li><li>The security line names the actual attack — “by phone” — not “do not share”.</li><li>Nothing else ships in a code message. No tracking link, no marketing, no thanks.</li></ul></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">99 chars · 1 segment</span></div><div class="old">Your handover code is <span class="tok">{{otp}}</span>. Please present this code to the runner when dropping off your parcel.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The code is the hand-over. Nothing precedes it and nothing has to be witnessed first, so the copy must not invent a step the sender will stand there waiting for.</li><li>The security line names the actual attack — “by phone” — not “do not share”.</li><li>Nothing else ships in a code message. No tracking link, no marketing, no thanks.</li><li><b>One instruction per booking.</b> A drop booking gets S2 and never S2c; a runner collection gets S2c and never S2. Nothing in <code>pinned-core</code> treats them as alternatives today, so both can fire against the same parcel.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">In transit</h3>
+</article><h3 class="stage">In transit</h3>
 <article class="tp" id="S2d">
   <div class="tp-head">
     <span class="tp-id">S2d</span>
@@ -225,7 +243,7 @@ Give it to <span class="tok">{{runner}}</span> as you hand the parcel over. We n
       <div><b>Source</b><span>Live templates</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">parcel_dropped + parcel_handed_to_runner</span><span class="chip">Hook · Reward</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>In-app only.</b> This also settles the round-one defect: with the SMS dropped, <code>parcel_dropped</code> and <code>parcel_handed_to_runner</code> stop competing — one in-app card replaces both.</div><div class="tp-note warn"><b>Two SMS for one event.</b> <code>parcel_dropped</code> and <code>parcel_handed_to_runner</code> both fire at hand-over and say the same thing in different words. Retire one, keep the one that names the runner.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>In-app only.</b> This also settles the round-one defect: with the SMS dropped, <code>parcel_dropped</code> and <code>parcel_handed_to_runner</code> stop competing — one in-app card replaces both.</div><div class="tp-note warn"><b>Two SMS for one event.</b> <code>parcel_dropped</code> and <code>parcel_handed_to_runner</code> both fire at hand-over and say the same thing in different words. Retire one, keep the one that names the runner.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Picked up by <span class="tok">{{runner}}</span></b><p>Parcel <span class="tok">{{code}}</span> arriving <span class="tok">{{dest}}</span> about <span class="tok">{{eta}}</span>. Live map in the app.</p></div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">87 chars · 1 segment</span></div><div class="old">Your parcel <span class="tok">{{code}}</span> has been dropped off and is on its way. Track: <span class="tok">{{track_url}}</span>
@@ -233,7 +251,7 @@ Give it to <span class="tok">{{runner}}</span> as you hand the parcel over. We n
 Parcel <span class="tok">{{code}}</span> has been handed to the runner and is on its way.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>One event, one message, one channel per recipient. Duplicates are not redundancy, they are noise that teaches people to ignore us.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Delivered</h3>
+</article><h3 class="stage">Delivered</h3>
 <article class="tp" id="S3">
   <div class="tp-head">
     <span class="tp-id">S3</span>
@@ -247,14 +265,14 @@ Parcel <span class="tok">{{code}}</span> has been handed to the runner and is on
       <div><b>Source</b><span>Map · Senders 3</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">delivered</span><span class="chip">Hook · Reward</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Looks good.</b> Two segments, and the team kept the thank-you — this is the one message in the sender journey that has earned it.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Celebrate the real milestone. The parcel arrived, a named person took it, and we can prove it.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Looks good.</b> Two segments, and the team kept the thank-you — this is the one message in the sender journey that has earned it.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Celebrate the real milestone. The parcel arrived, a named person took it, and we can prove it.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">171 chars · 2 segments</span></div><div class="sms-bubble">Delivered. <span class="tok">{{name}}</span> collected Parcel <span class="tok">{{code}}</span> at <span class="tok">{{dest}}</span>, <span class="tok">{{time}}</span>.
 Photo, signature and the full timeline are saved to this parcel. Thank you for using Pinned.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Delivered · <span class="tok">{{time}}</span></b><p><span class="tok">{{name}}</span> collected Parcel <span class="tok">{{code}}</span> at <span class="tok">{{dest}}</span>. Photo, signature and the full timeline are saved to this parcel.</p></div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">60 chars · 1 segment</span></div><div class="old">Parcel <span class="tok">{{code}}</span> has been delivered. Thank you for using Pinned.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Round one said gratitude belongs where it costs nothing. The team overruled that here and they are right: this is the one sender message that has earned a thank-you, because it is the one that reports a success.</li><li>Proof is the product. Every delivered message links to it.</li><li>Two segments. A delivery confirmation that drops the name, the place or the time to save a segment is a worse message and a cheaper one.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Not collected</h3>
+</article><h3 class="stage">Not collected</h3>
 <article class="tp" id="S4a">
   <div class="tp-head">
     <span class="tp-id">S4a</span>
@@ -268,7 +286,7 @@ Photo, signature and the full timeline are saved to this parcel. Thank you for u
       <div><b>Source</b><span>Map · Senders 4</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_sender_storage_started_72h</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Looks good.</b></div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Looks good.</b></div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">176 chars · 2 segments</span></div><div class="sms-bubble">Parcel <span class="tok">{{code}}</span> is still at <span class="tok">{{station}}</span>. <span class="tok">{{name}}</span> has been reminded.
 Storage is now Ksh <span class="tok">{{rate}}</span>/hr, charged to you. If it is not collected by <span class="tok">{{deadline}}</span> it will be returned to you.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Storage running on Parcel <span class="tok">{{code}}</span></b><p>Ksh <span class="tok">{{rate}}</span>/hr from today, Ksh <span class="tok">{{amount}}</span> so far. Returns to you after <span class="tok">{{deadline}}</span>.<br><span class="chip">Message the receiver</span>  <span class="chip">Return it now</span></p></div></div></div>
@@ -289,14 +307,14 @@ Storage is now Ksh <span class="tok">{{rate}}</span>/hr, charged to you. If it i
       <div><b>Source</b><span>Map · Senders 4</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">dwell_sender_final_notice_7d</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Add in-app.</b> A return is a thing the sender has to plan around, so it belongs in the parcel record, not only in a text they will scroll past.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>No scolding of the receiver, and no 'final notice'. State the fact, carry the cost once.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Add in-app.</b> A return is a thing the sender has to plan around, so it belongs in the parcel record, not only in a text they will scroll past.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>No scolding of the receiver, and no 'final notice'. State the fact, carry the cost once.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">164 chars · 2 segments</span></div><div class="sms-bubble">Parcel <span class="tok">{{code}}</span> comes back to you today — <span class="tok">{{name}}</span> did not collect it.
 A runner brings it from <span class="tok">{{dest}}</span> to <span class="tok">{{origin}}</span>. Storage charged: Ksh <span class="tok">{{amount}}</span>.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Returning to you today</b><p>Parcel <span class="tok">{{code}}</span> from <span class="tok">{{dest}}</span>. A runner brings it to <span class="tok">{{origin}}</span>. Storage charged: Ksh <span class="tok">{{amount}}</span>.</p></div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">239 chars · 2 segments</span></div><div class="old">Final notice. <span class="tok">{{name}}</span>, Parcel <span class="tok">{{code}}</span> has not been collected and is being returned to you today. A runner will collect it from <span class="tok">{{dest}}</span> and bring it to <span class="tok">{{origin}}</span>. Total storage fee: Ksh <span class="tok">{{amount}}</span> — charged to your account.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>'Final notice' is a debt-collector phrase. The fact is final; the words do not need to be.</li><li>This is the last message in the chain. Nothing follows it.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Money</h3>
+</article><h3 class="stage">Money</h3>
 <article class="tp" id="S5">
   <div class="tp-head">
     <span class="tp-id">S5</span>
@@ -310,14 +328,14 @@ A runner brings it from <span class="tok">{{dest}}</span> to <span class="tok">{
       <div><b>Source</b><span>Live template</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">refund_processed</span><span class="chip">Hook · Trigger</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Looks good.</b> The team's wording is used as written — it is warmer than round one and answers the only question a refund raises.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Thank them for the patience the refund cost them.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Looks good.</b> The team's wording is used as written — it is warmer than round one and answers the only question a refund raises.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Thank them for the patience the refund cost them.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">155 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, your refund of Ksh <span class="tok">{{amount}}</span> for Parcel <span class="tok">{{code}}</span> has been processed.
 It will reflect on your M-Pesa within 3 working days. Thank you for your patience.</div></div></div>
       <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">45 chars · 1 segment</span></div><div class="old">KSh <span class="tok">{{amount}}</span> has been refunded for parcel <span class="tok">{{code}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>Currency is written Ksh, consistently, everywhere. Today the templates mix 'KSh', 'KES' and 'Ksh'.</li><li>Every money message states the arrival window.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Exception</h3>
+</article><h3 class="stage">Exception</h3>
 <article class="tp" id="S6">
   <div class="tp-head">
     <span class="tp-id">S6</span>
@@ -331,7 +349,7 @@ It will reflect on your M-Pesa within 3 working days. Thank you for your patienc
       <div><b>Source</b><span>Live template</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">failed_delivery</span><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span><b>Looks good.</b></div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Looks good.</b></div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">172 chars · 2 segments</span></div><div class="sms-bubble">Parcel <span class="tok">{{code}}</span> did not reach <span class="tok">{{dest}}</span>: <span class="tok">{{reason}}</span>.
 It is safe at <span class="tok">{{station}}</span>. Choose redeliver or return by <span class="tok">{{deadline}}</span>: <span class="tok">{{track_url}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Parcel <span class="tok">{{code}}</span> held at <span class="tok">{{station}}</span></b><p><span class="tok">{{reason}}</span>. Redeliver tomorrow at no extra cost, or have it returned. Choose by <span class="tok">{{deadline}}</span>.</p></div></div></div>
@@ -340,13 +358,22 @@ It is safe at <span class="tok">{{station}}</span>. Choose redeliver or return b
   </div>
 </article>
 </div></section><div class="wrap"><div class="endrule"></div></div>
+</main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
-    <p>Internal working document. Build 13.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · the dispatch cases, on a left-hand menu</p>
+    <p>Internal working document. Build 14.</p>
   </div>
 </footer>
 <script>
+  // On a narrow screen the left menu becomes a horizontal strip; put the page
+  // you are on inside the visible part of it.
+  (function () {
+    var on = document.querySelector(".side-nav a.on"), bar = document.querySelector(".side-in");
+    if (on && bar && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = on.offsetLeft - 90;
+    }
+  })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
       var root = document.documentElement;

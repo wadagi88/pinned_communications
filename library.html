@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=13">
+<link rel="stylesheet" href="assets/comms.css?v=14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -18,35 +18,40 @@
 </head>
 <body>
 
-<header class="phead"><div class="wrap">
-  <p class="crumb"><a href="index.html">Pinned Communications</a> · Copy library</p>
-  <p class="eyebrow" style="margin-top:10px">63 touchpoints, every channel</p>
-  <h1>The library</h1>
-  <p class="lede">One table of everything Pinned sends. Filter by lane or status; each ID links to the full copy, the live version and the rules behind it.</p>
-</div></header>
-<nav class="navbar"><div class="wrap">
-  <a class="home" href="index.html">Pinned Comms</a>
+<div class="shell">
+<aside class="side"><div class="side-in">
+  <a class="side-home" href="index.html"><span class="logomark sm"><span></span><span></span><span></span><span></span></span>Pinned Comms</a>
+  <nav class="side-nav"><p class="side-grp">Foundations</p>
   <a href="index.html">The map</a>
   <a href="principles.html">Voice</a>
   <a href="channels.html">Channels &amp; rules</a>
+  <p class="side-grp">Lanes</p>
   <a href="senders.html">Senders</a>
   <a href="receivers.html">Receivers</a>
   <a href="runners.html">Runners</a>
   <a href="hosts.html">Hosts</a>
   <a href="admin.html">Admin</a>
   <a href="prospects.html">Prospects</a>
+  <p class="side-grp">Reference</p>
   <a href="library.html" class="on">Copy library</a>
-  <a href="gaps.html">Build order</a>
-  <span class="spacer"></span>
+  <span class="side-subs"><a href="#everything-in-one-table">Everything, in one table</a><a href="#rewrites-side-by-side">Rewrites, side by side</a></span>
+  <a href="gaps.html">Build order</a></nav>
   <button class="themer" type="button" data-themer>Theme</button>
-</div></nav>
-<section><div class="wrap">
+</div></aside>
+<main class="main">
+<header class="phead"><div class="wrap">
+  <p class="eyebrow">Copy library</p>
+  <h1>The library</h1>
+  <p class="phead-meta">64 touchpoints, every channel</p>
+  <p class="lede">One table of everything Pinned sends. Filter by lane or status; each ID links to the full copy, the live version and the rules behind it.</p>
+</div></header>
+<section id="everything-in-one-table"><div class="wrap">
   <div class="sec-head"><span class="sec-num">01</span><h2>Everything, in one table</h2></div>
   
   <div class="rule"></div>
   
 <div class="chips" style="gap:8px;margin-bottom:6px">
-  <button class="themer" data-f="all" data-v="all">All 63</button><button class="themer" data-f="lane" data-v="sender">Senders</button><button class="themer" data-f="lane" data-v="receiver">Receivers</button><button class="themer" data-f="lane" data-v="runner">Runners</button><button class="themer" data-f="lane" data-v="host">Hosts</button><button class="themer" data-f="lane" data-v="admin">Admin interventions</button><button class="themer" data-f="lane" data-v="prospect">Prospects</button>
+  <button class="themer" data-f="all" data-v="all">All 64</button><button class="themer" data-f="lane" data-v="sender">Senders</button><button class="themer" data-f="lane" data-v="receiver">Receivers</button><button class="themer" data-f="lane" data-v="runner">Runners</button><button class="themer" data-f="lane" data-v="host">Hosts</button><button class="themer" data-f="lane" data-v="admin">Admin interventions</button><button class="themer" data-f="lane" data-v="prospect">Prospects</button>
 </div>
 <div class="chips" style="gap:8px"><button class="themer" data-f="status" data-v="live">Live</button><button class="themer" data-f="status" data-v="partial">Partial</button><button class="themer" data-f="status" data-v="gap">Not built</button><button class="themer" data-f="status" data-v="defect">Defect</button><button class="themer" data-f="status" data-v="change">Channel change</button><button class="themer" data-f="status" data-v="retire">Retire</button></div>
 <div class="scroller"><table id="lib">
@@ -66,9 +71,10 @@
 <tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C1">C1</a></td><td><b>A parcel has been created for you</b><span class="muted">A business sender creates a parcel addressed to this person</span></td><td>At creation</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">runner_picked_up_receiver</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1a">C1a</a></td><td><b>It's paid, and already heading to you</b><span class="muted">An individual sender books and pays, with the receiver's address already set</span></td><td>At booking</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1c">C1c</a></td><td><b>Your parcel has arrived from upcountry</b><span class="muted">A parcel handler receives a parcel addressed to this person</span></td><td>On arrival at the handler</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
-<tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C1b">C1b</a></td><td><b>A runner has your parcel</b><span class="muted">The shop enters the runner's handover code</span></td><td>At hand-over</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_picked_up_receiver</td></tr>
+<tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C1b">C1b</a></td><td><b>The shop hands it to the runner</b><span class="muted">The shop enters the runner's handover code</span></td><td>At hand-over</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">runner_picked_up_receiver</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C2">C2</a></td><td><b>It is here — collect with this code</b><span class="muted">Parcel reaches the destination pod or station</span></td><td>On arrival scan</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">parcel_arrived</td></tr>
-<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C2b">C2b</a></td><td><b>Your runner is at the door</b><span class="muted">The runner's GPS pings at the delivery address</span></td><td>On arrival</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="retire"><td class="id"><a href="receivers.html#C2b">C2b</a></td><td><b>Your runner is at the door — retired</b><span class="muted">The runner's GPS pings at the delivery address</span></td><td>On arrival</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge retire">Retire</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C2c">C2c</a></td><td><b>Your handover code</b><span class="muted">The money clears, or a runner is assigned on a journey with nothing owed</span></td><td>The second and last SMS of a journey that works</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C8">C8</a></td><td><b>Your runner can't find you</b><span class="muted">The runner is at the address and cannot reach the receiver</span></td><td>On the runner reporting it</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C9">C9</a></td><td><b>Moving the drop — priced</b><span class="muted">The receiver gives a new location within the cap</span></td><td>Immediately after C8</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C3">C3</a></td><td><b>Running late</b><span class="muted">Promised delivery time passes while the parcel is in transit</span></td><td>At the moment the promise breaks</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
@@ -126,7 +132,7 @@
   });
 </script>
 </div></section>
-<section><div class="wrap">
+<section id="rewrites-side-by-side"><div class="wrap">
   <div class="sec-head"><span class="sec-num">02</span><h2>Rewrites, side by side</h2></div>
   <p class="sec-sub">34 of the live templates change. None of them need a migration — every one is a <code>body</code> edit against an existing <code>NotificationTemplate</code> key.</p>
   <div class="rule"></div>
@@ -595,13 +601,22 @@ Check the power and the router. If both look fine, call 0700 000 000.</div></div
   <p style="margin-top:10px"><a href="hosts.html#H5">Rules and channels →</a></p>
 </div></div>
 </div></section><div class="wrap"><div class="endrule"></div></div>
+</main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
-    <p>Internal working document. Build 13.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · the dispatch cases, on a left-hand menu</p>
+    <p>Internal working document. Build 14.</p>
   </div>
 </footer>
 <script>
+  // On a narrow screen the left menu becomes a horizontal strip; put the page
+  // you are on inside the visible part of it.
+  (function () {
+    var on = document.querySelector(".side-nav a.on"), bar = document.querySelector(".side-in");
+    if (on && bar && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = on.offsetLeft - 90;
+    }
+  })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
       var root = document.documentElement;

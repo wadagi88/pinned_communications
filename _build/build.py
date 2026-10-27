@@ -153,7 +153,7 @@ def render_tp(t):
                      % "".join("<li>%s</li>" % r for r in t["rules"]))
     notes = ""
     if t.get("review"):
-        notes += ('<div class="tp-note team"><span class="nlbl">Team review · 13 Oct</span>%s</div>'
+        notes += ('<div class="tp-note team"><span class="nlbl">Review note</span>%s</div>'
                   % t["review"])
     if t.get("warmth"):
         notes += ('<div class="tp-note warm"><span class="nlbl">Warmth</span>%s</div>'
@@ -222,6 +222,14 @@ FOOT = """
   </div>
 </footer>
 <script>
+  // On a narrow screen the left menu becomes a horizontal strip; put the page
+  // you are on inside the visible part of it.
+  (function () {
+    var on = document.querySelector(".side-nav a.on"), bar = document.querySelector(".side-in");
+    if (on && bar && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = on.offsetLeft - 90;
+    }
+  })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
       var root = document.documentElement;
@@ -236,44 +244,68 @@ FOOT = """
 """
 
 
-def navbar(current):
-    links = []
-    for href, label in D.NAV:
-        cls = ' class="on"' if href == current else ""
-        links.append('<a href="%s"%s>%s</a>' % (href, cls, e(label)))
+SECS = []
+
+
+def sidenav(current):
+    """The tabs, vertically, with this page's own sections nested under it —
+    so 'where is the SMS summary' is answered by looking, not by scrolling."""
+    out = []
+    for group, items in D.NAV_GROUPS:
+        out.append('<p class="side-grp">%s</p>' % e(group))
+        for href, label in items:
+            on = href == current
+            out.append('<a href="%s"%s>%s</a>' % (href, ' class="on"' if on else "", e(label)))
+            if on and SECS:
+                out.append('<span class="side-subs">%s</span>' % "".join(
+                    '<a href="#%s">%s</a>' % (e(a), e(t)) for a, t in SECS))
     return """
-<nav class="navbar"><div class="wrap">
-  <a class="home" href="index.html">Pinned Comms</a>
-  %s
-  <span class="spacer"></span>
+<div class="shell">
+<aside class="side"><div class="side-in">
+  <a class="side-home" href="index.html"><span class="logomark sm"><span></span><span></span><span></span><span></span></span>Pinned Comms</a>
+  <nav class="side-nav">%s</nav>
   <button class="themer" type="button" data-themer>Theme</button>
-</div></nav>""" % "\n  ".join(links)
+</div></aside>
+<main class="main">""" % "\n  ".join(out)
 
 
-def page(filename, title, desc, body):
+def page(filename, title, desc, body, current=None):
     out = HEAD % dict(title=e(title), desc=e(desc), v=V)
+    if current:
+        out += sidenav(current)
     out += body
+    if current:
+        out += "\n</main></div>"
     out += FOOT % dict(updated=D.UPDATED, v=V)
     with open(os.path.join(OUT, filename), "w") as fh:
         fh.write(out)
+    del SECS[:]
     return filename
 
 
-def phead(crumb, eyebrow, h1, lede):
+def phead(crumb, eyebrow, h1, lede=None):
+    """Deliberately thin. The reviews said the old page intros were the thing
+    standing between a reader and the summary they came for."""
+    lede_html = '<p class="lede">%s</p>' % lede if lede else ""
     return """
 <header class="phead"><div class="wrap">
-  <p class="crumb"><a href="index.html">Pinned Communications</a> · %s</p>
-  <p class="eyebrow" style="margin-top:10px">%s</p>
+  <p class="eyebrow">%s</p>
   <h1>%s</h1>
-  <p class="lede">%s</p>
-</div></header>""" % (e(crumb), e(eyebrow), e(h1), lede)
+  <p class="phead-meta">%s</p>
+  %s
+</div></header>""" % (e(crumb), e(h1), e(eyebrow), lede_html)
+
+
+def slug(title):
+    return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
 
 
 def section(num, title, sub, body, anchor=None):
-    a = ' id="%s"' % anchor if anchor else ""
+    a = anchor or slug(title)
+    SECS.append((a, title))
     sub_html = '<p class="sec-sub">%s</p>' % sub if sub else ""
     return """
-<section%s><div class="wrap">
+<section id="%s"><div class="wrap">
   <div class="sec-head"><span class="sec-num">%s</span><h2>%s</h2></div>
   %s
   <div class="rule"></div>
@@ -291,6 +323,8 @@ def render_journey(lane_key):
         return ""
     rows = []
     for st in j["steps"]:
+        if st.get("grp"):
+            rows.append('<div class="jgrp">%s</div>' % e(st["grp"]))
         cls = "jstep"
         if st["ch"] == "sms":
             cls += " is-sms"
@@ -307,14 +341,68 @@ def render_journey(lane_key):
             '<span class="jwhen">%s</span>'
             '<span class="jch"><span class="chip %s">%s</span></span>'
             '<span class="jwhat">%s%s</span>'
-            '<span class="jwhy">%s</span></div>'
+            '<span class="jwhy">%s</span>'
+            '<span class="jgo"><a href="#%s">%s &darr;</a></span></div>'
             % (cls, e(st["n"]), e(st["when"]), chip_cls, e(CH_SHORT.get(st["ch"], st["ch"])),
-               tok_html(st["what"]), flag, e(st["why"])))
+               tok_html(st["what"]), flag, e(st["why"]), e(st["tp"]), e(st["tp"])))
     return """
 <div class="jrny">
   <div class="jrny-head"><h3>%s</h3><p>%s</p></div>
   %s
-</div>""" % (e(j["headline"]), e(j["sub"]), "\n  ".join(rows))
+</div>""" % (e(j["headline"]), j["sub"], "\n  ".join(rows))
+
+
+# ── the dispatch cases ───────────────────────────────────────────────────────
+
+def _ids(pairs):
+    out = []
+    for tid, note in pairs:
+        if tid == "\u2014":
+            out.append('<span class="muted">%s</span>' % e(note))
+        else:
+            out.append('<a class="idchip" href="#%s">%s</a>%s'
+                       % (e(tid), e(tid), (' <span class="muted">%s</span>' % e(note)) if note else ""))
+    return " ".join(out)
+
+
+def dispatch_rules(only=None):
+    rs = [r for r in D.DISPATCH_RULES if only is None or r["n"] in only]
+    return '<div class="grid g2">%s</div>' % "".join(
+        '<div class="card accent-mag"><span class="sec-num">%s</span>'
+        '<h3 style="margin-top:6px">%s</h3><p>%s</p></div>' % (e(r["n"]), e(r["t"]), r["p"])
+        for r in rs)
+
+
+def dispatch_table():
+    blocks = []
+    for g in D.DISPATCH:
+        rows = "".join(
+            '<tr><td><b>%s</b><span class="muted">%s</span></td><td>%s</td>'
+            '<td class="id">%s</td><td class="id">%s</td><td class="id">%s</td></tr>'
+            % (e(r["case"]), e(r["var"]), e(r["first"]),
+               _ids(r["c1"]), _ids(r["c2"]), _ids(r["s"]))
+            for r in g["rows"])
+        blocks.append("""
+<div class="card %s" style="padding:0;overflow:hidden">
+  <div style="padding:20px 22px 0"><h3>%s</h3>
+    <p class="tight" style="margin-top:6px"><b style="color:var(--text)">%s</b> %s</p></div>
+  <div class="scroller" style="margin-top:16px"><table class="dtab">
+  <thead><tr><th>Case</th><th>What the first SMS carries</th><th>1st SMS</th><th>2nd SMS</th><th>To the sender</th></tr></thead>
+  <tbody>%s</tbody></table></div>
+</div>""" % (g["colour"], e(g["title"]), e(g["who"]), e(g["axis"]), rows))
+    return "".join(blocks)
+
+
+def dispatch_sender():
+    rows = "".join(
+        '<tr><td><b>%s</b></td><td class="id">%s</td><td>%s</td>'
+        '<td class="id"><span class="idchip no">%s</span></td><td>%s</td></tr>'
+        % (e(r["case"]), _ids([(r["sms"], "")]), e(r["what"]), e(r["never"]), e(r["why"]))
+        for r in D.DISPATCH_SENDER)
+    return ("""
+<div class="scroller"><table class="dtab">
+<thead><tr><th>The booking</th><th>Sends</th><th>Saying</th><th>Never also</th><th>Why not</th></tr></thead>
+<tbody>%s</tbody></table></div>""" % rows)
 
 
 # ── pages ────────────────────────────────────────────────────────────────────
@@ -385,12 +473,12 @@ def build_index():
       <div><b>%(partial)d</b><small>partial</small></div>
       <div><b>%(gap)d</b><small>not built</small></div>
       <div><b>%(change)d</b><small>channel changes</small></div>
+      <div><b>%(retire)d</b><small>retired</small></div>
       <div><b>%(defect)d</b><small>defects</small></div>
     </div>
   </div>
 </header>
-%(nav)s
-""" % dict(total=len(D.TOUCHPOINTS), nav=navbar("index.html"), **c)
+""" % dict(total=len(D.TOUCHPOINTS), **c)
 
     body += section("00", "Why this exists", None, """
 <div class="grid g3">
@@ -412,16 +500,18 @@ def build_index():
     <p><a href="principles.html">The nine principles →</a></p>
   </div>
   <div class="card accent-flow">
-    <span class="lbl">Round three · 27 October</span>
-    <h3 style="margin-top:8px">The receiver page sets the voice</h3>
-    <p>Every receiver SMS ends in a link to <b>publicchoicepage.netlify.app</b>, and the two are read
-      forty seconds apart. That page is now the reference for tone, and the receiver lane has been
-      rewritten against it rather than against this site.</p>
-    <p>It overturned the review pack on one substantive point: the pack sells the paid doorstep
-      delivery and never mentions that collecting is free, while the page offers free collection four
-      times over and adds <i>no charge, no pressure</i>. Free is named first now, in every variant.</p>
-    <p><a href="gaps.html#packvspage">The pack against the page →</a> ·
-       <a href="principles.html#tone">The reference →</a></p>
+    <span class="lbl">Round four · 27 October</span>
+    <h3 style="margin-top:8px">Two messages, whoever sent it</h3>
+    <p>An individual, a business sender and a parcel handler create the same object and produce a
+      different first SMS. Four axes — sender type, pickup mode, money, address — nine cases, and in
+      every one of them the receiver gets the same two messages: one at creation, one carrying the
+      code.</p>
+    <p>Writing that down cost one touchpoint and saved an SMS. <b>C2b</b>, the runner-at-the-door
+      message, is retired before it was ever built: it would have made pay-on-delivery the only
+      journey costing three messages, at the one moment a human being is physically present to help.</p>
+    <p><a href="receivers.html#cases">The receiver cases →</a> ·
+       <a href="senders.html#cases">Drop, or hand over →</a> ·
+       <a href="principles.html#tone">The tone reference →</a></p>
   </div>
 </div>""" % (e(D.EVIDENCE["title"]), D.EVIDENCE["body"], e(D.EVIDENCE["close"])))
 
@@ -449,16 +539,14 @@ def build_index():
 <tbody>%s</tbody></table></div>""" % matrix_rows(D.TOUCHPOINTS))
 
     body += '<div class="wrap"><div class="endrule"></div></div>'
-    return page("index.html", "Pinned Communications", SITE_DESC, body)
+    return page("index.html", "Pinned Communications", SITE_DESC, body, "index.html")
 
 
 def build_principles():
     body = phead("Voice", "How Pinned speaks",
                  "Nine principles, a warmth layer, and a contract every message signs",
                  "Clarity is not a style. It is the same four questions answered in the same order, "
-                 "every time, in every channel. Warmth is not a style either — it is the four or five "
-                 "moments in a journey where somebody has something at stake, and we show that we know it.")
-    body += navbar("principles.html")
+                 "every time, in every channel.")
 
     cards = []
     for p in D.PRINCIPLES:
@@ -554,7 +642,8 @@ def build_principles():
                     '<th>What the customer reads</th></tr></thead><tbody>%s</tbody></table></div>' % gl)
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page("principles.html", "Voice · Pinned Communications",
-                "The eight principles, the clarity contract and the hook framework.", body)
+                "The eight principles, the clarity contract and the hook framework.", body,
+                "principles.html")
 
 
 def build_channels():
@@ -562,7 +651,6 @@ def build_channels():
                  "Six channels, eight laws",
                  "A channel is a job, not a copy of the message. “(sms, email, in-app)” in the map "
                  "means three different jobs — not the same sentence three times.")
-    body += navbar("channels.html")
 
     cards = []
     for c in D.CHANNELS:
@@ -627,17 +715,44 @@ def build_channels():
                     '</thead><tbody>%s</tbody></table></div>' % toks)
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page("channels.html", "Channels & rules · Pinned Communications",
-                "Channel doctrine, the eight laws, the escalation ladder and the token set.", body)
+                "Channel doctrine, the eight laws, the escalation ladder and the token set.", body,
+                "channels.html")
 
 
 def build_lane(lane):
-    tps = by_lane(lane["key"])
+    key = lane["key"]
+    tps = by_lane(key)
     h = lane["hook"]
-    body = phead(lane["title"],
-                 "%d touchpoints · %d SMS on a journey that works" % (len(tps), len(sms_steps(lane["key"], True))),
-                 lane["title"], e(lane["who"]))
-    body += navbar(lane["page"])
-    body += section("01", "What they are here for", None, """
+    n_path, n_all = len(sms_steps(key, True)), len(sms_steps(key))
+    body = phead("The lanes",
+                 "%d touchpoints · %d SMS on a journey that works · %d more only when something goes wrong"
+                 % (len(tps), n_path, n_all - n_path),
+                 lane["title"])
+
+    body += section("01", "The SMS journey",
+                    "Every moment in order, grouped, and the channel that carries it. Highlighted rows "
+                    "cost an SMS; everything unhighlighted is a deliberate decision not to spend one. "
+                    "The arrow on the right of each row jumps to the copy.",
+                    render_journey(key), anchor="journey")
+
+    if key == "receiver":
+        body += section("02", "Which message fires, and when",
+                        D.DISPATCH_INTRO,
+                        dispatch_rules(only=("01", "02", "03"))
+                        + '<div class="grid" style="margin-top:22px">%s</div>' % dispatch_table()
+                        + '<div class="card accent-org" style="margin-top:22px"><p>%s</p></div>'
+                        % D.DISPATCH_NOTE,
+                        anchor="cases")
+    elif key == "sender":
+        body += section("02", "Which message fires, and when",
+                        "A sender is told what to do with the parcel exactly once. Which message that "
+                        "is depends on one thing only: whether a runner is coming to them.",
+                        dispatch_rules(only=("04",))
+                        + '<div style="margin-top:22px">%s</div>' % dispatch_sender(),
+                        anchor="cases")
+
+    nxt = iter(["03", "04"] if key in ("sender", "receiver") else ["02", "03"])
+    body += section(next(nxt), "What they are here for", e(lane["who"]), """
 <div class="grid g2">
   <div class="card %s"><span class="lbl">The job they hire Pinned for</span>
     <h3 style="margin-top:8px">%s</h3>
@@ -653,25 +768,17 @@ def build_lane(lane):
 </div>""" % (lane["colour"], e(lane["job"]), e(h["trigger"]), e(h["action"]),
              e(h["reward"]), e(h["investment"])))
 
-    stages = []
-    seen = []
+    stages, seen = [], []
     for t in tps:
         if t["stage"] not in seen:
             seen.append(t["stage"])
     for stage in seen:
         items = "".join(render_tp(t) for t in tps if t["stage"] == stage)
-        stages.append('<h3 style="margin-top:38px">%s</h3>%s' % (e(stage), items))
-    n_path, n_all = len(sms_steps(lane["key"], True)), len(sms_steps(lane["key"]))
-    body += section("02", "The SMS journey",
-                    "Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: "
-                    "<b>%d on a journey that works</b>, %d more only when something goes wrong. A row "
-                    "numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision "
-                    "not to spend an SMS." % (n_path, n_all - n_path),
-                    render_journey(lane["key"]), anchor="journey")
-    body += section("03", "Touchpoints", None, "".join(stages))
+        stages.append('<h3 class="stage">%s</h3>%s' % (e(stage), items))
+    body += section(next(nxt), "Touchpoints", None, "".join(stages))
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page(lane["page"], "%s · Pinned Communications" % lane["title"],
-                "Every Pinned message to %s." % lane["title"].lower(), body)
+                "Every Pinned message to %s." % lane["title"].lower(), body, lane["page"])
 
 
 def build_library():
@@ -679,7 +786,6 @@ def build_library():
                  "The library",
                  "One table of everything Pinned sends. Filter by lane or status; each ID links to "
                  "the full copy, the live version and the rules behind it.")
-    body += navbar("library.html")
     lane_btns = "".join('<button class="themer" data-f="lane" data-v="%s">%s</button>' % (l["key"], e(l["title"]))
                         for l in LANES_ORDERED)
     status_btns = "".join('<button class="themer" data-f="status" data-v="%s">%s</button>' % (k, v)
@@ -731,7 +837,8 @@ def build_library():
                     '<div class="grid">%s</div>' % "".join(cards))
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page("library.html", "Copy library · Pinned Communications",
-                "Every Pinned message, with the live version beside the rewrite.", body)
+                "Every Pinned message, with the live version beside the rewrite.", body,
+                "library.html")
 
 
 def build_gaps():
@@ -739,7 +846,6 @@ def build_gaps():
     body = phead("Build order", "From map to shipped", "What to build, in what order",
                  "Four weeks, smallest blast radius first: stop the damage, rewrite what already "
                  "fires, close the map's gaps, then make the system enforce its own rules.")
-    body += navbar("gaps.html")
     body += """
 <div class="wrap"><div class="stats">
   <div><b>%(total)d</b><small>touchpoints</small></div>
@@ -809,7 +915,7 @@ def build_gaps():
                     '<div class="card">%s</div>' % notes)
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page("gaps.html", "Build order · Pinned Communications",
-                "The defects, the gaps and a four-week build order.", body)
+                "The defects, the gaps and a four-week build order.", body, "gaps.html")
 
 
 LANES_ORDERED = D.LANES

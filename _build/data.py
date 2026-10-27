@@ -1441,11 +1441,13 @@ STATUS_WORD = {
 # ch: the channel that carries this moment. "sms" steps are the budget; every
 # other step is a deliberate decision NOT to spend an SMS on it.
 
-def J(n, when, tp, ch, what, why, flag=None, off=False):
+def J(n, when, tp, ch, what, why, flag=None, off=False, grp=None):
     """off=True marks a step that only happens when something goes wrong, so the
-    SMS budget quoted on each lane is the budget for a journey that works."""
+    SMS budget quoted on each lane is the budget for a journey that works.
+    grp opens a titled block in the summary, so a reader can find the moment they
+    came for instead of reading the whole ladder."""
     return dict(n=n, when=when, tp=tp, ch=ch, what=what, why=why, flag=flag,
-                off=off or n in ("+", "—"))
+                off=off or n in ("+", "—"), grp=grp)
 
 
 JOURNEYS = {
@@ -2001,3 +2003,285 @@ OPEN_QUESTIONS = [
              "— without it the SMS cannot say who the parcel is from.",
          who="Engineering"),
 ] + OPEN_QUESTIONS
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUND FOUR · 27 October — the dispatch cases, and the SMS count that follows
+#
+# "How many SMS does a receiver get, and which one" has never been written in
+# one place, so every review re-argues it. Two rules settle it for every
+# combination of sender type, pickup mode, money and address; everything below
+# is those two rules applied.
+# ═══════════════════════════════════════════════════════════════════════════
+
+BUILD = 14
+UPDATED = "27 October 2026 · the dispatch cases, on a left-hand menu"
+
+DISPATCH_INTRO = (
+    "An individual, a business sender and a parcel handler all create the same object and all "
+    "produce a different first SMS. The difference is never the number of messages — it is the "
+    "<b>origin</b> and the <b>status</b> the first sentence carries, and whether money is attached. "
+    "Four axes, nine cases, and the same two messages in every one of them.")
+
+DISPATCH_RULES = [
+    dict(n="01", t="One SMS when the parcel is created",
+         p="Whoever created it, exactly one SMS goes out at creation. What varies is where the parcel "
+           "is, what is happening to it, and whether a money line is attached. Nothing varies the count."),
+    dict(n="02", t="A second SMS only when a code is coming — and it carries only the code",
+         p="The first message promises a code, so the second one delivers it, on the event that "
+           "unlocks it: the payment clearing, or the parcel reaching the counter they chose. The live "
+           "page already commits us to this in its own words — <i>“Your handover code is also sent by "
+           "SMS.”</i> A receiver who owes nothing still gets a code, so a receiver who owes nothing "
+           "still gets two messages."),
+    dict(n="03", t="The address changes the page, never the message",
+         p="An unknown address is collected on the choice page, under the same link, in the same "
+           "session. It does not earn an SMS of its own. A second first-contact message is the "
+           "fastest way to make a stranger decide they are being marketed at."),
+    dict(n="04", t="The sender is told what to do once — drop, or hand over",
+         p="A booking that will be dropped gets the drop SMS and never a handover code. A booking a "
+           "runner will collect gets the handover code and never a drop reminder. Today both can fire "
+           "against the same booking, because nothing in the code treats them as alternatives."),
+]
+
+# Rows render as: case · what the first SMS carries · 1st SMS · 2nd SMS · sender SMS
+DISPATCH = [
+    dict(key="individual", title="Individual sender", colour="accent-mag",
+         who="One person sending to another, in the app.",
+         axis="The trip is paid before it starts, so there is never money owed at the far end and "
+              "never a choice to present. The only variable is how the parcel leaves the sender — "
+              "which is exactly what the first sentence has to say.",
+         rows=[
+             dict(case="Creates a drop",
+                  var="Sender carries it to a pod",
+                  first="Names the sender, the pod it is waiting at, and that it is already paid.",
+                  c1=[("C1a", "drop variant")], c2=[("C2c", "handover code")],
+                  s=[("S2", "drop instruction + pod code")]),
+             dict(case="Creates a trip",
+                  var="A runner collects from the sender",
+                  first="Names the sender, where it is being collected from, and that a runner is on it.",
+                  c1=[("C1a", "runner variant")], c2=[("C2c", "handover code")],
+                  s=[("S2c", "handover code")]),
+         ]),
+
+    dict(key="business", title="Business sender", colour="accent-lock",
+         who="A shop or a business sending through a virtual host.",
+         axis="Three axes at once — how it leaves the shop, who pays what, and whether we know where "
+              "the receiver lives. Only the money axis changes the copy. Pickup mode changes one "
+              "clause. The address changes nothing at all.",
+         rows=[
+             dict(case="Pay now", var="Trip fee settled on the page",
+                  first="Free collection first, the door option second. The fee is shown on the page, not in the SMS.",
+                  c1=[("C1", "variant 1")], c2=[("C2c", "on payment")], s=[("S2", "if dropped"), ("S2c", "if a runner collects")]),
+             dict(case="Pay now + goods", var="Trip fee and the goods settled on the page",
+                  first="Same opening. The goods line names the amount, the method and that it goes to the shop.",
+                  c1=[("C1", "variant 3")], c2=[("C2c", "on payment")], s=[("S2", "if dropped"), ("S2c", "if a runner collects")]),
+             dict(case="Pay on delivery", var="Trip fee owed at the door",
+                  first="Same opening, plus the money sentence and the gate — your code appears once it is paid.",
+                  c1=[("C1", "variant 3")], c2=[("C2c", "on payment at the door")], s=[("S2", "if dropped"), ("S2c", "if a runner collects")]),
+             dict(case="Pay on delivery + goods", var="Trip fee and goods owed at the door",
+                  first="Both amounts, both payees, one sentence each. The longest message in the estate at two segments.",
+                  c1=[("C1", "variant 3")], c2=[("C2c", "on payment at the door")], s=[("S2", "if dropped"), ("S2c", "if a runner collects")]),
+             dict(case="Covered by sender", var="The shop pays the trip",
+                  first="“…and is covering the delivery.” No money line, because there is no money.",
+                  c1=[("C1", "variant 2")], c2=[("C2c", "on runner assignment")], s=[("S2", "if dropped"), ("S2c", "if a runner collects")]),
+             dict(case="Address known", var="The shop already has the address",
+                  first="Unchanged. The page confirms the address instead of asking for it.",
+                  c1=[("C1", "same variant")], c2=[("C2c", "")], s=[("S2", "if dropped"), ("S2c", "if a runner collects")]),
+         ]),
+
+    dict(key="handler", title="Parcel handler", colour="accent-org",
+         who="A sacco, a bus parcel office or a shop receiving on someone's behalf.",
+         axis="One case, and the narrowest of the three: always pay-now, never goods owed, and never "
+              "a Pinned pod anywhere in the chain. The parcel has genuinely travelled, which is why "
+              "the opener and the register both change.",
+         rows=[
+             dict(case="Arrives at the handler",
+                  var="Always pay-now · no goods · no pod",
+                  first="“Hi”, not “Good news”. Names the end client, the town it came from, and the handler's own premises.",
+                  c1=[("C1c", "handler variant")], c2=[("C2c", "on payment")],
+                  s=[("—", "the handler is not a Pinned sender")]),
+         ]),
+]
+
+DISPATCH_SENDER = [
+    dict(case="The sender will drop it at a pod",
+         sms="S2", what="The reservation code to enter at the pod, and the hold deadline.",
+         never="S2c", why="There is no runner at the counter, so there is nobody to hand a code to."),
+    dict(case="A runner will collect it",
+         sms="S2c", what="The handover code to give the runner, and the one safety line.",
+         never="S2", why="There is no drop to remind them about, and a drop reminder against a "
+                         "runner booking is the single most confusing message we send."),
+]
+
+DISPATCH_NOTE = (
+    "<b>The one thing this changes.</b> On a pay-on-delivery journey the plan was three messages — "
+    "created, runner is outside, here is your code. The runner is standing at the door with a phone "
+    "in their hand and the page is open in front of the receiver, so the middle one is retired. "
+    "<b>C2b</b> is the only touchpoint on this site that is retired before it is ever built.")
+
+
+SAMPLES.update({"client": "Charlotte", "town": "Nakuru", "handler": "4NTE Sacco, Cross Road"})
+
+TOUCHPOINTS += [
+    T(id="C2c", lane="receiver", stage="The code", name="Your handover code",
+      trigger="The money clears, or a runner is assigned on a journey with nothing owed",
+      timing="The second and last SMS of a journey that works", channels=["sms"],
+      status="gap", source="Receiver page · 27 Oct", hook="Action",
+      intent="The promise the first SMS made, kept. One code, one safety line, nothing else.",
+      warmth="“That's paid — thank you.” Three words that tell somebody the money landed, which is "
+             "the thing they are actually anxious about.",
+      review="<b>The page commits us to this message.</b> Its payment screen ends on <i>“Your handover "
+             "code is also sent by SMS”</i>, so the SMS is not a choice — it is a promise already made "
+             "to every receiver who reaches that screen. It is also the message the first SMS pointed "
+             "at when it said <i>your code appears once it's paid</i>.",
+      msgs=[("sms", "{{name}}, that's paid — thank you. Your handover code is {{otp}}.\nGive it only to your Pinned runner at the door. We never call or text to ask for it."),
+            ("sms", "{{name}}, {{runner}} is bringing your parcel. Your handover code is {{otp}}.\nGive it only to your Pinned runner at the door. We never call or text to ask for it.\n[nothing owed — the sender covered it]")],
+      rules=["Nothing else ships in a code message. No tracking link, no thanks for choosing Pinned, "
+             "no marketing. It is the one message that has to survive being read on a cracked screen "
+             "in the rain.",
+             "<i>“Give this only to your Pinned runner at the door”</i> is the page's own line. It beats "
+             "every abstract warning because it names exactly who may hear the code.",
+             "On a free-collection journey this message is <b>C2</b> instead — same job, same position, "
+             "a counter rather than a door. Either way the receiver gets exactly one code message."]),
+]
+for _t in TOUCHPOINTS:
+    _t.setdefault("review", None)
+    _t.setdefault("warmth", None)
+
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+
+# C2b is retired into C2c — see DISPATCH_NOTE.
+_by_id["C2b"].update(dict(
+    status="retire", channels=["sms"],
+    name="Your runner is at the door — retired",
+    intent="Written, measured, and then cut. The moment is real; the SMS is not needed to carry it.",
+    review="<b>Retired before it was built.</b> Both branches of this message were drafted on 27 October "
+           "and both are now cut. The paid branch repeated a code the receiver already had; the "
+           "pay-on-delivery branch asked for money from somebody standing in front of a runner who "
+           "could point at the page. Keeping it would have made pay-on-delivery the only journey in "
+           "the estate that costs three SMS, for the one moment where a human being is physically "
+           "present to help.<br><br>"
+           "<b>What carries it instead:</b> live tracking on the page, which the receiver already has "
+           "open, and the runner's own phone.",
+    rules=["The test that retired it: if a person is standing at the door, an SMS is the slowest way "
+           "to tell them anything.",
+           "The copy stays on this page on purpose. A message that was considered and rejected is "
+           "cheaper to look up than to re-argue."]))
+
+ORDER.insert(ORDER.index("C2b") + 1, "C2c")
+TOUCHPOINTS.sort(key=lambda t: ORDER.index(t["id"]))
+
+# ── the journeys, grouped ───────────────────────────────────────────────────
+# grp opens a titled block in the summary, so the reader can find the moment
+# they came for instead of reading thirteen rows.
+
+JOURNEYS["receiver"] = dict(
+    headline="Three SMS the first time, two every time after",
+    sub="Getting the parcel is the same two messages in every case — one when it is created, one "
+        "carrying the code — and the rating ask fires once per receiver, ever. The sender type, the "
+        "pickup mode and the money all change what the first message <b>says</b>; none of them "
+        "change how many there are. Everything below the code is an exception.",
+    steps=[
+        J("1", "Business sender creates it", "C1", "sms", "Collect it free, or have it delivered", "First contact. Free is named first, every time.", grp="First contact · one message, three shapes"),
+        J("1b", "…an individual pre-paid it", "C1a", "sms", "{{sender_name}} has sent you a parcel — track it", "No choice to offer, so none is presented.", off=True),
+        J("1c", "…or a handler received it", "C1c", "sms", "Hi — your parcel from {{town}} has arrived", "“Hi”, not “Good news”. They were already waiting.", off=True),
+        J("2", "The money clears", "C2c", "sms", "That's paid — your handover code is {{otp}}", "The second message, and the last one on a journey that works.", grp="The code · the second and last message"),
+        J("2b", "…or they chose to collect", "C2", "sms", "Station, hours, code, deadline", "Same position, same job, a counter instead of a door.", off=True),
+        J("—", "Runner reaches the door", "C2b", "retire", "Nothing — the page is tracking live and the runner is there", "Retired. An SMS is the slowest way to talk to someone standing in front of a runner.", flag="retire"),
+        J("—", "Shop enters the runner's code", "C1b", "in_app", "Tracking goes live on the page", "A status change the page shows, not a message. The pack's trigger, kept; its SMS, dropped."),
+        J("+", "Runner can't find them", "C8", "sms", "Moved on? Tell us where you are now", "The moment a delivery is most likely to fail.", grp="Exceptions · only when something goes wrong"),
+        J("+", "They give a new spot", "C9", "sms", "Ksh {{ext_fee}} to move it — the runner keeps it all", "Priced, capped, and the code stays locked until it clears."),
+        J("+", "Running late", "C3", "sms", "New arrival time, reason, tracking", "A broken promise gets its own message."),
+        J("+", "Half the clock gone", "C4a", "sms", "Still here, code, opening hours, deadline", "Rung 1. No charges apply, so none are mentioned.", grp="Nobody collected · four rungs, then silence"),
+        J("+", "Clock nearly out", "C4b", "sms", "Free storage ends {{deadline}}, then the rate", "Rung 2. Where most door-delivery conversions happen."),
+        J("+", "Clock runs out", "C4c", "sms", "Storage started, and how to stop it", "Rung 3. The link has to settle the charge, not just book a delivery."),
+        J("+", "Day 7", "C4d", "sms", "Goes back today — or we bring it to you today", "Rung 4. The pack keeps the door open to the last message."),
+        J("+", "Asks for more storage time", "C6a", "sms", "Approved — new deadline", "Time, not distance. C9 is the other one."),
+        J("4", "Collects", "C7", "sms", "It's all yours — rate your runner, save your address", "Once per receiver, ever. The only ask in the lane.", grp="Afterwards · once per receiver, ever"),
+    ])
+
+JOURNEYS["sender"] = dict(
+    headline="Four SMS on a journey that works — three once sign-in moves to a PIN",
+    sub="Two codes to get into the account, one instruction about the parcel, and the proof at the "
+        "end. The instruction is the one that keeps going wrong: a booking gets <b>either</b> the "
+        "drop SMS <b>or</b> the handover code, never both, and which one depends entirely on whether "
+        "a runner is coming.",
+    steps=[
+        J("1", "Creates an account", "S0", "sms", "Sign-up code, with the expiry and the fraud line", "The only way to prove the phone is theirs.", grp="Access · two codes, and one of them should go"),
+        J("2", "Signs in", "S0b", "sms", "Sign-in code naming the device", "Security, not convenience. Moves to a device PIN if we follow the runner decision.", flag="open"),
+        J("3", "Account opens", "S1", "in_app", "Welcome and the nearest pod", "Nothing time-critical. The code SMS landed a minute ago."),
+        J("4a", "Books a drop", "S2", "sms", "Reservation code to enter at the pod, and the deadline", "The instruction. One of two, never both.", grp="The one instruction · drop, or hand over"),
+        J("4b", "…or books a runner collection", "S2c", "sms", "Handover code to give the runner, and the safety line", "The other one. The same booking must never receive both.", off=True),
+        J("—", "Either way", "S2", "in_app", "Booked — directions, or switch to a runner in one tap", "They are in the app, looking at the booking they just made."),
+        J("+", "Has not dropped it", "S2b", "sms", "Save yourself the trip — a runner can collect", "They are away from the app. This is what SMS is for."),
+        J("5", "Runner collects", "S2d", "in_app", "Picked up by {{runner}}, ETA", "A status update, not an instruction. One card replaces the two SMS firing today.", grp="On the road"),
+        J("6", "Delivered", "S3", "sms", "Who collected it, where, at what time", "The payoff. Two segments, and worth every one."),
+        J("+", "Receiver has not collected", "S4a", "sms", "Storage started, charged to you", "Money moving against them. Always SMS.", grp="Exceptions · only when something goes wrong"),
+        J("+", "Day 7", "S4b", "sms", "Coming back to you today", "A thing they have to plan around."),
+        J("+", "Refund", "S5", "sms", "Amount, and when it reaches M-Pesa", "Money moving toward them. Always SMS."),
+        J("+", "Delivery failed", "S6", "sms", "Reason, location, choice, deadline", "A decision only they can make, on a clock."),
+    ])
+
+# ── copy the dispatch cases needed that round three did not have ────────────
+
+_by_id["C1a"]["msgs"] = [
+    ("sms", "Good news {{name}} — {{sender_name}} has sent you a parcel.\nIt's paid and waiting at {{station}}, heading to you now.\nTrack it: {{track_url}}\n[sender dropped it at a pod]"),
+    ("sms", "Good news {{name}} — {{sender_name}} has sent you a parcel.\nIt's paid, and {{runner}} is collecting it from {{origin}} now.\nTrack it: {{track_url}}\n[a runner is collecting from the sender]"),
+]
+_by_id["C1a"]["intent"] = ("No choice to offer. Someone has paid, it is coming, and the only variable "
+                           "is whether it left through a pod or through a runner.")
+_by_id["C1a"]["review"] += (
+    "<br><br><b>Round four · two variants, not one.</b> An individual either drops the parcel or has "
+    "a runner collect it, and the first sentence has to say which — a receiver told it is “waiting at "
+    "Shell Kileleshwa” when a runner has not even reached the sender yet will go to the pod.")
+
+_by_id["C1c"]["review"] += (
+    "<br><br><b>Round four · checked against the live handler flow.</b> The flow was read again on "
+    "27 October to settle whether a handler parcel offers collection at all. It does: the page's own "
+    "handler SMS reads <i>“Hi Charlotte — your parcel from Amalia (Nakuru) has arrived at 4NTE Sacco, "
+    "Cross Road. Collect it free, or have it delivered to your door”</i>, and its choice screen carries "
+    "<i>“I'll collect it myself · Free”</i>. What is absent is the <b>Pinned pod</b> — free collection "
+    "means walking into the handler's own counter — and the fee section, because a handler trip is "
+    "always pay-now with no goods owed. See the open question.")
+
+_by_id["C1b"].update(dict(
+    channels=["in_app"], status="change",
+    name="The shop hands it to the runner",
+    intent="A status change, shown where the receiver is already looking.",
+    review=_by_id["C1b"]["review"] + (
+        "<br><br><b>Round four · off SMS.</b> The trigger is right and the sentence is good, but it "
+        "would be a third message on a journey that is meant to cost two. The receiver has the choice "
+        "page open and that page tracks live — so the hand-over lights up the tracker instead. The "
+        "copy below is kept as the in-app line."),
+    msgs=[("in_app", ("{{runner}} has your parcel", "From {{from}}, on the way to {{dest}} · arriving about {{eta}}."))],
+    rules=["Never a gendered pronoun for a runner, a host or a receiver.",
+           "An arrival time, never a countdown."]))
+
+for _id in ("S2", "S2c"):
+    _by_id[_id]["rules"] = _by_id[_id]["rules"] + [
+        "<b>One instruction per booking.</b> A drop booking gets S2 and never S2c; a runner collection "
+        "gets S2c and never S2. Nothing in <code>pinned-core</code> treats them as alternatives today, "
+        "so both can fire against the same parcel."]
+
+OPEN_QUESTIONS = [
+    dict(q="Does a parcel-handler SMS offer free collection, or go straight to delivery?",
+         why="The note from 27 October says a handler trip has <i>no pod option and goes straight into "
+             "saving the trip</i>. The live handler flow does the opposite: its SMS reads <i>“Collect it "
+             "free, or have it delivered to your door”</i> and its choice screen carries <i>“I'll collect "
+             "it myself · Free”</i>. The two reconcile if <i>no pod option</i> means no <b>Pinned pod</b> "
+             "is in the chain — free collection is from the handler's own counter — which is what this "
+             "site now says. <b>If the intent was that handler parcels are delivery-only, C1c and the "
+             "handler flow both change</b>, and the page changes first, because it is the one customers "
+             "are already reading.",
+         who="Product"),
+] + OPEN_QUESTIONS
+
+
+NAV_GROUPS = [
+    ("Foundations", [("index.html", "The map"), ("principles.html", "Voice"),
+                     ("channels.html", "Channels & rules")]),
+    ("Lanes", [("senders.html", "Senders"), ("receivers.html", "Receivers"),
+               ("runners.html", "Runners"), ("hosts.html", "Hosts"),
+               ("admin.html", "Admin"), ("prospects.html", "Prospects")]),
+    ("Reference", [("library.html", "Copy library"), ("gaps.html", "Build order")]),
+]

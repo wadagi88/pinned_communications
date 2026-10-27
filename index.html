@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=13">
+<link rel="stylesheet" href="assets/comms.css?v=14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -18,6 +18,27 @@
 </head>
 <body>
 
+<div class="shell">
+<aside class="side"><div class="side-in">
+  <a class="side-home" href="index.html"><span class="logomark sm"><span></span><span></span><span></span><span></span></span>Pinned Comms</a>
+  <nav class="side-nav"><p class="side-grp">Foundations</p>
+  <a href="index.html" class="on">The map</a>
+  <span class="side-subs"><a href="#why-this-exists">Why this exists</a><a href="#how-to-read-this">How to read this</a><a href="#the-six-lanes">The six lanes</a><a href="#every-touchpoint">Every touchpoint</a></span>
+  <a href="principles.html">Voice</a>
+  <a href="channels.html">Channels &amp; rules</a>
+  <p class="side-grp">Lanes</p>
+  <a href="senders.html">Senders</a>
+  <a href="receivers.html">Receivers</a>
+  <a href="runners.html">Runners</a>
+  <a href="hosts.html">Hosts</a>
+  <a href="admin.html">Admin</a>
+  <a href="prospects.html">Prospects</a>
+  <p class="side-grp">Reference</p>
+  <a href="library.html">Copy library</a>
+  <a href="gaps.html">Build order</a></nav>
+  <button class="themer" type="button" data-themer>Theme</button>
+</div></aside>
+<main class="main">
 <header class="mast">
   <div class="mast-wedges"><i></i><i></i><i></i><i></i></div>
   <div class="wrap">
@@ -28,34 +49,18 @@
       who has not signed up yet — what fires it, which channel carries it, what it says, and why.
       Drafted from the Communication Map and audited against the templates running in pinned-core today.</p>
     <div class="mast-facts">
-      <div><b>63</b><small>touchpoints</small></div>
+      <div><b>64</b><small>touchpoints</small></div>
       <div><b>10</b><small>live today</small></div>
-      <div><b>12</b><small>partial</small></div>
+      <div><b>11</b><small>partial</small></div>
       <div><b>28</b><small>not built</small></div>
-      <div><b>10</b><small>channel changes</small></div>
+      <div><b>11</b><small>channel changes</small></div>
+      <div><b>2</b><small>retired</small></div>
       <div><b>2</b><small>defects</small></div>
     </div>
   </div>
 </header>
 
-<nav class="navbar"><div class="wrap">
-  <a class="home" href="index.html">Pinned Comms</a>
-  <a href="index.html" class="on">The map</a>
-  <a href="principles.html">Voice</a>
-  <a href="channels.html">Channels &amp; rules</a>
-  <a href="senders.html">Senders</a>
-  <a href="receivers.html">Receivers</a>
-  <a href="runners.html">Runners</a>
-  <a href="hosts.html">Hosts</a>
-  <a href="admin.html">Admin</a>
-  <a href="prospects.html">Prospects</a>
-  <a href="library.html">Copy library</a>
-  <a href="gaps.html">Build order</a>
-  <span class="spacer"></span>
-  <button class="themer" type="button" data-themer>Theme</button>
-</div></nav>
-
-<section><div class="wrap">
+<section id="why-this-exists"><div class="wrap">
   <div class="sec-head"><span class="sec-num">00</span><h2>Why this exists</h2></div>
   
   <div class="rule"></div>
@@ -79,20 +84,22 @@
     <p><a href="principles.html">The nine principles →</a></p>
   </div>
   <div class="card accent-flow">
-    <span class="lbl">Round three · 27 October</span>
-    <h3 style="margin-top:8px">The receiver page sets the voice</h3>
-    <p>Every receiver SMS ends in a link to <b>publicchoicepage.netlify.app</b>, and the two are read
-      forty seconds apart. That page is now the reference for tone, and the receiver lane has been
-      rewritten against it rather than against this site.</p>
-    <p>It overturned the review pack on one substantive point: the pack sells the paid doorstep
-      delivery and never mentions that collecting is free, while the page offers free collection four
-      times over and adds <i>no charge, no pressure</i>. Free is named first now, in every variant.</p>
-    <p><a href="gaps.html#packvspage">The pack against the page →</a> ·
-       <a href="principles.html#tone">The reference →</a></p>
+    <span class="lbl">Round four · 27 October</span>
+    <h3 style="margin-top:8px">Two messages, whoever sent it</h3>
+    <p>An individual, a business sender and a parcel handler create the same object and produce a
+      different first SMS. Four axes — sender type, pickup mode, money, address — nine cases, and in
+      every one of them the receiver gets the same two messages: one at creation, one carrying the
+      code.</p>
+    <p>Writing that down cost one touchpoint and saved an SMS. <b>C2b</b>, the runner-at-the-door
+      message, is retired before it was ever built: it would have made pay-on-delivery the only
+      journey costing three messages, at the one moment a human being is physically present to help.</p>
+    <p><a href="receivers.html#cases">The receiver cases →</a> ·
+       <a href="senders.html#cases">Drop, or hand over →</a> ·
+       <a href="principles.html#tone">The tone reference →</a></p>
   </div>
 </div>
 </div></section>
-<section><div class="wrap">
+<section id="how-to-read-this"><div class="wrap">
   <div class="sec-head"><span class="sec-num">01</span><h2>How to read this</h2></div>
   
   <div class="rule"></div>
@@ -111,7 +118,7 @@
   values filled in, not with the tokens left empty. An SMS that fits “Jay” and breaks on
   “Wanjiru” has not been written.</p>
 </div></section>
-<section><div class="wrap">
+<section id="the-six-lanes"><div class="wrap">
   <div class="sec-head"><span class="sec-num">02</span><h2>The six lanes</h2></div>
   
   <div class="rule"></div>
@@ -122,9 +129,9 @@
   <ol><li><b>S0</b> Sign-up code <em>SMS</em></li><li><b>S0b</b> Sign-in code <em>SMS</em></li><li><b>S1</b> Account is open <em>In-app</em></li><li><b>S2</b> Booked — drop by <em>In-app · SMS</em></li><li><b>S2b</b> Still waiting for your drop <em>SMS</em></li><li><b>S2c</b> Handover code <em>SMS · In-app</em></li><li><b>S2d</b> On the way <em>In-app</em></li><li><b>S3</b> Delivered — with proof <em>SMS · In-app</em></li><li><b>S4a</b> Your receiver has not collected <em>SMS · In-app</em></li><li><b>S4b</b> Coming back to you <em>SMS · In-app</em></li><li><b>S5</b> Refund sent <em>SMS</em></li><li><b>S6</b> Delivery did not complete <em>SMS · In-app</em></li></ol>
 </div>
 <div class="lane accent-lock">
-  <div class="lane-head"><h3>Receivers</h3><a href="receivers.html#journey">17 touchpoints · 4 SMS →</a></div>
+  <div class="lane-head"><h3>Receivers</h3><a href="receivers.html#journey">18 touchpoints · 3 SMS →</a></div>
   <p style="padding:0 20px;color:var(--text-2);font-size:.93rem">The person the parcel is for. Often has never heard of Pinned before the first SMS.</p>
-  <ol><li><b>C1</b> A parcel has been created for you <em>SMS</em></li><li><b>C1a</b> It's paid, and already heading to you <em>SMS</em></li><li><b>C1c</b> Your parcel has arrived from upcountry <em>SMS</em></li><li><b>C1b</b> A runner has your parcel <em>SMS</em></li><li><b>C2</b> It is here — collect with this code <em>SMS · In-app</em></li><li><b>C2b</b> Your runner is at the door <em>SMS</em></li><li><b>C8</b> Your runner can't find you <em>SMS</em></li><li><b>C9</b> Moving the drop — priced <em>SMS</em></li><li><b>C3</b> Running late <em>SMS</em></li><li><b>C4a</b> Still waiting · rung 1 <em>SMS</em></li><li><b>C4b</b> Still waiting · rung 2 <em>SMS</em></li><li><b>C4c</b> Storage has started · rung 3 <em>SMS</em></li><li><b>C4d</b> Going back today · rung 4 (7d) <em>SMS</em></li><li><b>C5</b> Collection code <em>SMS</em></li><li><b>C6a</b> Extra time approved <em>SMS · In-app</em></li><li><b>C6b</b> Extra time declined <em>SMS · In-app</em></li><li><b>C7</b> Delivered — and how was your runner? <em>SMS</em></li></ol>
+  <ol><li><b>C1</b> A parcel has been created for you <em>SMS</em></li><li><b>C1a</b> It's paid, and already heading to you <em>SMS</em></li><li><b>C1c</b> Your parcel has arrived from upcountry <em>SMS</em></li><li><b>C1b</b> The shop hands it to the runner <em>In-app</em></li><li><b>C2</b> It is here — collect with this code <em>SMS · In-app</em></li><li><b>C2b</b> Your runner is at the door — retired <em>SMS</em></li><li><b>C2c</b> Your handover code <em>SMS</em></li><li><b>C8</b> Your runner can't find you <em>SMS</em></li><li><b>C9</b> Moving the drop — priced <em>SMS</em></li><li><b>C3</b> Running late <em>SMS</em></li><li><b>C4a</b> Still waiting · rung 1 <em>SMS</em></li><li><b>C4b</b> Still waiting · rung 2 <em>SMS</em></li><li><b>C4c</b> Storage has started · rung 3 <em>SMS</em></li><li><b>C4d</b> Going back today · rung 4 (7d) <em>SMS</em></li><li><b>C5</b> Collection code <em>SMS</em></li><li><b>C6a</b> Extra time approved <em>SMS · In-app</em></li><li><b>C6b</b> Extra time declined <em>SMS · In-app</em></li><li><b>C7</b> Delivered — and how was your runner? <em>SMS</em></li></ol>
 </div>
 <div class="lane accent-flow">
   <div class="lane-head"><h3>Runners</h3><a href="runners.html#journey">15 touchpoints · 4 SMS →</a></div>
@@ -147,7 +154,7 @@
   <ol><li><b>P1</b> Marketplace group reply <em>WhatsApp</em></li><li><b>P2</b> First reply to an enquiry <em>WhatsApp</em></li><li><b>P3</b> You checked a price <em>SMS</em></li><li><b>P4</b> You have received — now send <em>SMS</em></li><li><b>P5</b> Someone sent you a parcel <em>SMS</em></li></ol>
 </div></div>
 </div></section>
-<section><div class="wrap">
+<section id="every-touchpoint"><div class="wrap">
   <div class="sec-head"><span class="sec-num">03</span><h2>Every touchpoint</h2></div>
   
   <div class="rule"></div>
@@ -169,9 +176,10 @@
 <tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C1">C1</a></td><td><b>A parcel has been created for you</b><span class="muted">A business sender creates a parcel addressed to this person</span></td><td>At creation</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">runner_picked_up_receiver</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1a">C1a</a></td><td><b>It's paid, and already heading to you</b><span class="muted">An individual sender books and pays, with the receiver's address already set</span></td><td>At booking</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1c">C1c</a></td><td><b>Your parcel has arrived from upcountry</b><span class="muted">A parcel handler receives a parcel addressed to this person</span></td><td>On arrival at the handler</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
-<tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C1b">C1b</a></td><td><b>A runner has your parcel</b><span class="muted">The shop enters the runner's handover code</span></td><td>At hand-over</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">runner_picked_up_receiver</td></tr>
+<tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C1b">C1b</a></td><td><b>The shop hands it to the runner</b><span class="muted">The shop enters the runner's handover code</span></td><td>At hand-over</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">runner_picked_up_receiver</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C2">C2</a></td><td><b>It is here — collect with this code</b><span class="muted">Parcel reaches the destination pod or station</span></td><td>On arrival scan</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">parcel_arrived</td></tr>
-<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C2b">C2b</a></td><td><b>Your runner is at the door</b><span class="muted">The runner's GPS pings at the delivery address</span></td><td>On arrival</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="retire"><td class="id"><a href="receivers.html#C2b">C2b</a></td><td><b>Your runner is at the door — retired</b><span class="muted">The runner's GPS pings at the delivery address</span></td><td>On arrival</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge retire">Retire</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C2c">C2c</a></td><td><b>Your handover code</b><span class="muted">The money clears, or a runner is assigned on a journey with nothing owed</span></td><td>The second and last SMS of a journey that works</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C8">C8</a></td><td><b>Your runner can't find you</b><span class="muted">The runner is at the address and cannot reach the receiver</span></td><td>On the runner reporting it</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C9">C9</a></td><td><b>Moving the drop — priced</b><span class="muted">The receiver gives a new location within the cap</span></td><td>Immediately after C8</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C3">C3</a></td><td><b>Running late</b><span class="muted">Promised delivery time passes while the parcel is in transit</span></td><td>At the moment the promise breaks</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
@@ -218,13 +226,22 @@
 <tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P4">P4</a></td><td><b>You have received — now send</b><span class="muted">A receiver collects their first parcel and has never sent one</span></td><td>24h after collection · once ever</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="prospect" data-status="gap"><td class="id"><a href="prospects.html#P5">P5</a></td><td><b>Someone sent you a parcel</b><span class="muted">A receiver's first collection, where the sender is on a referral plan</span></td><td>With the collected message</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr></tbody></table></div>
 </div></section><div class="wrap"><div class="endrule"></div></div>
+</main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
-    <p>Internal working document. Build 13.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · the dispatch cases, on a left-hand menu</p>
+    <p>Internal working document. Build 14.</p>
   </div>
 </footer>
 <script>
+  // On a narrow screen the left menu becomes a horizontal strip; put the page
+  // you are on inside the visible part of it.
+  (function () {
+    var on = document.querySelector(".side-nav a.on"), bar = document.querySelector(".side-in");
+    if (on && bar && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = on.offsetLeft - 90;
+    }
+  })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
       var root = document.documentElement;

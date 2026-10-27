@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=13">
+<link rel="stylesheet" href="assets/comms.css?v=14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -18,29 +18,34 @@
 </head>
 <body>
 
-<header class="phead"><div class="wrap">
-  <p class="crumb"><a href="index.html">Pinned Communications</a> · Channels &amp; rules</p>
-  <p class="eyebrow" style="margin-top:10px">What each channel is for</p>
-  <h1>Six channels, eight laws</h1>
-  <p class="lede">A channel is a job, not a copy of the message. “(sms, email, in-app)” in the map means three different jobs — not the same sentence three times.</p>
-</div></header>
-<nav class="navbar"><div class="wrap">
-  <a class="home" href="index.html">Pinned Comms</a>
+<div class="shell">
+<aside class="side"><div class="side-in">
+  <a class="side-home" href="index.html"><span class="logomark sm"><span></span><span></span><span></span><span></span></span>Pinned Comms</a>
+  <nav class="side-nav"><p class="side-grp">Foundations</p>
   <a href="index.html">The map</a>
   <a href="principles.html">Voice</a>
   <a href="channels.html" class="on">Channels &amp; rules</a>
+  <span class="side-subs"><a href="#channel-doctrine">Channel doctrine</a><a href="#the-eight-laws">The eight laws</a><a href="#the-escalation-ladder">The escalation ladder</a><a href="#storage">The storage clock</a><a href="#tokens">Tokens</a></span>
+  <p class="side-grp">Lanes</p>
   <a href="senders.html">Senders</a>
   <a href="receivers.html">Receivers</a>
   <a href="runners.html">Runners</a>
   <a href="hosts.html">Hosts</a>
   <a href="admin.html">Admin</a>
   <a href="prospects.html">Prospects</a>
+  <p class="side-grp">Reference</p>
   <a href="library.html">Copy library</a>
-  <a href="gaps.html">Build order</a>
-  <span class="spacer"></span>
+  <a href="gaps.html">Build order</a></nav>
   <button class="themer" type="button" data-themer>Theme</button>
-</div></nav>
-<section><div class="wrap">
+</div></aside>
+<main class="main">
+<header class="phead"><div class="wrap">
+  <p class="eyebrow">Channels &amp; rules</p>
+  <h1>Six channels, eight laws</h1>
+  <p class="phead-meta">What each channel is for</p>
+  <p class="lede">A channel is a job, not a copy of the message. “(sms, email, in-app)” in the map means three different jobs — not the same sentence three times.</p>
+</div></header>
+<section id="channel-doctrine"><div class="wrap">
   <div class="sec-head"><span class="sec-num">01</span><h2>Channel doctrine</h2></div>
   
   <div class="rule"></div>
@@ -106,13 +111,13 @@
   <ul><li>A call is always preceded by the SMS that explains why someone is about to ring.</li><li>Never an automated voice. If it is worth a call, it is worth a person.</li></ul>
 </div></div>
 </div></section>
-<section><div class="wrap">
+<section id="the-eight-laws"><div class="wrap">
   <div class="sec-head"><span class="sec-num">02</span><h2>The eight laws</h2></div>
   <p class="sec-sub">These are the decisions that stop the estate drifting back into noise. Each one is enforceable in <code>Notifications::DispatchWorker</code> rather than trusted to whoever writes the next template.</p>
   <div class="rule"></div>
   <div class="grid g2"><div class="card accent-mag"><span class="sec-num">01</span><h3 style="margin-top:6px">One event, one message</h3><p>A single thing that happened produces a single message per person. Two templates describing the same moment is a bug, not thoroughness. Today the hand-over fires twice and the batch offer fires as many times as the system re-offers.</p></div><div class="card accent-mag"><span class="sec-num">02</span><h3 style="margin-top:6px">Channel ladder, not channel broadcast</h3><p>In-app always. SMS only when the action happens away from the app. Push only when the app is the destination. Email only when it is a document or a process. The map's '(sms, email, in-app)' means a ladder of three different jobs, not the same sentence three times.</p></div><div class="card accent-mag"><span class="sec-num">03</span><h3 style="margin-top:6px">Collapse before you send</h3><p>Every push carries a collapse key built from what it is about — <code>batch_offer:{batch_id}</code>, <code>parcel:{code}</code>. The second notification replaces the first. Four identical notifications on a lock screen is the single clearest evidence of a system that does not know what it has already said.</p></div><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">Quiet hours, 21:00 – 06:30 EAT</h3><p>Non-urgent SMS and push are held until morning. Urgent is defined narrowly and in code: a delivery in progress, a collection code, a security event, money leaving an account. Nothing else is urgent at 23:00.</p></div><div class="card accent-mag"><span class="sec-num">05</span><h3 style="margin-top:6px">Four rungs, then silence</h3><p>Reminder ladders escalate by specificity — neutral, specific, consequence, final — and stop. Pinned does not send a fifth message, and it never sends one after the final notice. The 6-hour dwell reminder is a fifth rung at the wrong end and should go.</p></div><div class="card accent-mag"><span class="sec-num">06</span><h3 style="margin-top:6px">One promotional message per person per week</h3><p>Across every sequence, every lane. Transactional messages are uncapped, but each one must pass the clarity contract — a transactional message that fails it is promotional with extra steps.</p></div><div class="card accent-mag"><span class="sec-num">07</span><h3 style="margin-top:6px">Every escape hatch is in the message</h3><p>If there is an alternative — door delivery, redeliver, extend, decline — it appears in the message that creates the problem, not in a later one. Rung 2 of the storage ladder converts because the escape hatch is right there.</p></div><div class="card accent-mag"><span class="sec-num">08</span><h3 style="margin-top:6px">Internal words stay internal</h3><p>Dwell, batch, OTP, eligibility, heartbeat, float, SLA, vhost. None of these reach a customer or a runner. The customer-facing word is listed beside each one in the glossary.</p></div></div>
 </div></section>
-<section><div class="wrap">
+<section id="the-escalation-ladder"><div class="wrap">
   <div class="sec-head"><span class="sec-num">03</span><h2>The escalation ladder</h2></div>
   <p class="sec-sub">Every reminder sequence uses the same four rungs. Tone escalates by specificity, never by volume, and nothing follows the fourth.</p>
   <div class="rule"></div>
@@ -138,19 +143,28 @@
   <div class="rule"></div>
   <div class="card accent-org"><h3>Free storage is 24 hours, and the clock is not the wall clock</h3><p>A parcel gets <b>24 countable hours</b> of free storage. The clock does not run between <b>19:00 and 08:00</b>, and it does not run while the pod is closed. A parcel that lands at 15:00 on Monday is therefore free until the middle of Wednesday, not until Tuesday afternoon.</p></div><div class="grid g2" style="margin-top:16px"><div class="card"><span class="lbl">Never state a duration to a customer</span><p class="tight">“24 hours of free storage” is true in our database and wrong on their phone. Every message states <code>{{deadline}}</code> — a day and a time the person can plan around.</p></div><div class="card"><span class="lbl">Schedule the ladder on the storage clock</span><p class="tight">Rungs fire at 12 countable hours left, 4 countable hours left, and at expiry. Because they are scheduled on the clock rather than on elapsed time, no rung can arrive overnight or while the pod the parcel is sitting in is shut.</p></div><div class="card"><span class="lbl">Charging starts when the clock does, and stops when they collect</span><p class="tight">The paused hours are free hours. If a customer disputes a charge, the answer has to be a line they can check themselves — which is why the amount so far appears in rung 3.</p></div><div class="card"><span class="lbl">An extension is granted in hours and communicated as a time</span><p class="tight">Hosts approve “+24 hours”; receivers are told “now runs to Thursday 11:00”. The two numbers are never the same, and only one of them belongs in an SMS.</p></div></div>
 </div></section>
-<section><div class="wrap">
+<section id="tokens"><div class="wrap">
   <div class="sec-head"><span class="sec-num">05</span><h2>Tokens</h2></div>
   <p class="sec-sub">The value in the right column is what the character counts on this site are measured with — the longest realistic value, not a short one.</p>
   <div class="rule"></div>
-  <div class="scroller"><table><thead><tr><th>Token</th><th>Measured as</th></tr></thead><tbody><tr><td class="id">{{address}}</td><td>Ngong Road, Kilimani</td></tr><tr><td class="id">{{amount}}</td><td>2,400</td></tr><tr><td class="id">{{batch}}</td><td>B-2291</td></tr><tr><td class="id">{{closing_time}}</td><td>21:00</td></tr><tr><td class="id">{{code}}</td><td>P7X4K</td></tr><tr><td class="id">{{deadline}}</td><td>Fri 18:00</td></tr><tr><td class="id">{{dest}}</td><td>Imani Apartments, Ruiru</td></tr><tr><td class="id">{{docs}}</td><td>driving licence</td></tr><tr><td class="id">{{eta}}</td><td>14:20</td></tr><tr><td class="id">{{ext_fee}}</td><td>150</td></tr><tr><td class="id">{{ext_km}}</td><td>2.1</td></tr><tr><td class="id">{{fee}}</td><td>735</td></tr><tr><td class="id">{{from}}</td><td>Amina's Shop</td></tr><tr><td class="id">{{goods}}</td><td>2,400</td></tr><tr><td class="id">{{hours}}</td><td>24</td></tr><tr><td class="id">{{km}}</td><td>15.8</td></tr><tr><td class="id">{{link}}</td><td>pinnedflow.app/r</td></tr><tr><td class="id">{{name}}</td><td>Charlotte</td></tr><tr><td class="id">{{origin}}</td><td>Pinned Kilimani</td></tr><tr><td class="id">{{otp}}</td><td>934727</td></tr><tr><td class="id">{{payout}}</td><td>640</td></tr><tr><td class="id">{{pod}}</td><td>Pinned Kilimani</td></tr><tr><td class="id">{{rate}}</td><td>50</td></tr><tr><td class="id">{{reason}}</td><td>the photo was unreadable</td></tr><tr><td class="id">{{reason_short}}</td><td>your ID photo was unreadable</td></tr><tr><td class="id">{{runner}}</td><td>Brian K.</td></tr><tr><td class="id">{{sender_name}}</td><td>David</td></tr><tr><td class="id">{{since}}</td><td>06:40 today</td></tr><tr><td class="id">{{spot}}</td><td>Kitengela Mall</td></tr><tr><td class="id">{{station}}</td><td>Pinned Kilimani</td></tr><tr><td class="id">{{stops}}</td><td>4</td></tr><tr><td class="id">{{time}}</td><td>13:42</td></tr><tr><td class="id">{{track_url}}</td><td>pinnedflow.app/p/7K4QX</td></tr></tbody></table></div>
+  <div class="scroller"><table><thead><tr><th>Token</th><th>Measured as</th></tr></thead><tbody><tr><td class="id">{{address}}</td><td>Ngong Road, Kilimani</td></tr><tr><td class="id">{{amount}}</td><td>2,400</td></tr><tr><td class="id">{{batch}}</td><td>B-2291</td></tr><tr><td class="id">{{client}}</td><td>Charlotte</td></tr><tr><td class="id">{{closing_time}}</td><td>21:00</td></tr><tr><td class="id">{{code}}</td><td>P7X4K</td></tr><tr><td class="id">{{deadline}}</td><td>Fri 18:00</td></tr><tr><td class="id">{{dest}}</td><td>Imani Apartments, Ruiru</td></tr><tr><td class="id">{{docs}}</td><td>driving licence</td></tr><tr><td class="id">{{eta}}</td><td>14:20</td></tr><tr><td class="id">{{ext_fee}}</td><td>150</td></tr><tr><td class="id">{{ext_km}}</td><td>2.1</td></tr><tr><td class="id">{{fee}}</td><td>735</td></tr><tr><td class="id">{{from}}</td><td>Amina's Shop</td></tr><tr><td class="id">{{goods}}</td><td>2,400</td></tr><tr><td class="id">{{handler}}</td><td>4NTE Sacco, Cross Road</td></tr><tr><td class="id">{{hours}}</td><td>24</td></tr><tr><td class="id">{{km}}</td><td>15.8</td></tr><tr><td class="id">{{link}}</td><td>pinnedflow.app/r</td></tr><tr><td class="id">{{name}}</td><td>Charlotte</td></tr><tr><td class="id">{{origin}}</td><td>Pinned Kilimani</td></tr><tr><td class="id">{{otp}}</td><td>934727</td></tr><tr><td class="id">{{payout}}</td><td>640</td></tr><tr><td class="id">{{pod}}</td><td>Pinned Kilimani</td></tr><tr><td class="id">{{rate}}</td><td>50</td></tr><tr><td class="id">{{reason}}</td><td>the photo was unreadable</td></tr><tr><td class="id">{{reason_short}}</td><td>your ID photo was unreadable</td></tr><tr><td class="id">{{runner}}</td><td>Brian K.</td></tr><tr><td class="id">{{sender_name}}</td><td>David</td></tr><tr><td class="id">{{since}}</td><td>06:40 today</td></tr><tr><td class="id">{{spot}}</td><td>Kitengela Mall</td></tr><tr><td class="id">{{station}}</td><td>Pinned Kilimani</td></tr><tr><td class="id">{{stops}}</td><td>4</td></tr><tr><td class="id">{{time}}</td><td>13:42</td></tr><tr><td class="id">{{town}}</td><td>Nakuru</td></tr><tr><td class="id">{{track_url}}</td><td>pinnedflow.app/p/7K4QX</td></tr></tbody></table></div>
 </div></section><div class="wrap"><div class="endrule"></div></div>
+</main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
-    <p>Internal working document. Build 13.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · the dispatch cases, on a left-hand menu</p>
+    <p>Internal working document. Build 14.</p>
   </div>
 </footer>
 <script>
+  // On a narrow screen the left menu becomes a horizontal strip; put the page
+  // you are on inside the visible part of it.
+  (function () {
+    var on = document.querySelector(".side-nav a.on"), bar = document.querySelector(".side-in");
+    if (on && bar && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = on.offsetLeft - 90;
+    }
+  })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
       var root = document.documentElement;

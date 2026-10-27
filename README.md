@@ -8,9 +8,18 @@ what it says, and why it says it that way.
 A static site. No build step on Netlify; pages are generated locally and
 committed.
 
-**63 touchpoints** — 10 live today, 12 partial, 28 not built, 10 channel
-changes, 2 defects. Every lane page opens with its **SMS journey**: the moments in order,
-which channel carries each one, and how many of them cost an SMS.
+**64 touchpoints** — 10 live today, 11 partial, 28 not built, 11 channel
+changes, 2 retired, 2 defects. The tabs sit in a left-hand menu with the open
+page's own sections nested under it. Every lane page then **opens with its SMS
+journey**: the moments in order, grouped, the channel that carries each one,
+and a jump from every row to the copy behind it.
+
+The sender and receiver lanes carry a second summary, **Which message fires,
+and when**: the dispatch cases, written out. An individual, a business sender
+and a parcel handler all create the same object and all produce a different
+first SMS — four axes (sender type, pickup mode, money, address), nine cases,
+and in every one of them the same two messages to the receiver. One at
+creation, one carrying the code, and nothing else on a journey that works.
 
 ## Where it came from
 
@@ -69,6 +78,26 @@ The page also carries three touchpoints neither the Communication Map nor the
 pack had — *your runner can't find you*, the priced relocation, and the runner
 rating — and it supplies the real sample values, so character counts here are
 counts of the actual thing.
+
+## Round four — the dispatch cases
+
+Writing the cases down cost one touchpoint and saved a message. **C2b**, the
+runner-at-the-door SMS, is retired before it was ever built: it would have made
+pay-on-delivery the only journey in the estate costing three messages, at the
+one moment a human being is physically standing there to help. Live tracking on
+the choice page and the runner's own phone carry it instead. Its copy stays on
+the receiver page on purpose — a message that was considered and rejected is
+cheaper to look up than to re-argue.
+
+**C2c**, the handover code, is the message the first SMS was already promising.
+The live page commits us to it in its own words: *“Your handover code is also
+sent by SMS.”*
+
+The parcel-handler flow was re-read on 27 October to settle whether it offers
+collection at all. It does — *“Collect it free, or have it delivered to your
+door”*, from the handler's own counter. What is absent is a **Pinned pod**
+anywhere in the chain, and the fee section, because a handler trip is always
+pay-now with no goods owed. That reading is logged as an open question.
 
 Two lanes are not in the PDF and were added:
 

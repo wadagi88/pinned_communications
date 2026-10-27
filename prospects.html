@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=13">
+<link rel="stylesheet" href="assets/comms.css?v=14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -18,31 +18,50 @@
 </head>
 <body>
 
-<header class="phead"><div class="wrap">
-  <p class="crumb"><a href="index.html">Pinned Communications</a> · Prospects</p>
-  <p class="eyebrow" style="margin-top:10px">5 touchpoints · 3 SMS on a journey that works</p>
-  <h1>Prospects</h1>
-  <p class="lede">Everyone who has met Pinned but not sent anything: group members, enquirers, abandoned quotes, and every receiver who has only ever collected.</p>
-</div></header>
-<nav class="navbar"><div class="wrap">
-  <a class="home" href="index.html">Pinned Comms</a>
+<div class="shell">
+<aside class="side"><div class="side-in">
+  <a class="side-home" href="index.html"><span class="logomark sm"><span></span><span></span><span></span><span></span></span>Pinned Comms</a>
+  <nav class="side-nav"><p class="side-grp">Foundations</p>
   <a href="index.html">The map</a>
   <a href="principles.html">Voice</a>
   <a href="channels.html">Channels &amp; rules</a>
+  <p class="side-grp">Lanes</p>
   <a href="senders.html">Senders</a>
   <a href="receivers.html">Receivers</a>
   <a href="runners.html">Runners</a>
   <a href="hosts.html">Hosts</a>
   <a href="admin.html">Admin</a>
   <a href="prospects.html" class="on">Prospects</a>
+  <span class="side-subs"><a href="#journey">The SMS journey</a><a href="#what-they-are-here-for">What they are here for</a><a href="#touchpoints">Touchpoints</a></span>
+  <p class="side-grp">Reference</p>
   <a href="library.html">Copy library</a>
-  <a href="gaps.html">Build order</a>
-  <span class="spacer"></span>
+  <a href="gaps.html">Build order</a></nav>
   <button class="themer" type="button" data-themer>Theme</button>
-</div></nav>
-<section><div class="wrap">
-  <div class="sec-head"><span class="sec-num">01</span><h2>What they are here for</h2></div>
+</div></aside>
+<main class="main">
+<header class="phead"><div class="wrap">
+  <p class="eyebrow">The lanes</p>
+  <h1>Prospects</h1>
+  <p class="phead-meta">5 touchpoints · 3 SMS on a journey that works · 0 more only when something goes wrong</p>
   
+</div></header>
+<section id="journey"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>The SMS journey</h2></div>
+  <p class="sec-sub">Every moment in order, grouped, and the channel that carries it. Highlighted rows cost an SMS; everything unhighlighted is a deliberate decision not to spend one. The arrow on the right of each row jumps to the copy.</p>
+  <div class="rule"></div>
+  
+<div class="jrny">
+  <div class="jrny-head"><h3>One message per person, once, ever</h3><p>Nobody in this lane has asked to hear from us. Each sequence is capped at a single message, carries an opt-out, and counts against the one-promotional-per-week cap across the estate.</p></div>
+  <div class="jstep"><span class="jn">1</span><span class="jwhen">Asks in a group</span><span class="jch"><span class="chip whatsapp">WhatsApp</span></span><span class="jwhat">Answer the question, then the price and the link</span><span class="jwhy">A human, within the hour.</span><span class="jgo"><a href="#P1">P1 &darr;</a></span></div>
+  <div class="jstep"><span class="jn">2</span><span class="jwhen">Messages us</span><span class="jch"><span class="chip whatsapp">WhatsApp</span></span><span class="jwhat">Two questions: pickup area, drop area</span><span class="jwhy">Every extra question halves the replies.</span><span class="jgo"><a href="#P2">P2 &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">3</span><span class="jwhen">Checks a price, does not book</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">The same figures they saw, and the link</span><span class="jwhy">Once, within the hour. Never twice.</span><span class="jgo"><a href="#P3">P3 &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">4</span><span class="jwhen">Collected but never sent</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">You have seen it work — sending starts at…</span><span class="jwhy">The largest warm audience Pinned has.</span><span class="jgo"><a href="#P4">P4 &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">5</span><span class="jwhen">Referred by a sender</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Their first send, discounted</span><span class="jwhy">Rides on a delivery that already landed.</span><span class="jgo"><a href="#P5">P5 &darr;</a></span></div>
+</div>
+</div></section>
+<section id="what-they-are-here-for"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>What they are here for</h2></div>
+  <p class="sec-sub">Everyone who has met Pinned but not sent anything: group members, enquirers, abandoned quotes, and every receiver who has only ever collected.</p>
   <div class="rule"></div>
   
 <div class="grid g2">
@@ -59,25 +78,11 @@
     </div></div>
 </div>
 </div></section>
-<section id="journey"><div class="wrap">
-  <div class="sec-head"><span class="sec-num">02</span><h2>The SMS journey</h2></div>
-  <p class="sec-sub">Every moment in order, and the channel that carries it. Highlighted rows cost an SMS: <b>3 on a journey that works</b>, 0 more only when something goes wrong. A row numbered <b>+</b> is one of those; everything unhighlighted is a deliberate decision not to spend an SMS.</p>
-  <div class="rule"></div>
-  
-<div class="jrny">
-  <div class="jrny-head"><h3>One message per person, once, ever</h3><p>Nobody in this lane has asked to hear from us. Each sequence is capped at a single message, carries an opt-out, and counts against the one-promotional-per-week cap across the estate.</p></div>
-  <div class="jstep"><span class="jn">1</span><span class="jwhen">Asks in a group</span><span class="jch"><span class="chip whatsapp">WhatsApp</span></span><span class="jwhat">Answer the question, then the price and the link</span><span class="jwhy">A human, within the hour.</span></div>
-  <div class="jstep"><span class="jn">2</span><span class="jwhen">Messages us</span><span class="jch"><span class="chip whatsapp">WhatsApp</span></span><span class="jwhat">Two questions: pickup area, drop area</span><span class="jwhy">Every extra question halves the replies.</span></div>
-  <div class="jstep is-sms"><span class="jn">3</span><span class="jwhen">Checks a price, does not book</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">The same figures they saw, and the link</span><span class="jwhy">Once, within the hour. Never twice.</span></div>
-  <div class="jstep is-sms"><span class="jn">4</span><span class="jwhen">Collected but never sent</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">You have seen it work — sending starts at…</span><span class="jwhy">The largest warm audience Pinned has.</span></div>
-  <div class="jstep is-sms"><span class="jn">5</span><span class="jwhen">Referred by a sender</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Their first send, discounted</span><span class="jwhy">Rides on a delivery that already landed.</span></div>
-</div>
-</div></section>
-<section><div class="wrap">
+<section id="touchpoints"><div class="wrap">
   <div class="sec-head"><span class="sec-num">03</span><h2>Touchpoints</h2></div>
   
   <div class="rule"></div>
-  <h3 style="margin-top:38px">Groups</h3>
+  <h3 class="stage">Groups</h3>
 <article class="tp" id="P1">
   <div class="tp-head">
     <span class="tp-id">P1</span>
@@ -99,7 +104,7 @@ Price in ten seconds, no account: pinnedflow.app</div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Never post a star rating or an invented review count. Only figures the live board can prove.</li><li>One link, no emoji wall, no all-caps. Groups mute sellers who shout.</li><li>Reply to the question that was asked before describing the service. A reply that ignores the question is an advert.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Enquiry</h3>
+</article><h3 class="stage">Enquiry</h3>
 <article class="tp" id="P2">
   <div class="tp-head">
     <span class="tp-id">P2</span>
@@ -119,7 +124,7 @@ Price in ten seconds, no account: pinnedflow.app</div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Two questions maximum in a first reply. Every extra question halves the replies.</li><li>Never open with 'Thank you for contacting Pinned'. It is the sentence people scroll past.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Quote</h3>
+</article><h3 class="stage">Quote</h3>
 <article class="tp" id="P3">
   <div class="tp-head">
     <span class="tp-id">P3</span>
@@ -141,7 +146,7 @@ Reply STOP to opt out.</div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Promotional, so it carries an opt-out — the code already refuses to save promotional copy without one.</li><li>Once. There is no second message in this sequence, ever.</li><li>Repeat the exact figures they saw. A different number reads as a bait and switch.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Conversion</h3>
+</article><h3 class="stage">Conversion</h3>
 <article class="tp" id="P4">
   <div class="tp-head">
     <span class="tp-id">P4</span>
@@ -163,7 +168,7 @@ Reply STOP to opt out.</div></div></div>
       <div><div class="msg"><span class="lbl">Rules</span><ul><li>Once per person, ever, and never to someone who has already sent.</li><li>Lead with what they experienced, not with what we sell.</li></ul></div></div>
     </div>
   </div>
-</article><h3 style="margin-top:38px">Referral</h3>
+</article><h3 class="stage">Referral</h3>
 <article class="tp" id="P5">
   <div class="tp-head">
     <span class="tp-id">P5</span>
@@ -186,13 +191,22 @@ Reply STOP to opt out.</div></div></div>
   </div>
 </article>
 </div></section><div class="wrap"><div class="endrule"></div></div>
+</main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · receiver lane against the live page</p>
-    <p>Internal working document. Build 13.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · the dispatch cases, on a left-hand menu</p>
+    <p>Internal working document. Build 14.</p>
   </div>
 </footer>
 <script>
+  // On a narrow screen the left menu becomes a horizontal strip; put the page
+  // you are on inside the visible part of it.
+  (function () {
+    var on = document.querySelector(".side-nav a.on"), bar = document.querySelector(".side-in");
+    if (on && bar && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = on.offsetLeft - 90;
+    }
+  })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
       var root = document.documentElement;
