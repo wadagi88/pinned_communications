@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=16">
+<link rel="stylesheet" href="assets/comms.css?v=17">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -329,7 +329,7 @@ We'll wait 20 minutes, then it goes back to the branch — no charge.</div></div
 <article class="tp" id="C9">
   <div class="tp-head">
     <span class="tp-id">C9</span>
-    <span class="tp-title"><h3>Moving the drop — priced</h3><p>A priced change of plan. Every number shown, including where the money goes.</p></span>
+    <span class="tp-title"><h3>Moving the drop — priced, or folded in</h3><p>A priced change of plan. Every number shown, including the one that just changed behind it.</p></span>
     <span class="tp-meta"><span class="badge live">Live</span><span class="chips"><span class="chip sms">SMS</span></span></span>
   </div>
   <div class="tp-body">
@@ -339,12 +339,13 @@ We'll wait 20 minutes, then it goes back to the branch — no charge.</div></div
       <div><b>Source</b><span>Dev branch · Receiver::Extensions::Quote · 1 Nov</span></div>
     </div>
     <div class="chips" style="margin-top:14px"><span class="chip">Hook · Action</span></div>
-    <div class="tp-note team"><span class="nlbl">Review note</span><b>Not the same thing as a storage extension.</b> C6a and C6b extend free storage at a pod; this extends a <i>delivery</i> to a new address and it is priced. Two different objects that were both being called an extension.<br><br><b>Round five · corrected against the shipped service.</b> The fee is <code>base_kes + distance_kes</code> on the route distance from where the runner is standing, priced by <code>Pricing.call</code> — there is no 3 km cap, and the breakdown the rule below promises is real. The priced SMS fires on the <b>first</b> price only, and only when <code>fee_mode == "pay_now"</code>; the other fee modes are silent here, which is logged as an open question.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Telling them the runner keeps the whole fee. It costs nothing to say and it changes what the charge feels like.</div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Not the same thing as a storage extension.</b> C6a and C6b extend free storage at a pod; this extends a <i>delivery</i> to a new address and it is priced. Two different objects that were both being called an extension.<br><br><b>Round five · corrected against the shipped service.</b> The fee is <code>base_kes + distance_kes</code> on the route distance from where the runner is standing, priced by <code>Pricing.call</code> — there is no 3 km cap, and the breakdown the rule below promises is real. The priced SMS fires on the <b>first</b> price only, and only when <code>fee_mode == "pay_now"</code>; the other fee modes are silent here, which is logged as an open question.<br><br><b>Why only pay-now gets the priced SMS, and why that is right.</b> <code>Extensions::Quote</code> publishes it when <code>first_price &amp;&amp; fee_mode == "pay_now"</code>, because pay-now is the only mode where the relocation fee is a <i>separate payment the receiver must make</i> — <code>payment_due?</code> is true and the code is gated behind it. Reserving SMS for “you must act” is this site's own rule, applied correctly.<br><br><b>But the fee does not vanish in the other two modes.</b> <code>Extensions::Apply</code> does <code>charge += extension.fee_kes if fee_mode.in?(%w[pay_on_delivery covered])</code>. For <b>covered</b> the business absorbs it and the receiver is genuinely unaffected — silence is correct. For <b>pay-on-delivery</b> it is added to <code>confirmed_charge_kes</code>: the receiver pays more at the door than the figure we texted them at creation, and nothing tells them. That is not a fee they can ignore — it is cash they have to be holding when the runner arrives. Hence the second variant.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>Telling them the runner keeps the whole fee. It costs nothing to say and it changes what the charge feels like.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">165 chars · 2 segments</span></div><div class="sms-bubble">Moving your delivery to <span class="tok">{{spot}}</span> is <span class="tok">{{ext_km}}</span> km further — Ksh <span class="tok">{{ext_fee}}</span> by M-Pesa.
 Pay and your handover code unlocks: <span class="tok">{{track_url}}</span>
-<span class="tok">{{runner}}</span> keeps the full fee.</div></div></div>
-      <div><div class="msg"><span class="lbl">Rules</span><ul><li>The fee is base plus distance, from the runner's current position — not from the original address. That is why it can be quoted at all.</li><li><i>“Your handover code stays locked until this clears.”</i> The gate is a mechanism, stated plainly, exactly as on the page.</li><li>One ask per delivery. The cap this site used to publish was the prototype's, not the service's.</li></ul></div></div>
+<span class="tok">{{runner}}</span> keeps the full fee.</div></div><div class="msg"><div class="msg-cap"><span class="lbl">SMS · pay on delivery — folded into the door charge</span><span class="count">166 chars · 2 segments</span></div><div class="sms-bubble">Moving your delivery to <span class="tok">{{spot}}</span> is <span class="tok">{{ext_km}}</span> km further — Ksh <span class="tok">{{ext_fee}}</span> more.
+You'll now pay Ksh <span class="tok">{{amount}}</span> at the door, not Ksh <span class="tok">{{fee}}</span>. Nothing to do now: <span class="tok">{{runner}}</span> is on the way.</div></div></div>
+      <div><div class="msg"><span class="lbl">Rules</span><ul><li>The fee is base plus distance, from the runner's current position — not from the original address. That is why it can be quoted at all.</li><li><i>“Your handover code stays locked until this clears.”</i> The gate is a mechanism, stated plainly, exactly as on the page.</li><li>One ask per delivery. The cap this site used to publish was the prototype's, not the service's.</li><li><b>Three fee modes, two messages.</b> Pay-now is asked to pay and the code is gated. Pay-on-delivery is told the door total moved, and asked for nothing. Covered is told nothing, because the business absorbed it and there is no fact about them that changed.</li><li>The second variant states the old figure next to the new one. A number that silently replaces a number we texted is how a delivery turns into an argument on a doorstep.</li></ul></div></div>
     </div>
   </div>
 </article><h3 class="stage">The code</h3>
@@ -590,8 +591,8 @@ How was <span class="tok">{{runner}}</span>? Rate them, and save your address so
 </main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the twenty-minute window, stated before it runs out</p>
-    <p>Internal working document. Build 16.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the door total that moves without a message</p>
+    <p>Internal working document. Build 17.</p>
   </div>
 </footer>
 <script>

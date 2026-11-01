@@ -2711,3 +2711,48 @@ OPEN_QUESTIONS = [
 ]
 
 _by_id["C10"]["timing"] = "20 minutes after the ask, unanswered"
+
+
+# ── The priced-extension silence, resolved — and one half of it is a hole ───
+# Confirmed with the public choice session and read in Extensions::Apply:
+#   charge += extension.fee_kes if fee_mode.in?(%w[pay_on_delivery covered])
+# pay-now is the only mode where the relocation fee is a separate payment the
+# receiver must make, which is why Quote publishes the priced SMS only there.
+# For covered the business absorbs it and the receiver is unaffected. For
+# pay-on-delivery the fee is folded into the DOOR CHARGE — so the amount this
+# site already texted them is now wrong, and nothing tells them.
+
+BUILD = 17
+UPDATED = "1 November 2026 · the door total that moves without a message"
+
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+
+_by_id["C9"].update(dict(
+    name="Moving the drop — priced, or folded in",
+    intent="A priced change of plan. Every number shown, including the one that just changed behind it.",
+    review=_by_id["C9"]["review"] + (
+        "<br><br><b>Why only pay-now gets the priced SMS, and why that is right.</b> "
+        "<code>Extensions::Quote</code> publishes it when "
+        "<code>first_price &amp;&amp; fee_mode == \"pay_now\"</code>, because pay-now is the only "
+        "mode where the relocation fee is a <i>separate payment the receiver must make</i> — "
+        "<code>payment_due?</code> is true and the code is gated behind it. Reserving SMS for "
+        "“you must act” is this site's own rule, applied correctly.<br><br>"
+        "<b>But the fee does not vanish in the other two modes.</b> "
+        "<code>Extensions::Apply</code> does "
+        "<code>charge += extension.fee_kes if fee_mode.in?(%w[pay_on_delivery covered])</code>. "
+        "For <b>covered</b> the business absorbs it and the receiver is genuinely unaffected — "
+        "silence is correct. For <b>pay-on-delivery</b> it is added to "
+        "<code>confirmed_charge_kes</code>: the receiver pays more at the door than the figure we "
+        "texted them at creation, and nothing tells them. That is not a fee they can ignore — it "
+        "is cash they have to be holding when the runner arrives. Hence the second variant."),
+    msgs=_by_id["C9"]["msgs"] + [
+        ("sms", "Moving your delivery to {{spot}} is {{ext_km}} km further — Ksh {{ext_fee}} more.\nYou'll now pay Ksh {{amount}} at the door, not Ksh {{fee}}. Nothing to do now: {{runner}} is on the way.\n[pay on delivery — folded into the door charge]")],
+    rules=_by_id["C9"]["rules"] + [
+        "<b>Three fee modes, two messages.</b> Pay-now is asked to pay and the code is gated. "
+        "Pay-on-delivery is told the door total moved, and asked for nothing. Covered is told "
+        "nothing, because the business absorbed it and there is no fact about them that changed.",
+        "The second variant states the old figure next to the new one. A number that silently "
+        "replaces a number we texted is how a delivery turns into an argument on a doorstep."]))
+
+OPEN_QUESTIONS = [q for q in OPEN_QUESTIONS
+                  if not q["q"].startswith("Why is the priced extension SMS sent only for pay-now")]
