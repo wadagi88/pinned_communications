@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=14">
+<link rel="stylesheet" href="assets/comms.css?v=15">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -75,7 +75,7 @@
   <div class="sec-head"><span class="sec-num">02</span><h2>Which message fires, and when</h2></div>
   <p class="sec-sub">A sender is told what to do with the parcel exactly once. Which message that is depends on one thing only: whether a runner is coming to them.</p>
   <div class="rule"></div>
-  <div class="grid g2"><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">The sender is told what to do once — drop, or hand over</h3><p>A booking that will be dropped gets the drop SMS and never a handover code. A booking a runner will collect gets the handover code and never a drop reminder. Today both can fire against the same booking, because nothing in the code treats them as alternatives.</p></div></div><div style="margin-top:22px">
+  <div class="grid g2"><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">A second SMS only when a code is coming — and it carries only the code</h3><p>The first message promises a code, so the second one delivers it, on whichever event releases it. The live page commits us to this in its own words — <i>“Your handover code is also sent by SMS.”</i> There are three release events, not one; see the gate below.</p></div></div><div style="margin-top:22px">
 <div class="scroller"><table class="dtab">
 <thead><tr><th>The booking</th><th>Sends</th><th>Saying</th><th>Never also</th><th>Why not</th></tr></thead>
 <tbody><tr><td><b>The sender will drop it at a pod</b></td><td class="id"><a class="idchip" href="#S2">S2</a></td><td>The reservation code to enter at the pod, and the hold deadline.</td><td class="id"><span class="idchip no">S2c</span></td><td>There is no runner at the counter, so there is nobody to hand a code to.</td></tr><tr><td><b>A runner will collect it</b></td><td class="id"><a class="idchip" href="#S2c">S2c</a></td><td>The handover code to give the runner, and the one safety line.</td><td class="id"><span class="idchip no">S2</span></td><td>There is no drop to remind them about, and a drop reminder against a runner booking is the single most confusing message we send.</td></tr></tbody></table></div></div>
@@ -361,8 +361,8 @@ It is safe at <span class="tok">{{station}}</span>. Choose redeliver or return b
 </main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 27 October 2026 · the dispatch cases, on a left-hand menu</p>
-    <p>Internal working document. Build 14.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the entry state, and the two gate rails</p>
+    <p>Internal working document. Build 15.</p>
   </div>
 </footer>
 <script>

@@ -8,7 +8,7 @@ what it says, and why it says it that way.
 A static site. No build step on Netlify; pages are generated locally and
 committed.
 
-**64 touchpoints** — 10 live today, 11 partial, 28 not built, 11 channel
+**66 touchpoints** — 12 live today, 11 partial, 28 not built, 11 channel
 changes, 2 retired, 2 defects. The tabs sit in a left-hand menu with the open
 page's own sections nested under it. Every lane page then **opens with its SMS
 journey**: the moments in order, grouped, the channel that carries each one,
@@ -78,6 +78,38 @@ The page also carries three touchpoints neither the Communication Map nor the
 pack had — *your runner can't find you*, the priced relocation, and the runner
 rating — and it supplies the real sample values, so character counts here are
 counts of the actual thing.
+
+## Round five — the entry, and the gate
+
+Resynced 1 Nov 2026 against the receiver surface as it stands on the dev branch
+(`receiver-flows-prototype`): the 16-journey harness at `~/pinned-core-receiver`,
+`ParcelOrigin`, `DeliveryModesHelper#handover_code_held?`,
+`Receiver::DeliveryAddressUpdate` and `Receiver::Extensions`.
+
+First contact no longer branches only on **who** sent the parcel. It branches on
+what the receiver has to **do** when the link opens, which the page derives from
+`receiver_data.sender_address`:
+
+- **Confirm** — the sender gave us an address. No choice screen, no distance
+  screen; the money is a trailing clause. `C1d`, new, and the commonest business
+  case on the branch.
+- **Choose** — no address. The choice page, free collection named first; for
+  pay-on-delivery and covered trips the trip books the moment an address is typed.
+- **Track and confirm** — an individual send, which lands on `/track/<token>` and
+  never on the choice page. Future tense, because at creation nothing has moved.
+
+The gate has its own section now, because it is not a property of the fee mode:
+`handover_code_held? = (pay_on_delivery && !trip_fee_paid) || (goods_owed &&
+!goods_confirmed)`, so `pay_now + goods` and `covered + goods` hold the code too.
+The two rails release differently — the trip fee is an M-Pesa STK that clears
+itself, while goods are released **by the seller**, because Pinned cannot see
+money paid on the seller's own rails. `C2c` therefore has three triggers and is
+still one message.
+
+`C8` and `C9` shipped verbatim from this site into `Receiver::ExtensionNotifier`.
+The third outcome of that flow did not: when the ask window lapses,
+`Extensions::Expire` records an event and broadcasts to the tracking page and
+sends nothing. `C10` is the missing message.
 
 ## Round four — the dispatch cases
 

@@ -377,9 +377,9 @@ def dispatch_table():
     blocks = []
     for g in D.DISPATCH:
         rows = "".join(
-            '<tr><td><b>%s</b><span class="muted">%s</span></td><td>%s</td>'
+            '<tr><td><span class="act">%s</span><b>%s</b><span class="muted">%s</span></td><td>%s</td>'
             '<td class="id">%s</td><td class="id">%s</td><td class="id">%s</td></tr>'
-            % (e(r["case"]), e(r["var"]), e(r["first"]),
+            % (r.get("act", "&mdash;"), e(r["case"]), e(r["var"]), e(r["first"]),
                _ids(r["c1"]), _ids(r["c2"]), _ids(r["s"]))
             for r in g["rows"])
         blocks.append("""
@@ -387,9 +387,9 @@ def dispatch_table():
   <div style="padding:20px 22px 0"><h3>%s</h3>
     <p class="tight" style="margin-top:6px"><b style="color:var(--text)">%s</b> %s</p></div>
   <div class="scroller" style="margin-top:16px"><table class="dtab">
-  <thead><tr><th>Case</th><th>What the first SMS carries</th><th>1st SMS</th><th>2nd SMS</th><th>To the sender</th></tr></thead>
+  <thead><tr><th>They have to&hellip;</th><th>What the first SMS carries</th><th>1st SMS</th><th>2nd SMS</th><th>To the sender</th></tr></thead>
   <tbody>%s</tbody></table></div>
-</div>""" % (g["colour"], e(g["title"]), e(g["who"]), e(g["axis"]), rows))
+</div>""" % (g["colour"], e(g["title"]), g["who"], g["axis"], rows))
     return "".join(blocks)
 
 
@@ -500,18 +500,18 @@ def build_index():
     <p><a href="principles.html">The nine principles →</a></p>
   </div>
   <div class="card accent-flow">
-    <span class="lbl">Round four · 27 October</span>
-    <h3 style="margin-top:8px">Two messages, whoever sent it</h3>
-    <p>An individual, a business sender and a parcel handler create the same object and produce a
-      different first SMS. Four axes — sender type, pickup mode, money, address — nine cases, and in
-      every one of them the receiver gets the same two messages: one at creation, one carrying the
-      code.</p>
-    <p>Writing that down cost one touchpoint and saved an SMS. <b>C2b</b>, the runner-at-the-door
-      message, is retired before it was ever built: it would have made pay-on-delivery the only
-      journey costing three messages, at the one moment a human being is physically present to help.</p>
-    <p><a href="receivers.html#cases">The receiver cases →</a> ·
-       <a href="senders.html#cases">Drop, or hand over →</a> ·
-       <a href="principles.html#tone">The tone reference →</a></p>
+    <span class="lbl">Round five · 1 November</span>
+    <h3 style="margin-top:8px">The entry state writes the first sentence</h3>
+    <p>Resynced against the receiver surface as it stands on the dev branch. First contact no longer
+      branches only on who sent the parcel — it branches on what the person has to <b>do</b> when the
+      link opens, which the page derives from one field. Confirm an address, choose how to get it, or
+      track it: three verbs, eleven cases, still two messages.</p>
+    <p>That found a message this site did not have — <b>C1d</b>, the confirm-only first contact, the
+      commonest business case on the branch — and one the branch does not have: when a “can't find
+      you” request lapses, the parcel goes back and <b>nothing is sent</b>.</p>
+    <p><a href="receivers.html#cases">The eleven cases →</a> ·
+       <a href="receivers.html#gate">The gate →</a> ·
+       <a href="gaps.html#open-questions">Fourteen open questions →</a></p>
   </div>
 </div>""" % (e(D.EVIDENCE["title"]), D.EVIDENCE["body"], e(D.EVIDENCE["close"])))
 
@@ -743,6 +743,11 @@ def build_lane(lane):
                         + '<div class="card accent-org" style="margin-top:22px"><p>%s</p></div>'
                         % D.DISPATCH_NOTE,
                         anchor="cases")
+        body += section("03", "The gate", D.GATE_INTRO,
+                        '<div class="grid g2">%s</div>' % "".join(
+                            '<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
+                            % (e(g["t"]), g["p"]) for g in D.GATE_RAILS),
+                        anchor="gate")
     elif key == "sender":
         body += section("02", "Which message fires, and when",
                         "A sender is told what to do with the parcel exactly once. Which message that "
@@ -751,7 +756,7 @@ def build_lane(lane):
                         + '<div style="margin-top:22px">%s</div>' % dispatch_sender(),
                         anchor="cases")
 
-    nxt = iter(["03", "04"] if key in ("sender", "receiver") else ["02", "03"])
+    nxt = iter({"receiver": ["04", "05"], "sender": ["03", "04"]}.get(key, ["02", "03"]))
     body += section(next(nxt), "What they are here for", e(lane["who"]), """
 <div class="grid g2">
   <div class="card %s"><span class="lbl">The job they hire Pinned for</span>
