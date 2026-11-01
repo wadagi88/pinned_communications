@@ -2989,3 +2989,42 @@ JOURNEYS["sender"]["steps"].insert(
     J("+", "The receiver moves the drop", "S7", "sms", "Moved from {{origin}} to {{dest}} — nothing to do", "Live today, and built inline rather than from a template."))
 
 JOURNEYS["receiver"]["budget"] = ("3 SMS on a business door delivery · 4 on an individual send · 2 to collect")
+
+
+# ── The wait window becomes a token, because the template now has one ──────
+# receiver-flows/extension-ask-deadline (9a4ecc3f) adds
+# ParcelExtension::WAIT_LABEL = ASK_WINDOW.inspect and passes it to the
+# receiver_not_found template as {{wait}}. Publishing "20 minutes" as a literal
+# here would reintroduce exactly the drift that commit exists to prevent.
+
+BUILD = 19
+UPDATED = "1 November 2026 · the wait window is a token, not a number"
+
+SAMPLES.update({"wait": "20 minutes"})
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+
+_by_id["C8"]["msgs"] = [
+    ("sms", "{{runner}} is at {{spot}} and can't find you at {{dest}}.\nMoved on? Tell us where you are now: {{track_url}}\nWe'll wait {{wait}}, then it goes back to the branch — no charge.")]
+_by_id["C8"]["review"] += (
+    "<br><br><b>Shipped, and the window is a token now.</b> Branch "
+    "<code>receiver-flows/extension-ask-deadline</code> (<code>9a4ecc3f</code>) adds the third "
+    "line to both carriers of this copy and derives the label from the clock: "
+    "<code>ParcelExtension::WAIT_LABEL = ASK_WINDOW.inspect</code>, passed into the template as "
+    "<code>{{wait}}</code>. A migration rewrites the existing row only where it still holds the "
+    "exact two-line body, so any hand-edited environment is left alone.<br><br>"
+    "This site therefore publishes <code>{{wait}}</code> rather than the words “20 minutes”. "
+    "Writing the number here would reintroduce the drift the commit exists to prevent — the day "
+    "somebody tunes the window, the copy follows it everywhere or nowhere.")
+_by_id["C8"]["rules"] = _by_id["C8"]["rules"] + [
+    "<b>Never write a duration this system controls as a literal.</b> The window is "
+    "<code>{{wait}}</code>, the self-move cap is <code>MAX_SHIFT_LABEL</code>, and both exist "
+    "because a number typed into copy survives the change that makes it wrong. The storage clock "
+    "is the counter-example — it is a <code>{{deadline}}</code>, because a duration is the wrong "
+    "shape to give a customer in the first place."]
+
+_by_id["C10"]["msgs"] = [
+    ("sms", "{{runner}} waited {{wait}} at {{dest}} and we didn't hear back, so your parcel is going back to {{branch}}. No charge.\nTell us where to bring it and we'll try again: {{track_url}}")]
+_by_id["C10"]["review"] += (
+    "<br><br>When this is built it takes <code>{{wait}}</code> from the same "
+    "<code>ParcelExtension::WAIT_LABEL</code> that <a href=\"#C8\">C8</a> now uses, so the ask and "
+    "the lapse quote one number that neither of them owns.")
