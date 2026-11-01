@@ -2660,3 +2660,54 @@ JOURNEYS["receiver"] = dict(
         J("+", "Asks for more storage time", "C6a", "sms", "Approved — new deadline", "Time, not distance. C9 is the other one."),
         J("4", "Collects", "C7", "sms", "It's all yours — rate your runner, save your address", "Once per receiver, ever. The only ask in the lane.", grp="Afterwards · once per receiver, ever"),
     ])
+
+
+# ── ASK_WINDOW resolved · ParcelExtension::ASK_WINDOW = 20.minutes ──────────
+# One constant, used at both call sites (Extensions::Open and Extensions::Quote
+# both set expires_at: ASK_WINDOW.from_now), so pricing RESETS the clock: a
+# receiver who answers buys a fresh twenty minutes to pay.
+
+BUILD = 16
+UPDATED = "1 November 2026 · the twenty-minute window, stated before it runs out"
+
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+
+_by_id["C8"].update(dict(
+    intent="Somebody is standing in the wrong place, on a clock. Fix it in one tap, say how long there is, and blame nobody.",
+    msgs=[("sms", "{{runner}} is at {{spot}} and can't find you at {{dest}}.\nMoved on? Tell us where you are now: {{track_url}}\nWe'll wait 20 minutes, then it goes back to the branch — no charge.")],
+    review=_by_id["C8"]["review"] + (
+        "<br><br><b>The window is twenty minutes, and it now appears in the message.</b> "
+        "<code>ParcelExtension::ASK_WINDOW = 20.minutes</code>. The shipped body does not say so, "
+        "which makes the lapse arrive with no warning — and the lapse is the expensive outcome, "
+        "because the parcel physically leaves. <b>This adds one line to the live copy and takes the "
+        "message to two segments.</b> That is the right place to spend it: better to pay for the "
+        "warning than for <a href=\"#C10\">C10</a>, which only exists because the warning was "
+        "missed."),
+    rules=_by_id["C8"]["rules"] + [
+        "The clock is reset by answering. <code>Extensions::Quote</code> sets "
+        "<code>expires_at: ASK_WINDOW.from_now</code> again when it prices, so a receiver who "
+        "replies gets a fresh twenty minutes to pay — which is worth knowing before anyone writes "
+        "copy implying the first twenty minutes covers everything."]))
+
+_by_id["C10"]["msgs"] = [
+    ("sms", "{{runner}} waited 20 minutes at {{dest}} and we didn't hear back, so your parcel is going back to {{branch}}. No charge.\nTell us where to bring it and we'll try again: {{track_url}}")]
+_by_id["C10"]["review"] += (
+    "<br><br><b>The window is twenty minutes</b> (<code>ParcelExtension::ASK_WINDOW</code>), the "
+    "same constant behind the ask in <a href=\"#C8\">C8</a> — and the same clock as the prototype "
+    "page's <i>“returns to the branch after a 20-min wait — no charge”</i>. Both messages now name "
+    "it, so the number a receiver is told is the number the job actually runs on.")
+
+OPEN_QUESTIONS = [
+    (dict(q="Why is the priced extension SMS sent only for pay-now?",
+          why="<code>Extensions::Quote</code> publishes the priced message only when "
+              "<code>first_price &amp;&amp; fee_mode == \"pay_now\"</code>. A pay-on-delivery or "
+              "covered receiver is therefore quoted a relocation fee on the page and never texted "
+              "it — so if they close the tab inside the twenty-minute window, nothing reaches them "
+              "and the parcel goes back. <b>Deliberate, because those fee modes settle elsewhere, "
+              "or an oversight?</b> <a href=\"#C9\">C9</a> is written as if every fee mode gets it.",
+          who="Engineering")
+     if q["q"].startswith("How long is the extension ask window") else q)
+    for q in OPEN_QUESTIONS
+]
+
+_by_id["C10"]["timing"] = "20 minutes after the ask, unanswered"

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=15">
+<link rel="stylesheet" href="assets/comms.css?v=16">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -78,7 +78,7 @@
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C2c">C2c</a></td><td><b>Your handover code</b><span class="muted">Whatever releases the hold: the trip fee clearing, the seller releasing the goods, or a runner assigned with nothing owed</span></td><td>The second and last SMS of a journey that works</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C8">C8</a></td><td><b>Your runner can't find you</b><span class="muted">The runner is at the address and cannot reach the receiver</span></td><td>On the runner reporting it</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C9">C9</a></td><td><b>Moving the drop — priced</b><span class="muted">The receiver gives a new location within the cap</span></td><td>Immediately after C8</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">—</td></tr>
-<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C10">C10</a></td><td><b>Nobody answered — it is going back</b><span class="muted">A receiver-not-found extension request lapses unanswered</span></td><td>At the end of the ask window</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
+<tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C10">C10</a></td><td><b>Nobody answered — it is going back</b><span class="muted">A receiver-not-found extension request lapses unanswered</span></td><td>20 minutes after the ask, unanswered</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C3">C3</a></td><td><b>Running late</b><span class="muted">Promised delivery time passes while the parcel is in transit</span></td><td>At the moment the promise breaks</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C4a">C4a</a></td><td><b>Still waiting · rung 1</b><span class="muted">Half the free storage clock has run</span></td><td>12 countable hours left</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">dwell_reminder_24h</td></tr>
 <tr data-lane="receiver" data-status="partial"><td class="id"><a href="receivers.html#C4b">C4b</a></td><td><b>Still waiting · rung 2</b><span class="muted">The free storage clock is nearly out</span></td><td>4 countable hours left</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge partial">Partial</span></td><td class="id">dwell_reminder_48h</td></tr>
@@ -606,8 +606,8 @@ Check the power and the router. If both look fine, call 0700 000 000.</div></div
 </main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the entry state, and the two gate rails</p>
-    <p>Internal working document. Build 15.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the twenty-minute window, stated before it runs out</p>
+    <p>Internal working document. Build 16.</p>
   </div>
 </footer>
 <script>
