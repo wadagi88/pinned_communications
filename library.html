@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=17">
+<link rel="stylesheet" href="assets/comms.css?v=18">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -42,7 +42,7 @@
 <header class="phead"><div class="wrap">
   <p class="eyebrow">Copy library</p>
   <h1>The library</h1>
-  <p class="phead-meta">66 touchpoints, every channel</p>
+  <p class="phead-meta">68 touchpoints, every channel</p>
   <p class="lede">One table of everything Pinned sends. Filter by lane or status; each ID links to the full copy, the live version and the rules behind it.</p>
 </div></header>
 <section id="everything-in-one-table"><div class="wrap">
@@ -51,7 +51,7 @@
   <div class="rule"></div>
   
 <div class="chips" style="gap:8px;margin-bottom:6px">
-  <button class="themer" data-f="all" data-v="all">All 66</button><button class="themer" data-f="lane" data-v="sender">Senders</button><button class="themer" data-f="lane" data-v="receiver">Receivers</button><button class="themer" data-f="lane" data-v="runner">Runners</button><button class="themer" data-f="lane" data-v="host">Hosts</button><button class="themer" data-f="lane" data-v="admin">Admin interventions</button><button class="themer" data-f="lane" data-v="prospect">Prospects</button>
+  <button class="themer" data-f="all" data-v="all">All 68</button><button class="themer" data-f="lane" data-v="sender">Senders</button><button class="themer" data-f="lane" data-v="receiver">Receivers</button><button class="themer" data-f="lane" data-v="runner">Runners</button><button class="themer" data-f="lane" data-v="host">Hosts</button><button class="themer" data-f="lane" data-v="admin">Admin interventions</button><button class="themer" data-f="lane" data-v="prospect">Prospects</button>
 </div>
 <div class="chips" style="gap:8px"><button class="themer" data-f="status" data-v="live">Live</button><button class="themer" data-f="status" data-v="partial">Partial</button><button class="themer" data-f="status" data-v="gap">Not built</button><button class="themer" data-f="status" data-v="defect">Defect</button><button class="themer" data-f="status" data-v="change">Channel change</button><button class="themer" data-f="status" data-v="retire">Retire</button></div>
 <div class="scroller"><table id="lib">
@@ -63,6 +63,7 @@
 <tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S2b">S2b</a></td><td><b>Still waiting for your drop</b><span class="muted">Booking unpaid or not dropped after the hold window</span></td><td>Once, at half the hold window</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">awaiting_drop</td></tr>
 <tr data-lane="sender" data-status="change"><td class="id"><a href="senders.html#S2c">S2c</a></td><td><b>Handover code</b><span class="muted">The sender's handover code is released</span></td><td>When a runner is assigned to collect</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">handover_code_ready</td></tr>
 <tr data-lane="sender" data-status="change"><td class="id"><a href="senders.html#S2d">S2d</a></td><td><b>On the way</b><span class="muted">The handover code is accepted and the parcel changes hands</span></td><td>At hand-over</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">parcel_dropped + parcel_handed_to_runner</td></tr>
+<tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S7">S7</a></td><td><b>Your receiver moved the drop</b><span class="muted">The receiver changes the delivery address, by confirm-page nudge or by extension</span></td><td>On the address change</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">—</td></tr>
 <tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S3">S3</a></td><td><b>Delivered — with proof</b><span class="muted">The receiver signs for the parcel</span></td><td>Immediately</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">delivered</td></tr>
 <tr data-lane="sender" data-status="live"><td class="id"><a href="senders.html#S4a">S4a</a></td><td><b>Your receiver has not collected</b><span class="muted">The free storage clock runs out</span></td><td>When 24 countable hours have elapsed</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">dwell_sender_storage_started_72h</td></tr>
 <tr data-lane="sender" data-status="change"><td class="id"><a href="senders.html#S4b">S4b</a></td><td><b>Coming back to you</b><span class="muted">Parcel uncollected 7 days after arrival</span></td><td>Day 7 · final</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">dwell_sender_final_notice_7d</td></tr>
@@ -73,6 +74,7 @@
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1a">C1a</a></td><td><b>It's on its way — track it and confirm your address</b><span class="muted">An individual completes a Send Now booking in the sender wizard</span></td><td>At creation · the only SMS until the code</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C1c">C1c</a></td><td><b>Your parcel has arrived from upcountry</b><span class="muted">A parcel handler receives a parcel addressed to this person</span></td><td>On arrival at the handler</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="change"><td class="id"><a href="receivers.html#C1b">C1b</a></td><td><b>The shop hands it to the runner</b><span class="muted">The shop enters the runner's handover code</span></td><td>At hand-over</td><td><span class="chips"><span class="chip inapp">In-app</span></span></td><td><span class="badge change">Channel change</span></td><td class="id">runner_picked_up_receiver</td></tr>
+<tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C1e">C1e</a></td><td><b>It has left the sender</b><span class="muted">An individual's parcel is dropped at a Pod, or collected from the sender by a runner</span></td><td>At the drop or the pickup · once</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge live">Live</span></td><td class="id">parcel_dropped / parcel_dropped_runner</td></tr>
 <tr data-lane="receiver" data-status="live"><td class="id"><a href="receivers.html#C2">C2</a></td><td><b>It is here — collect with this code</b><span class="muted">Parcel reaches the destination pod or station</span></td><td>On arrival scan</td><td><span class="chips"><span class="chip sms">SMS</span><span class="chip inapp">In-app</span></span></td><td><span class="badge live">Live</span></td><td class="id">parcel_arrived</td></tr>
 <tr data-lane="receiver" data-status="retire"><td class="id"><a href="receivers.html#C2b">C2b</a></td><td><b>Your runner is at the door — retired</b><span class="muted">The runner's GPS pings at the delivery address</span></td><td>On arrival</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge retire">Retire</span></td><td class="id">—</td></tr>
 <tr data-lane="receiver" data-status="gap"><td class="id"><a href="receivers.html#C2c">C2c</a></td><td><b>Your handover code</b><span class="muted">Whatever releases the hold: the trip fee clearing, the seller releasing the goods, or a runner assigned with nothing owed</span></td><td>The second and last SMS of a journey that works</td><td><span class="chips"><span class="chip sms">SMS</span></span></td><td><span class="badge gap">Not built</span></td><td class="id">—</td></tr>
@@ -136,7 +138,7 @@
 </div></section>
 <section id="rewrites-side-by-side"><div class="wrap">
   <div class="sec-head"><span class="sec-num">02</span><h2>Rewrites, side by side</h2></div>
-  <p class="sec-sub">34 of the live templates change. None of them need a migration — every one is a <code>body</code> edit against an existing <code>NotificationTemplate</code> key.</p>
+  <p class="sec-sub">35 of the live templates change. None of them need a migration — every one is a <code>body</code> edit against an existing <code>NotificationTemplate</code> key.</p>
   <div class="rule"></div>
   <div class="grid">
 <div class="card">
@@ -230,6 +232,19 @@ Parcel <span class="tok">{{code}}</span> has been handed to the runner and is on
     <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b>Picked up by <span class="tok">{{runner}}</span></b><p>Parcel <span class="tok">{{code}}</span> arriving <span class="tok">{{dest}}</span> about <span class="tok">{{eta}}</span>. Live map in the app.</p></div></div></div>
   </div>
   <p style="margin-top:10px"><a href="senders.html#S2d">Rules and channels →</a></p>
+</div>
+<div class="card">
+  <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
+    <span class="tp-id">S7</span>
+    <span class="tp-title"><h3>Your receiver moved the drop</h3><p>Somebody changed the sender's instruction. Tell them, with both addresses, and ask for nothing.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span></span>
+  </div>
+  <div class="tp-cols">
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">112 chars · 1 segment</span></div><div class="old"><span class="tok">{{name}}</span> has changed where parcel <span class="tok">{{code}}</span> should be delivered to <span class="tok">{{dest}}</span>. It was <span class="tok">{{origin}}</span>.</div></div></div>
+    <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">147 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span> moved the delivery for Parcel <span class="tok">{{code}}</span> from <span class="tok">{{origin}}</span> to <span class="tok">{{dest}}</span>.
+<span class="tok">{{runner}}</span> has the new address. Nothing for you to do.</div></div></div>
+  </div>
+  <p style="margin-top:10px"><a href="senders.html#S7">Rules and channels →</a></p>
 </div>
 <div class="card">
   <div class="tp-head" style="background:transparent;border:0;padding:0 0 12px">
@@ -606,8 +621,8 @@ Check the power and the router. If both look fine, call 0700 000 000.</div></div
 </main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the door total that moves without a message</p>
-    <p>Internal working document. Build 17.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the real count, and the third rail</p>
+    <p>Internal working document. Build 18.</p>
   </div>
 </footer>
 <script>

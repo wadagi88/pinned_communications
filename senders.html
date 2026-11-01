@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=17">
+<link rel="stylesheet" href="assets/comms.css?v=18">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -42,12 +42,12 @@
 <header class="phead"><div class="wrap">
   <p class="eyebrow">The lanes</p>
   <h1>Senders</h1>
-  <p class="phead-meta">12 touchpoints · 4 SMS on a journey that works · 6 more only when something goes wrong</p>
+  <p class="phead-meta">13 touchpoints · 4 SMS on a journey that works · 7 more only when something goes wrong</p>
   
 </div></header>
 <section id="journey"><div class="wrap">
   <div class="sec-head"><span class="sec-num">01</span><h2>The SMS journey</h2></div>
-  <p class="sec-sub">Every moment in order, grouped, and the channel that carries it. Highlighted rows cost an SMS; everything unhighlighted is a deliberate decision not to spend one. The arrow on the right of each row jumps to the copy.</p>
+  <p class="sec-sub">Every moment in order, grouped, and the channel that carries it. Highlighted rows cost an SMS — <b>4 SMS on a journey that works</b> — and everything unhighlighted is a deliberate decision not to spend one. The arrow on the right of each row jumps to the copy.</p>
   <div class="rule"></div>
   
 <div class="jrny">
@@ -63,6 +63,7 @@
   <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Has not dropped it</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Save yourself the trip — a runner can collect</span><span class="jwhy">They are away from the app. This is what SMS is for.</span><span class="jgo"><a href="#S2b">S2b &darr;</a></span></div>
   <div class="jgrp">On the road</div>
   <div class="jstep"><span class="jn">5</span><span class="jwhen">Runner collects</span><span class="jch"><span class="chip inapp">In-app</span></span><span class="jwhat">Picked up by <span class="tok">{{runner}}</span>, ETA</span><span class="jwhy">A status update, not an instruction. One card replaces the two SMS firing today.</span><span class="jgo"><a href="#S2d">S2d &darr;</a></span></div>
+  <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">The receiver moves the drop</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Moved from <span class="tok">{{origin}}</span> to <span class="tok">{{dest}}</span> — nothing to do</span><span class="jwhy">Live today, and built inline rather than from a template.</span><span class="jgo"><a href="#S7">S7 &darr;</a></span></div>
   <div class="jstep is-sms"><span class="jn">6</span><span class="jwhen">Delivered</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Who collected it, where, at what time</span><span class="jwhy">The payoff. Two segments, and worth every one.</span><span class="jgo"><a href="#S3">S3 &darr;</a></span></div>
   <div class="jgrp">Exceptions · only when something goes wrong</div>
   <div class="jstep is-sms"><span class="jn">+</span><span class="jwhen">Receiver has not collected</span><span class="jch"><span class="chip sms">SMS</span></span><span class="jwhat">Storage started, charged to you</span><span class="jwhy">Money moving against them. Always SMS.</span><span class="jgo"><a href="#S4a">S4a &darr;</a></span></div>
@@ -75,7 +76,7 @@
   <div class="sec-head"><span class="sec-num">02</span><h2>Which message fires, and when</h2></div>
   <p class="sec-sub">A sender is told what to do with the parcel exactly once. Which message that is depends on one thing only: whether a runner is coming to them.</p>
   <div class="rule"></div>
-  <div class="grid g2"><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">A second SMS only when a code is coming — and it carries only the code</h3><p>The first message promises a code, so the second one delivers it, on whichever event releases it. The live page commits us to this in its own words — <i>“Your handover code is also sent by SMS.”</i> There are three release events, not one; see the gate below.</p></div></div><div style="margin-top:22px">
+  <div class="grid g2"><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">Then a code, then — once ever — a rating. Four on an individual send</h3><p>The honest count, per journey: a <b>business door delivery</b> is three the first time (created, the code, the rating) and two after, because <code>DeliveredNotifier.asked_before?</code> keys on the receiver's phone across every parcel they have ever had. An <b>individual send</b> is four the first time, because the parcel physically leaves the sender and <code>parcel_dropped</code>/<code>parcel_dropped_runner</code> says so. <b>Free collection is two</b>, and gets no rating at all — <code>DeliveredNotifier</code> returns early without a <code>dest_address</code> and a runner. Quoting “two” at every journey was tidy and false.</p></div></div><div style="margin-top:22px">
 <div class="scroller"><table class="dtab">
 <thead><tr><th>The booking</th><th>Sends</th><th>Saying</th><th>Never also</th><th>Why not</th></tr></thead>
 <tbody><tr><td><b>The sender will drop it at a pod</b></td><td class="id"><a class="idchip" href="#S2">S2</a></td><td>The reservation code to enter at the pod, and the hold deadline.</td><td class="id"><span class="idchip no">S2c</span></td><td>There is no runner at the counter, so there is nobody to hand a code to.</td></tr><tr><td><b>A runner will collect it</b></td><td class="id"><a class="idchip" href="#S2c">S2c</a></td><td>The handover code to give the runner, and the one safety line.</td><td class="id"><span class="idchip no">S2</span></td><td>There is no drop to remind them about, and a drop reminder against a runner booking is the single most confusing message we send.</td></tr></tbody></table></div></div>
@@ -251,6 +252,27 @@ Give it to <span class="tok">{{runner}}</span> as you hand the parcel over. We n
 Parcel <span class="tok">{{code}}</span> has been handed to the runner and is on its way.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>One event, one message, one channel per recipient. Duplicates are not redundancy, they are noise that teaches people to ignore us.</li></ul></div></div>
     </div>
   </div>
+</article>
+<article class="tp" id="S7">
+  <div class="tp-head">
+    <span class="tp-id">S7</span>
+    <span class="tp-title"><h3>Your receiver moved the drop</h3><p>Somebody changed the sender's instruction. Tell them, with both addresses, and ask for nothing.</p></span>
+    <span class="tp-meta"><span class="badge live">Live</span><span class="chips"><span class="chip sms">SMS</span></span></span>
+  </div>
+  <div class="tp-body">
+    <div class="kv">
+      <div><b>Trigger</b><span>The receiver changes the delivery address, by confirm-page nudge or by extension</span></div>
+      <div><b>Timing</b><span>On the address change</span></div>
+      <div><b>Source</b><span>Dev branch · ParcelHandler#notify_sender_address_changed · 1 Nov</span></div>
+    </div>
+    <div class="chips" style="margin-top:14px"><span class="chip">Hook · Trigger</span></div>
+    <div class="tp-note team"><span class="nlbl">Review note</span><b>Live today, and absent from this site until now.</b> <code>parcel.delivery_address_changed</code> notifies the <b>sender and the runner</b> — never the receiver, who made the change and already knows. The sender body is built inline in <code>Subscribers::ParcelHandler</code> rather than from a <code>NotificationTemplate</code>, so it is the one receiver-driven sender message that cannot be edited without a deploy.<br><br><b>Changed from the live body:</b> <i>“parcel {{code}} should be delivered to…”</i> is passive and buries the change. Both addresses belong in the message, in the order old-then-new, because the sender is checking whether this is a correction or a problem.</div><div class="tp-note warm"><span class="nlbl">Warmth</span>None, deliberately. This is a fact about their parcel, and the shortest version is the kindest.</div>
+    <div class="tp-cols" style="margin-top:18px">
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">147 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span> moved the delivery for Parcel <span class="tok">{{code}}</span> from <span class="tok">{{origin}}</span> to <span class="tok">{{dest}}</span>.
+<span class="tok">{{runner}}</span> has the new address. Nothing for you to do.</div></div></div>
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Live today</span><span class="count">112 chars · 1 segment</span></div><div class="old"><span class="tok">{{name}}</span> has changed where parcel <span class="tok">{{code}}</span> should be delivered to <span class="tok">{{dest}}</span>. It was <span class="tok">{{origin}}</span>.</div></div><div class="msg"><span class="lbl">Rules</span><ul><li>The last line is the point. A sender who reads that their receiver changed something will assume they have to act unless the message says otherwise.</li><li>Pull this into a <code>NotificationTemplate</code> key. Every other message in the estate is editable without a deploy; this one is not, and there is no reason for it.</li></ul></div></div>
+    </div>
+  </div>
 </article><h3 class="stage">Delivered</h3>
 <article class="tp" id="S3">
   <div class="tp-head">
@@ -361,8 +383,8 @@ It is safe at <span class="tok">{{station}}</span>. Choose redeliver or return b
 </main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the door total that moves without a message</p>
-    <p>Internal working document. Build 17.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 1 November 2026 · the real count, and the third rail</p>
+    <p>Internal working document. Build 18.</p>
   </div>
 </footer>
 <script>

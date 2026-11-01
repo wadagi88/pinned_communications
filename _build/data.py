@@ -2756,3 +2756,236 @@ _by_id["C9"].update(dict(
 
 OPEN_QUESTIONS = [q for q in OPEN_QUESTIONS
                   if not q["q"].startswith("Why is the priced extension SMS sent only for pay-now")]
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUND SIX · 1 November — the count was wrong, and the gate has three rails
+#
+# The public choice session walked the prototype head (59a4c68b) and corrected
+# three things this site was publishing. All three verified here against the
+# tree before being written down:
+#   · code_held? has THREE rails — a priced pay-now relocation holds the code.
+#   · "Two SMS" does not survive contact with the code. A first-time business
+#     door delivery is three; an individual send is four.
+#   · The individual's SMS link is /track/<token>, but HomeController#track
+#     redirects a private-link individual to /p/<token>. Link and page differ.
+# ═══════════════════════════════════════════════════════════════════════════
+
+BUILD = 18
+UPDATED = "1 November 2026 · the real count, and the third rail"
+
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+
+DISPATCH_RULES[2] = dict(
+    n="03", t="One SMS when the parcel is created",
+    p="Whoever created it, exactly one SMS goes out at creation. The entry state and the money "
+      "change what it says. Nothing changes the count. This is the only part of the old "
+      "“two messages” rule that survived reading the code.")
+
+DISPATCH_RULES[3] = dict(
+    n="04", t="Then a code, then — once ever — a rating. Four on an individual send",
+    p="The honest count, per journey: a <b>business door delivery</b> is three the first time "
+      "(created, the code, the rating) and two after, because "
+      "<code>DeliveredNotifier.asked_before?</code> keys on the receiver's phone across every "
+      "parcel they have ever had. An <b>individual send</b> is four the first time, because the "
+      "parcel physically leaves the sender and "
+      "<code>parcel_dropped</code>/<code>parcel_dropped_runner</code> says so. "
+      "<b>Free collection is two</b>, and gets no rating at all — "
+      "<code>DeliveredNotifier</code> returns early without a <code>dest_address</code> and a "
+      "runner. Quoting “two” at every journey was tidy and false.")
+
+GATE_INTRO = (
+    "The doorstep code is the only thing Pinned withholds from anybody, so the rule behind it is "
+    "worth stating exactly. It is <b>not</b> a property of the fee mode — <code>pay_now + goods</code> "
+    "and <code>covered + goods</code> hold the code too — and the <b>three</b> things that hold it "
+    "are released by three different parties, which the copy must never blur.")
+
+GATE_RAILS = [
+    dict(t="The rule, verbatim",
+         p="<code>code_held? = trip_fee_due? || goods_owed? || extension_payment_due?</code>, from "
+           "<code>Parcel::FeeMode</code>. Three conditions, any one of which is enough. A journey "
+           "that trips two of them has to satisfy both before a single character is sent."),
+    dict(t="Rail one · the trip fee releases itself",
+         p="<code>cod_flag? &amp;&amp; !business_covered? &amp;&amp; !fully_paid?</code>. An M-Pesa "
+           "STK the receiver starts on the page; it clears when "
+           "<code>payment_confirmed_at</code> is set. Nobody approves it, and <b>the runner never "
+           "touches money</b>. This is the rail the copy already describes correctly."),
+    dict(t="Rail two · the goods are released by the seller",
+         p="<code>goods_enabled? &amp;&amp; goods_confirmed_at.nil?</code>. Goods are paid on the "
+           "seller's own rails and <b>Pinned cannot see that money</b>. The receiver files a "
+           "<code>goods_payment_claimed</code> interaction and the seller releases the code from "
+           "the host portal. The receiver is waiting on a person, and the copy has to say so "
+           "rather than implying a machine is checking."),
+    dict(t="Rail three · an unpaid relocation holds it too",
+         p="<code>extension.open? &amp;&amp; extension.payment_due?</code>. A pay-now receiver who "
+           "has been quoted a relocation fee and not yet paid it has their code held — on a parcel "
+           "that may have had nothing owed ten minutes earlier. <b>This site missed it entirely</b>, "
+           "which is why <a href=\"#C9\">C9</a>'s line <i>“your handover code stays locked until "
+           "this clears”</i> is a statement of fact and not a flourish."),
+    dict(t="Three release events, one message",
+         p="<code>parcel.handover_code_released</code> fires once, whichever rail cleared last, and "
+           "<code>handover_code_ready</code> / <code>handover_code_ready_covered</code> carry the "
+           "code. It is still one message, and it still carries only the code."),
+    dict(t="One disclosure path, for every channel",
+         p="Every disclosure of the doorstep code goes through "
+           "<code>disclosable_handover_code</code> — page, SMS and JSON alike. In the helper's own "
+           "words: <i>if the raw column reaches a client while held, the hold is cosmetic.</i>"),
+    dict(t="The pickup code is never gated",
+         p="<code>virtual_host_otps.otp_code</code> is a different object and is never held — in "
+           "<code>Parcel::FeeMode</code>'s own comment, <i>a runner must always be able to collect "
+           "from the host branch regardless of what the receiver owes</i>. Two codes, two words, "
+           "never used interchangeably."),
+]
+
+
+TOUCHPOINTS += [
+    T(id="C1e", lane="receiver", stage="In transit", name="It has left the sender",
+      trigger="An individual's parcel is dropped at a Pod, or collected from the sender by a runner",
+      timing="At the drop or the pickup · once", channels=["sms"], status="live",
+      key="parcel_dropped / parcel_dropped_runner",
+      source="Dev branch · Receiver::DropNotifier · 1 Nov", hook="Reward",
+      intent="The create message said this would happen. This is the message that says it did.",
+      warmth="Nothing extra. The fact is the reward — a stranger's promise turned into a movement they can watch.",
+      review="<b>The message this site did not know existed, and the reason the count was wrong.</b> "
+             "<code>Receiver::DropNotifier.notify_parcel_dropped</code> fires on the sender-drop "
+             "path with two template keys — <code>parcel_dropped</code> when there is an "
+             "<code>origin_station</code>, <code>parcel_dropped_runner</code> when a runner "
+             "collected — guarded once by a <code>receiver_drop_notified</code> event.<br><br>"
+             "<b>It is the present-tense half of the C1a split.</b> "
+             "<code>ParcelOrigin.individual_status_line</code> belongs here, not at creation, and "
+             "this is the message it was written for. An individual send therefore costs four SMS "
+             "the first time, not three.",
+      msgs=[("sms", "Good news {{name}} — {{sender_name}} has sent you a parcel.\nIt's paid and waiting at {{station}}, heading to you now.\nTrack it: {{track_url}}\n[dropped at a Pod]"),
+            ("sms", "Good news {{name}} — {{sender_name}} has sent you a parcel.\nIt's paid, and {{runner}} is collecting it from {{origin}} now.\nTrack it: {{track_url}}\n[a runner collected it]")],
+      rules=["Present tense, because something has now actually happened. The future-tense version "
+             "is <a href=\"#C1a\">C1a</a> and fires at creation.",
+             "Once per parcel, guarded by the <code>receiver_drop_notified</code> event. A second "
+             "drop notification against one parcel is a bug, not a reminder.",
+             "This is the only receiver message that exists purely to confirm a promise. It earns "
+             "its segment because the promise was made to somebody who had never heard of us."]),
+
+    T(id="S7", lane="sender", stage="In transit", name="Your receiver moved the drop",
+      trigger="The receiver changes the delivery address, by confirm-page nudge or by extension",
+      timing="On the address change", channels=["sms"], status="live",
+      source="Dev branch · ParcelHandler#notify_sender_address_changed · 1 Nov", hook="Trigger",
+      intent="Somebody changed the sender's instruction. Tell them, with both addresses, and ask for nothing.",
+      warmth="None, deliberately. This is a fact about their parcel, and the shortest version is the kindest.",
+      review="<b>Live today, and absent from this site until now.</b> "
+             "<code>parcel.delivery_address_changed</code> notifies the <b>sender and the "
+             "runner</b> — never the receiver, who made the change and already knows. The sender "
+             "body is built inline in <code>Subscribers::ParcelHandler</code> rather than from a "
+             "<code>NotificationTemplate</code>, so it is the one receiver-driven sender message "
+             "that cannot be edited without a deploy.<br><br>"
+             "<b>Changed from the live body:</b> <i>“parcel {{code}} should be delivered to…”</i> "
+             "is passive and buries the change. Both addresses belong in the message, in the order "
+             "old-then-new, because the sender is checking whether this is a correction or a "
+             "problem.",
+      old="{{name}} has changed where parcel {{code}} should be delivered to {{dest}}. It was {{origin}}.",
+      msgs=[("sms", "{{name}} moved the delivery for Parcel {{code}} from {{origin}} to {{dest}}.\n{{runner}} has the new address. Nothing for you to do.")],
+      rules=["The last line is the point. A sender who reads that their receiver changed something "
+             "will assume they have to act unless the message says otherwise.",
+             "Pull this into a <code>NotificationTemplate</code> key. Every other message in the "
+             "estate is editable without a deploy; this one is not, and there is no reason for it."]),
+]
+for _t in TOUCHPOINTS:
+    _t.setdefault("review", None)
+    _t.setdefault("warmth", None)
+_by_id = {t["id"]: t for t in TOUCHPOINTS}
+
+ORDER.insert(ORDER.index("C1b") + 1, "C1e")
+ORDER.insert(ORDER.index("S3"), "S7")
+TOUCHPOINTS.sort(key=lambda t: ORDER.index(t["id"]))
+
+# ── C1a: the link and the page are not the same thing ──────────────────────
+_by_id["C1a"]["rules"] = [
+    "Future tense, because nothing has happened yet. The present-tense version is "
+    "<a href=\"#C1e\">C1e</a>, which fires when the parcel actually leaves the sender.",
+    "<b>The link is <code>/track/</code>; the page is <code>/p/</code>.</b> "
+    "<code>HomeController#track</code> redirects a private-link individual straight to the choice "
+    "page, where <code>_delivery_live</code> renders the confirm-address step on top of the live "
+    "timeline. The link stays <code>/track/</code> because that is the surface a typed parcel "
+    "reference reaches, and only the private link proves who is holding the phone.",
+    "The 500 m nudge is <b>individuals only</b> — "
+    "<code>DeliveryAddressUpdate.editable?</code> requires <code>individual_send_now?</code>. "
+    "Business and handler confirm screens change an address by a different path, with no cap.",
+]
+_by_id["C1a"]["review"] += (
+    "<br><br><b>Round six · corrected.</b> This site said <i>“<code>/track/</code>, never "
+    "<code>/p/</code>”</i>. The link is <code>/track/</code> and the page is <code>/p/</code>: "
+    "<code>HomeController#track</code> redirects on "
+    "<code>private_link &amp;&amp; individual_send_now? &amp;&amp; !turbo_frame</code>. The "
+    "practical consequence for copy is nil — the receiver sees a tracker link and lands on a page "
+    "that opens with their address — but a rule stated wrongly gets followed wrongly.")
+
+# ── C9: fire it from Apply, on its own event ───────────────────────────────
+_by_id["C9"]["rules"] = _by_id["C9"]["rules"] + [
+    "<b>The pay-on-delivery variant fires from <code>Extensions::Apply</code>, not "
+    "<code>Quote</code>.</b> At quote time the fee is only <i>priced</i> — a proposal that can "
+    "lapse in twenty minutes — and <code>confirmed_charge_kes</code> is untouched, so nothing "
+    "about their door total is true yet. It becomes true in <code>Apply#update_parcel!</code>.",
+    "It needs its own event. <code>parcel.delivery_address_changed</code> is also published by the "
+    "500 m confirm-page update, so subscribing to it would text a door total to individuals who "
+    "nudged a pin. A dedicated <code>parcel.extension_applied</code>, gated on "
+    "<code>fee_mode == \"pay_on_delivery\"</code>, is the clean seam.",
+]
+
+# ── C7: it is once per receiver in the code, and not on every journey ──────
+_by_id["C7"]["review"] += (
+    "<br><br><b>Round six · confirmed in the code, with one limit this site had not stated.</b> "
+    "<code>DeliveredNotifier.asked_before?</code> keys on the receiver's <i>phone number</i> "
+    "across every parcel it has ever appeared on, so “once per receiver, ever” is literally true. "
+    "It also returns early unless there is a <code>dest_address</code> and an assigned runner — "
+    "so <b>nobody who collects for free is ever asked to rate anything</b>. That is defensible "
+    "(there is no runner to rate) but it means the rating sample is doorstep-only, and the lane's "
+    "SMS count differs by journey.")
+
+OPEN_QUESTIONS = [
+    dict(q="Should the 500 m nudge and the runner's relocation be one mechanism?",
+         why="They are two code paths with opposite rules today. "
+             "<code>Receiver::DeliveryAddressUpdate</code> is individuals-only, caps the move at "
+             "<b>500 m</b>, never re-prices, and <b>hard-blocks</b> beyond the cap — <i>“contact "
+             "{{from}} to change it”</i>. <code>Receiver::Extensions</code> is runner-initiated, "
+             "has no distance cap at all, and prices whatever comes back. A receiver can therefore "
+             "be refused a 600 m correction at breakfast and sold a 6 km one at the door. The "
+             "stated intent is to unify them — under 500 m no change, beyond it recalculate the "
+             "delivery fee for the new location — and <b>until that lands, no copy on this site "
+             "may imply a single “move your delivery” rule</b>, because there isn't one.",
+         who="Product"),
+] + OPEN_QUESTIONS
+
+
+JOURNEYS["receiver"] = dict(
+    headline="Three SMS on a business door delivery, four on an individual send, two to collect",
+    sub="The count is not one number, and pretending it was is how this site got it wrong. What is "
+        "constant: <b>one</b> message at creation, whose verb is set by the entry state — confirm, "
+        "choose, or track and confirm — and <b>one</b> carrying the code, whenever the last of the "
+        "three gate rails clears. An individual send adds a message when the parcel actually leaves "
+        "the sender. A door delivery adds the rating, once per receiver ever. Free collection gets "
+        "neither.",
+    steps=[
+        J("1", "Address already known", "C1d", "sms", "Just confirm your address is correct", "The commonest business case. No choice, no distance screen.", grp="First contact · the verb is the entry state"),
+        J("1b", "…no address on the parcel", "C1", "sms", "Collect it free, or have it delivered", "A real choice, so free is named first.", off=True),
+        J("1c", "…an individual sent it", "C1a", "sms", "It's paid — track it and confirm your address", "Future tense. The link is /track/, the page it lands on is /p/.", off=True),
+        J("1d", "…or a handler received it", "C1c", "sms", "Hi — your parcel from {{town}} has arrived", "“Hi”, not “Good news”. The choose step is also the consent step.", off=True),
+        J("2", "It leaves the sender", "C1e", "sms", "Dropped at {{station}} / {{runner}} is collecting it now", "Individual sends only. The present-tense half of the C1a split.", grp="On the move · individual sends only"),
+        J("—", "Shop hands it to the runner", "C1b", "in_app", "Tracking goes live on the page", "A business parcel never left anybody's house. No message."),
+        J("3", "The last rail clears", "C2c", "sms", "Your handover code is {{otp}}", "Trip fee, goods, or an unpaid relocation — whichever cleared last.", grp="The code · one message, three rails"),
+        J("3b", "…or they chose to collect", "C2", "sms", "Station, hours, code, deadline", "The pickup code is never gated. Free collection is free.", off=True),
+        J("—", "Runner reaches the door", "C2b", "retire", "Nothing — the page is tracking live and the runner is there", "Retired. An SMS is the slowest way to talk to someone standing in front of a runner.", flag="retire"),
+        J("4", "Delivered", "C7", "sms", "It's all yours — rate your runner", "Once per receiver, ever, and never on a free collection.", grp="Afterwards · once per phone number, ever"),
+        J("+", "Runner can't find them", "C8", "sms", "Moved on? 20 minutes, then it goes back", "One ask per delivery, while assigned or in transit.", grp="Exceptions · only when something goes wrong"),
+        J("+", "They give a new spot", "C9", "sms", "Priced, or folded into the door total", "Two variants. Covered hears nothing, because nothing about them changed."),
+        J("+", "Nobody answers in time", "C10", "sms", "Going back to {{branch}}. No charge", "Not built. Today the request lapses and nothing is sent.", flag="open"),
+        J("+", "Running late", "C3", "sms", "New arrival time, reason, tracking", "A broken promise gets its own message."),
+        J("+", "Half the clock gone", "C4a", "sms", "Still here, code, opening hours, deadline", "Rung 1. No charges apply, so none are mentioned.", grp="Nobody collected · four rungs, then silence"),
+        J("+", "Clock nearly out", "C4b", "sms", "Free storage ends {{deadline}}, then the rate", "Rung 2. Where most door-delivery conversions happen."),
+        J("+", "Clock runs out", "C4c", "sms", "Storage started, and how to stop it", "Rung 3. The link has to settle the charge, not just book a delivery."),
+        J("+", "Day 7", "C4d", "sms", "Goes back today — or we bring it to you today", "Rung 4. The pack keeps the door open to the last message."),
+        J("+", "Asks for more storage time", "C6a", "sms", "Approved — new deadline", "Time, not distance. C9 is the other one."),
+    ])
+
+JOURNEYS["sender"]["steps"].insert(
+    [i for i, s in enumerate(JOURNEYS["sender"]["steps"]) if s["tp"] == "S3"][0],
+    J("+", "The receiver moves the drop", "S7", "sms", "Moved from {{origin}} to {{dest}} — nothing to do", "Live today, and built inline rather than from a template."))
+
+JOURNEYS["receiver"]["budget"] = ("3 SMS on a business door delivery · 4 on an individual send · 2 to collect")

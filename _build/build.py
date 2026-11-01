@@ -500,17 +500,18 @@ def build_index():
     <p><a href="principles.html">The nine principles →</a></p>
   </div>
   <div class="card accent-flow">
-    <span class="lbl">Round five · 1 November</span>
-    <h3 style="margin-top:8px">The entry state writes the first sentence</h3>
-    <p>Resynced against the receiver surface as it stands on the dev branch. First contact no longer
-      branches only on who sent the parcel — it branches on what the person has to <b>do</b> when the
-      link opens, which the page derives from one field. Confirm an address, choose how to get it, or
-      track it: three verbs, eleven cases, still two messages.</p>
-    <p>That found a message this site did not have — <b>C1d</b>, the confirm-only first contact, the
-      commonest business case on the branch — and one the branch does not have: when a “can't find
-      you” request lapses, the parcel goes back and <b>nothing is sent</b>.</p>
-    <p><a href="receivers.html#cases">The eleven cases →</a> ·
-       <a href="receivers.html#gate">The gate →</a> ·
+    <span class="lbl">Round six · 1 November</span>
+    <h3 style="margin-top:8px">The count was wrong, and the gate has three rails</h3>
+    <p>Walked against the dev branch with the team building the receiver page. Two of this site's
+      published rules did not survive it. <b>“Exactly two SMS”</b> was tidy and false: a business
+      door delivery is three the first time, an individual send is four, and a free collection is
+      two and never gets asked to rate anything. <b>The gate has three rails</b>, not two — an
+      unpaid relocation holds the code on a parcel that owed nothing ten minutes earlier.</p>
+    <p>Two live messages had no entry here at all: <b>C1e</b>, the drop SMS that is the present-tense
+      half of the individual split, and <b>S7</b>, which tells a sender their receiver moved the
+      delivery — the one message in the estate built inline instead of from a template.</p>
+    <p><a href="receivers.html#journey">The real counts →</a> ·
+       <a href="receivers.html#gate">The three rails →</a> ·
        <a href="gaps.html#open-questions">Fourteen open questions →</a></p>
   </div>
 </div>""" % (e(D.EVIDENCE["title"]), D.EVIDENCE["body"], e(D.EVIDENCE["close"])))
@@ -724,15 +725,18 @@ def build_lane(lane):
     tps = by_lane(key)
     h = lane["hook"]
     n_path, n_all = len(sms_steps(key, True)), len(sms_steps(key))
+    budget = D.JOURNEYS.get(key, {}).get("budget") or \
+        "%d SMS on a journey that works" % n_path
     body = phead("The lanes",
-                 "%d touchpoints · %d SMS on a journey that works · %d more only when something goes wrong"
-                 % (len(tps), n_path, n_all - n_path),
+                 "%d touchpoints · %s · %d more only when something goes wrong"
+                 % (len(tps), budget, n_all - n_path),
                  lane["title"])
 
     body += section("01", "The SMS journey",
                     "Every moment in order, grouped, and the channel that carries it. Highlighted rows "
-                    "cost an SMS; everything unhighlighted is a deliberate decision not to spend one. "
-                    "The arrow on the right of each row jumps to the copy.",
+                    "cost an SMS — <b>%s</b> — and everything unhighlighted is a deliberate decision "
+                    "not to spend one. The arrow on the right of each row jumps to the copy."
+                    % budget,
                     render_journey(key), anchor="journey")
 
     if key == "receiver":
