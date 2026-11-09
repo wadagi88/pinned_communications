@@ -313,6 +313,8 @@ def section(num, title, sub, body, anchor=None):
 </div></section>""" % (a, e(num), e(title), sub_html, body)
 
 
+WORDS = {7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}
+
 CH_SHORT = {"sms": "SMS", "push": "Push", "in_app": "In-app", "email": "Email",
             "whatsapp": "WhatsApp", "retire": "None"}
 
@@ -643,7 +645,7 @@ def build_principles():
                     '<th>What the customer reads</th></tr></thead><tbody>%s</tbody></table></div>' % gl)
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page("principles.html", "Voice · Pinned Communications",
-                "The eight principles, the clarity contract and the hook framework.", body,
+                "The principles, the clarity contract and the hook framework.", body,
                 "principles.html")
 
 
@@ -672,7 +674,7 @@ def build_channels():
     laws = "".join(
         '<div class="card accent-mag"><span class="sec-num">%02d</span><h3 style="margin-top:6px">%s</h3><p>%s</p></div>'
         % (i + 1, e(l["t"]), l["p"]) for i, l in enumerate(D.LAWS))
-    body += section("02", "The eight laws",
+    body += section("02", "The %s laws" % WORDS.get(len(D.LAWS), len(D.LAWS)),
                     "These are the decisions that stop the estate drifting back into noise. Each one is "
                     "enforceable in <code>Notifications::DispatchWorker</code> rather than trusted to "
                     "whoever writes the next template.",

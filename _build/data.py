@@ -3028,3 +3028,56 @@ _by_id["C10"]["review"] += (
     "<br><br>When this is built it takes <code>{{wait}}</code> from the same "
     "<code>ParcelExtension::WAIT_LABEL</code> that <a href=\"#C8\">C8</a> now uses, so the ask and "
     "the lapse quote one number that neither of them owns.")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUND SEVEN · 10 November — who the message is from
+#
+# The email template set arrived on branch email/transactional-templates with
+# a question attached: the campaign fixtures send from pinnedflow.com while the
+# brand is PinnedFlow.app, and that might just be stale fixture data.
+#
+# It is not. Grepping app/ and config/ in pinned-core returns five addresses
+# across two domains, and the split runs straight through the live estate.
+# ═══════════════════════════════════════════════════════════════════════════
+
+BUILD = 20
+UPDATED = "10 November 2026 · one estate, two domains"
+
+LAWS = LAWS + [
+    dict(t="One identity per class, and never one role on two domains",
+         p="Pinned sends three classes of mail and they cannot share a sending identity: "
+           "<b>transactional</b> (a code, a receipt, a statement — must arrive), "
+           "<b>operational</b> (a host primer, a runner notice), and <b>outreach</b> (cold pitches, "
+           "campaigns). They are separated so that a complaint about the third can never delay the "
+           "first. That separation is worthless if the same role answers on two domains, which is "
+           "what the estate does today — see the open question."),
+]
+
+OPEN_QUESTIONS = [
+    dict(q="Is Pinned pinnedflow.app or pinnedflow.com — and which one has the DNS?",
+         why="This is not stale fixture data. <code>pinned-core</code> carries <b>five addresses "
+             "across two domains</b>, and they are split by accident rather than by role:<br><br>"
+             "<b>The only real From header is <code>.app</code>.</b> "
+             "<code>config/initializers/devise.rb</code> sets "
+             "<i>Pinned Support &lt;support@pinnedflow.app&gt;</i>. So is the runner portal's "
+             "<code>runners@pinnedflow.app</code>.<br><br>"
+             "<b>Everywhere a customer is told to write to us, it is <code>.com</code>.</b> "
+             "<code>batch_subscriber.rb</code>, <code>runner_subscriber.rb</code> and "
+             "<code>route_batch/admin_actions.rb</code> all end on "
+             "<i>“Questions? hello@pinnedflow.com”</i> — and so do "
+             "<code>config/content/site.yml</code> and <code>legal.yml</code>, which is where the "
+             "refund route and the complaints route live. Those two are legally operative "
+             "addresses, not copy.<br><br>"
+             "<b>And one message already disagrees with the others.</b> "
+             "<code>dwell/notifier.rb</code> gives the same contact address as "
+             "<code>hello@pinnedflow<b>.app</b></code>. Two live messages, one role, two domains.<br><br>"
+             "Three things ride on the answer. <b>Deliverability</b> — DKIM, DMARC and later BIMI "
+             "attach to the From domain, and signing one while sending as the other is how a "
+             "collection code lands in spam. <b>Trust</b> — a receiver holding a parcel from "
+             "<i>pinnedflow.app</i> who is asked to email <i>.com</i> has a phishing question to "
+             "answer, and the honest answer is that we do not know either. <b>Reachability</b> — "
+             "if <code>.com</code> has no MX record, every refund and complaint route in the legal "
+             "pages is a dead letter. <b>Check that before anything else.</b>",
+         who="Founder"),
+] + OPEN_QUESTIONS
