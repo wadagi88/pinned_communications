@@ -1,0 +1,215 @@
+<!--
+  PINNED FLOW — EMAIL BLOCKS
+  Drop-in snippets for pinned-email-template.html.
+
+  Each block is a complete <tr> and goes inside the card's inner table,
+  between the headline block and the CTA block, in the order you want them.
+
+  Rules these are built to (playbook §06, §07; comms principles):
+    · Flow lane colours only. OS Blue never appears.
+    · DM Mono is reserved for codes, prices, timestamps and IDs.
+    · One CTA, and it always carries the link.
+    · "UKO WAPI?" belongs to the sign-up message only — never in blocks 2-6.
+    · Figures come from the live board, pulled the morning you send, and dated.
+
+  Dark mode: blocks 1, 2 and 5 adapt via the px-* classes. Blocks 3 and 4 are
+  brand grounds (anthracite, Locker Green) and deliberately do NOT invert.
+-->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     BLOCK 1 — HEADLINE + BODY                                  always
+     ══════════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="px-pad" style="padding:36px 40px 0 40px;">
+    <h1 class="px-h1 px-ink" style="margin:0 0 16px 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:30px; line-height:36px; font-weight:800; letter-spacing:-0.5px; color:#2B2B2B; mso-line-height-rule:exactly;">
+      {{headline}}
+    </h1>
+    <p class="px-ink" style="margin:0 0 16px 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:25px; color:#2B2B2B; mso-line-height-rule:exactly;">
+      {{body_1}}
+    </p>
+    <p class="px-ink" style="margin:0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:25px; color:#2B2B2B; mso-line-height-rule:exactly;">
+      {{body_2}}
+    </p>
+  </td>
+</tr>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     BLOCK 2 — DETAIL PANEL                 Pod · bay · reference · amount
+     Repeat the label/value pair for each row. Values that are codes,
+     prices, timestamps or IDs take the mono stack; names take DM Sans.
+     ══════════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="px-pad" style="padding:24px 40px 0 40px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="px-panel" style="background-color:#F1EDE6; border-radius:10px;">
+      <tr><td style="padding:20px 22px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+          <tr><td class="px-ink2" style="padding:0 0 4px 0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:11px; line-height:16px; letter-spacing:1.2px; text-transform:uppercase; color:#6E6A61;">{{row_1_label}}</td></tr>
+          <tr><td class="px-ink" style="padding:0 0 14px 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:22px; font-weight:700; color:#2B2B2B;">{{row_1_value}}</td></tr>
+
+          <tr><td class="px-ink2" style="padding:0 0 4px 0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:11px; line-height:16px; letter-spacing:1.2px; text-transform:uppercase; color:#6E6A61;">{{row_2_label}}</td></tr>
+          <tr><td class="px-ink" style="padding:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:18px; line-height:24px; font-weight:500; letter-spacing:1px; color:#2B2B2B;">{{row_2_value}}</td></tr>
+
+        </table>
+      </td></tr>
+    </table>
+  </td>
+</tr>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     BLOCK 3 — CODE REVEAL                            the PIN, transactional
+     The email equivalent of the Code Reveal post template: mono digits,
+     large, on anthracite, with the Locker Green tick. Does not invert.
+     ══════════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="px-pad" style="padding:24px 40px 0 40px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#2B2B2B; border-radius:10px;">
+      <tr><td align="center" style="padding:26px 22px 24px 22px;">
+        <p style="margin:0 0 10px 0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:11px; line-height:16px; letter-spacing:1.4px; text-transform:uppercase; color:#C0DB86;">
+          &#10003;&nbsp; {{code_label}}
+        </p>
+        <p style="margin:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:38px; line-height:46px; font-weight:500; letter-spacing:8px; color:#FFFFFF; mso-line-height-rule:exactly;">
+          {{otp}}
+        </p>
+        <p style="margin:12px 0 0 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px; line-height:19px; color:#A8A49C;">
+          {{code_caption}}
+        </p>
+      </td></tr>
+    </table>
+  </td>
+</tr>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     BLOCK 4 — PROOF SLAB                        live board figures, dated
+     Pull these from pinnedflow.app/vhost on the MORNING you send.
+     Never round up. Never add a rating. Date it, always.
+     ══════════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="px-pad" style="padding:24px 40px 0 40px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#C0DB86; border-radius:10px;">
+      <tr><td style="padding:22px 24px;">
+        <p style="margin:0 0 14px 0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:11px; line-height:16px; letter-spacing:1.4px; text-transform:uppercase; color:#2B2B2B;">
+          Live board &middot; {{board_date}}
+        </p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td class="px-stack" width="33%" valign="top" style="padding:0 8px 0 0;">
+              <p style="margin:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:28px; line-height:34px; font-weight:500; color:#2B2B2B;">{{board_businesses}}</p>
+              <p style="margin:2px 0 0 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; color:#2B2B2B;">businesses sending</p>
+            </td>
+            <td class="px-stack" width="33%" valign="top" style="padding:0 8px;">
+              <p style="margin:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:28px; line-height:34px; font-weight:500; color:#2B2B2B;">{{board_riders}}</p>
+              <p style="margin:2px 0 0 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; color:#2B2B2B;">riders out right now</p>
+            </td>
+            <td class="px-stack" width="33%" valign="top" style="padding:0 0 0 8px;">
+              <p style="margin:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:28px; line-height:34px; font-weight:500; color:#2B2B2B;">{{board_parcels}}</p>
+              <p style="margin:2px 0 0 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; color:#2B2B2B;">parcels delivered</p>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:16px 0 0 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px; line-height:19px; color:#3F4A2E;">
+          Counted, not estimated. <a href="https://pinnedflow.app/vhost" style="color:#2B2B2B; text-decoration:underline;">Check it yourself</a>.
+        </p>
+      </td></tr>
+    </table>
+  </td>
+</tr>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     BLOCK 5 — PROMISE                            one of the thirteen, named
+     If you cannot name which promise this email sells, the email is not
+     ready. One promise per email. Never two.
+     ══════════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="px-pad" style="padding:26px 40px 0 40px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td width="4" style="background-color:#C8005A; border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>
+        <td style="padding-left:18px;">
+          <p class="px-ink" style="margin:0 0 6px 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:18px; line-height:25px; font-weight:700; color:#2B2B2B;">
+            {{promise}}
+          </p>
+          <p class="px-ink2" style="margin:0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; color:#6E6A61;">
+            {{promise_support}}
+          </p>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     BLOCK 6 — CTA + ADDRESS                                        always
+     One call. The link always travels with it. No gating, no "reply to
+     find out", no keyword barriers.
+     ══════════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="px-pad px-btn" align="left" style="padding:28px 40px 0 40px;">
+    <!--[if mso]>
+    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{cta_url}}" style="height:48px;v-text-anchor:middle;width:280px;" arcsize="21%" stroke="f" fillcolor="#C8005A">
+      <w:anchorlock/>
+      <center style="color:#FFFFFF;font-family:Arial,sans-serif;font-size:16px;font-weight:bold;">{{cta_label}}</center>
+    </v:roundrect>
+    <![endif]-->
+    <!--[if !mso]><!-- -->
+    <a href="{{cta_url}}" style="display:inline-block; background-color:#C8005A; color:#FFFFFF; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; font-weight:700; line-height:48px; text-align:center; text-decoration:none; border-radius:10px; padding:0 34px; mso-hide:all;">{{cta_label}}</a>
+    <!--<![endif]-->
+  </td>
+</tr>
+<tr>
+  <td class="px-pad" style="padding:14px 40px 0 40px;">
+    <p class="px-ink2" style="margin:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:12px; line-height:18px; color:#6E6A61;">
+      Or open <a href="{{cta_url}}" style="color:#6E6A61; text-decoration:underline;">{{cta_url_plain}}</a>
+    </p>
+  </td>
+</tr>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     BLOCK 7 — HOW IT WORKS                        four steps, then two answers
+     For any audience that has to change something at their counter. Written
+     to be true whether they run parcel software, receipt books or a ledger —
+     never assume which, and never ask them to replace it. Repeat or drop a
+     numbered <tr> to change the step count; keep padding-bottom off the last.
+     ══════════════════════════════════════════════════════════════════════ -->
+<tr>
+  <td class="px-pad" style="padding:28px 40px 0 40px;">
+    <p class="px-ink" style="margin:0 0 14px 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:25px; font-weight:700; color:#2B2B2B;">{{how_heading}}</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+      <tr>
+        <td width="34" valign="top" style="font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:13px; line-height:24px; font-weight:500; color:#C8005A;">01</td>
+        <td class="px-ink" style="padding-bottom:12px; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; color:#2B2B2B;"><b>{{step_1}}</b> {{step_1_detail}}</td>
+      </tr>
+      <tr>
+        <td width="34" valign="top" style="font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:13px; line-height:24px; font-weight:500; color:#C8005A;">02</td>
+        <td class="px-ink" style="padding-bottom:12px; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; color:#2B2B2B;"><b>{{step_2}}</b> {{step_2_detail}}</td>
+      </tr>
+      <tr>
+        <td width="34" valign="top" style="font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:13px; line-height:24px; font-weight:500; color:#C8005A;">03</td>
+        <td class="px-ink" style="padding-bottom:12px; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; color:#2B2B2B;"><b>{{step_3}}</b> {{step_3_detail}}</td>
+      </tr>
+      <tr>
+        <td width="34" valign="top" style="font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:13px; line-height:24px; font-weight:500; color:#C8005A;">04</td>
+        <td class="px-ink" style="font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; color:#2B2B2B;"><b>{{step_4}}</b> {{step_4_detail}}</td>
+      </tr>
+
+    </table>
+  </td>
+</tr>
+<tr>
+  <td class="px-pad" style="padding:18px 40px 0 40px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr><td class="px-rule" style="padding:16px 0 0 0; border-top:1px solid #E6E0D6;">
+        <p class="px-ink" style="margin:0 0 8px 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; color:#2B2B2B;"><b>{{q_1}}</b> {{a_1}}</p>
+        <p class="px-ink" style="margin:0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; color:#2B2B2B;"><b>{{q_2}}</b> {{a_2}}</p>
+      </td></tr>
+    </table>
+  </td>
+</tr>
