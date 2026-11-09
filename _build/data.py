@@ -817,7 +817,7 @@ CHANNELS = [
          use="Onboarding primers, settlement statements, approvals and rejections with detail, anything with an attachment.",
          avoid="Urgency. Nobody in this business reads email on the road.",
          rules=["The subject line carries the fact — the amount, the date, the decision.",
-                "From notifications@pinned.app, display name Pinned.",
+                "From notifications@pinnedflow.app, display name Pinned.",
                 "One-time explanatory emails say in the message that they are one-time."]),
     dict(k="whatsapp", t="WhatsApp", role="Two-way, where Kenyan commerce actually happens",
          use="Enquiries, group replies, and anything where the answer is a conversation.",
@@ -932,7 +932,7 @@ CODE_NOTES = [
     ("<code>FcmSender</code>", "Posts title, body, tokens and data. No collapse key, no priority, no TTL — add all three."),
     ("<code>Routing::BatchOffer::Build</code>", "Builds the offer push. Radius and vehicle-class filters are commented out; the body is assembled inline rather than from a template."),
     ("<code>MessageTemplate</code>", "Campaign copy, with a validator that already refuses promotional bodies without an opt-out. The prospect sequences belong here."),
-    ("<code>MessageSender</code>", "Sender identity: PINNED for SMS and WhatsApp, notifications@pinned.app for email."),
+    ("<code>MessageSender</code>", "Sender identity: PINNED for SMS and WhatsApp, notifications@pinnedflow.app for email."),
 ]
 
 
@@ -3080,4 +3080,58 @@ OPEN_QUESTIONS = [
              "if <code>.com</code> has no MX record, every refund and complaint route in the legal "
              "pages is a dead letter. <b>Check that before anything else.</b>",
          who="Founder"),
+] + OPEN_QUESTIONS
+
+
+# ── The DNS settles it ──────────────────────────────────────────────────────
+# dig, 10 Nov 2026:
+#   pinnedflow.app  MX mx{,2,3}.zoho.com · NS digitalocean · SPF include:zohomail.com
+#   pinnedflow.com  no MX, no NS, no SPF — not delegated at all
+#   pinned.app      NS sedoparking.com · MX 0 localhost · SPF "v=spf1 -all"
+# So .com is not a choice, it is a dead letter; and pinned.app — which THIS SITE
+# was publishing as the From identity until today — is a parked domain that
+# belongs to somebody else.
+
+BUILD = 21
+UPDATED = "10 November 2026 · the From line, checked against the DNS"
+
+OPEN_QUESTIONS[0] = dict(
+    q="Every address we publish on pinnedflow.com is a dead letter — who fixes the three live messages?",
+    why="The email brief asked whether <code>pinnedflow.com</code> was stale fixture data. It is "
+        "worse than that. <b>A DNS lookup on 10 November returns nothing for it</b> — no MX, no "
+        "SPF, no nameservers; the domain is not delegated. Mail to "
+        "<code>hello@pinnedflow.com</code> cannot be delivered to anybody.<br><br>"
+        "<b>pinnedflow.app is the real one.</b> Zoho MX, DigitalOcean nameservers, "
+        "<code>v=spf1 include:zohomail.com ~all</code>. It is also the only domain in a live "
+        "From header — <code>devise.rb</code> sends as "
+        "<i>Pinned Support &lt;support@pinnedflow.app&gt;</i>.<br><br>"
+        "<b>So this is not a branding choice, it is three broken messages.</b> "
+        "<code>batch_subscriber.rb</code>, <code>runner_subscriber.rb</code> and "
+        "<code>route_batch/admin_actions.rb</code> each end on <i>“Questions? "
+        "hello@pinnedflow.com”</i>, and <code>config/content/site.yml</code> and "
+        "<code>legal.yml</code> route refunds and complaints there. Every one of those is an "
+        "instruction to write to an address that does not exist. "
+        "<code>dwell/notifier.rb</code> already says <code>.app</code>, so the fix is to make the "
+        "other five match it, not to decide anything.<br><br>"
+        "<b>One thing still to confirm:</b> that <code>hello@</code> and "
+        "<code>notifications@</code> mailboxes exist on the Zoho tenant. The domain is right; "
+        "whether those two names are provisioned is not something DNS can answer.",
+    who="Founder")
+
+OPEN_QUESTIONS = [
+    dict(q="Did anything ever send as notifications@pinned.app?",
+         why="<b>This site published that address as the email From identity until today</b>, "
+             "recorded from <code>MessageSender</code> in round one. It is not Pinned's domain. "
+             "<code>pinned.app</code> is parked — nameservers at <code>sedoparking.com</code>, "
+             "<code>MX 0 localhost</code>, and an SPF record of <code>v=spf1 -all</code>, which "
+             "says in as many words that <b>nobody is authorised to send mail as it</b>.<br><br>"
+             "Any message that went out with that From line would have failed SPF outright: "
+             "spam-foldered at best, rejected at worst, and attributed to a domain a parking "
+             "service controls. It no longer appears anywhere in <code>pinned-core</code>'s "
+             "<code>app/</code> or <code>config/</code>, so it may already have been fixed, or it "
+             "may have been wrong in this document and never in production. "
+             "<b>Worth ten minutes in the mail logs to know which</b>, because the two answers "
+             "have very different consequences for sender reputation.<br><br>"
+             "Corrected here to <code>notifications@pinnedflow.app</code>.",
+         who="Engineering"),
 ] + OPEN_QUESTIONS

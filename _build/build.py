@@ -107,7 +107,7 @@ def render_email(payload):
     subject, body = payload
     return (
         '<div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div>'
-        '<div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span>'
+        '<div class="email"><div class="email-head"><span>Pinned · notifications@pinnedflow.app</span>'
         '<b>%s</b></div><div class="email-body">%s</div></div></div>'
         % (tok_html(subject), tok_html(body))
     )

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=20">
+<link rel="stylesheet" href="assets/comms.css?v=21">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -105,7 +105,7 @@
     <div class="chips" style="margin-top:14px"><span class="chip">host_invite</span><span class="chip">Hook · Trigger</span></div>
     <div class="tp-note team"><span class="nlbl">Review note</span><b>Keep email — but activate the template and finish it first.</b> It has to explain the offer, the benefit to the host, the space needed, who installs and maintains, the commercial terms, and how to proceed. Sell the opportunity before asking for the click.</div><div class="tp-note warn"><b>Policy to confirm.</b> The 2 m², installation, maintenance and insurance commitments, and the fee structure, must be confirmed as real before this goes out. State the approved fee rather than implying unspecified earnings.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>An invitation to host a Pinned pod at <span class="tok">{{address}}</span></b></div><div class="email-body">A Pinned pod is a parcel point inside your premises. It brings people through your door who would not otherwise come, and it pays a fee on every parcel that passes through.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinnedflow.app</span><b>An invitation to host a Pinned pod at <span class="tok">{{address}}</span></b></div><div class="email-body">A Pinned pod is a parcel point inside your premises. It brings people through your door who would not otherwise come, and it pays a fee on every parcel that passes through.
 
 It takes about 2 m² and we install, maintain and insure it.
 
@@ -130,7 +130,7 @@ Accept and we will arrange a site visit: <span class="tok">{{link}}</span></div>
     <div class="tp-note team"><span class="nlbl">Review note</span><b>Keep all three — but stop them repeating each other.</b> SMS activates, email teaches the operation (booking, same-day cut-off, collection, handover codes, failed deliveries, weekly settlement), in-app asks for exactly three things: cut-off time, counter contact, settlement number.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">128 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is live on Pinned. You can book deliveries for your clients from today.
-Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b><span class="tok">{{address}}</span> is live — how the operation runs</b></div><div class="email-body">Your station is active from today.
+Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinnedflow.app</span><b><span class="tok">{{address}}</span> is live — how the operation runs</b></div><div class="email-body">Your station is active from today.
 
 Booking: create a delivery in the portal, or let a client book to you. Cut-off for same-day is <span class="tok">{{closing_time}}</span>.
 
@@ -163,7 +163,7 @@ Help: 0700 000 000, or Help in the portal.</div></div></div><div class="msg"><di
     <div class="tp-note team"><span class="nlbl">Review note</span><b>Keep it separate from H1a.</b> A pod host receives, stores and releases; a business sender sends. The email covers verifying a runner, scanning every parcel, releasing the handover code only after the scan, and verifying a customer's collection code. The in-app card asks for opening hours and counter contact.</div>
     <div class="tp-cols" style="margin-top:18px">
       <div><div class="msg"><div class="msg-cap"><span class="lbl">SMS</span><span class="count">112 chars · 1 segment</span></div><div class="sms-bubble"><span class="tok">{{name}}</span>, <span class="tok">{{address}}</span> is registered. Runners can start collecting from today.
-Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b><span class="tok">{{address}}</span> is on the network — what to expect at the counter</b></div><div class="email-body">Runners will start arriving from today.
+Portal: <span class="tok">{{link}}</span></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinnedflow.app</span><b><span class="tok">{{address}}</span> is on the network — what to expect at the counter</b></div><div class="email-body">Runners will start arriving from today.
 
 What a runner shows you: their name in the app, and a scan for every parcel. No scan, no hand-over.
 
@@ -193,7 +193,7 @@ Settlement: weekly, with a statement by email.</div></div></div><div class="msg"
     <div class="chips" style="margin-top:14px"><span class="chip">runner_accepted_host</span><span class="chip">Hook · Action</span></div>
     <div class="tp-note team"><span class="nlbl">Review note</span><b>In-app, plus the explanatory email the first time only.</b> Fire once per assignment, and never repeat it without a meaningful change — an updated ETA goes out only when the estimate moves materially.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{runner}}</span> is collecting <span class="tok">{{stops}}</span> parcels · ETA <span class="tok">{{eta}}</span></b><p>Have them at the counter. Release the handover code only after the scan.</p></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>How hand-over works at <span class="tok">{{address}}</span></b></div><div class="email-body">A runner is on the way for the first time, so here is the sequence.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">In-app</span></div><div class="toast"><b><span class="tok">{{runner}}</span> is collecting <span class="tok">{{stops}}</span> parcels · ETA <span class="tok">{{eta}}</span></b><p>Have them at the counter. Release the handover code only after the scan.</p></div></div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinnedflow.app</span><b>How hand-over works at <span class="tok">{{address}}</span></b></div><div class="email-body">A runner is on the way for the first time, so here is the sequence.
 
 1. They arrive and identify themselves in the app — you see the same name in your portal.
 2. They scan each parcel. The scan is what transfers responsibility from you to Pinned.
@@ -301,7 +301,7 @@ Check the power and the router. If both look fine, call 0700 000 000.</div></div
     <div class="chips" style="margin-top:14px"><span class="chip">Vhost::WeeklySettlementNotifier</span><span class="chip">Hook · Reward</span></div>
     <div class="tp-note team"><span class="nlbl">Review note</span><b>Keep both.</b> Amount in the subject line, and the email states the amount, the parcel count, the period, when the money arrives and where the statement is. Statement stays available as an attachment and in the portal under Settlements.</div><div class="tp-note warn"><b>Policy to confirm.</b> “Within one working day” must match what finance actually does. If it does not, change the sentence rather than the finance process — a settlement promise we miss costs more than a vaguer one.</div>
     <div class="tp-cols" style="margin-top:18px">
-      <div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinned.app</span><b>Pinned settlement — Ksh <span class="tok">{{amount}}</span> for week to <span class="tok">{{deadline}}</span></b></div><div class="email-body">Ksh <span class="tok">{{amount}}</span> for <span class="tok">{{stops}}</span> parcels, week ending <span class="tok">{{deadline}}</span>.
+      <div><div class="msg"><div class="msg-cap"><span class="lbl">Email</span></div><div class="email"><div class="email-head"><span>Pinned · notifications@pinnedflow.app</span><b>Pinned settlement — Ksh <span class="tok">{{amount}}</span> for week to <span class="tok">{{deadline}}</span></b></div><div class="email-body">Ksh <span class="tok">{{amount}}</span> for <span class="tok">{{stops}}</span> parcels, week ending <span class="tok">{{deadline}}</span>.
 
 Paid to the M-Pesa number on your account, within one working day.
 
@@ -314,8 +314,8 @@ The full statement — every parcel, every fee — is attached and in the portal
 </main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 10 November 2026 · one estate, two domains</p>
-    <p>Internal working document. Build 20.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 10 November 2026 · the From line, checked against the DNS</p>
+    <p>Internal working document. Build 21.</p>
   </div>
 </footer>
 <script>
