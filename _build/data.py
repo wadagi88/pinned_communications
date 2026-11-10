@@ -3325,3 +3325,85 @@ EMAIL_CHECKLIST = [
     ("Render it in five places", "Gmail web, Gmail Android, Apple Mail iOS, Outlook desktop, and Gmail dark mode."),
     ("BIMI is a 2027 item", "The logo beside the subject line needs DMARC enforcement plus a Verified Mark Certificate, which needs a registered trademark and runs about $1,000 a year. Do the DMARC work now for its own sake."),
 ]
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUND NINE · 10 November — Mailgun is already authorised, and the record
+#
+# Correcting this surface: it published that "the moment the Rails app sends
+# through Mailgun those messages fail SPF". That is wrong, and checking the
+# subdomain rather than only the apex would have shown it.
+#   mg.pinnedflow.app   TXT  v=spf1 include:mailgun.org ~all
+#   k1._domainkey.mg.pinnedflow.app  TXT  k=rsa; p=…
+# Mailgun sends from its own subdomain, which is the correct arrangement.
+# ═══════════════════════════════════════════════════════════════════════════
+
+BUILD = 23
+UPDATED = "10 November 2026 · the DMARC record, and a correction about Mailgun"
+
+EMAIL_DMARC = dict(
+    headline="The record to publish",
+    body="One TXT record, on the apex. It covers subdomains too — <code>sp=</code> inherits from "
+         "<code>p=</code> unless it is set — so it reaches Mailgun's "
+         "<code>mg.pinnedflow.app</code> without a second record.",
+    name="_dmarc.pinnedflow.app",
+    rtype="TXT",
+    value="v=DMARC1; p=none; rua=mailto:dmarc@pinnedflow.app; ruf=mailto:dmarc@pinnedflow.app; fo=1; adkim=r; aspf=r; pct=100",
+    notes=[
+        ("<code>p=none</code>",
+         "Monitor only. Nothing is quarantined or rejected, so publishing this cannot break a "
+         "single send. It exists to make the invisible visible."),
+        ("<code>rua</code> — and the one thing that will silently defeat this",
+         "<b>The mailbox has to exist.</b> <code>dmarc@pinnedflow.app</code> must be provisioned "
+         "on the Zoho tenant before the record goes up, or every report bounces and the fortnight "
+         "of monitoring produces nothing. The reports are daily XML aggregates and are not "
+         "readable by a person — budget for a processor, or expect to parse them."),
+        ("<code>adkim=r; aspf=r</code> — relaxed, and it must stay relaxed",
+         "<b>This is the line that matters for Mailgun.</b> Mailgun signs as "
+         "<code>d=mg.pinnedflow.app</code> while the From header reads "
+         "<code>notifications@pinnedflow.app</code>. Those align under <b>relaxed</b> alignment, "
+         "because they share an organisational domain — and they do <b>not</b> align under "
+         "strict. Set <code>adkim=s</code> or <code>aspf=s</code> and every Mailgun send fails "
+         "DMARC the day you move off <code>p=none</code>."),
+        ("<code>fo=1</code>",
+         "Forensic reports on any failure, not only on a total one. Useful while monitoring, "
+         "worth turning down later if the volume is noisy."),
+        ("What happens next, in order",
+         "Publish it. Read a fortnight of <code>rua</code> reports and look for sources you do not "
+         "recognise — that is the point of the exercise, because nobody currently knows what sends "
+         "as pinnedflow.app. Then raise to <code>p=quarantine</code>, then "
+         "<code>p=reject</code>. Do not skip the reading."),
+    ])
+
+EMAIL_DNS = dict(
+    headline="What the DNS says today, checked 10 November",
+    body="Two senders are already authorised and correctly separated: <b>Zoho on the apex</b> for "
+         "human mail, <b>Mailgun on <code>mg.pinnedflow.app</code></b> for system mail. What is "
+         "missing is the record that tells anyone whether that is the whole list.",
+    rows=[("SPF · apex", "<code>v=spf1 include:zohomail.com ~all</code> — Zoho. Correct, and it "
+                         "does not need Mailgun added: Mailgun does not send as the apex."),
+          ("SPF · <code>mg.</code>", "<code>v=spf1 include:mailgun.org ~all</code>. "
+                                     "<b>Mailgun is authorised</b>, on its own subdomain, which is "
+                                     "the right arrangement — its reputation is its own."),
+          ("DKIM", "Zoho at <code>zmail._domainkey</code>, Mailgun at "
+                   "<code>k1._domainkey.mg</code>. Both live."),
+          ("DMARC", "<b>Absent.</b> Not <code>p=none</code> — no record at all, so nothing is "
+                    "reported and nobody knows what else is sending as pinnedflow.app. "
+                    "<a href=\"#dmarc\">The record is below.</a>"),
+          ("Alignment", "Mailgun signs as <code>mg.pinnedflow.app</code> while the From line reads "
+                        "<code>pinnedflow.app</code>. Relaxed alignment accepts that; strict does "
+                        "not. <b>Keep <code>adkim=r</code> and <code>aspf=r</code>.</b>"),
+          ("A correction", "<b>This page previously said Mailgun sends would fail SPF.</b> That "
+                           "was wrong — it was read off the apex record alone, and the subdomain "
+                           "is where Mailgun lives. Checking one name and generalising is exactly "
+                           "the error this page exists to stop other people making."),
+          ("Subdomains for class separation", "<code>marketing.</code> and <code>news.</code> still "
+                                              "return nothing. <code>mg.</code> proves the pattern "
+                                              "works; the remaining classes have not been split."),
+          ])
+
+EMAIL_CHECKLIST[1] = (
+    "Publish DMARC at <code>p=none</code>",
+    "<a href=\"#dmarc\">The record is on this page.</a> Provision "
+    "<code>dmarc@pinnedflow.app</code> first, or the reports bounce and the exercise produces "
+    "nothing. SPF and DKIM are already done for both senders.")

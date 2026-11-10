@@ -816,7 +816,7 @@ def build_email():
                     % (cards, e(D.EMAIL_ANSWER["t"]), D.EMAIL_ANSWER["p"]),
                     anchor="senders")
 
-    dns = "".join('<tr><td><b>%s</b></td><td>%s</td></tr>' % (e(a), b)
+    dns = "".join('<tr><td><b>%s</b></td><td>%s</td></tr>' % (a, b)
                   for a, b in D.EMAIL_DNS["rows"])
     body += section("02", "What is actually configured",
                     "Rules are cheap and DNS is not. This is the live state, and two of the "
@@ -827,6 +827,25 @@ def build_email():
                     '<tbody>%s</tbody></table></div>'
                     % (e(D.EMAIL_DNS["headline"]), D.EMAIL_DNS["body"], dns),
                     anchor="dns")
+
+    d = D.EMAIL_DMARC
+    dnotes = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
+                     % (a, b) for a, b in d["notes"])
+    body += section("03", "Publish this",
+                    d["body"],
+                    """
+<div class="card accent-mag">
+  <h3>%s</h3>
+  <div class="kv" style="margin-top:14px">
+    <div><b>Name</b><span><code>%s</code></span></div>
+    <div><b>Type</b><span><code>%s</code></span></div>
+  </div>
+  <span class="lbl" style="margin-top:16px">Value</span>
+  <div class="sms-bubble" style="margin-top:8px;word-break:break-word">%s</div>
+</div>
+<div class="grid g2" style="margin-top:22px">%s</div>"""
+                    % (e(d["headline"]), e(d["name"]), e(d["rtype"]), e(d["value"]), dnotes),
+                    anchor="dmarc")
 
     cls = "".join("""
 <div class="card %s">
@@ -839,7 +858,7 @@ def build_email():
   </div>
 </div>""" % (x["colour"], e(x["k"]), e(x["ex"]), e(x["unsub"]), x["frm"], x["dom"])
         for x in D.EMAIL_CLASSES)
-    body += section("03", "Three sending classes",
+    body += section("04", "Three sending classes",
                     "They differ for legal and deliverability reasons, not visual ones. Same shell "
                     "for all three.",
                     '<div class="grid g3">%s</div>' % cls, anchor="classes")
@@ -848,11 +867,11 @@ def build_email():
         '<div class="card accent-mag"><span class="sec-num">%02d</span>'
         '<h3 style="margin-top:6px">%s</h3><p>%s</p></div>' % (i + 1, e(r["t"]), r["p"])
         for i, r in enumerate(D.EMAIL_RULES))
-    body += section("04", "The rules", None, '<div class="grid g2">%s</div>' % rules,
+    body += section("05", "The rules", None, '<div class="grid g2">%s</div>' % rules,
                     anchor="rules")
 
     mk = "".join('<tr><td><b>%s</b></td><td>%s</td></tr>' % (a, e(b)) for a, b in D.EMAIL_MARKUP)
-    body += section("05", "Why the markup looks like 2004",
+    body += section("06", "Why the markup looks like 2004",
                     "Do not modernise it. Each of these is load-bearing, and a developer who "
                     "tidies one of them breaks a client they are not testing in.",
                     '<div class="scroller"><table class="dtab"><thead><tr><th>What</th>'
@@ -862,7 +881,7 @@ def build_email():
     files = "".join(
         '<tr><td class="id"><a href="%s">%s</a></td><td><b>%s</b></td><td>%s</td></tr>'
         % (a, e(a), e(b), c) for a, b, c in D.EMAIL_FILES)
-    body += section("06", "The artefacts, and where each one lands",
+    body += section("07", "The artefacts, and where each one lands",
                     "These are code, not doctrine. They are served here so a build can be compared "
                     "against a rendering; they ship into the repos named beside them.",
                     '<div class="scroller"><table class="dtab"><thead><tr><th>File</th>'
@@ -875,7 +894,7 @@ def build_email():
 
     chk = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
                   % (a, b) for a, b in D.EMAIL_CHECKLIST)
-    body += section("07", "Before the first send", None,
+    body += section("08", "Before the first send", None,
                     '<div class="grid g2">%s</div>' % chk, anchor="checklist")
     body += '<div class="wrap"><div class="endrule"></div></div>'
     return page("email.html", "Email · Pinned Communications",
