@@ -60,9 +60,14 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     BLOCK 3 — CODE REVEAL                            the PIN, transactional
+     BLOCK 3 — CODE REVEAL                 the collection code, transactional
      The email equivalent of the Code Reveal post template: mono digits,
      large, on anthracite, with the Locker Green tick. Does not invert.
+     {{code_label}} names which code it is, and they are different objects:
+     the COLLECTION code is shown at the branch counter and is never
+     withheld; the HANDOVER code is given to the runner at the door and is
+     held until what is owed clears. Never "PIN" — that is the runner
+     app's device unlock. Never "OTP" — that is our word, not theirs.
      ══════════════════════════════════════════════════════════════════════ -->
 <tr>
   <td class="px-pad" style="padding:24px 40px 0 40px;">
@@ -103,7 +108,7 @@
             </td>
             <td class="px-stack" width="33%" valign="top" style="padding:0 8px;">
               <p style="margin:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:28px; line-height:34px; font-weight:500; color:#2B2B2B;">{{board_riders}}</p>
-              <p style="margin:2px 0 0 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; color:#2B2B2B;">riders out right now</p>
+              <p style="margin:2px 0 0 0; font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; color:#2B2B2B;">runners out right now</p>
             </td>
             <td class="px-stack" width="33%" valign="top" style="padding:0 0 0 8px;">
               <p style="margin:0; font-family:'DM Mono','SFMono-Regular',Consolas,'Courier New',monospace; font-size:28px; line-height:34px; font-weight:500; color:#2B2B2B;">{{board_parcels}}</p>

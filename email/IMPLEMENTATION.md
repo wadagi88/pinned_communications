@@ -1,7 +1,7 @@
 # Pinned email — implementation brief
 
 One shell, seven blocks, one worked example. You do not accumulate templates;
-you accumulate emails made from one shell. A collection PIN, a host statement,
+you accumulate emails made from one shell. A collection code, a host statement,
 a new-Pod notice and a cold pitch are the same file with different blocks in
 the middle.
 
@@ -82,12 +82,12 @@ for all three.
 
 | class | examples | unsubscribe | sending domain |
 |---|---|---|---|
-| **Transactional** | PIN, ready for collection, collected, host statement | no | `mail.pinnedflow.app` — never throttled |
+| **Transactional** | collection code, ready for collection, collected, host statement | no | `mail.pinnedflow.app` — never throttled |
 | **Lifecycle / service** | new Pod, new feature, service change | yes + preferences | separate marketing subdomain |
 | **Prospecting** | PSV operators, cold business senders | yes, prominent | third subdomain, warmed slowly |
 
 **Keep them on separate subdomains.** A complaint from cold outreach must not
-be able to delay the PIN email that lets someone open a Pod. Check the lawful
+be able to delay the collection-code email that lets someone open a Pod. Check the lawful
 basis for the prospecting list under the Data Protection Act 2019 before it
 goes out — that is a question for counsel, not for this document.
 
@@ -142,7 +142,14 @@ From the Growth Desk playbook §06–07 and the comms principles:
 - [ ] SPF, DKIM and **DMARC at `p=quarantine` or `p=reject`** — not `p=none`
 - [ ] `List-Unsubscribe` and `List-Unsubscribe-Post` headers on bulk sends
 - [ ] A `text/plain` alternative on every send — missing it costs deliverability
-- [ ] From name set: `Pinned Flow <noreply@pinnedflow.app>`
+- [ ] From name set **per class**, and never `noreply@` on a class whose
+      success is a reply:
+      - transactional — `Pinned <notifications@pinnedflow.app>`
+      - lifecycle — `Pinned <notifications@pinnedflow.app>`
+      - prospecting — `Pinned Flow <hello@pinnedflow.app>`, **monitored**. This
+        email ends on *"Book a 15-minute walkthrough… or call"*; a SACCO
+        manager's first instinct is to hit reply, and `noreply@` throws away
+        the conversion on the one class where a reply *is* the conversion.
 - [ ] Rendered in Gmail web, Gmail Android, Apple Mail iOS, Outlook desktop,
       and Gmail dark mode
 
@@ -155,12 +162,22 @@ sake; treat the avatar as later.
 
 ## 7. Open, and needing a decision
 
-1. **`pinnedflow.com` vs `pinnedflow.app`.** The campaign fixtures use
-   `noreply@pinnedflow.com` and `hello@pinnedflow.com`. The settled brand
-   address, on the merch and the site, is **PinnedFlow.app**. The From domain
-   is what DKIM, DMARC and eventually BIMI attach to, and a receiver who sees
-   `.com` in the From line and `.app` on the parcel has a phishing question to
-   answer. This may just be stale fixture data — confirm before go-live.
+1. ~~**`pinnedflow.com` vs `pinnedflow.app`**~~ — **settled, 10 Nov.** It was
+   not a choice. A DNS lookup returns *nothing* for `pinnedflow.com`: no MX, no
+   SPF, no nameservers. The domain is not delegated, so mail to
+   `hello@pinnedflow.com` cannot reach anybody. `pinnedflow.app` is the real
+   one — Zoho MX, DigitalOcean NS, `v=spf1 include:zohomail.com ~all` — and is
+   already the only domain in a live From header (`devise.rb` sends as
+   *Pinned Support <support@pinnedflow.app>*).
+
+   **Use `.app` everywhere.** Three live SMS in `pinned-core` still end on
+   *"Questions? hello@pinnedflow.com"* (`batch_subscriber.rb`,
+   `runner_subscriber.rb`, `route_batch/admin_actions.rb`), and
+   `config/content/site.yml` and `legal.yml` route refunds and complaints
+   there — all dead letters. `dwell/notifier.rb` already says `.app`.
+
+   **Still to confirm:** that `hello@` and `notifications@` mailboxes are
+   provisioned on the Zoho tenant. DNS cannot answer that.
 2. **Does Pinned integrate with a partner's parcel software, or does their
    clerk re-enter it?** `psv-pitch.html` step 01 says *"we work alongside it"*.
    Confirmed by the founder as true; the implementation has to make it true.
