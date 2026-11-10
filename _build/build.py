@@ -668,7 +668,7 @@ def build_channels():
   <span class="lbl" style="margin-top:16px">Rules</span>
   <ul>%s</ul>
 </div>""" % (D.CHANNEL_CLASS[c["k"]], D.CHANNEL_LABEL[c["k"]], e(c["role"]), e(c["use"]), e(c["avoid"]),
-             "".join("<li>%s</li>" % e(r) for r in c["rules"])))
+             "".join("<li>%s</li>" % r for r in c["rules"])))
     body += section("01", "Channel doctrine", None, '<div class="grid g2">%s</div>' % "".join(cards))
 
     laws = "".join(

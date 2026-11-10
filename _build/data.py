@@ -816,8 +816,12 @@ CHANNELS = [
     dict(k="email", t="Email", role="The channel that can hold a process or a document",
          use="Onboarding primers, settlement statements, approvals and rejections with detail, anything with an attachment.",
          avoid="Urgency. Nobody in this business reads email on the road.",
-         rules=["The subject line carries the fact — the amount, the date, the decision.",
-                "From notifications@pinnedflow.app, display name Pinned.",
+         rules=["On transactional, the subject line carries the fact — the amount, the date, "
+                "the decision. Outreach earns its open with a hook instead; see <a href=\"email.html#rules\">Email</a>.",
+                "From notifications@pinnedflow.app, display name Pinned — and never "
+                "<code>noreply@</code> on a class whose success is a reply.",
+                "Three sending classes on three subdomains, so a complaint about a cold pitch "
+                "cannot delay a collection code. <a href=\"email.html#classes\">The classes</a>.",
                 "One-time explanatory emails say in the message that they are one-time."]),
     dict(k="whatsapp", t="WhatsApp", role="Two-way, where Kenyan commerce actually happens",
          use="Enquiries, group replies, and anything where the answer is a conversation.",
