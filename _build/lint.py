@@ -38,10 +38,16 @@ for f in sorted(pages):
     html = open(os.path.join(ROOT, f)).read()
     for href in re.findall(r'href="([^"#:]*\.html)(#[^"]*)?"', html):
         target, frag = href[0], href[1]
-        if target not in pages:
+        if target in pages:
+            if frag and frag[1:] not in anchors[target]:
+                fails.append("%s links to missing anchor %s%s" % (f, target, frag))
+        elif not os.path.isfile(os.path.join(ROOT, target)):
+            # Served files that are not generated pages — the email artefacts —
+            # are legitimate targets; anything that is on neither list is a typo.
             fails.append("%s links to missing page %s" % (f, target))
-        elif frag and frag[1:] not in anchors[target]:
-            fails.append("%s links to missing anchor %s%s" % (f, target, frag))
+    for href in re.findall(r'href="([^"#:]*\.md)"', html):
+        if not os.path.isfile(os.path.join(ROOT, href)):
+            fails.append("%s links to missing file %s" % (f, href))
     if "assets/comms.css" not in html:
         fails.append("%s does not load the stylesheet" % f)
 

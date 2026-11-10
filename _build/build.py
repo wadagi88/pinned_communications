@@ -792,6 +792,97 @@ def build_lane(lane):
                 "Every Pinned message to %s." % lane["title"].lower(), body, lane["page"])
 
 
+def build_email():
+    body = phead("Foundations", "Three senders, one voice", "Email",
+                 D.EMAIL_LEDE)
+
+    cards = "".join("""
+<div class="card %s">
+  <span class="lbl">%s</span>
+  <p class="tight" style="margin-top:8px;color:var(--text)"><b>%s</b></p>
+  <div class="kv" style="margin-top:14px">
+    <div><b>Template</b><span>%s</span></div>
+    <div><b>Limit</b><span>%s</span></div>
+    <div><b>So</b><span>%s</span></div>
+  </div>
+</div>""" % (x["colour"], e(x["k"]), e(x["who"]), x["tmpl"], x["cant"], x["do"])
+        for x in D.EMAIL_SURFACES)
+    body += section("01", "Where mail comes from",
+                    "Three composition surfaces, and only two of them can share a template. "
+                    "Knowing which is which is the whole of the consistency question.",
+                    '<div class="grid">%s</div>'
+                    '<div class="card accent-mag" style="margin-top:22px">'
+                    '<h3>%s</h3><p>%s</p></div>'
+                    % (cards, e(D.EMAIL_ANSWER["t"]), D.EMAIL_ANSWER["p"]),
+                    anchor="senders")
+
+    dns = "".join('<tr><td><b>%s</b></td><td>%s</td></tr>' % (e(a), b)
+                  for a, b in D.EMAIL_DNS["rows"])
+    body += section("02", "What is actually configured",
+                    "Rules are cheap and DNS is not. This is the live state, and two of the "
+                    "brief's pre-send items turn out to be build items rather than checks.",
+                    '<div class="card accent-org"><h3>%s</h3><p>%s</p></div>'
+                    '<div class="scroller" style="margin-top:18px"><table class="dtab">'
+                    '<thead><tr><th>Record</th><th>State</th></tr></thead>'
+                    '<tbody>%s</tbody></table></div>'
+                    % (e(D.EMAIL_DNS["headline"]), D.EMAIL_DNS["body"], dns),
+                    anchor="dns")
+
+    cls = "".join("""
+<div class="card %s">
+  <h3>%s</h3>
+  <div class="kv" style="margin-top:12px">
+    <div><b>Examples</b><span>%s</span></div>
+    <div><b>Unsubscribe</b><span>%s</span></div>
+    <div><b>From</b><span>%s</span></div>
+    <div><b>Domain</b><span>%s</span></div>
+  </div>
+</div>""" % (x["colour"], e(x["k"]), e(x["ex"]), e(x["unsub"]), x["frm"], x["dom"])
+        for x in D.EMAIL_CLASSES)
+    body += section("03", "Three sending classes",
+                    "They differ for legal and deliverability reasons, not visual ones. Same shell "
+                    "for all three.",
+                    '<div class="grid g3">%s</div>' % cls, anchor="classes")
+
+    rules = "".join(
+        '<div class="card accent-mag"><span class="sec-num">%02d</span>'
+        '<h3 style="margin-top:6px">%s</h3><p>%s</p></div>' % (i + 1, e(r["t"]), r["p"])
+        for i, r in enumerate(D.EMAIL_RULES))
+    body += section("04", "The rules", None, '<div class="grid g2">%s</div>' % rules,
+                    anchor="rules")
+
+    mk = "".join('<tr><td><b>%s</b></td><td>%s</td></tr>' % (a, e(b)) for a, b in D.EMAIL_MARKUP)
+    body += section("05", "Why the markup looks like 2004",
+                    "Do not modernise it. Each of these is load-bearing, and a developer who "
+                    "tidies one of them breaks a client they are not testing in.",
+                    '<div class="scroller"><table class="dtab"><thead><tr><th>What</th>'
+                    '<th>Why it is there</th></tr></thead><tbody>%s</tbody></table></div>' % mk,
+                    anchor="markup")
+
+    files = "".join(
+        '<tr><td class="id"><a href="%s">%s</a></td><td><b>%s</b></td><td>%s</td></tr>'
+        % (a, e(a), e(b), c) for a, b, c in D.EMAIL_FILES)
+    body += section("06", "The artefacts, and where each one lands",
+                    "These are code, not doctrine. They are served here so a build can be compared "
+                    "against a rendering; they ship into the repos named beside them.",
+                    '<div class="scroller"><table class="dtab"><thead><tr><th>File</th>'
+                    '<th>What</th><th>Destination</th></tr></thead><tbody>%s</tbody></table></div>'
+                    '<p class="sec-sub" style="margin-top:18px">The file-by-file brief lives beside '
+                    'them at <a href="email/IMPLEMENTATION.md">email/IMPLEMENTATION.md</a>. It is '
+                    'canonical for <b>destinations</b>; this page is canonical for <b>rules</b>. '
+                    'Stating a rule in both places is how the two drift.</p>'
+                    % files, anchor="artefacts")
+
+    chk = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
+                  % (a, b) for a, b in D.EMAIL_CHECKLIST)
+    body += section("07", "Before the first send", None,
+                    '<div class="grid g2">%s</div>' % chk, anchor="checklist")
+    body += '<div class="wrap"><div class="endrule"></div></div>'
+    return page("email.html", "Email · Pinned Communications",
+                "How Pinned sends email: three surfaces, three classes, one shell.", body,
+                "email.html")
+
+
 def build_library():
     body = phead("Copy library", "%d touchpoints, every channel" % len(D.TOUCHPOINTS),
                  "The library",
@@ -935,7 +1026,7 @@ SITE_DESC = ("Every message Pinned sends — senders, receivers, runners, hosts,
 
 
 def main():
-    built = [build_index(), build_principles(), build_channels()]
+    built = [build_index(), build_principles(), build_channels(), build_email()]
     for lane in LANES_ORDERED:
         built.append(build_lane(lane))
     built.append(build_library())

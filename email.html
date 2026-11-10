@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Email · Pinned Communications</title>
+<meta name="description" content="How Pinned sends email: three surfaces, three classes, one shell.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/comms.css?v=22">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
+<script>
+  // Theme choice is a per-device convenience; failure must never blank the page.
+  try { var t = localStorage.getItem("pinned-comms-theme"); if (t) document.documentElement.dataset.theme = t; } catch (err) {}
+</script>
+</head>
+<body>
+
+<div class="shell">
+<aside class="side"><div class="side-in">
+  <a class="side-home" href="index.html"><span class="logomark sm"><span></span><span></span><span></span><span></span></span>Pinned Comms</a>
+  <nav class="side-nav"><p class="side-grp">Foundations</p>
+  <a href="index.html">The map</a>
+  <a href="principles.html">Voice</a>
+  <a href="channels.html">Channels &amp; rules</a>
+  <a href="email.html" class="on">Email</a>
+  <span class="side-subs"><a href="#senders">Where mail comes from</a><a href="#dns">What is actually configured</a><a href="#classes">Three sending classes</a><a href="#rules">The rules</a><a href="#markup">Why the markup looks like 2004</a><a href="#artefacts">The artefacts, and where each one lands</a><a href="#checklist">Before the first send</a></span>
+  <p class="side-grp">Lanes</p>
+  <a href="senders.html">Senders</a>
+  <a href="receivers.html">Receivers</a>
+  <a href="runners.html">Runners</a>
+  <a href="hosts.html">Hosts</a>
+  <a href="admin.html">Admin</a>
+  <a href="prospects.html">Prospects</a>
+  <p class="side-grp">Reference</p>
+  <a href="library.html">Copy library</a>
+  <a href="gaps.html">Build order</a></nav>
+  <button class="themer" type="button" data-themer>Theme</button>
+</div></aside>
+<main class="main">
+<header class="phead"><div class="wrap">
+  <p class="eyebrow">Foundations</p>
+  <h1>Email</h1>
+  <p class="phead-meta">Three senders, one voice</p>
+  <p class="lede">Pinned will send mail from three places — a person typing in Zoho, the Messaging Centre on pinnedflow.app, and the system itself. Only two of them can share a template, and the third should not try. This page is the rule set; the markup and the destinations live in <a href="email/IMPLEMENTATION.md">the implementation brief</a> beside it.</p>
+</div></header>
+<section id="senders"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Where mail comes from</h2></div>
+  <p class="sec-sub">Three composition surfaces, and only two of them can share a template. Knowing which is which is the whole of the consistency question.</p>
+  <div class="rule"></div>
+  <div class="grid">
+<div class="card accent-org">
+  <span class="lbl">A person, in Zoho</span>
+  <p class="tight" style="margin-top:8px;color:var(--text)"><b>A reply, a one-off note, a follow-up after a call. Low volume, high trust.</b></p>
+  <div class="kv" style="margin-top:14px">
+    <div><b>Template</b><span><b>A Zoho Mail template, or nothing.</b> Zoho does have Templates — Settings → Templates, inserted into a compose window — and they are right for a signature and for short standard replies.</span></div>
+    <div><b>Limit</b><span><b>They cannot carry the production shell.</b> Zoho's composer sanitises what you paste: <code>&lt;!--[if mso]&gt;</code> conditional comments are stripped, the <code>&lt;style&gt;</code> block very likely goes with them — taking dark mode and every <code>px-*</code> class — and VML will not survive. Inline styles mostly do. The result looks close in Apple Mail and falls apart in Outlook, which is the exact failure the markup was built to prevent.<br><br>There is also no merge: a Zoho template has no way to resolve <code>{{name}}</code> against Pinned's data.</span></div>
+    <div><b>So</b><span><b>Send plain, and let the signature carry the brand.</b> A reply from a named person should not look like a template — it should look like a person wrote it. What makes it Pinned is the vocabulary and a small, simple HTML signature, which is the one thing Zoho does reliably.</span></div>
+  </div>
+</div>
+<div class="card accent-mag">
+  <span class="lbl">The Messaging Centre</span>
+  <p class="tight" style="margin-top:8px;color:var(--text)"><b>Campaigns and outreach, composed by a human in the admin on pinnedflow.app.</b></p>
+  <div class="kv" style="margin-top:14px">
+    <div><b>Template</b><span><b>The blocks.</b> The composer inserts them into the body and the app wraps them in the same layout at send time, so a campaign and a receipt come out of one shell. Merge tokens resolve here, against <code>AdminApi::Fixture::Messaging.merge_tokens</code>.</span></div>
+    <div><b>Limit</b><span>Nothing structural. The two things it does not have yet are the <code>board_*</code> endpoint and a logo on a stable HTTPS path.</span></div>
+    <div><b>So</b><span><b>Anything designed goes through here, not Zoho.</b> Send the PSV pitch by hand from a mailbox and you lose the <code>List-Unsubscribe</code> header, you lose the per-recipient <code>unsubscribe_url</code>, and you put cold outreach on the same reputation as the collection codes.</span></div>
+  </div>
+</div>
+<div class="card accent-flow">
+  <span class="lbl">The system</span>
+  <p class="tight" style="margin-top:8px;color:var(--text)"><b>Collection codes, statements, approvals — ActionMailer, no human in the loop.</b></p>
+  <div class="kv" style="margin-top:14px">
+    <div><b>Template</b><span><b>The shell, as the mailer layout.</b> <code>app/views/layouts/mailer.html.erb</code> becomes the shell and everything between the headline block and the footer becomes <code>yield</code>.</span></div>
+    <div><b>Limit</b><span>Nothing. This is the case the markup was written for.</span></div>
+    <div><b>So</b><span><b>This is where consistency is actually won.</b> It is the highest volume and the least negotiable, and it is a code problem rather than a discipline problem — which is why it is the one to solve first.</span></div>
+  </div>
+</div></div><div class="card accent-mag" style="margin-top:22px"><h3>So: one shell for the machines, plain text for the people</h3><p>Do not try to make all three render the same HTML — one of them cannot, and forcing it produces a broken Outlook render nobody tests. Make the two machine surfaces share one shell and one block library, which is where the volume is and where consistency is enforceable in code. Let the human surface be plain, carrying the brand through voice and a signature.<br><br><b>If a human needs to send a designed email, the answer is to send it from the Messaging Centre</b>, not to rebuild the template in Zoho. <b>Zoho Campaigns</b> — a different product from Zoho Mail — does do templates, merge fields and unsubscribe handling, and is a legitimate alternative to building outreach in the admin. But pick one. Running both means two sending reputations, two unsubscribe lists, and two places a stale figure can come from.</p></div>
+</div></section>
+<section id="dns"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>What is actually configured</h2></div>
+  <p class="sec-sub">Rules are cheap and DNS is not. This is the live state, and two of the brief's pre-send items turn out to be build items rather than checks.</p>
+  <div class="rule"></div>
+  <div class="card accent-org"><h3>What the DNS says today, checked 10 November</h3><p>The brief's checklist asks for DMARC at <code>p=quarantine</code> or <code>p=reject</code>. There is no DMARC record at all to tighten — <code>_dmarc.pinnedflow.app</code> returns nothing — so the first move is to publish one at <code>p=none</code> with a reporting address, read the reports for a fortnight to find out who is really sending as Pinned, and only then tighten.</p></div><div class="scroller" style="margin-top:18px"><table class="dtab"><thead><tr><th>Record</th><th>State</th></tr></thead><tbody><tr><td><b>SPF</b></td><td><code>v=spf1 include:zohomail.com ~all</code> — <b>Zoho and nobody else.</b> The moment the Rails app sends through SendGrid, Postmark, SES or Mailgun, those messages fail SPF. Either route system mail through Zoho's SMTP too, or add the provider before the first send — not after.</td></tr><tr><td><b>DKIM</b></td><td>Live for Zoho (<code>zmail._domainkey</code>). Any second sending provider needs its own selector published.</td></tr><tr><td><b>DMARC</b></td><td><b>Absent.</b> Not <code>p=none</code> — absent. Nothing is being reported, so nobody knows what is currently sending as pinnedflow.app.</td></tr><tr><td><b>Subdomains</b></td><td><code>mail.</code>, <code>marketing.</code>, <code>news.</code> and <code>send.</code> all return nothing. The three-class separation is a plan, not a configuration.</td></tr><tr><td><b>The trade-off</b></td><td>SPF naming only Zoho makes Zoho SMTP the cheapest path to all-three-pass on day one. It is also the path that makes class separation hardest, because one tenant's reputation is shared. <b>Worth deciding deliberately rather than by default.</b></td></tr></tbody></table></div>
+</div></section>
+<section id="classes"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Three sending classes</h2></div>
+  <p class="sec-sub">They differ for legal and deliverability reasons, not visual ones. Same shell for all three.</p>
+  <div class="rule"></div>
+  <div class="grid g3">
+<div class="card accent-flow">
+  <h3>Transactional</h3>
+  <div class="kv" style="margin-top:12px">
+    <div><b>Examples</b><span>Collection code, ready for collection, collected, host statement.</span></div>
+    <div><b>Unsubscribe</b><span>No — an unsubscribe link does not belong on a message somebody needs.</span></div>
+    <div><b>From</b><span><code>Pinned &lt;notifications@pinnedflow.app&gt;</code></span></div>
+    <div><b>Domain</b><span><code>mail.pinnedflow.app</code>, never throttled.</span></div>
+  </div>
+</div>
+<div class="card accent-lock">
+  <h3>Lifecycle / service</h3>
+  <div class="kv" style="margin-top:12px">
+    <div><b>Examples</b><span>A new Pod, a new feature, a change to how something works.</span></div>
+    <div><b>Unsubscribe</b><span>Yes, plus a preferences link.</span></div>
+    <div><b>From</b><span><code>Pinned &lt;notifications@pinnedflow.app&gt;</code></span></div>
+    <div><b>Domain</b><span>A separate marketing subdomain.</span></div>
+  </div>
+</div>
+<div class="card accent-org">
+  <h3>Prospecting</h3>
+  <div class="kv" style="margin-top:12px">
+    <div><b>Examples</b><span>PSV operators, cold business senders, the pitch on this site.</span></div>
+    <div><b>Unsubscribe</b><span>Yes, and prominent.</span></div>
+    <div><b>From</b><span><code>Pinned Flow &lt;hello@pinnedflow.app&gt;</code> — <b>monitored, never <code>noreply@</code></b>.</span></div>
+    <div><b>Domain</b><span>A third subdomain, warmed slowly.</span></div>
+  </div>
+</div></div>
+</div></section>
+<section id="rules"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04</span><h2>The rules</h2></div>
+  
+  <div class="rule"></div>
+  <div class="grid g2"><div class="card accent-mag"><span class="sec-num">01</span><h3 style="margin-top:6px">Separate the classes by subdomain, not by good intentions</h3><p>A complaint about a cold pitch must not be able to delay the collection-code email that lets somebody open a Pod. That is the entire reason for the split, and it is a DNS job rather than a copy job.</p></div><div class="card accent-mag"><span class="sec-num">02</span><h3 style="margin-top:6px">Never noreply@ on a class whose success is a reply</h3><p>The pitch ends on <i>“Book a 15-minute walkthrough… or call”</i>. A SACCO manager's first instinct is to hit reply. Prospecting sends from a mailbox somebody reads.</p></div><div class="card accent-mag"><span class="sec-num">03</span><h3 style="margin-top:6px">The subject line carries the fact — on transactional</h3><p>The amount, the date, the decision. <b>This rule is scoped to transactional and it was not before.</b> Outreach earns its open with a hook instead: <i>“Still on your Nairobi shelf tonight”</i> carries no fact at all, and is right.</p></div><div class="card accent-mag"><span class="sec-num">04</span><h3 style="margin-top:6px">Name which code it is</h3><p>The <b>collection code</b> is read at a counter and is never withheld. The <b>handover code</b> is given to a runner at a door and is held until what is owed clears. Never <i>PIN</i> — that is the runner app's device unlock. Never <i>OTP</i> — that is our word, not theirs.</p></div><div class="card accent-mag"><span class="sec-num">05</span><h3 style="margin-top:6px">Figures come from the live board, pulled the morning you send, and dated</h3><p>Never typed by hand, which is how a stale number reaches a customer. No ratings. The retired 480 / 12,000+ / 4.8 figures stay retired.</p></div><div class="card accent-mag"><span class="sec-num">06</span><h3 style="margin-top:6px">One call to action, and it carries the link</h3><p>No gating, no “reply to find out”, no keyword barrier. The address travels with the call.</p></div><div class="card accent-mag"><span class="sec-num">07</span><h3 style="margin-top:6px">DM Mono is reserved, and in email it is also a signal</h3><p>Codes, prices, timestamps and IDs only. In an inbox it is the fastest way a receiver tells a real Pinned message from a copy of one.</p></div><div class="card accent-mag"><span class="sec-num">08</span><h3 style="margin-top:6px">Flow lane colours only</h3><p><code>#C8005A</code> <code>#C0DB86</code> <code>#7AAF2A</code> <code>#E8520A</code> <code>#2B2B2B</code>. PinnedOS Blue never appears on a Flow asset.</p></div><div class="card accent-mag"><span class="sec-num">09</span><h3 style="margin-top:6px">UKO WAPI? is rationed</h3><p>It belongs to the sign-up message and nowhere else in the sender journey.</p></div></div>
+</div></section>
+<section id="markup"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Why the markup looks like 2004</h2></div>
+  <p class="sec-sub">Do not modernise it. Each of these is load-bearing, and a developer who tidies one of them breaks a client they are not testing in.</p>
+  <div class="rule"></div>
+  <div class="scroller"><table class="dtab"><thead><tr><th>What</th><th>Why it is there</th></tr></thead><tbody><tr><td><b>Tables and inline CSS</b></td><td>Outlook renders with Word's engine. No flexbox, no grid, no external stylesheet.</td></tr><tr><td><b>XHTML doctype + the MSO block</b></td><td>Without it Outlook scales everything by its own DPI.</td></tr><tr><td><b>The VML <code>&lt;v:roundrect&gt;</code></b></td><td>Without it the magenta button is a blue underlined link in Outlook.</td></tr><tr><td><b><code>mso-line-height-rule: exactly</code></b></td><td>On every text cell, or Outlook ignores line height.</td></tr><tr><td><b>The hidden preheader div</b></td><td>The grey line beside the subject. Left empty, clients scrape the first visible text instead.</td></tr><tr><td><b>Dark mode, and two logos</b></td><td>Gmail and Apple Mail invert colours on their own and do it badly. Blocks 3 and 4 deliberately do not invert — anthracite and Locker Green are brand grounds, not theme colours.</td></tr><tr><td><b>DM Sans only renders in Apple Mail and iOS</b></td><td>Gmail and Outlook fall back to Arial. That is expected. Never set headlines as images to force the font — it costs accessibility and spam score.</td></tr></tbody></table></div>
+</div></section>
+<section id="artefacts"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">06</span><h2>The artefacts, and where each one lands</h2></div>
+  <p class="sec-sub">These are code, not doctrine. They are served here so a build can be compared against a rendering; they ship into the repos named beside them.</p>
+  <div class="rule"></div>
+  <div class="scroller"><table class="dtab"><thead><tr><th>File</th><th>What</th><th>Destination</th></tr></thead><tbody><tr><td class="id"><a href="email/pinned-email-template.html">email/pinned-email-template.html</a></td><td><b>The shell</b></td><td>→ <code>app/views/layouts/mailer.html.erb</code> in <code>pinned_systemadmin</code>. Everything between the headline block and the footer becomes <code>yield</code>.</td></tr><tr><td class="id"><a href="email/pinned-email-blocks.html">email/pinned-email-blocks.html</a></td><td><b>Seven blocks</b></td><td>→ the Messaging Centre composer. They already use <code>{{…}}</code>, the syntax the composer documents.</td></tr><tr><td class="id"><a href="email/psv-pitch.html">email/psv-pitch.html</a></td><td><b>A worked example</b></td><td>→ one record in <code>AdminApi.messaging.templates</code>, <code>channel: "email"</code>, <code>kind: "promotional"</code>.</td></tr><tr><td class="id"><a href="email/assets/pinned-email-logo-*.png">email/assets/pinned-email-logo-*.png</a></td><td><b>The lockup, 2×</b></td><td>→ a stable HTTPS path on <code>pinnedflow.app</code>. Email clients cannot read a <code>file://</code> path, an asset-pipeline digest URL that changes on deploy, or SVG, which Gmail and Outlook strip.</td></tr></tbody></table></div><p class="sec-sub" style="margin-top:18px">The file-by-file brief lives beside them at <a href="email/IMPLEMENTATION.md">email/IMPLEMENTATION.md</a>. It is canonical for <b>destinations</b>; this page is canonical for <b>rules</b>. Stating a rule in both places is how the two drift.</p>
+</div></section>
+<section id="checklist"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">07</span><h2>Before the first send</h2></div>
+  
+  <div class="rule"></div>
+  <div class="grid g2"><div class="card"><span class="lbl">Publish a DMARC record</span><p class="tight">There is none. Start at <code>p=none</code> with a reporting address, read a fortnight of reports, then tighten to <code>p=quarantine</code>.</p></div><div class="card"><span class="lbl">Authorise every sender in SPF</span><p class="tight">Today it is Zoho only. Decide whether system mail goes through Zoho SMTP or a provider, and publish the record before the first send.</p></div><div class="card"><span class="lbl">Logos on a stable HTTPS path</span><p class="tight">Then point <code>{{asset_base}}</code> at the folder.</p></div><div class="card"><span class="lbl"><code>List-Unsubscribe</code> and <code>List-Unsubscribe-Post</code></span><p class="tight">On bulk sends. <code>unsubscribe_url</code> must be unique per recipient — a shared link unsubscribes nobody, and Gmail and Yahoo require a unique one for the one-click header.</p></div><div class="card"><span class="lbl">A <code>text/plain</code> alternative on every send</span><p class="tight">Missing it costs deliverability on its own.</p></div><div class="card"><span class="lbl">The <code>board_*</code> endpoint</span><p class="tight">A small endpoint or cached read of the <code>/vhost</code> board. Until it exists those four tokens have nothing behind them.</p></div><div class="card"><span class="lbl">Render it in five places</span><p class="tight">Gmail web, Gmail Android, Apple Mail iOS, Outlook desktop, and Gmail dark mode.</p></div><div class="card"><span class="lbl">BIMI is a 2027 item</span><p class="tight">The logo beside the subject line needs DMARC enforcement plus a Verified Mark Certificate, which needs a registered trademark and runs about $1,000 a year. Do the DMARC work now for its own sake.</p></div></div>
+</div></section><div class="wrap"><div class="endrule"></div></div>
+</main></div>
+<footer>
+  <div class="wrap">
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 10 November 2026 · email gets a page, and three senders get one voice</p>
+    <p>Internal working document. Build 22.</p>
+  </div>
+</footer>
+<script>
+  // On a narrow screen the left menu becomes a horizontal strip; put the page
+  // you are on inside the visible part of it.
+  (function () {
+    var on = document.querySelector(".side-nav a.on"), bar = document.querySelector(".side-in");
+    if (on && bar && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = on.offsetLeft - 90;
+    }
+  })();
+  document.querySelectorAll("[data-themer]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var root = document.documentElement;
+      var now = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = now;
+      try { localStorage.setItem("pinned-comms-theme", now); } catch (err) {}
+    });
+  });
+</script>
+</body>
+</html>

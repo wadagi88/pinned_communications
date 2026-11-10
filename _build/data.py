@@ -3135,3 +3135,189 @@ OPEN_QUESTIONS = [
              "Corrected here to <code>notifications@pinnedflow.app</code>.",
          who="Engineering"),
 ] + OPEN_QUESTIONS
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUND EIGHT · 10 November — email gets a page
+#
+# The rules were living in email/IMPLEMENTATION.md on an unmerged branch,
+# which is to say nowhere a developer could reach them. They move here. The
+# brief keeps the destinations — which file, which repo — and points back.
+#
+# The rules are stated in ONE place. If the page and the brief both describe
+# the sending classes they will drift, and whoever is implementing will follow
+# whichever they found first.
+# ═══════════════════════════════════════════════════════════════════════════
+
+BUILD = 22
+UPDATED = "10 November 2026 · email gets a page, and three senders get one voice"
+
+NAV.insert(3, ("email.html", "Email"))
+NAV_GROUPS[0] = ("Foundations", NAV_GROUPS[0][1][:3] + [("email.html", "Email")])
+
+EMAIL_LEDE = (
+    "Pinned will send mail from three places — a person typing in Zoho, the Messaging Centre on "
+    "pinnedflow.app, and the system itself. Only two of them can share a template, and the third "
+    "should not try. This page is the rule set; the markup and the destinations live in "
+    "<a href=\"email/IMPLEMENTATION.md\">the implementation brief</a> beside it.")
+
+EMAIL_SURFACES = [
+    dict(k="A person, in Zoho", colour="accent-org",
+         who="A reply, a one-off note, a follow-up after a call. Low volume, high trust.",
+         tmpl="<b>A Zoho Mail template, or nothing.</b> Zoho does have Templates — Settings → "
+              "Templates, inserted into a compose window — and they are right for a signature and "
+              "for short standard replies.",
+         cant="<b>They cannot carry the production shell.</b> Zoho's composer sanitises what you "
+              "paste: <code>&lt;!--[if mso]&gt;</code> conditional comments are stripped, the "
+              "<code>&lt;style&gt;</code> block very likely goes with them — taking dark mode and "
+              "every <code>px-*</code> class — and VML will not survive. Inline styles mostly do. "
+              "The result looks close in Apple Mail and falls apart in Outlook, which is the exact "
+              "failure the markup was built to prevent.<br><br>"
+              "There is also no merge: a Zoho template has no way to resolve "
+              "<code>{{name}}</code> against Pinned's data.",
+         do="<b>Send plain, and let the signature carry the brand.</b> A reply from a named person "
+            "should not look like a template — it should look like a person wrote it. What makes "
+            "it Pinned is the vocabulary and a small, simple HTML signature, which is the one "
+            "thing Zoho does reliably."),
+
+    dict(k="The Messaging Centre", colour="accent-mag",
+         who="Campaigns and outreach, composed by a human in the admin on pinnedflow.app.",
+         tmpl="<b>The blocks.</b> The composer inserts them into the body and the app wraps them "
+              "in the same layout at send time, so a campaign and a receipt come out of one "
+              "shell. Merge tokens resolve here, against "
+              "<code>AdminApi::Fixture::Messaging.merge_tokens</code>.",
+         cant="Nothing structural. The two things it does not have yet are the "
+              "<code>board_*</code> endpoint and a logo on a stable HTTPS path.",
+         do="<b>Anything designed goes through here, not Zoho.</b> Send the PSV pitch by hand from "
+            "a mailbox and you lose the <code>List-Unsubscribe</code> header, you lose the "
+            "per-recipient <code>unsubscribe_url</code>, and you put cold outreach on the same "
+            "reputation as the collection codes."),
+
+    dict(k="The system", colour="accent-flow",
+         who="Collection codes, statements, approvals — ActionMailer, no human in the loop.",
+         tmpl="<b>The shell, as the mailer layout.</b> "
+              "<code>app/views/layouts/mailer.html.erb</code> becomes the shell and everything "
+              "between the headline block and the footer becomes <code>yield</code>.",
+         cant="Nothing. This is the case the markup was written for.",
+         do="<b>This is where consistency is actually won.</b> It is the highest volume and the "
+            "least negotiable, and it is a code problem rather than a discipline problem — which "
+            "is why it is the one to solve first."),
+]
+
+EMAIL_ANSWER = dict(
+    t="So: one shell for the machines, plain text for the people",
+    p="Do not try to make all three render the same HTML — one of them cannot, and forcing it "
+      "produces a broken Outlook render nobody tests. Make the two machine surfaces share one "
+      "shell and one block library, which is where the volume is and where consistency is "
+      "enforceable in code. Let the human surface be plain, carrying the brand through voice and a "
+      "signature.<br><br>"
+      "<b>If a human needs to send a designed email, the answer is to send it from the Messaging "
+      "Centre</b>, not to rebuild the template in Zoho. "
+      "<b>Zoho Campaigns</b> — a different product from Zoho Mail — does do templates, merge "
+      "fields and unsubscribe handling, and is a legitimate alternative to building outreach in "
+      "the admin. But pick one. Running both means two sending reputations, two unsubscribe "
+      "lists, and two places a stale figure can come from.")
+
+EMAIL_DNS = dict(
+    headline="What the DNS says today, checked 10 November",
+    body="The brief's checklist asks for DMARC at <code>p=quarantine</code> or <code>p=reject</code>. "
+         "There is no DMARC record at all to tighten — <code>_dmarc.pinnedflow.app</code> returns "
+         "nothing — so the first move is to publish one at <code>p=none</code> with a reporting "
+         "address, read the reports for a fortnight to find out who is really sending as Pinned, "
+         "and only then tighten.",
+    rows=[("SPF", "<code>v=spf1 include:zohomail.com ~all</code> — <b>Zoho and nobody else.</b> "
+                  "The moment the Rails app sends through SendGrid, Postmark, SES or Mailgun, "
+                  "those messages fail SPF. Either route system mail through Zoho's SMTP too, or "
+                  "add the provider before the first send — not after."),
+          ("DKIM", "Live for Zoho (<code>zmail._domainkey</code>). Any second sending provider "
+                   "needs its own selector published."),
+          ("DMARC", "<b>Absent.</b> Not <code>p=none</code> — absent. Nothing is being reported, "
+                    "so nobody knows what is currently sending as pinnedflow.app."),
+          ("Subdomains", "<code>mail.</code>, <code>marketing.</code>, <code>news.</code> and "
+                         "<code>send.</code> all return nothing. The three-class separation is a "
+                         "plan, not a configuration."),
+          ("The trade-off", "SPF naming only Zoho makes Zoho SMTP the cheapest path to "
+                            "all-three-pass on day one. It is also the path that makes class "
+                            "separation hardest, because one tenant's reputation is shared. "
+                            "<b>Worth deciding deliberately rather than by default.</b>")])
+
+
+EMAIL_CLASSES = [
+    dict(k="Transactional", colour="accent-flow",
+         ex="Collection code, ready for collection, collected, host statement.",
+         unsub="No — an unsubscribe link does not belong on a message somebody needs.",
+         frm="<code>Pinned &lt;notifications@pinnedflow.app&gt;</code>",
+         dom="<code>mail.pinnedflow.app</code>, never throttled."),
+    dict(k="Lifecycle / service", colour="accent-lock",
+         ex="A new Pod, a new feature, a change to how something works.",
+         unsub="Yes, plus a preferences link.",
+         frm="<code>Pinned &lt;notifications@pinnedflow.app&gt;</code>",
+         dom="A separate marketing subdomain."),
+    dict(k="Prospecting", colour="accent-org",
+         ex="PSV operators, cold business senders, the pitch on this site.",
+         unsub="Yes, and prominent.",
+         frm="<code>Pinned Flow &lt;hello@pinnedflow.app&gt;</code> — <b>monitored, never "
+             "<code>noreply@</code></b>.",
+         dom="A third subdomain, warmed slowly."),
+]
+
+EMAIL_RULES = [
+    dict(t="Separate the classes by subdomain, not by good intentions",
+         p="A complaint about a cold pitch must not be able to delay the collection-code email "
+           "that lets somebody open a Pod. That is the entire reason for the split, and it is a "
+           "DNS job rather than a copy job."),
+    dict(t="Never noreply@ on a class whose success is a reply",
+         p="The pitch ends on <i>“Book a 15-minute walkthrough… or call”</i>. A SACCO manager's "
+           "first instinct is to hit reply. Prospecting sends from a mailbox somebody reads."),
+    dict(t="The subject line carries the fact — on transactional",
+         p="The amount, the date, the decision. <b>This rule is scoped to transactional and it was "
+           "not before.</b> Outreach earns its open with a hook instead: <i>“Still on your Nairobi "
+           "shelf tonight”</i> carries no fact at all, and is right."),
+    dict(t="Name which code it is",
+         p="The <b>collection code</b> is read at a counter and is never withheld. The "
+           "<b>handover code</b> is given to a runner at a door and is held until what is owed "
+           "clears. Never <i>PIN</i> — that is the runner app's device unlock. Never <i>OTP</i> — "
+           "that is our word, not theirs."),
+    dict(t="Figures come from the live board, pulled the morning you send, and dated",
+         p="Never typed by hand, which is how a stale number reaches a customer. No ratings. The "
+           "retired 480 / 12,000+ / 4.8 figures stay retired."),
+    dict(t="One call to action, and it carries the link",
+         p="No gating, no “reply to find out”, no keyword barrier. The address travels with the "
+           "call."),
+    dict(t="DM Mono is reserved, and in email it is also a signal",
+         p="Codes, prices, timestamps and IDs only. In an inbox it is the fastest way a receiver "
+           "tells a real Pinned message from a copy of one."),
+    dict(t="Flow lane colours only",
+         p="<code>#C8005A</code> <code>#C0DB86</code> <code>#7AAF2A</code> <code>#E8520A</code> "
+           "<code>#2B2B2B</code>. PinnedOS Blue never appears on a Flow asset."),
+    dict(t="UKO WAPI? is rationed",
+         p="It belongs to the sign-up message and nowhere else in the sender journey."),
+]
+
+EMAIL_MARKUP = [
+    ("Tables and inline CSS", "Outlook renders with Word's engine. No flexbox, no grid, no external stylesheet."),
+    ("XHTML doctype + the MSO block", "Without it Outlook scales everything by its own DPI."),
+    ("The VML <code>&lt;v:roundrect&gt;</code>", "Without it the magenta button is a blue underlined link in Outlook."),
+    ("<code>mso-line-height-rule: exactly</code>", "On every text cell, or Outlook ignores line height."),
+    ("The hidden preheader div", "The grey line beside the subject. Left empty, clients scrape the first visible text instead."),
+    ("Dark mode, and two logos", "Gmail and Apple Mail invert colours on their own and do it badly. Blocks 3 and 4 deliberately do not invert — anthracite and Locker Green are brand grounds, not theme colours."),
+    ("DM Sans only renders in Apple Mail and iOS", "Gmail and Outlook fall back to Arial. That is expected. Never set headlines as images to force the font — it costs accessibility and spam score."),
+]
+
+EMAIL_FILES = [
+    ("email/pinned-email-template.html", "The shell", "→ <code>app/views/layouts/mailer.html.erb</code> in <code>pinned_systemadmin</code>. Everything between the headline block and the footer becomes <code>yield</code>."),
+    ("email/pinned-email-blocks.html", "Seven blocks", "→ the Messaging Centre composer. They already use <code>{{…}}</code>, the syntax the composer documents."),
+    ("email/psv-pitch.html", "A worked example", "→ one record in <code>AdminApi.messaging.templates</code>, <code>channel: \"email\"</code>, <code>kind: \"promotional\"</code>."),
+    ("email/assets/pinned-email-logo-*.png", "The lockup, 2×", "→ a stable HTTPS path on <code>pinnedflow.app</code>. Email clients cannot read a <code>file://</code> path, an asset-pipeline digest URL that changes on deploy, or SVG, which Gmail and Outlook strip."),
+]
+
+EMAIL_CHECKLIST = [
+    ("Publish a DMARC record", "There is none. Start at <code>p=none</code> with a reporting address, read a fortnight of reports, then tighten to <code>p=quarantine</code>."),
+    ("Authorise every sender in SPF", "Today it is Zoho only. Decide whether system mail goes through Zoho SMTP or a provider, and publish the record before the first send."),
+    ("Logos on a stable HTTPS path", "Then point <code>{{asset_base}}</code> at the folder."),
+    ("<code>List-Unsubscribe</code> and <code>List-Unsubscribe-Post</code>", "On bulk sends. <code>unsubscribe_url</code> must be unique per recipient — a shared link unsubscribes nobody, and Gmail and Yahoo require a unique one for the one-click header."),
+    ("A <code>text/plain</code> alternative on every send", "Missing it costs deliverability on its own."),
+    ("The <code>board_*</code> endpoint", "A small endpoint or cached read of the <code>/vhost</code> board. Until it exists those four tokens have nothing behind them."),
+    ("Render it in five places", "Gmail web, Gmail Android, Apple Mail iOS, Outlook desktop, and Gmail dark mode."),
+    ("BIMI is a 2027 item", "The logo beside the subject line needs DMARC enforcement plus a Verified Mark Certificate, which needs a registered trademark and runs about $1,000 a year. Do the DMARC work now for its own sake."),
+]

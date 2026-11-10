@@ -27,3 +27,13 @@
   for = "/"
   [headers.values]
     Cache-Control = "no-cache, must-revalidate"
+
+# The email artefacts are a developer reference, not a page. They are served so
+# a build can be compared against a rendering, and kept out of search the way
+# every generated page is by its own meta tag — these are email markup, and
+# nothing in them is edited for a reason that is not an email client.
+[[headers]]
+  for = "/email/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache, must-revalidate"
