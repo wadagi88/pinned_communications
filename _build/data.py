@@ -3407,3 +3407,56 @@ EMAIL_CHECKLIST[1] = (
     "<a href=\"#dmarc\">The record is on this page.</a> Provision "
     "<code>dmarc@pinnedflow.app</code> first, or the reports bounce and the exercise produces "
     "nothing. SPF and DKIM are already done for both senders.")
+
+
+# ── The kit · what a developer actually takes away ──────────────────────────
+# Three things per artefact: see it rendered, read the markup, take the file.
+# A link that renders an email is not the same as being able to read it.
+
+BUILD = 24
+UPDATED = "10 November 2026 · the kit, downloadable"
+
+EMAIL_KIT_ROWS = [
+    dict(file="email/pinned-email-template.html", title="The shell",
+         what="Doctype, head, logo, card, footer and the dark-mode block. Everything between the "
+              "headline block and the footer becomes <code>yield</code>.",
+         dest="<code>app/views/layouts/mailer.html.erb</code> · <code>pinned_systemadmin</code>",
+         preview="email/pinned-email-template.html",
+         source="email/src/pinned-email-template.html.txt"),
+    dict(file="email/pinned-email-blocks.html", title="Seven blocks",
+         what="Headline, detail panel, code reveal, proof slab, promise, CTA, how-it-works. Each "
+              "is a complete <code>&lt;tr&gt;</code> that drops into the card.",
+         dest="The Messaging Centre composer. They already use <code>{{…}}</code>, the syntax the "
+              "composer documents.",
+         preview="email/pinned-email-blocks.html",
+         source="email/src/pinned-email-blocks.html.txt"),
+    dict(file="email/psv-pitch.html", title="A worked example",
+         what="The PSV pitch, built from blocks 1, 5, 7, 4 and 6. Open it to see what the system "
+              "produces before writing anything with it.",
+         dest="One record in <code>AdminApi.messaging.templates</code>, "
+              "<code>channel: \"email\"</code>, <code>kind: \"promotional\"</code>.",
+         preview="email/psv-pitch.html",
+         source="email/src/psv-pitch.html.txt"),
+    dict(file="email/IMPLEMENTATION.md", title="The brief",
+         what="Where each piece goes, and what the backend has to resolve and when. Canonical for "
+              "destinations; this page is canonical for rules.",
+         dest="Read it beside the files.",
+         preview=None,
+         source="email/src/IMPLEMENTATION.md.txt"),
+    dict(file="email/assets/pinned-email-logo-light.png", title="Logo · light ground",
+         what="The lockup at 2×, rendered from the master vector. PNG because Gmail and Outlook "
+              "strip SVG.",
+         dest="A stable HTTPS path on <code>pinnedflow.app</code>; point "
+              "<code>{{asset_base}}</code> at the folder.",
+         preview="email/assets/pinned-email-logo-light.png", source=None),
+    dict(file="email/assets/pinned-email-logo-dark.png", title="Logo · dark ground",
+         what="The white-wordmark version, swapped in by the "
+              "<code>prefers-color-scheme</code> and <code>[data-ogsc]</code> rules.",
+         dest="Same folder as the light one.",
+         preview="email/assets/pinned-email-logo-dark.png", source=None),
+]
+
+EMAIL_KIT_NOTE = (
+    "<b>Take the archive, not the six files.</b> It carries all of the above plus a README that "
+    "points back here, and it is regenerated every time this surface is built — so a copy someone "
+    "downloaded last month and a copy downloaded today differ only if the kit really changed.")

@@ -45,7 +45,9 @@ for f in sorted(pages):
             # Served files that are not generated pages — the email artefacts —
             # are legitimate targets; anything that is on neither list is a typo.
             fails.append("%s links to missing page %s" % (f, target))
-    for href in re.findall(r'href="([^"#:]*\.md)"', html):
+    # Every non-page link target — the brief, the plain-text sources, the logos
+    # and the kit archive — must exist, or a download link ships dead.
+    for href in re.findall(r'href="([^"#:]*\.(?:md|txt|zip|png))"', html):
         if not os.path.isfile(os.path.join(ROOT, href)):
             fails.append("%s links to missing file %s" % (f, href))
     if "assets/comms.css" not in html:

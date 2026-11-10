@@ -32,6 +32,15 @@
 # a build can be compared against a rendering, and kept out of search the way
 # every generated page is by its own meta tag — these are email markup, and
 # nothing in them is edited for a reason that is not an email client.
+# The plain-text sources exist so a browser shows the markup instead of
+# rendering it. Without this, .html.txt is sniffed back to text/html by some
+# proxies and the whole point is lost.
+[[headers]]
+  for = "/email/src/*"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    X-Robots-Tag = "noindex, nofollow"
+
 [[headers]]
   for = "/email/*"
   [headers.values]

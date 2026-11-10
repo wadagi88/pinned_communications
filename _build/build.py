@@ -878,19 +878,42 @@ def build_email():
                     '<th>Why it is there</th></tr></thead><tbody>%s</tbody></table></div>' % mk,
                     anchor="markup")
 
-    files = "".join(
-        '<tr><td class="id"><a href="%s">%s</a></td><td><b>%s</b></td><td>%s</td></tr>'
-        % (a, e(a), e(b), c) for a, b, c in D.EMAIL_FILES)
-    body += section("07", "The artefacts, and where each one lands",
-                    "These are code, not doctrine. They are served here so a build can be compared "
-                    "against a rendering; they ship into the repos named beside them.",
-                    '<div class="scroller"><table class="dtab"><thead><tr><th>File</th>'
-                    '<th>What</th><th>Destination</th></tr></thead><tbody>%s</tbody></table></div>'
-                    '<p class="sec-sub" style="margin-top:18px">The file-by-file brief lives beside '
-                    'them at <a href="email/IMPLEMENTATION.md">email/IMPLEMENTATION.md</a>. It is '
-                    'canonical for <b>destinations</b>; this page is canonical for <b>rules</b>. '
-                    'Stating a rule in both places is how the two drift.</p>'
-                    % files, anchor="artefacts")
+    kit = []
+    for r in D.EMAIL_KIT_ROWS:
+        acts = []
+        if r["preview"]:
+            acts.append('<a class="kact" href="%s" target="_blank" rel="noopener">Preview</a>'
+                        % r["preview"])
+        if r["source"]:
+            acts.append('<a class="kact" href="%s" target="_blank" rel="noopener">Source</a>'
+                        % r["source"])
+        acts.append('<a class="kact dl" href="%s" download>Download</a>' % r["file"])
+        kit.append("""
+<div class="card">
+  <span class="lbl">%s</span>
+  <h3 style="margin-top:8px">%s</h3>
+  <p class="tight" style="margin-top:8px">%s</p>
+  <div class="kv" style="margin-top:12px"><div><b>Lands in</b><span>%s</span></div></div>
+  <div class="kacts">%s</div>
+</div>""" % (e(r["file"]), e(r["title"]), r["what"], r["dest"], "".join(acts)))
+
+    body += section("07", "The kit",
+                    "Three things for each artefact: see it rendered, read the markup, take the "
+                    "file. <b>Source</b> opens the markup as plain text, because a browser asked "
+                    "for an email renders it instead of showing it.",
+                    """
+<div class="card accent-mag">
+  <h3>Everything, in one file</h3>
+  <p>%s</p>
+  <div class="kacts"><a class="kact dl big" href="email/pinned-email-kit.zip" download>Download the kit &nbsp;·&nbsp; %.0f KB</a></div>
+</div>
+<div class="grid g2" style="margin-top:22px">%s</div>
+<p class="sec-sub" style="margin-top:20px">The brief at
+  <a href="email/IMPLEMENTATION.md">email/IMPLEMENTATION.md</a> is canonical for
+  <b>destinations</b>; this page is canonical for <b>rules</b>. Stating a rule in both places is
+  how the two drift.</p>"""
+                    % (D.EMAIL_KIT_NOTE, globals().get("KIT_BYTES", 0) / 1024.0, "".join(kit)),
+                    anchor="artefacts")
 
     chk = "".join('<div class="card"><span class="lbl">%s</span><p class="tight">%s</p></div>'
                   % (a, b) for a, b in D.EMAIL_CHECKLIST)
@@ -1044,13 +1067,86 @@ SITE_DESC = ("Every message Pinned sends — senders, receivers, runners, hosts,
              "with the copy, the rules and the build order.")
 
 
+EMAIL_KIT = [
+    ("pinned-email-template.html", "The shell"),
+    ("pinned-email-blocks.html", "Seven blocks"),
+    ("psv-pitch.html", "Worked example"),
+    ("IMPLEMENTATION.md", "Implementation brief"),
+    ("assets/pinned-email-logo-light.png", "Logo · light"),
+    ("assets/pinned-email-logo-dark.png", "Logo · dark"),
+]
+
+KIT_README = """Pinned email kit
+================
+
+The rules are NOT in this archive. They are on the Email page:
+
+    https://pinnedcomms.netlify.app/email.html
+
+That page is canonical for rules; IMPLEMENTATION.md in here is canonical for
+destinations — which file goes to which repo. Stating a rule in both places is
+how the two drift.
+
+Contents
+--------
+  pinned-email-template.html   the shell  -> app/views/layouts/mailer.html.erb
+  pinned-email-blocks.html     7 blocks   -> the Messaging Centre composer
+  psv-pitch.html               example    -> AdminApi.messaging.templates
+  IMPLEMENTATION.md            where each piece goes, and the merge tokens
+  assets/*.png                 the lockup at 2x -> a stable HTTPS path
+
+Before you edit the HTML
+------------------------
+Read https://pinnedcomms.netlify.app/email.html#markup first. The tables, the
+inline CSS, the MSO conditional block and the VML button are load-bearing —
+each one is there for a client you are probably not testing in.
+
+Generated from the pinned-comms surface, build %d.
+"""
+
+
+def build_email_kit():
+    """Plain-text copies so the markup is readable in a browser, and one zip so
+    a developer takes the whole thing in a click rather than six."""
+    import zipfile
+    src_dir = os.path.join(OUT, "email", "src")
+    os.makedirs(src_dir, exist_ok=True)
+    written = []
+    for rel, _ in EMAIL_KIT:
+        if rel.endswith(".png"):
+            continue
+        raw = open(os.path.join(OUT, "email", rel)).read()
+        name = rel.replace("/", "-") + ".txt"
+        with open(os.path.join(src_dir, name), "w") as fh:
+            fh.write(raw)
+        written.append(name)
+
+    # Fixed timestamps, or every build rewrites the archive and git sees churn.
+    zpath = os.path.join(OUT, "email", "pinned-email-kit.zip")
+    with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
+        def add(arcname, data):
+            info = zipfile.ZipInfo(arcname, date_time=(2026, 11, 10, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            z.writestr(info, data)
+        add("README.txt", KIT_README % V)
+        for rel, _ in EMAIL_KIT:
+            mode = "rb" if rel.endswith(".png") else "r"
+            with open(os.path.join(OUT, "email", rel), mode) as fh:
+                add(rel, fh.read())
+    return written, os.path.getsize(zpath)
+
+
 def main():
+    kit, kit_bytes = build_email_kit()
+    globals()["KIT_BYTES"] = kit_bytes
     built = [build_index(), build_principles(), build_channels(), build_email()]
     for lane in LANES_ORDERED:
         built.append(build_lane(lane))
     built.append(build_library())
     built.append(build_gaps())
     print("built %d pages: %s" % (len(built), ", ".join(built)))
+    print("email kit: %d source files + zip (%.1f KB)" % (len(kit), kit_bytes / 1024.0))
 
 
 if __name__ == "__main__":
