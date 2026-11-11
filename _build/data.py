@@ -3684,3 +3684,85 @@ EMAIL_KIT_ROWS = [
                 "<code>pinnedflow.app</code> and both files resolve."
                 if r["preview"] else "")))
     for r in EMAIL_KIT_ROWS]
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUND ELEVEN · 11 November — the shell is not the pitch
+#
+# The preview filled the SHELL with the prospecting pitch's own words, so the
+# shell preview read as a mangled version of a message that is fine as it
+# stands. Wrong twice over: it invites exactly the fear that the pitch had been
+# edited, and it demonstrates the wrong thing — the shell's job is the
+# transactional container, not the cold approach.
+#
+# Sample copy is now per artefact. The pitch takes nothing but its board
+# figures and its links; its copy is its own and this build never touches it.
+# ═══════════════════════════════════════════════════════════════════════════
+
+BUILD = 27
+UPDATED = "11 November 2026 · one mailbox, previews that render"
+
+# Base: a transactional send, because that is what the shell carries.
+EMAIL_PREVIEW_TOKENS = dict(EMAIL_PREVIEW_TOKENS, **{
+    "subject": "Your parcel is ready for collection",
+    "preheader": "Collection code inside. Pinned Pod, Kenyatta Avenue.",
+    "headline": "Your parcel is ready for collection.",
+    "body_1": "It is at the Pinned Pod on Kenyatta Avenue, held under your name. Bring the code "
+              "below — nothing else is needed, and you do not need the app.",
+    "body_2": "Free storage runs for 24 countable hours. The clock pauses overnight and whenever "
+              "the Pod is closed, so every hour you are charged for is an hour you could have "
+              "collected in.",
+    "row_1_label": "Parcel",
+    "row_1_value": "PX‑4471 · Kisii → Nairobi CBD",
+    "row_2_label": "Ready since",
+    "row_2_value": "Today, 12:40",
+    "cta_label": "Track this parcel",
+    "cta_url": "https://pinnedflow.app/p/8KQ4T2",
+    "cta_url_plain": "pinnedflow.app/p/8KQ4T2",
+    "how_heading": "How it works",
+    "step_1": "The parcel reaches the Pod.",
+    "step_1_detail": "You get one SMS with the code. No app, no account, nothing to install.",
+    "step_2": "You choose.",
+    "step_2_detail": "Collect it yourself, or have a runner bring it to your door.",
+    "step_3": "A runner is allocated.",
+    "step_3_detail": "You see every state — accepted, picked up, in transit — each one "
+                     "timestamped.",
+    "step_4": "A code closes it.",
+    "step_4_detail": "You give the runner your six‑digit handover code. The parcel is "
+                     "released only against it.",
+    "q_1": "What if I cannot collect today?",
+    "a_1": "Ask for more time from the tracking page, or have a runner bring it to your door.",
+    "q_2": "Do I need the app?",
+    "a_2": "No. The code works at the Pod, and the tracking page opens in any browser.",
+    "promise": "One message when it lands, and a code that opens the Pod.",
+    "promise_support": "If anything goes wrong, a person answers — "
+                       + SUPPORT_HOURS + ", on the number in this email.",
+})
+
+# The pitch takes its figures and its links. Nothing else. Its copy is written
+# into the artefact and stays there.
+EMAIL_PREVIEW_OVERRIDES = {
+    "psv-pitch.html": {
+        "cta_label": "Book a 15-minute walkthrough",
+        "cta_url": "https://pinnedflow.app/psv",
+        "cta_url_plain": "pinnedflow.app/psv",
+    },
+}
+
+EMAIL_PREVIEW_NOTES = {
+    "email/preview/pinned-email-template.html":
+        "<b>Sample values, and deliberately a transactional one</b> — a collection code is "
+        "what the shell carries most of the time. <b>This is not a version of the prospecting "
+        "pitch.</b> That message is its own artefact, further down this page, and nothing in this "
+        "build edits a word of it.",
+    "email/preview/pinned-email-blocks.html":
+        "<b>Every block in the set, stacked in order.</b> A catalogue of parts, not a message — "
+        "a real email uses three or four of them. Sample values throughout.",
+    "email/preview/psv-pitch.html":
+        "<b>The pitch exactly as written.</b> Only the board figures and the links are filled in, "
+        "and the figures here are invented for the preview — the rule that board figures are "
+        "pulled the morning you send, never typed, is not suspended for a screenshot.",
+}
+
+EMAIL_KIT_ROWS = [dict(r, note=EMAIL_PREVIEW_NOTES.get(r["preview"], r["note"]))
+                  for r in EMAIL_KIT_ROWS]

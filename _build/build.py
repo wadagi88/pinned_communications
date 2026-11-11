@@ -1206,7 +1206,9 @@ def build_email_previews():
     made = []
     for rel in EMAIL_PREVIEWABLE:
         raw = open(os.path.join(OUT, "email", rel)).read()
-        for k, v in D.EMAIL_PREVIEW_TOKENS.items():
+        tokens = dict(D.EMAIL_PREVIEW_TOKENS,
+                      **D.EMAIL_PREVIEW_OVERRIDES.get(rel, {}))
+        for k, v in tokens.items():
             raw = raw.replace("{{%s}}" % k, v)
         # The preview sits one folder deeper, so a path the artefact resolves
         # from email/ has to climb back out.
