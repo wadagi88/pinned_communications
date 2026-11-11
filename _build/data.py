@@ -3460,3 +3460,227 @@ EMAIL_KIT_NOTE = (
     "<b>Take the archive, not the six files.</b> It carries all of the above plus a README that "
     "points back here, and it is regenerated every time this surface is built — so a copy someone "
     "downloaded last month and a copy downloaded today differ only if the kit really changed.")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUND TEN · 11 November — one mailbox, and it keeps hours
+#
+# Founder, from the Zoho tenant: there is exactly ONE mailbox on the domain.
+# support@pinnedflow.app. hello@ and notifications@ were never provisioned —
+# and this page had been writing both of them into From lines as though they
+# were. Support answers Mon–Sat, 8am–8pm, which is now a published fact rather
+# than a blank marked CONFIRM in site.yml.
+#
+# Consequence nobody had followed through: the DMARC record this page tells
+# the founder to publish pointed rua= at dmarc@pinnedflow.app. That mailbox
+# does not exist either, so every aggregate report would have bounced.
+# ═══════════════════════════════════════════════════════════════════════════
+
+BUILD = 25
+UPDATED = "11 November 2026 · one mailbox, and it keeps hours"
+
+SUPPORT_HOURS = "Mon–Sat, 8am–8pm"
+SUPPORT_FROM = "support@pinnedflow.app"
+
+EMAIL_MAILBOX = dict(
+    t="One mailbox — and the classes do not have their own",
+    p="<b>The Zoho tenant has exactly one mailbox on the domain: "
+      "<code>support@pinnedflow.app</code>.</b> <code>hello@</code> and "
+      "<code>notifications@</code> do not exist and never were provisioned. This page had been "
+      "writing both into From lines as though they were — which would have sent every class from "
+      "an address that cannot receive the reply it invites. Corrected throughout on 11 November; "
+      "the three cards above now say what the tenant actually holds.<br><br>"
+      "So the classes differ today by <b>subdomain and by content</b>, not by mailbox. Separate "
+      "addresses are a thing to build, not a thing to describe — and until they are built, every "
+      "class carries the one address a person actually reads. That is the right failure. The "
+      "wrong one is a From line invented to match an architecture diagram.",
+    box="<code>Pinned Support &lt;support@pinnedflow.app&gt;</code>",
+    hours="<b>" + SUPPORT_HOURS + ".</b> Outside them a reply waits for the next working "
+          "morning — it is never lost, and <b>no message anywhere promises a faster answer than "
+          "the mailbox keeps</b>.")
+
+EMAIL_CLASSES[0] = dict(EMAIL_CLASSES[0],
+    frm="<code>Pinned &lt;support@pinnedflow.app&gt;</code> — answered " + SUPPORT_HOURS + ".",
+    dom="<code>mg.pinnedflow.app</code> — Mailgun, SPF and DKIM live. <code>mail.</code> returns "
+        "nothing; that split is still a plan.")
+EMAIL_CLASSES[1] = dict(EMAIL_CLASSES[1],
+    frm="<code>Pinned &lt;support@pinnedflow.app&gt;</code> — answered " + SUPPORT_HOURS + ".",
+    dom="A separate marketing subdomain. <b>Not built.</b>")
+EMAIL_CLASSES[2] = dict(EMAIL_CLASSES[2],
+    frm="<code>Pinned Flow &lt;support@pinnedflow.app&gt;</code> — monitored, answered "
+        + SUPPORT_HOURS + ", and <b>never <code>noreply@</code></b>.",
+    dom="A third subdomain, warmed slowly. <b>Not built.</b>")
+
+# The law said one role must never answer on two domains. It now answers on one
+# address, which is further than the law asked — say so, and say what is left.
+LAWS[-1] = dict(LAWS[-1],
+    p="Pinned sends three classes of mail and they cannot share a sending reputation: "
+      "<b>transactional</b> (a code, a receipt, a statement — must arrive), <b>operational</b> "
+      "(a host primer, a runner notice), and <b>outreach</b> (cold pitches, campaigns). They are "
+      "separated so that a complaint about the third can never delay the first.<br><br>"
+      "<b>Today that separation is by subdomain and content only.</b> The tenant holds one "
+      "mailbox — <code>support@pinnedflow.app</code>, answered " + SUPPORT_HOURS + " — and every "
+      "class sends from it. One role, one domain, one address a person reads. The thing to build "
+      "is the subdomain split. The thing never to do is write an address into a From line because "
+      "the architecture calls for one: that is how a reply goes nowhere.")
+
+CHANNELS = [dict(c, rules=[
+        c["rules"][0],
+        "From <code>support@pinnedflow.app</code>, display name Pinned — <b>the only mailbox on "
+        "the domain</b>, answered " + SUPPORT_HOURS + ", and never <code>noreply@</code> on a "
+        "class whose success is a reply.",
+    ] + list(c["rules"][2:])) if c["k"] == "email" else c for c in CHANNELS]
+
+CHANNELS = [dict(c, rules=[
+        r.replace("in working hours", "during support hours (" + SUPPORT_HOURS + ")")
+        for r in c["rules"]]) if c["k"] == "whatsapp" else c for c in CHANNELS]
+
+CODE_NOTES = [(a, b.replace("notifications@pinnedflow.app", "support@pinnedflow.app"))
+              for a, b in CODE_NOTES]
+
+# ── The report address has to be a mailbox that exists ──────────────────────
+EMAIL_DMARC = dict(EMAIL_DMARC,
+    value="v=DMARC1; p=none; rua=mailto:support@pinnedflow.app; "
+          "ruf=mailto:support@pinnedflow.app; fo=1; adkim=r; aspf=r; pct=100",
+    notes=[(a, b.replace("notifications@pinnedflow.app", "support@pinnedflow.app"))
+           for a, b in EMAIL_DMARC["notes"]])
+
+EMAIL_DMARC["notes"][1] = (
+    "<code>rua</code> — pointed at the mailbox that exists",
+    "<b>This changed on 11 November.</b> The record previously read "
+    "<code>rua=mailto:dmarc@pinnedflow.app</code>, and that mailbox was never provisioned — every "
+    "aggregate report would have bounced and the fortnight of monitoring would have produced "
+    "nothing at all, silently. It now points at <code>support@pinnedflow.app</code>, the one "
+    "mailbox on the tenant.<br><br>"
+    "<b>Filter them on arrival.</b> The reports are daily XML attachments from every receiver that "
+    "sees mail from the domain — Google, Microsoft, Yahoo — and they are not readable by a person. "
+    "A Zoho filter on subject <i>Report domain:</i> into its own folder keeps them out of the "
+    "support queue. If a dedicated <code>dmarc@</code> mailbox is created later, swap the record; "
+    "nothing else about it changes.")
+
+EMAIL_CHECKLIST[1] = (
+    "Publish DMARC at <code>p=none</code>",
+    "<a href=\"#dmarc\">The record is on this page.</a> Reports go to "
+    "<code>support@pinnedflow.app</code> — the only mailbox on the tenant — so <b>nothing needs "
+    "provisioning first</b>; add a Zoho filter for them. SPF and DKIM are already live for both "
+    "senders.")
+
+# ── The six published addresses, restated now that we know what exists ──────
+OPEN_QUESTIONS[1] = dict(
+    q="Six addresses we publish go nowhere — all six become support@. Who makes the change?",
+    why="<b>Five of them are on a domain that does not resolve.</b> A DNS lookup on "
+        "<code>pinnedflow.com</code> returns no MX, no SPF and no nameservers; it is not "
+        "delegated. Mail to <code>hello@pinnedflow.com</code> cannot be delivered to anybody. "
+        "<code>batch_subscriber.rb</code>, <code>runner_subscriber.rb</code> and "
+        "<code>route_batch/admin_actions.rb</code> each end on <i>“Questions? "
+        "hello@pinnedflow.com”</i>, and <code>config/content/site.yml</code> and "
+        "<code>legal.yml</code> route <b>refunds and complaints</b> there. Those two are legally "
+        "operative addresses, not copy.<br><br>"
+        "<b>The sixth is on the right domain and still goes nowhere.</b> "
+        "<code>dwell/notifier.rb</code> gives <code>hello@pinnedflow.app</code>. The Zoho tenant "
+        "holds one mailbox and it is <code>support@</code>; <code>hello@</code> was never "
+        "created.<br><br>"
+        "<b>A correction to what this page said yesterday.</b> It read: <i>“dwell/notifier.rb "
+        "already says .app, so the fix is to make the other five match it.”</i> That was wrong, "
+        "and wrong in the expensive direction — matching <code>dwell</code> would have pointed "
+        "five more messages at a mailbox nobody reads, and it would have looked correct while "
+        "doing it. <b>All six become <code>support@pinnedflow.app</code></b>, which is what "
+        "<code>config/initializers/devise.rb</code> already sends as.<br><br>"
+        "While the files are open: <code>site.yml</code> now carries support hours of <b>"
+        + SUPPORT_HOURS + "</b>, confirmed 11 November, replacing the blank marked CONFIRM.",
+    who="Engineering")
+
+
+# ── Previews that actually render ───────────────────────────────────────────
+# The worked example pointed at ./pinned-email-logo-light.png while the file
+# lives in ./assets/ — so every preview, and every dev who unzipped the kit,
+# saw a broken image box where the lockup should be. Fixed in the artefact.
+#
+# The shell and the blocks are a different problem: they are full of {{token}}
+# placeholders, which is exactly what a developer needs and exactly what makes
+# a preview unreadable. So the build writes a THIRD copy of each into
+# email/preview/, with the tokens filled. Source and Download still hand over
+# the real file, tokens intact. Three artefacts, three jobs, no compromise
+# between them.
+
+BUILD = 26
+UPDATED = "11 November 2026 · one mailbox, previews that render"
+
+EMAIL_PREVIEW_NOTE = (
+    "<b>Sample values.</b> The preview fills every <code>{{token}}</code> so the email can be "
+    "read as an email. The figures in it are made up for the preview — the rule that board "
+    "figures are pulled the morning you send, never typed, is not suspended for a screenshot. "
+    "<b>Source</b> and <b>Download</b> hand over the real file with the tokens intact.")
+
+EMAIL_PREVIEW_TOKENS = {
+    "asset_base": "../assets",
+    "subject": "Still on your Nairobi shelf tonight",
+    "preheader": "A parcel that arrived on time, and a customer who does not know it landed.",
+    "headline": "Your shelf is full of parcels that arrived on time.",
+    "body_1": "Every one of them has an owner who does not know it landed. A parcel leaves your "
+              "upcountry branch on the 7am and reaches your Nairobi Parcel Office by midday. "
+              "Your part is done.",
+    "body_2": "Then it sits — two unanswered calls, three days, and a customer angry at you "
+              "for a parcel you moved on time.",
+    "row_1_label": "Parcel",
+    "row_1_value": "PX‑4471 · Kisii → Nairobi CBD",
+    "row_2_label": "Ready since",
+    "row_2_value": "Today, 12:40",
+    "code_label": "Collection code",
+    "otp": "418 905",
+    "code_caption": "Read this at the counter. We never ask for it by phone.",
+    "how_heading": "How it works at your desk",
+    "step_1": "Your system keeps working as it is.",
+    "step_1_detail": "Parcel software, receipt book or ledger — we use the sender and "
+                     "receiver details you already hold.",
+    "step_2": "The receiver gets it, and chooses.",
+    "step_2_detail": "Agree to delivery, or collect from your office. Either way they have "
+                     "answered, and your clerk has stopped chasing.",
+    "step_3": "If they agree, a runner is allocated.",
+    "step_3_detail": "From then you track every state — accepted, picked up, in transit, "
+                     "delivered — each one timestamped from your counter.",
+    "step_4": "At the door, a code closes it.",
+    "step_4_detail": "The receiver gives the runner their six‑digit handover code; the "
+                     "parcel is released only against it.",
+    "q_1": "What if the receiver never answers?",
+    "a_1": "The parcel stays with you, exactly as it does today. Nothing is lost by notifying.",
+    "q_2": "Do you train us?",
+    "a_2": "We come to you. An hour with your clerks, and we stay through your first busy morning.",
+    "promise": "Notification on every parcel that reaches your Nairobi office.",
+    "promise_support": "An hour with your clerks, and we stay through your first busy morning.",
+    "board_date": "10 November 2026",
+    "board_parcels": "1,240",
+    "board_riders": "38",
+    "board_businesses": "96",
+    "cta_label": "Book a 15-minute walkthrough",
+    "cta_url": "https://pinnedflow.app/psv",
+    "cta_url_plain": "pinnedflow.app/psv",
+    "meeting_url": "https://pinnedflow.app/psv",
+    "help_line": "Questions? support@pinnedflow.app · 0141 677 677 · " + SUPPORT_HOURS,
+    "company_legal_name": "Pinned Apex Limited",
+    "postal_address": "Popman House, Nyakatch Lane, Nairobi CBD · P.O. Box 966–00200",
+    "unsubscribe_url": "https://pinnedflow.app/unsubscribe",
+    "preferences_url": "https://pinnedflow.app/email-preferences",
+}
+
+EMAIL_SOURCE_NOTE = (
+    "<b>The real file, tokens intact.</b> Served as plain text, because a browser asked for an "
+    "email renders it instead of showing it. This is the copy to take, not the preview.")
+
+_PREVIEW_OF = {
+    "email/pinned-email-template.html": "email/preview/pinned-email-template.html",
+    "email/pinned-email-blocks.html": "email/preview/pinned-email-blocks.html",
+    "email/psv-pitch.html": "email/preview/psv-pitch.html",
+}
+
+EMAIL_KIT_ROWS = [
+    dict(r,
+         preview=_PREVIEW_OF.get(r["preview"], r["preview"]),
+         note=(EMAIL_PREVIEW_NOTE if r["preview"] in _PREVIEW_OF else
+               ("<b>The lockup as it ships.</b> PNG at 2×, because Gmail and Outlook strip "
+                "SVG. In the shell it is addressed as "
+                "<code>{{asset_base}}/pinned-email-logo-light.png</code> — point "
+                "<code>{{asset_base}}</code> at a stable HTTPS folder on "
+                "<code>pinnedflow.app</code> and both files resolve."
+                if r["preview"] else "")))
+    for r in EMAIL_KIT_ROWS]

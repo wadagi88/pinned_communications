@@ -21,6 +21,12 @@ def e(s):
     return html.escape(str(s), quote=False)
 
 
+def attr(s):
+    """e() leaves quotes alone, which is fine in text and fatal in an
+    attribute. The modal carries its note in one."""
+    return html.escape(str(s), quote=True)
+
+
 def split_marker(body):
     """Trailing '[−7 days]' line is a label for the rung, not part of the copy."""
     m = MARKER_RE.search(body)
@@ -229,6 +235,69 @@ FOOT = """
     if (on && bar && bar.scrollWidth > bar.clientWidth) {
       bar.scrollLeft = on.offsetLeft - 90;
     }
+  })();
+  // ── Examples open here, not in a tab you then have to find again.
+  (function () {
+    var box = null, last = null;
+    function build() {
+      box = document.createElement("div");
+      box.className = "mdl";
+      box.innerHTML =
+        '<div class="mdl-card" role="dialog" aria-modal="true" aria-labelledby="mdl-t">' +
+          '<div class="mdl-head">' +
+            '<div class="t"><span class="mdl-sub"></span><h3 id="mdl-t"></h3>' +
+              '<span class="mdl-file"></span></div>' +
+            '<div class="mdl-acts">' +
+              '<a class="mdl-out" target="_blank" rel="noopener">Open in a tab</a>' +
+              '<button class="mdl-x" type="button">Close</button>' +
+            '</div>' +
+          '</div>' +
+          '<p class="mdl-note"></p>' +
+          '<div class="mdl-body"></div>' +
+        '</div>';
+      document.body.appendChild(box);
+      box.addEventListener("click", function (ev) {
+        if (ev.target === box || ev.target.className === "mdl-x") { close(); }
+      });
+    }
+    function close() {
+      if (!box) { return; }
+      box.classList.remove("on");
+      box.querySelector(".mdl-body").innerHTML = "";   // stop the iframe loading
+      document.body.classList.remove("mdl-open");
+      if (last) { last.focus(); last = null; }
+    }
+    function open(a) {
+      if (!box) { build(); }
+      var href = a.getAttribute("href"),
+          note = a.getAttribute("data-modal-note") || "",
+          png  = /\.(png|jpe?g|gif|svg)$/i.test(href);
+      box.querySelector(".mdl-sub").textContent = a.getAttribute("data-modal-sub") || "";
+      box.querySelector("#mdl-t").textContent = a.getAttribute("data-modal-title") || "";
+      box.querySelector(".mdl-file").textContent = href;
+      box.querySelector(".mdl-out").setAttribute("href", href);
+      var n = box.querySelector(".mdl-note");
+      n.innerHTML = note;
+      n.style.display = note ? "" : "none";
+      box.querySelector(".mdl-body").innerHTML = png
+        ? '<img alt="" src="' + href + '">'
+        : '<iframe title="Preview" src="' + href + '" loading="lazy"></iframe>';
+      box.classList.add("on");
+      document.body.classList.add("mdl-open");
+      box.querySelector(".mdl-x").focus();
+    }
+    document.addEventListener("click", function (ev) {
+      var a = ev.target.closest ? ev.target.closest("a[data-modal]") : null;
+      if (!a) { return; }
+      // Leave cmd/ctrl/middle-click alone — that is someone asking for a tab.
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) { return; }
+      ev.preventDefault();
+      last = a;
+      open(a);
+    });
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape" && box && box.classList.contains("on")) { close(); }
+    });
   })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
@@ -861,7 +930,16 @@ def build_email():
     body += section("04", "Three sending classes",
                     "They differ for legal and deliverability reasons, not visual ones. Same shell "
                     "for all three.",
-                    '<div class="grid g3">%s</div>' % cls, anchor="classes")
+                    '<div class="grid g3">%s</div>'
+                    '<div class="card accent-mag" style="margin-top:22px">'
+                    '<h3>%s</h3><p>%s</p>'
+                    '<div class="kv" style="margin-top:14px">'
+                    '<div><b>The mailbox</b><span>%s</span></div>'
+                    '<div><b>Answered</b><span>%s</span></div>'
+                    '</div></div>'
+                    % (cls, e(D.EMAIL_MAILBOX["t"]), D.EMAIL_MAILBOX["p"],
+                       D.EMAIL_MAILBOX["box"], D.EMAIL_MAILBOX["hours"]),
+                    anchor="classes")
 
     rules = "".join(
         '<div class="card accent-mag"><span class="sec-num">%02d</span>'
@@ -882,11 +960,15 @@ def build_email():
     for r in D.EMAIL_KIT_ROWS:
         acts = []
         if r["preview"]:
-            acts.append('<a class="kact" href="%s" target="_blank" rel="noopener">Preview</a>'
-                        % r["preview"])
+            acts.append('<a class="kact" href="%s" target="_blank" rel="noopener" data-modal '
+                        'data-modal-title="%s" data-modal-sub="Preview" data-modal-note="%s">'
+                        'Preview</a>'
+                        % (r["preview"], attr(r["title"]), attr(r.get("note", ""))))
         if r["source"]:
-            acts.append('<a class="kact" href="%s" target="_blank" rel="noopener">Source</a>'
-                        % r["source"])
+            acts.append('<a class="kact" href="%s" target="_blank" rel="noopener" data-modal '
+                        'data-modal-title="%s" data-modal-sub="Source" data-modal-note="%s">'
+                        'Source</a>'
+                        % (r["source"], attr(r["title"]), attr(D.EMAIL_SOURCE_NOTE)))
         acts.append('<a class="kact dl" href="%s" download>Download</a>' % r["file"])
         kit.append("""
 <div class="card">
@@ -909,7 +991,9 @@ def build_email():
 </div>
 <div class="grid g2" style="margin-top:22px">%s</div>
 <p class="sec-sub" style="margin-top:20px">The brief at
-  <a href="email/IMPLEMENTATION.md">email/IMPLEMENTATION.md</a> is canonical for
+  <a href="email/src/IMPLEMENTATION.md.txt" target="_blank" rel="noopener" data-modal
+     data-modal-title="The brief" data-modal-sub="IMPLEMENTATION.md">email/IMPLEMENTATION.md</a>
+  is canonical for
   <b>destinations</b>; this page is canonical for <b>rules</b>. Stating a rule in both places is
   how the two drift.</p>"""
                     % (D.EMAIL_KIT_NOTE, globals().get("KIT_BYTES", 0) / 1024.0, "".join(kit)),
@@ -1076,6 +1160,10 @@ EMAIL_KIT = [
     ("assets/pinned-email-logo-dark.png", "Logo · dark"),
 ]
 
+# The three that are HTML and therefore previewable. IMPLEMENTATION.md reads
+# fine as text and the logos are already images.
+EMAIL_PREVIEWABLE = [k for k, _ in EMAIL_KIT if k.endswith(".html")]
+
 KIT_README = """Pinned email kit
 ================
 
@@ -1103,6 +1191,34 @@ each one is there for a client you are probably not testing in.
 
 Generated from the pinned-comms surface, build %d.
 """
+
+
+def build_email_previews():
+    """A third copy of each HTML artefact, with every {{token}} filled.
+
+    The shell and the blocks are unreadable as a preview — they are nothing but
+    placeholders, which is exactly what the developer wants from the file they
+    take away. Rather than compromise one job for the other, the build renders
+    a separate preview. Source and Download still serve the real file.
+    """
+    out_dir = os.path.join(OUT, "email", "preview")
+    os.makedirs(out_dir, exist_ok=True)
+    made = []
+    for rel in EMAIL_PREVIEWABLE:
+        raw = open(os.path.join(OUT, "email", rel)).read()
+        for k, v in D.EMAIL_PREVIEW_TOKENS.items():
+            raw = raw.replace("{{%s}}" % k, v)
+        # The preview sits one folder deeper, so a path the artefact resolves
+        # from email/ has to climb back out.
+        raw = raw.replace('src="./assets/', 'src="../assets/')
+        left = re.findall(r"\{\{[a-z_0-9]+\}\}", raw)
+        if left:
+            raise SystemExit("preview %s has unfilled tokens: %s"
+                             % (rel, ", ".join(sorted(set(left)))))
+        with open(os.path.join(out_dir, rel), "w") as fh:
+            fh.write(raw)
+        made.append(rel)
+    return made
 
 
 def build_email_kit():
@@ -1138,6 +1254,7 @@ def build_email_kit():
 
 
 def main():
+    previews = build_email_previews()
     kit, kit_bytes = build_email_kit()
     globals()["KIT_BYTES"] = kit_bytes
     built = [build_index(), build_principles(), build_channels(), build_email()]
@@ -1147,6 +1264,7 @@ def main():
     built.append(build_gaps())
     print("built %d pages: %s" % (len(built), ", ".join(built)))
     print("email kit: %d source files + zip (%.1f KB)" % (len(kit), kit_bytes / 1024.0))
+    print("email previews: %d rendered with sample values" % len(previews))
 
 
 if __name__ == "__main__":

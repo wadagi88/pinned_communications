@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/comms.css?v=24">
+<link rel="stylesheet" href="assets/comms.css?v=26">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C8005A'/%3E%3Cg fill='%23fff'%3E%3Cpath d='M6 8h20l-3 5H9z'/%3E%3Cpath d='M8 15h16l-2.5 4.5h-11z'/%3E%3Cpath d='M10 21h12l-2 3.5h-8z'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   // Theme choice is a per-device convenience; failure must never blank the page.
@@ -97,9 +97,9 @@
     <div><b>Type</b><span><code>TXT</code></span></div>
   </div>
   <span class="lbl" style="margin-top:16px">Value</span>
-  <div class="sms-bubble" style="margin-top:8px;word-break:break-word">v=DMARC1; p=none; rua=mailto:dmarc@pinnedflow.app; ruf=mailto:dmarc@pinnedflow.app; fo=1; adkim=r; aspf=r; pct=100</div>
+  <div class="sms-bubble" style="margin-top:8px;word-break:break-word">v=DMARC1; p=none; rua=mailto:support@pinnedflow.app; ruf=mailto:support@pinnedflow.app; fo=1; adkim=r; aspf=r; pct=100</div>
 </div>
-<div class="grid g2" style="margin-top:22px"><div class="card"><span class="lbl"><code>p=none</code></span><p class="tight">Monitor only. Nothing is quarantined or rejected, so publishing this cannot break a single send. It exists to make the invisible visible.</p></div><div class="card"><span class="lbl"><code>rua</code> — and the one thing that will silently defeat this</span><p class="tight"><b>The mailbox has to exist.</b> <code>dmarc@pinnedflow.app</code> must be provisioned on the Zoho tenant before the record goes up, or every report bounces and the fortnight of monitoring produces nothing. The reports are daily XML aggregates and are not readable by a person — budget for a processor, or expect to parse them.</p></div><div class="card"><span class="lbl"><code>adkim=r; aspf=r</code> — relaxed, and it must stay relaxed</span><p class="tight"><b>This is the line that matters for Mailgun.</b> Mailgun signs as <code>d=mg.pinnedflow.app</code> while the From header reads <code>notifications@pinnedflow.app</code>. Those align under <b>relaxed</b> alignment, because they share an organisational domain — and they do <b>not</b> align under strict. Set <code>adkim=s</code> or <code>aspf=s</code> and every Mailgun send fails DMARC the day you move off <code>p=none</code>.</p></div><div class="card"><span class="lbl"><code>fo=1</code></span><p class="tight">Forensic reports on any failure, not only on a total one. Useful while monitoring, worth turning down later if the volume is noisy.</p></div><div class="card"><span class="lbl">What happens next, in order</span><p class="tight">Publish it. Read a fortnight of <code>rua</code> reports and look for sources you do not recognise — that is the point of the exercise, because nobody currently knows what sends as pinnedflow.app. Then raise to <code>p=quarantine</code>, then <code>p=reject</code>. Do not skip the reading.</p></div></div>
+<div class="grid g2" style="margin-top:22px"><div class="card"><span class="lbl"><code>p=none</code></span><p class="tight">Monitor only. Nothing is quarantined or rejected, so publishing this cannot break a single send. It exists to make the invisible visible.</p></div><div class="card"><span class="lbl"><code>rua</code> — pointed at the mailbox that exists</span><p class="tight"><b>This changed on 11 November.</b> The record previously read <code>rua=mailto:dmarc@pinnedflow.app</code>, and that mailbox was never provisioned — every aggregate report would have bounced and the fortnight of monitoring would have produced nothing at all, silently. It now points at <code>support@pinnedflow.app</code>, the one mailbox on the tenant.<br><br><b>Filter them on arrival.</b> The reports are daily XML attachments from every receiver that sees mail from the domain — Google, Microsoft, Yahoo — and they are not readable by a person. A Zoho filter on subject <i>Report domain:</i> into its own folder keeps them out of the support queue. If a dedicated <code>dmarc@</code> mailbox is created later, swap the record; nothing else about it changes.</p></div><div class="card"><span class="lbl"><code>adkim=r; aspf=r</code> — relaxed, and it must stay relaxed</span><p class="tight"><b>This is the line that matters for Mailgun.</b> Mailgun signs as <code>d=mg.pinnedflow.app</code> while the From header reads <code>support@pinnedflow.app</code>. Those align under <b>relaxed</b> alignment, because they share an organisational domain — and they do <b>not</b> align under strict. Set <code>adkim=s</code> or <code>aspf=s</code> and every Mailgun send fails DMARC the day you move off <code>p=none</code>.</p></div><div class="card"><span class="lbl"><code>fo=1</code></span><p class="tight">Forensic reports on any failure, not only on a total one. Useful while monitoring, worth turning down later if the volume is noisy.</p></div><div class="card"><span class="lbl">What happens next, in order</span><p class="tight">Publish it. Read a fortnight of <code>rua</code> reports and look for sources you do not recognise — that is the point of the exercise, because nobody currently knows what sends as pinnedflow.app. Then raise to <code>p=quarantine</code>, then <code>p=reject</code>. Do not skip the reading.</p></div></div>
 </div></section>
 <section id="classes"><div class="wrap">
   <div class="sec-head"><span class="sec-num">04</span><h2>Three sending classes</h2></div>
@@ -111,8 +111,8 @@
   <div class="kv" style="margin-top:12px">
     <div><b>Examples</b><span>Collection code, ready for collection, collected, host statement.</span></div>
     <div><b>Unsubscribe</b><span>No — an unsubscribe link does not belong on a message somebody needs.</span></div>
-    <div><b>From</b><span><code>Pinned &lt;notifications@pinnedflow.app&gt;</code></span></div>
-    <div><b>Domain</b><span><code>mail.pinnedflow.app</code>, never throttled.</span></div>
+    <div><b>From</b><span><code>Pinned &lt;support@pinnedflow.app&gt;</code> — answered Mon–Sat, 8am–8pm.</span></div>
+    <div><b>Domain</b><span><code>mg.pinnedflow.app</code> — Mailgun, SPF and DKIM live. <code>mail.</code> returns nothing; that split is still a plan.</span></div>
   </div>
 </div>
 <div class="card accent-lock">
@@ -120,8 +120,8 @@
   <div class="kv" style="margin-top:12px">
     <div><b>Examples</b><span>A new Pod, a new feature, a change to how something works.</span></div>
     <div><b>Unsubscribe</b><span>Yes, plus a preferences link.</span></div>
-    <div><b>From</b><span><code>Pinned &lt;notifications@pinnedflow.app&gt;</code></span></div>
-    <div><b>Domain</b><span>A separate marketing subdomain.</span></div>
+    <div><b>From</b><span><code>Pinned &lt;support@pinnedflow.app&gt;</code> — answered Mon–Sat, 8am–8pm.</span></div>
+    <div><b>Domain</b><span>A separate marketing subdomain. <b>Not built.</b></span></div>
   </div>
 </div>
 <div class="card accent-org">
@@ -129,10 +129,10 @@
   <div class="kv" style="margin-top:12px">
     <div><b>Examples</b><span>PSV operators, cold business senders, the pitch on this site.</span></div>
     <div><b>Unsubscribe</b><span>Yes, and prominent.</span></div>
-    <div><b>From</b><span><code>Pinned Flow &lt;hello@pinnedflow.app&gt;</code> — <b>monitored, never <code>noreply@</code></b>.</span></div>
-    <div><b>Domain</b><span>A third subdomain, warmed slowly.</span></div>
+    <div><b>From</b><span><code>Pinned Flow &lt;support@pinnedflow.app&gt;</code> — monitored, answered Mon–Sat, 8am–8pm, and <b>never <code>noreply@</code></b>.</span></div>
+    <div><b>Domain</b><span>A third subdomain, warmed slowly. <b>Not built.</b></span></div>
   </div>
-</div></div>
+</div></div><div class="card accent-mag" style="margin-top:22px"><h3>One mailbox — and the classes do not have their own</h3><p><b>The Zoho tenant has exactly one mailbox on the domain: <code>support@pinnedflow.app</code>.</b> <code>hello@</code> and <code>notifications@</code> do not exist and never were provisioned. This page had been writing both into From lines as though they were — which would have sent every class from an address that cannot receive the reply it invites. Corrected throughout on 11 November; the three cards above now say what the tenant actually holds.<br><br>So the classes differ today by <b>subdomain and by content</b>, not by mailbox. Separate addresses are a thing to build, not a thing to describe — and until they are built, every class carries the one address a person actually reads. That is the right failure. The wrong one is a From line invented to match an architecture diagram.</p><div class="kv" style="margin-top:14px"><div><b>The mailbox</b><span><code>Pinned Support &lt;support@pinnedflow.app&gt;</code></span></div><div><b>Answered</b><span><b>Mon–Sat, 8am–8pm.</b> Outside them a reply waits for the next working morning — it is never lost, and <b>no message anywhere promises a faster answer than the mailbox keeps</b>.</span></div></div></div>
 </div></section>
 <section id="rules"><div class="wrap">
   <div class="sec-head"><span class="sec-num">05</span><h2>The rules</h2></div>
@@ -162,45 +162,47 @@
   <h3 style="margin-top:8px">The shell</h3>
   <p class="tight" style="margin-top:8px">Doctype, head, logo, card, footer and the dark-mode block. Everything between the headline block and the footer becomes <code>yield</code>.</p>
   <div class="kv" style="margin-top:12px"><div><b>Lands in</b><span><code>app/views/layouts/mailer.html.erb</code> · <code>pinned_systemadmin</code></span></div></div>
-  <div class="kacts"><a class="kact" href="email/pinned-email-template.html" target="_blank" rel="noopener">Preview</a><a class="kact" href="email/src/pinned-email-template.html.txt" target="_blank" rel="noopener">Source</a><a class="kact dl" href="email/pinned-email-template.html" download>Download</a></div>
+  <div class="kacts"><a class="kact" href="email/preview/pinned-email-template.html" target="_blank" rel="noopener" data-modal data-modal-title="The shell" data-modal-sub="Preview" data-modal-note="&lt;b&gt;Sample values.&lt;/b&gt; The preview fills every &lt;code&gt;{{token}}&lt;/code&gt; so the email can be read as an email. The figures in it are made up for the preview — the rule that board figures are pulled the morning you send, never typed, is not suspended for a screenshot. &lt;b&gt;Source&lt;/b&gt; and &lt;b&gt;Download&lt;/b&gt; hand over the real file with the tokens intact.">Preview</a><a class="kact" href="email/src/pinned-email-template.html.txt" target="_blank" rel="noopener" data-modal data-modal-title="The shell" data-modal-sub="Source" data-modal-note="&lt;b&gt;The real file, tokens intact.&lt;/b&gt; Served as plain text, because a browser asked for an email renders it instead of showing it. This is the copy to take, not the preview.">Source</a><a class="kact dl" href="email/pinned-email-template.html" download>Download</a></div>
 </div>
 <div class="card">
   <span class="lbl">email/pinned-email-blocks.html</span>
   <h3 style="margin-top:8px">Seven blocks</h3>
   <p class="tight" style="margin-top:8px">Headline, detail panel, code reveal, proof slab, promise, CTA, how-it-works. Each is a complete <code>&lt;tr&gt;</code> that drops into the card.</p>
   <div class="kv" style="margin-top:12px"><div><b>Lands in</b><span>The Messaging Centre composer. They already use <code>{{…}}</code>, the syntax the composer documents.</span></div></div>
-  <div class="kacts"><a class="kact" href="email/pinned-email-blocks.html" target="_blank" rel="noopener">Preview</a><a class="kact" href="email/src/pinned-email-blocks.html.txt" target="_blank" rel="noopener">Source</a><a class="kact dl" href="email/pinned-email-blocks.html" download>Download</a></div>
+  <div class="kacts"><a class="kact" href="email/preview/pinned-email-blocks.html" target="_blank" rel="noopener" data-modal data-modal-title="Seven blocks" data-modal-sub="Preview" data-modal-note="&lt;b&gt;Sample values.&lt;/b&gt; The preview fills every &lt;code&gt;{{token}}&lt;/code&gt; so the email can be read as an email. The figures in it are made up for the preview — the rule that board figures are pulled the morning you send, never typed, is not suspended for a screenshot. &lt;b&gt;Source&lt;/b&gt; and &lt;b&gt;Download&lt;/b&gt; hand over the real file with the tokens intact.">Preview</a><a class="kact" href="email/src/pinned-email-blocks.html.txt" target="_blank" rel="noopener" data-modal data-modal-title="Seven blocks" data-modal-sub="Source" data-modal-note="&lt;b&gt;The real file, tokens intact.&lt;/b&gt; Served as plain text, because a browser asked for an email renders it instead of showing it. This is the copy to take, not the preview.">Source</a><a class="kact dl" href="email/pinned-email-blocks.html" download>Download</a></div>
 </div>
 <div class="card">
   <span class="lbl">email/psv-pitch.html</span>
   <h3 style="margin-top:8px">A worked example</h3>
   <p class="tight" style="margin-top:8px">The PSV pitch, built from blocks 1, 5, 7, 4 and 6. Open it to see what the system produces before writing anything with it.</p>
   <div class="kv" style="margin-top:12px"><div><b>Lands in</b><span>One record in <code>AdminApi.messaging.templates</code>, <code>channel: "email"</code>, <code>kind: "promotional"</code>.</span></div></div>
-  <div class="kacts"><a class="kact" href="email/psv-pitch.html" target="_blank" rel="noopener">Preview</a><a class="kact" href="email/src/psv-pitch.html.txt" target="_blank" rel="noopener">Source</a><a class="kact dl" href="email/psv-pitch.html" download>Download</a></div>
+  <div class="kacts"><a class="kact" href="email/preview/psv-pitch.html" target="_blank" rel="noopener" data-modal data-modal-title="A worked example" data-modal-sub="Preview" data-modal-note="&lt;b&gt;Sample values.&lt;/b&gt; The preview fills every &lt;code&gt;{{token}}&lt;/code&gt; so the email can be read as an email. The figures in it are made up for the preview — the rule that board figures are pulled the morning you send, never typed, is not suspended for a screenshot. &lt;b&gt;Source&lt;/b&gt; and &lt;b&gt;Download&lt;/b&gt; hand over the real file with the tokens intact.">Preview</a><a class="kact" href="email/src/psv-pitch.html.txt" target="_blank" rel="noopener" data-modal data-modal-title="A worked example" data-modal-sub="Source" data-modal-note="&lt;b&gt;The real file, tokens intact.&lt;/b&gt; Served as plain text, because a browser asked for an email renders it instead of showing it. This is the copy to take, not the preview.">Source</a><a class="kact dl" href="email/psv-pitch.html" download>Download</a></div>
 </div>
 <div class="card">
   <span class="lbl">email/IMPLEMENTATION.md</span>
   <h3 style="margin-top:8px">The brief</h3>
   <p class="tight" style="margin-top:8px">Where each piece goes, and what the backend has to resolve and when. Canonical for destinations; this page is canonical for rules.</p>
   <div class="kv" style="margin-top:12px"><div><b>Lands in</b><span>Read it beside the files.</span></div></div>
-  <div class="kacts"><a class="kact" href="email/src/IMPLEMENTATION.md.txt" target="_blank" rel="noopener">Source</a><a class="kact dl" href="email/IMPLEMENTATION.md" download>Download</a></div>
+  <div class="kacts"><a class="kact" href="email/src/IMPLEMENTATION.md.txt" target="_blank" rel="noopener" data-modal data-modal-title="The brief" data-modal-sub="Source" data-modal-note="&lt;b&gt;The real file, tokens intact.&lt;/b&gt; Served as plain text, because a browser asked for an email renders it instead of showing it. This is the copy to take, not the preview.">Source</a><a class="kact dl" href="email/IMPLEMENTATION.md" download>Download</a></div>
 </div>
 <div class="card">
   <span class="lbl">email/assets/pinned-email-logo-light.png</span>
   <h3 style="margin-top:8px">Logo · light ground</h3>
   <p class="tight" style="margin-top:8px">The lockup at 2×, rendered from the master vector. PNG because Gmail and Outlook strip SVG.</p>
   <div class="kv" style="margin-top:12px"><div><b>Lands in</b><span>A stable HTTPS path on <code>pinnedflow.app</code>; point <code>{{asset_base}}</code> at the folder.</span></div></div>
-  <div class="kacts"><a class="kact" href="email/assets/pinned-email-logo-light.png" target="_blank" rel="noopener">Preview</a><a class="kact dl" href="email/assets/pinned-email-logo-light.png" download>Download</a></div>
+  <div class="kacts"><a class="kact" href="email/assets/pinned-email-logo-light.png" target="_blank" rel="noopener" data-modal data-modal-title="Logo · light ground" data-modal-sub="Preview" data-modal-note="&lt;b&gt;The lockup as it ships.&lt;/b&gt; PNG at 2×, because Gmail and Outlook strip SVG. In the shell it is addressed as &lt;code&gt;{{asset_base}}/pinned-email-logo-light.png&lt;/code&gt; — point &lt;code&gt;{{asset_base}}&lt;/code&gt; at a stable HTTPS folder on &lt;code&gt;pinnedflow.app&lt;/code&gt; and both files resolve.">Preview</a><a class="kact dl" href="email/assets/pinned-email-logo-light.png" download>Download</a></div>
 </div>
 <div class="card">
   <span class="lbl">email/assets/pinned-email-logo-dark.png</span>
   <h3 style="margin-top:8px">Logo · dark ground</h3>
   <p class="tight" style="margin-top:8px">The white-wordmark version, swapped in by the <code>prefers-color-scheme</code> and <code>[data-ogsc]</code> rules.</p>
   <div class="kv" style="margin-top:12px"><div><b>Lands in</b><span>Same folder as the light one.</span></div></div>
-  <div class="kacts"><a class="kact" href="email/assets/pinned-email-logo-dark.png" target="_blank" rel="noopener">Preview</a><a class="kact dl" href="email/assets/pinned-email-logo-dark.png" download>Download</a></div>
+  <div class="kacts"><a class="kact" href="email/assets/pinned-email-logo-dark.png" target="_blank" rel="noopener" data-modal data-modal-title="Logo · dark ground" data-modal-sub="Preview" data-modal-note="&lt;b&gt;The lockup as it ships.&lt;/b&gt; PNG at 2×, because Gmail and Outlook strip SVG. In the shell it is addressed as &lt;code&gt;{{asset_base}}/pinned-email-logo-light.png&lt;/code&gt; — point &lt;code&gt;{{asset_base}}&lt;/code&gt; at a stable HTTPS folder on &lt;code&gt;pinnedflow.app&lt;/code&gt; and both files resolve.">Preview</a><a class="kact dl" href="email/assets/pinned-email-logo-dark.png" download>Download</a></div>
 </div></div>
 <p class="sec-sub" style="margin-top:20px">The brief at
-  <a href="email/IMPLEMENTATION.md">email/IMPLEMENTATION.md</a> is canonical for
+  <a href="email/src/IMPLEMENTATION.md.txt" target="_blank" rel="noopener" data-modal
+     data-modal-title="The brief" data-modal-sub="IMPLEMENTATION.md">email/IMPLEMENTATION.md</a>
+  is canonical for
   <b>destinations</b>; this page is canonical for <b>rules</b>. Stating a rule in both places is
   how the two drift.</p>
 </div></section>
@@ -208,13 +210,13 @@
   <div class="sec-head"><span class="sec-num">08</span><h2>Before the first send</h2></div>
   
   <div class="rule"></div>
-  <div class="grid g2"><div class="card"><span class="lbl">Publish a DMARC record</span><p class="tight">There is none. Start at <code>p=none</code> with a reporting address, read a fortnight of reports, then tighten to <code>p=quarantine</code>.</p></div><div class="card"><span class="lbl">Publish DMARC at <code>p=none</code></span><p class="tight"><a href="#dmarc">The record is on this page.</a> Provision <code>dmarc@pinnedflow.app</code> first, or the reports bounce and the exercise produces nothing. SPF and DKIM are already done for both senders.</p></div><div class="card"><span class="lbl">Logos on a stable HTTPS path</span><p class="tight">Then point <code>{{asset_base}}</code> at the folder.</p></div><div class="card"><span class="lbl"><code>List-Unsubscribe</code> and <code>List-Unsubscribe-Post</code></span><p class="tight">On bulk sends. <code>unsubscribe_url</code> must be unique per recipient — a shared link unsubscribes nobody, and Gmail and Yahoo require a unique one for the one-click header.</p></div><div class="card"><span class="lbl">A <code>text/plain</code> alternative on every send</span><p class="tight">Missing it costs deliverability on its own.</p></div><div class="card"><span class="lbl">The <code>board_*</code> endpoint</span><p class="tight">A small endpoint or cached read of the <code>/vhost</code> board. Until it exists those four tokens have nothing behind them.</p></div><div class="card"><span class="lbl">Render it in five places</span><p class="tight">Gmail web, Gmail Android, Apple Mail iOS, Outlook desktop, and Gmail dark mode.</p></div><div class="card"><span class="lbl">BIMI is a 2027 item</span><p class="tight">The logo beside the subject line needs DMARC enforcement plus a Verified Mark Certificate, which needs a registered trademark and runs about $1,000 a year. Do the DMARC work now for its own sake.</p></div></div>
+  <div class="grid g2"><div class="card"><span class="lbl">Publish a DMARC record</span><p class="tight">There is none. Start at <code>p=none</code> with a reporting address, read a fortnight of reports, then tighten to <code>p=quarantine</code>.</p></div><div class="card"><span class="lbl">Publish DMARC at <code>p=none</code></span><p class="tight"><a href="#dmarc">The record is on this page.</a> Reports go to <code>support@pinnedflow.app</code> — the only mailbox on the tenant — so <b>nothing needs provisioning first</b>; add a Zoho filter for them. SPF and DKIM are already live for both senders.</p></div><div class="card"><span class="lbl">Logos on a stable HTTPS path</span><p class="tight">Then point <code>{{asset_base}}</code> at the folder.</p></div><div class="card"><span class="lbl"><code>List-Unsubscribe</code> and <code>List-Unsubscribe-Post</code></span><p class="tight">On bulk sends. <code>unsubscribe_url</code> must be unique per recipient — a shared link unsubscribes nobody, and Gmail and Yahoo require a unique one for the one-click header.</p></div><div class="card"><span class="lbl">A <code>text/plain</code> alternative on every send</span><p class="tight">Missing it costs deliverability on its own.</p></div><div class="card"><span class="lbl">The <code>board_*</code> endpoint</span><p class="tight">A small endpoint or cached read of the <code>/vhost</code> board. Until it exists those four tokens have nothing behind them.</p></div><div class="card"><span class="lbl">Render it in five places</span><p class="tight">Gmail web, Gmail Android, Apple Mail iOS, Outlook desktop, and Gmail dark mode.</p></div><div class="card"><span class="lbl">BIMI is a 2027 item</span><p class="tight">The logo beside the subject line needs DMARC enforcement plus a Verified Mark Certificate, which needs a registered trademark and runs about $1,000 a year. Do the DMARC work now for its own sake.</p></div></div>
 </div></section><div class="wrap"><div class="endrule"></div></div>
 </main></div>
 <footer>
   <div class="wrap">
-    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 10 November 2026 · the kit, downloadable</p>
-    <p>Internal working document. Build 24.</p>
+    <p><b>Pinned Communications</b> · drafted from the Communication Map and the live templates in pinned-core · 11 November 2026 · one mailbox, previews that render</p>
+    <p>Internal working document. Build 26.</p>
   </div>
 </footer>
 <script>
@@ -225,6 +227,69 @@
     if (on && bar && bar.scrollWidth > bar.clientWidth) {
       bar.scrollLeft = on.offsetLeft - 90;
     }
+  })();
+  // ── Examples open here, not in a tab you then have to find again.
+  (function () {
+    var box = null, last = null;
+    function build() {
+      box = document.createElement("div");
+      box.className = "mdl";
+      box.innerHTML =
+        '<div class="mdl-card" role="dialog" aria-modal="true" aria-labelledby="mdl-t">' +
+          '<div class="mdl-head">' +
+            '<div class="t"><span class="mdl-sub"></span><h3 id="mdl-t"></h3>' +
+              '<span class="mdl-file"></span></div>' +
+            '<div class="mdl-acts">' +
+              '<a class="mdl-out" target="_blank" rel="noopener">Open in a tab</a>' +
+              '<button class="mdl-x" type="button">Close</button>' +
+            '</div>' +
+          '</div>' +
+          '<p class="mdl-note"></p>' +
+          '<div class="mdl-body"></div>' +
+        '</div>';
+      document.body.appendChild(box);
+      box.addEventListener("click", function (ev) {
+        if (ev.target === box || ev.target.className === "mdl-x") { close(); }
+      });
+    }
+    function close() {
+      if (!box) { return; }
+      box.classList.remove("on");
+      box.querySelector(".mdl-body").innerHTML = "";   // stop the iframe loading
+      document.body.classList.remove("mdl-open");
+      if (last) { last.focus(); last = null; }
+    }
+    function open(a) {
+      if (!box) { build(); }
+      var href = a.getAttribute("href"),
+          note = a.getAttribute("data-modal-note") || "",
+          png  = /\.(png|jpe?g|gif|svg)$/i.test(href);
+      box.querySelector(".mdl-sub").textContent = a.getAttribute("data-modal-sub") || "";
+      box.querySelector("#mdl-t").textContent = a.getAttribute("data-modal-title") || "";
+      box.querySelector(".mdl-file").textContent = href;
+      box.querySelector(".mdl-out").setAttribute("href", href);
+      var n = box.querySelector(".mdl-note");
+      n.innerHTML = note;
+      n.style.display = note ? "" : "none";
+      box.querySelector(".mdl-body").innerHTML = png
+        ? '<img alt="" src="' + href + '">'
+        : '<iframe title="Preview" src="' + href + '" loading="lazy"></iframe>';
+      box.classList.add("on");
+      document.body.classList.add("mdl-open");
+      box.querySelector(".mdl-x").focus();
+    }
+    document.addEventListener("click", function (ev) {
+      var a = ev.target.closest ? ev.target.closest("a[data-modal]") : null;
+      if (!a) { return; }
+      // Leave cmd/ctrl/middle-click alone — that is someone asking for a tab.
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) { return; }
+      ev.preventDefault();
+      last = a;
+      open(a);
+    });
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape" && box && box.classList.contains("on")) { close(); }
+    });
   })();
   document.querySelectorAll("[data-themer]").forEach(function (b) {
     b.addEventListener("click", function () {
